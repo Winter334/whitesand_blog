@@ -1,10 +1,10 @@
 <?xml version="1.0"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
-    <id>https://whitesand.top</id>
+    <id>https://lyrashore.com</id>
     <title>流萤白沙</title>
     <subtitle>莫愁千里路，自有到来风</subtitle>
-    <icon>https://whitesand.top/assets/favicon.ico</icon>
-    <link href="https://whitesand.top" />
+    <icon>https://lyrashore.com/assets/favicon.ico</icon>
+    <link href="https://lyrashore.com" />
     <author>
       <name>Fireflies Whitesand</name>
     </author>
@@ -17,9 +17,9 @@
     <category term="Noctilumina" />
     <category term="whitesand" />
     <entry>
-        <id>https://whitesand.top/2025/02/14/computer-science/csharp/Nullable/</id>
+        <id>https://lyrashore.com/2025/02/14/computer-science/csharp/Nullable/</id>
         <title>C#可空类型</title>
-        <link rel="alternate" href="https://whitesand.top/2025/02/14/computer-science/csharp/Nullable/"/>
+        <link rel="alternate" href="https://lyrashore.com/2025/02/14/computer-science/csharp/Nullable/"/>
         <content type="html">&lt;h1 id=&#34;c单问号&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#c单问号&#34;&gt;#&lt;/a&gt;  &lt;code&gt;?&lt;/code&gt;  C# 单问号&lt;/h1&gt;
 &lt;p&gt;&lt;span class=&#34;label&#34;&gt;?&lt;/span&gt; 单问号用于对 &lt;strong&gt;int、double、bool&lt;/strong&gt; 等无法直接赋值为 null 的数据类型进行 null 的赋值，意思是这个数据类型是 Nullable 类型的。&lt;/p&gt;
 &lt;figure class=&#34;highlight csharp&#34;&gt;&lt;figcaption data-lang=&#34;C#&#34;&gt;&lt;/figcaption&gt;&lt;table&gt;&lt;tr&gt;&lt;td data-num=&#34;1&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token class-name&#34;&gt;&lt;span class=&#34;token keyword&#34;&gt;int&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;?&lt;/span&gt;&lt;/span&gt; i &lt;span class=&#34;token operator&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;token number&#34;&gt;7&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;p&gt;换一种写法就是：&lt;/p&gt;
@@ -45,16 +45,16 @@
 num3 的值： 3.14157&lt;/p&gt;
 &lt;/div&gt;
 </content>
-        <category term="计算机科学" scheme="https://whitesand.top/categories/computer-science/" />
-        <category term="C#" scheme="https://whitesand.top/categories/computer-science/csharp/" />
-        <category term="C#" scheme="https://whitesand.top/tags/C/" />
-        <category term="笔记" scheme="https://whitesand.top/tags/%E7%AC%94%E8%AE%B0/" />
+        <category term="计算机科学" scheme="https://lyrashore.com/categories/computer-science/" />
+        <category term="C#" scheme="https://lyrashore.com/categories/computer-science/csharp/" />
+        <category term="C#" scheme="https://lyrashore.com/tags/C/" />
+        <category term="笔记" scheme="https://lyrashore.com/tags/%E7%AC%94%E8%AE%B0/" />
         <updated>2025-02-14T08:03:00.000Z</updated>
     </entry>
     <entry>
-        <id>https://whitesand.top/2024/11/18/kaoyan-notes/politics/Day13/</id>
+        <id>https://lyrashore.com/2024/11/18/kaoyan-notes/politics/Day13/</id>
         <title>Day13</title>
-        <link rel="alternate" href="https://whitesand.top/2024/11/18/kaoyan-notes/politics/Day13/"/>
+        <link rel="alternate" href="https://lyrashore.com/2024/11/18/kaoyan-notes/politics/Day13/"/>
         <content type="html">&lt;h1 id=&#34;为什么说现阶段我们要把实现全体人民共同富裕摆在更重要的位置&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#为什么说现阶段我们要把实现全体人民共同富裕摆在更重要的位置&#34;&gt;#&lt;/a&gt; 为什么说现阶段我们要把实现全体人民共同富裕摆在更重要的位置？&lt;/h1&gt;
 &lt;p&gt;党的十八大以来，党中央把握发展阶段新变化，把逐步实现全体人民共同富裕摆在更加重要的位置上，推动区域协调发展，采取有力措施保障和改善民生，打赢脱贫攻坚战，全面建成小康社会，为促进共同富裕创造了良好条件。现在，已经到了扎实推动共同富裕的历史阶段。&lt;/p&gt;
 &lt;h2 id=&#34;具体来说有三点&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#具体来说有三点&#34;&gt;#&lt;/a&gt; 具体来说有三点&lt;/h2&gt;
@@ -94,17 +94,17 @@ num3 的值： 3.14157&lt;/p&gt;
 &lt;/li&gt;
 &lt;/ul&gt;
 </content>
-        <category term="考研笔记" scheme="https://whitesand.top/categories/%E8%80%83%E7%A0%94%E7%AC%94%E8%AE%B0/" />
-        <category term="考研政治" scheme="https://whitesand.top/categories/%E8%80%83%E7%A0%94%E7%AC%94%E8%AE%B0/%E8%80%83%E7%A0%94%E6%94%BF%E6%B2%BB/" />
-        <category term="Study" scheme="https://whitesand.top/tags/Study/" />
-        <category term="政治" scheme="https://whitesand.top/tags/%E6%94%BF%E6%B2%BB/" />
-        <category term="毛泽东思想和中国特色社会主义理论体系概论" scheme="https://whitesand.top/tags/%E6%AF%9B%E6%B3%BD%E4%B8%9C%E6%80%9D%E6%83%B3%E5%92%8C%E4%B8%AD%E5%9B%BD%E7%89%B9%E8%89%B2%E7%A4%BE%E4%BC%9A%E4%B8%BB%E4%B9%89%E7%90%86%E8%AE%BA%E4%BD%93%E7%B3%BB%E6%A6%82%E8%AE%BA/" />
+        <category term="考研笔记" scheme="https://lyrashore.com/categories/%E8%80%83%E7%A0%94%E7%AC%94%E8%AE%B0/" />
+        <category term="考研政治" scheme="https://lyrashore.com/categories/%E8%80%83%E7%A0%94%E7%AC%94%E8%AE%B0/%E8%80%83%E7%A0%94%E6%94%BF%E6%B2%BB/" />
+        <category term="Study" scheme="https://lyrashore.com/tags/Study/" />
+        <category term="政治" scheme="https://lyrashore.com/tags/%E6%94%BF%E6%B2%BB/" />
+        <category term="毛泽东思想和中国特色社会主义理论体系概论" scheme="https://lyrashore.com/tags/%E6%AF%9B%E6%B3%BD%E4%B8%9C%E6%80%9D%E6%83%B3%E5%92%8C%E4%B8%AD%E5%9B%BD%E7%89%B9%E8%89%B2%E7%A4%BE%E4%BC%9A%E4%B8%BB%E4%B9%89%E7%90%86%E8%AE%BA%E4%BD%93%E7%B3%BB%E6%A6%82%E8%AE%BA/" />
         <updated>2024-11-18T03:38:07.000Z</updated>
     </entry>
     <entry>
-        <id>https://whitesand.top/2024/11/17/kaoyan-notes/politics/Day12/</id>
+        <id>https://lyrashore.com/2024/11/17/kaoyan-notes/politics/Day12/</id>
         <title>Day12</title>
-        <link rel="alternate" href="https://whitesand.top/2024/11/17/kaoyan-notes/politics/Day12/"/>
+        <link rel="alternate" href="https://lyrashore.com/2024/11/17/kaoyan-notes/politics/Day12/"/>
         <content type="html">&lt;h1 id=&#34;推动高质量发展的必要性有哪些&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#推动高质量发展的必要性有哪些&#34;&gt;#&lt;/a&gt; 推动 “高质量发展” 的必要性有哪些？&lt;/h1&gt;
 &lt;ul&gt;
 &lt;li&gt;
@@ -155,17 +155,17 @@ num3 的值： 3.14157&lt;/p&gt;
 &lt;h2 id=&#34;总的来说&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#总的来说&#34;&gt;#&lt;/a&gt;  &lt;code&gt;总的来说&lt;/code&gt;&lt;/h2&gt;
 &lt;p&gt;当前和今后一个时期，我国发展仍然处于&lt;strong class=&#34;red&#34;&gt;重要战略机遇期&lt;/strong&gt;。&lt;/p&gt;
 </content>
-        <category term="考研笔记" scheme="https://whitesand.top/categories/%E8%80%83%E7%A0%94%E7%AC%94%E8%AE%B0/" />
-        <category term="考研政治" scheme="https://whitesand.top/categories/%E8%80%83%E7%A0%94%E7%AC%94%E8%AE%B0/%E8%80%83%E7%A0%94%E6%94%BF%E6%B2%BB/" />
-        <category term="Study" scheme="https://whitesand.top/tags/Study/" />
-        <category term="政治" scheme="https://whitesand.top/tags/%E6%94%BF%E6%B2%BB/" />
-        <category term="毛泽东思想和中国特色社会主义理论体系概论" scheme="https://whitesand.top/tags/%E6%AF%9B%E6%B3%BD%E4%B8%9C%E6%80%9D%E6%83%B3%E5%92%8C%E4%B8%AD%E5%9B%BD%E7%89%B9%E8%89%B2%E7%A4%BE%E4%BC%9A%E4%B8%BB%E4%B9%89%E7%90%86%E8%AE%BA%E4%BD%93%E7%B3%BB%E6%A6%82%E8%AE%BA/" />
+        <category term="考研笔记" scheme="https://lyrashore.com/categories/%E8%80%83%E7%A0%94%E7%AC%94%E8%AE%B0/" />
+        <category term="考研政治" scheme="https://lyrashore.com/categories/%E8%80%83%E7%A0%94%E7%AC%94%E8%AE%B0/%E8%80%83%E7%A0%94%E6%94%BF%E6%B2%BB/" />
+        <category term="Study" scheme="https://lyrashore.com/tags/Study/" />
+        <category term="政治" scheme="https://lyrashore.com/tags/%E6%94%BF%E6%B2%BB/" />
+        <category term="毛泽东思想和中国特色社会主义理论体系概论" scheme="https://lyrashore.com/tags/%E6%AF%9B%E6%B3%BD%E4%B8%9C%E6%80%9D%E6%83%B3%E5%92%8C%E4%B8%AD%E5%9B%BD%E7%89%B9%E8%89%B2%E7%A4%BE%E4%BC%9A%E4%B8%BB%E4%B9%89%E7%90%86%E8%AE%BA%E4%BD%93%E7%B3%BB%E6%A6%82%E8%AE%BA/" />
         <updated>2024-11-17T06:09:59.000Z</updated>
     </entry>
     <entry>
-        <id>https://whitesand.top/2024/11/16/kaoyan-notes/politics/Day11/</id>
+        <id>https://lyrashore.com/2024/11/16/kaoyan-notes/politics/Day11/</id>
         <title>Day11</title>
-        <link rel="alternate" href="https://whitesand.top/2024/11/16/kaoyan-notes/politics/Day11/"/>
+        <link rel="alternate" href="https://lyrashore.com/2024/11/16/kaoyan-notes/politics/Day11/"/>
         <content type="html">&lt;h1 id=&#34;如何构建新发展格局&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#如何构建新发展格局&#34;&gt;#&lt;/a&gt; 如何构建 “新发展格局”？&lt;/h1&gt;
 &lt;ul&gt;
 &lt;li&gt;
@@ -221,17 +221,17 @@ num3 的值： 3.14157&lt;/p&gt;
 &lt;/li&gt;
 &lt;/ul&gt;
 </content>
-        <category term="考研笔记" scheme="https://whitesand.top/categories/%E8%80%83%E7%A0%94%E7%AC%94%E8%AE%B0/" />
-        <category term="考研政治" scheme="https://whitesand.top/categories/%E8%80%83%E7%A0%94%E7%AC%94%E8%AE%B0/%E8%80%83%E7%A0%94%E6%94%BF%E6%B2%BB/" />
-        <category term="Study" scheme="https://whitesand.top/tags/Study/" />
-        <category term="政治" scheme="https://whitesand.top/tags/%E6%94%BF%E6%B2%BB/" />
-        <category term="毛泽东思想和中国特色社会主义理论体系概论" scheme="https://whitesand.top/tags/%E6%AF%9B%E6%B3%BD%E4%B8%9C%E6%80%9D%E6%83%B3%E5%92%8C%E4%B8%AD%E5%9B%BD%E7%89%B9%E8%89%B2%E7%A4%BE%E4%BC%9A%E4%B8%BB%E4%B9%89%E7%90%86%E8%AE%BA%E4%BD%93%E7%B3%BB%E6%A6%82%E8%AE%BA/" />
+        <category term="考研笔记" scheme="https://lyrashore.com/categories/%E8%80%83%E7%A0%94%E7%AC%94%E8%AE%B0/" />
+        <category term="考研政治" scheme="https://lyrashore.com/categories/%E8%80%83%E7%A0%94%E7%AC%94%E8%AE%B0/%E8%80%83%E7%A0%94%E6%94%BF%E6%B2%BB/" />
+        <category term="Study" scheme="https://lyrashore.com/tags/Study/" />
+        <category term="政治" scheme="https://lyrashore.com/tags/%E6%94%BF%E6%B2%BB/" />
+        <category term="毛泽东思想和中国特色社会主义理论体系概论" scheme="https://lyrashore.com/tags/%E6%AF%9B%E6%B3%BD%E4%B8%9C%E6%80%9D%E6%83%B3%E5%92%8C%E4%B8%AD%E5%9B%BD%E7%89%B9%E8%89%B2%E7%A4%BE%E4%BC%9A%E4%B8%BB%E4%B9%89%E7%90%86%E8%AE%BA%E4%BD%93%E7%B3%BB%E6%A6%82%E8%AE%BA/" />
         <updated>2024-11-16T03:55:55.000Z</updated>
     </entry>
     <entry>
-        <id>https://whitesand.top/2024/11/15/kaoyan-notes/politics/Day10/</id>
+        <id>https://lyrashore.com/2024/11/15/kaoyan-notes/politics/Day10/</id>
         <title>Day10</title>
-        <link rel="alternate" href="https://whitesand.top/2024/11/15/kaoyan-notes/politics/Day10/"/>
+        <link rel="alternate" href="https://lyrashore.com/2024/11/15/kaoyan-notes/politics/Day10/"/>
         <content type="html">&lt;h1 id=&#34;实体经济&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#实体经济&#34;&gt;#&lt;/a&gt; 实体经济&lt;/h1&gt;
 &lt;h2 id=&#34;实体经济有多重要&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#实体经济有多重要&#34;&gt;#&lt;/a&gt; 实体经济有多重要？&lt;/h2&gt;
 &lt;p&gt;实体经济是一国经济的立生之本，是财富创造的根本源泉，是国家强盛的重要支柱，是现代化经济体系的坚实基础。&lt;/p&gt;
@@ -254,17 +254,17 @@ num3 的值： 3.14157&lt;/p&gt;
 &lt;p&gt;要支持和保证人民通过人民代表大会行使国家权力。&lt;br /&gt;
 发挥人大及常委会在立法工作中的主导作用，健全人大组织制度和工作制度，支持和保证人大依法行使立法权、监督权、决定权、任免权，更好发挥人大代表作用，使各级人大及常委会成为全面负担起宪法法律赋予的各项职责的工作机关，成为同人民群众保持密切联系的代表机关。&lt;/p&gt;
 </content>
-        <category term="考研笔记" scheme="https://whitesand.top/categories/%E8%80%83%E7%A0%94%E7%AC%94%E8%AE%B0/" />
-        <category term="考研政治" scheme="https://whitesand.top/categories/%E8%80%83%E7%A0%94%E7%AC%94%E8%AE%B0/%E8%80%83%E7%A0%94%E6%94%BF%E6%B2%BB/" />
-        <category term="Study" scheme="https://whitesand.top/tags/Study/" />
-        <category term="政治" scheme="https://whitesand.top/tags/%E6%94%BF%E6%B2%BB/" />
-        <category term="毛泽东思想和中国特色社会主义理论体系概论" scheme="https://whitesand.top/tags/%E6%AF%9B%E6%B3%BD%E4%B8%9C%E6%80%9D%E6%83%B3%E5%92%8C%E4%B8%AD%E5%9B%BD%E7%89%B9%E8%89%B2%E7%A4%BE%E4%BC%9A%E4%B8%BB%E4%B9%89%E7%90%86%E8%AE%BA%E4%BD%93%E7%B3%BB%E6%A6%82%E8%AE%BA/" />
+        <category term="考研笔记" scheme="https://lyrashore.com/categories/%E8%80%83%E7%A0%94%E7%AC%94%E8%AE%B0/" />
+        <category term="考研政治" scheme="https://lyrashore.com/categories/%E8%80%83%E7%A0%94%E7%AC%94%E8%AE%B0/%E8%80%83%E7%A0%94%E6%94%BF%E6%B2%BB/" />
+        <category term="Study" scheme="https://lyrashore.com/tags/Study/" />
+        <category term="政治" scheme="https://lyrashore.com/tags/%E6%94%BF%E6%B2%BB/" />
+        <category term="毛泽东思想和中国特色社会主义理论体系概论" scheme="https://lyrashore.com/tags/%E6%AF%9B%E6%B3%BD%E4%B8%9C%E6%80%9D%E6%83%B3%E5%92%8C%E4%B8%AD%E5%9B%BD%E7%89%B9%E8%89%B2%E7%A4%BE%E4%BC%9A%E4%B8%BB%E4%B9%89%E7%90%86%E8%AE%BA%E4%BD%93%E7%B3%BB%E6%A6%82%E8%AE%BA/" />
         <updated>2024-11-15T02:58:34.000Z</updated>
     </entry>
     <entry>
-        <id>https://whitesand.top/2024/11/14/kaoyan-notes/politics/Day9/</id>
+        <id>https://lyrashore.com/2024/11/14/kaoyan-notes/politics/Day9/</id>
         <title>Day9</title>
-        <link rel="alternate" href="https://whitesand.top/2024/11/14/kaoyan-notes/politics/Day9/"/>
+        <link rel="alternate" href="https://lyrashore.com/2024/11/14/kaoyan-notes/politics/Day9/"/>
         <content type="html">&lt;h1 id=&#34;开放发展的必要性&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#开放发展的必要性&#34;&gt;#&lt;/a&gt; 开放发展的必要性&lt;/h1&gt;
 &lt;ul&gt;
 &lt;li&gt;
@@ -304,17 +304,17 @@ num3 的值： 3.14157&lt;/p&gt;
 &lt;/li&gt;
 &lt;/ul&gt;
 </content>
-        <category term="考研笔记" scheme="https://whitesand.top/categories/%E8%80%83%E7%A0%94%E7%AC%94%E8%AE%B0/" />
-        <category term="考研政治" scheme="https://whitesand.top/categories/%E8%80%83%E7%A0%94%E7%AC%94%E8%AE%B0/%E8%80%83%E7%A0%94%E6%94%BF%E6%B2%BB/" />
-        <category term="Study" scheme="https://whitesand.top/tags/Study/" />
-        <category term="政治" scheme="https://whitesand.top/tags/%E6%94%BF%E6%B2%BB/" />
-        <category term="毛泽东思想和中国特色社会主义理论体系概论" scheme="https://whitesand.top/tags/%E6%AF%9B%E6%B3%BD%E4%B8%9C%E6%80%9D%E6%83%B3%E5%92%8C%E4%B8%AD%E5%9B%BD%E7%89%B9%E8%89%B2%E7%A4%BE%E4%BC%9A%E4%B8%BB%E4%B9%89%E7%90%86%E8%AE%BA%E4%BD%93%E7%B3%BB%E6%A6%82%E8%AE%BA/" />
+        <category term="考研笔记" scheme="https://lyrashore.com/categories/%E8%80%83%E7%A0%94%E7%AC%94%E8%AE%B0/" />
+        <category term="考研政治" scheme="https://lyrashore.com/categories/%E8%80%83%E7%A0%94%E7%AC%94%E8%AE%B0/%E8%80%83%E7%A0%94%E6%94%BF%E6%B2%BB/" />
+        <category term="Study" scheme="https://lyrashore.com/tags/Study/" />
+        <category term="政治" scheme="https://lyrashore.com/tags/%E6%94%BF%E6%B2%BB/" />
+        <category term="毛泽东思想和中国特色社会主义理论体系概论" scheme="https://lyrashore.com/tags/%E6%AF%9B%E6%B3%BD%E4%B8%9C%E6%80%9D%E6%83%B3%E5%92%8C%E4%B8%AD%E5%9B%BD%E7%89%B9%E8%89%B2%E7%A4%BE%E4%BC%9A%E4%B8%BB%E4%B9%89%E7%90%86%E8%AE%BA%E4%BD%93%E7%B3%BB%E6%A6%82%E8%AE%BA/" />
         <updated>2024-11-14T04:26:20.000Z</updated>
     </entry>
     <entry>
-        <id>https://whitesand.top/2024/11/13/kaoyan-notes/politics/Day8/</id>
+        <id>https://lyrashore.com/2024/11/13/kaoyan-notes/politics/Day8/</id>
         <title>Day8</title>
-        <link rel="alternate" href="https://whitesand.top/2024/11/13/kaoyan-notes/politics/Day8/"/>
+        <link rel="alternate" href="https://lyrashore.com/2024/11/13/kaoyan-notes/politics/Day8/"/>
         <content type="html">&lt;h1 id=&#34;新发展阶段&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#新发展阶段&#34;&gt;#&lt;/a&gt; 新发展阶段&lt;/h1&gt;
 &lt;h2 id=&#34;角度一新发展阶段面临怎样的发展环境&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#角度一新发展阶段面临怎样的发展环境&#34;&gt;#&lt;/a&gt;  &lt;code&gt;角度一&lt;/code&gt; 新发展阶段面临怎样的发展环境？&lt;/h2&gt;
 &lt;ul&gt;
@@ -367,17 +367,17 @@ num3 的值： 3.14157&lt;/p&gt;
 &lt;/ul&gt;
 &lt;/div&gt;
 </content>
-        <category term="考研笔记" scheme="https://whitesand.top/categories/%E8%80%83%E7%A0%94%E7%AC%94%E8%AE%B0/" />
-        <category term="考研政治" scheme="https://whitesand.top/categories/%E8%80%83%E7%A0%94%E7%AC%94%E8%AE%B0/%E8%80%83%E7%A0%94%E6%94%BF%E6%B2%BB/" />
-        <category term="Study" scheme="https://whitesand.top/tags/Study/" />
-        <category term="政治" scheme="https://whitesand.top/tags/%E6%94%BF%E6%B2%BB/" />
-        <category term="毛泽东思想和中国特色社会主义理论体系概论" scheme="https://whitesand.top/tags/%E6%AF%9B%E6%B3%BD%E4%B8%9C%E6%80%9D%E6%83%B3%E5%92%8C%E4%B8%AD%E5%9B%BD%E7%89%B9%E8%89%B2%E7%A4%BE%E4%BC%9A%E4%B8%BB%E4%B9%89%E7%90%86%E8%AE%BA%E4%BD%93%E7%B3%BB%E6%A6%82%E8%AE%BA/" />
+        <category term="考研笔记" scheme="https://lyrashore.com/categories/%E8%80%83%E7%A0%94%E7%AC%94%E8%AE%B0/" />
+        <category term="考研政治" scheme="https://lyrashore.com/categories/%E8%80%83%E7%A0%94%E7%AC%94%E8%AE%B0/%E8%80%83%E7%A0%94%E6%94%BF%E6%B2%BB/" />
+        <category term="Study" scheme="https://lyrashore.com/tags/Study/" />
+        <category term="政治" scheme="https://lyrashore.com/tags/%E6%94%BF%E6%B2%BB/" />
+        <category term="毛泽东思想和中国特色社会主义理论体系概论" scheme="https://lyrashore.com/tags/%E6%AF%9B%E6%B3%BD%E4%B8%9C%E6%80%9D%E6%83%B3%E5%92%8C%E4%B8%AD%E5%9B%BD%E7%89%B9%E8%89%B2%E7%A4%BE%E4%BC%9A%E4%B8%BB%E4%B9%89%E7%90%86%E8%AE%BA%E4%BD%93%E7%B3%BB%E6%A6%82%E8%AE%BA/" />
         <updated>2024-11-13T06:48:53.000Z</updated>
     </entry>
     <entry>
-        <id>https://whitesand.top/2024/11/12/kaoyan-notes/politics/Day7/</id>
+        <id>https://lyrashore.com/2024/11/12/kaoyan-notes/politics/Day7/</id>
         <title>Day7</title>
-        <link rel="alternate" href="https://whitesand.top/2024/11/12/kaoyan-notes/politics/Day7/"/>
+        <link rel="alternate" href="https://lyrashore.com/2024/11/12/kaoyan-notes/politics/Day7/"/>
         <content type="html">&lt;h1 id=&#34;认识论的真理尺度和价值尺度的辩证关系原理&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#认识论的真理尺度和价值尺度的辩证关系原理&#34;&gt;#&lt;/a&gt; 认识论的真理尺度和价值尺度的辩证关系原理&lt;/h1&gt;
 &lt;div class=&#34;tab&#34; data-id=&#34;id1&#34; data-title=&#34;真理尺度&#34;&gt;
 &lt;p&gt;在实践中人们必须&lt;strong class=&#34;red&#34;&gt;遵循正确反映客观事物本质和规律&lt;/strong&gt;的真理。&lt;/p&gt;
@@ -444,17 +444,17 @@ num3 的值： 3.14157&lt;/p&gt;
 &lt;/li&gt;
 &lt;/ul&gt;
 </content>
-        <category term="考研笔记" scheme="https://whitesand.top/categories/%E8%80%83%E7%A0%94%E7%AC%94%E8%AE%B0/" />
-        <category term="考研政治" scheme="https://whitesand.top/categories/%E8%80%83%E7%A0%94%E7%AC%94%E8%AE%B0/%E8%80%83%E7%A0%94%E6%94%BF%E6%B2%BB/" />
-        <category term="Study" scheme="https://whitesand.top/tags/Study/" />
-        <category term="马克思主义基本原理" scheme="https://whitesand.top/tags/%E9%A9%AC%E5%85%8B%E6%80%9D%E4%B8%BB%E4%B9%89%E5%9F%BA%E6%9C%AC%E5%8E%9F%E7%90%86/" />
-        <category term="政治" scheme="https://whitesand.top/tags/%E6%94%BF%E6%B2%BB/" />
+        <category term="考研笔记" scheme="https://lyrashore.com/categories/%E8%80%83%E7%A0%94%E7%AC%94%E8%AE%B0/" />
+        <category term="考研政治" scheme="https://lyrashore.com/categories/%E8%80%83%E7%A0%94%E7%AC%94%E8%AE%B0/%E8%80%83%E7%A0%94%E6%94%BF%E6%B2%BB/" />
+        <category term="Study" scheme="https://lyrashore.com/tags/Study/" />
+        <category term="马克思主义基本原理" scheme="https://lyrashore.com/tags/%E9%A9%AC%E5%85%8B%E6%80%9D%E4%B8%BB%E4%B9%89%E5%9F%BA%E6%9C%AC%E5%8E%9F%E7%90%86/" />
+        <category term="政治" scheme="https://lyrashore.com/tags/%E6%94%BF%E6%B2%BB/" />
         <updated>2024-11-12T04:57:24.000Z</updated>
     </entry>
     <entry>
-        <id>https://whitesand.top/2024/11/11/kaoyan-notes/politics/Day6/</id>
+        <id>https://lyrashore.com/2024/11/11/kaoyan-notes/politics/Day6/</id>
         <title>Day6</title>
-        <link rel="alternate" href="https://whitesand.top/2024/11/11/kaoyan-notes/politics/Day6/"/>
+        <link rel="alternate" href="https://lyrashore.com/2024/11/11/kaoyan-notes/politics/Day6/"/>
         <content type="html">&lt;h1 id=&#34;认识的影响因素理性因素与非理性因素的原理&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#认识的影响因素理性因素与非理性因素的原理&#34;&gt;#&lt;/a&gt; 认识的影响因素（理性因素与非理性因素的原理）&lt;/h1&gt;
 &lt;ul&gt;
 &lt;li&gt;
@@ -479,17 +479,17 @@ num3 的值： 3.14157&lt;/p&gt;
 &lt;h2 id=&#34;认识过程的无限性&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#认识过程的无限性&#34;&gt;#&lt;/a&gt; 认识过程的无限性&lt;/h2&gt;
 &lt;p&gt;是指对于事物发展过程的推移来说人类的认识是&lt;strong class=&#34;red&#34;&gt;永无止境、无限发展&lt;/strong&gt;的。它表现为&lt;strong class=&#34;red&#34;&gt;实践 —— 认识 —— 再实践 —— 再认识&lt;/strong&gt;的&lt;strong class=&#34;red&#34;&gt;无限循环&lt;/strong&gt;。由&lt;strong class=&#34;red&#34;&gt;初级阶段向高级阶段不断推移&lt;/strong&gt;的永无止境的前进活动。这种认识的上无限发展过程再形式上是&lt;strong class=&#34;red&#34;&gt;循环往复&lt;/strong&gt;的，再实质上是&lt;strong class=&#34;red&#34;&gt;前进上升&lt;/strong&gt;的、&lt;/p&gt;
 </content>
-        <category term="考研笔记" scheme="https://whitesand.top/categories/%E8%80%83%E7%A0%94%E7%AC%94%E8%AE%B0/" />
-        <category term="考研政治" scheme="https://whitesand.top/categories/%E8%80%83%E7%A0%94%E7%AC%94%E8%AE%B0/%E8%80%83%E7%A0%94%E6%94%BF%E6%B2%BB/" />
-        <category term="Study" scheme="https://whitesand.top/tags/Study/" />
-        <category term="马克思主义基本原理" scheme="https://whitesand.top/tags/%E9%A9%AC%E5%85%8B%E6%80%9D%E4%B8%BB%E4%B9%89%E5%9F%BA%E6%9C%AC%E5%8E%9F%E7%90%86/" />
-        <category term="政治" scheme="https://whitesand.top/tags/%E6%94%BF%E6%B2%BB/" />
+        <category term="考研笔记" scheme="https://lyrashore.com/categories/%E8%80%83%E7%A0%94%E7%AC%94%E8%AE%B0/" />
+        <category term="考研政治" scheme="https://lyrashore.com/categories/%E8%80%83%E7%A0%94%E7%AC%94%E8%AE%B0/%E8%80%83%E7%A0%94%E6%94%BF%E6%B2%BB/" />
+        <category term="Study" scheme="https://lyrashore.com/tags/Study/" />
+        <category term="马克思主义基本原理" scheme="https://lyrashore.com/tags/%E9%A9%AC%E5%85%8B%E6%80%9D%E4%B8%BB%E4%B9%89%E5%9F%BA%E6%9C%AC%E5%8E%9F%E7%90%86/" />
+        <category term="政治" scheme="https://lyrashore.com/tags/%E6%94%BF%E6%B2%BB/" />
         <updated>2024-11-11T04:02:50.000Z</updated>
     </entry>
     <entry>
-        <id>https://whitesand.top/2024/11/10/kaoyan-notes/politics/Day5/</id>
+        <id>https://lyrashore.com/2024/11/10/kaoyan-notes/politics/Day5/</id>
         <title>Day5</title>
-        <link rel="alternate" href="https://whitesand.top/2024/11/10/kaoyan-notes/politics/Day5/"/>
+        <link rel="alternate" href="https://lyrashore.com/2024/11/10/kaoyan-notes/politics/Day5/"/>
         <content type="html">&lt;h1 id=&#34;从感性认识到理性认识的飞跃&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#从感性认识到理性认识的飞跃&#34;&gt;#&lt;/a&gt; 从感性认识到理性认识的飞跃&lt;/h1&gt;
 &lt;h2 id=&#34;概念&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#概念&#34;&gt;#&lt;/a&gt; 概念&lt;/h2&gt;
 &lt;div class=&#34;tab&#34; data-id=&#34;id1&#34; data-title=&#34;感性认识&#34;&gt;
@@ -535,17 +535,17 @@ num3 的值： 3.14157&lt;/p&gt;
 &lt;h2 id=&#34;思维导图&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#思维导图&#34;&gt;#&lt;/a&gt; 思维导图&lt;/h2&gt;
 &lt;p&gt;&lt;img loading=&#34;lazy&#34; data-src=&#34;https://dlink.host/wx3.sinaimg.cn/large/008GLkgIly8hvh03dctfvj30m80kg0u4.jpg&#34; alt=&#34;&#34; title=&#34;思维导图&#34; /&gt;&lt;/p&gt;
 </content>
-        <category term="考研笔记" scheme="https://whitesand.top/categories/%E8%80%83%E7%A0%94%E7%AC%94%E8%AE%B0/" />
-        <category term="考研政治" scheme="https://whitesand.top/categories/%E8%80%83%E7%A0%94%E7%AC%94%E8%AE%B0/%E8%80%83%E7%A0%94%E6%94%BF%E6%B2%BB/" />
-        <category term="Study" scheme="https://whitesand.top/tags/Study/" />
-        <category term="马克思主义基本原理" scheme="https://whitesand.top/tags/%E9%A9%AC%E5%85%8B%E6%80%9D%E4%B8%BB%E4%B9%89%E5%9F%BA%E6%9C%AC%E5%8E%9F%E7%90%86/" />
-        <category term="政治" scheme="https://whitesand.top/tags/%E6%94%BF%E6%B2%BB/" />
+        <category term="考研笔记" scheme="https://lyrashore.com/categories/%E8%80%83%E7%A0%94%E7%AC%94%E8%AE%B0/" />
+        <category term="考研政治" scheme="https://lyrashore.com/categories/%E8%80%83%E7%A0%94%E7%AC%94%E8%AE%B0/%E8%80%83%E7%A0%94%E6%94%BF%E6%B2%BB/" />
+        <category term="Study" scheme="https://lyrashore.com/tags/Study/" />
+        <category term="马克思主义基本原理" scheme="https://lyrashore.com/tags/%E9%A9%AC%E5%85%8B%E6%80%9D%E4%B8%BB%E4%B9%89%E5%9F%BA%E6%9C%AC%E5%8E%9F%E7%90%86/" />
+        <category term="政治" scheme="https://lyrashore.com/tags/%E6%94%BF%E6%B2%BB/" />
         <updated>2024-11-10T03:16:54.000Z</updated>
     </entry>
     <entry>
-        <id>https://whitesand.top/2024/11/09/kaoyan-notes/politics/Day4/</id>
+        <id>https://lyrashore.com/2024/11/09/kaoyan-notes/politics/Day4/</id>
         <title>Day4</title>
-        <link rel="alternate" href="https://whitesand.top/2024/11/09/kaoyan-notes/politics/Day4/"/>
+        <link rel="alternate" href="https://lyrashore.com/2024/11/09/kaoyan-notes/politics/Day4/"/>
         <content type="html">&lt;h1 id=&#34;矛盾的不平衡发展原理&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#矛盾的不平衡发展原理&#34;&gt;#&lt;/a&gt; 矛盾的不平衡发展原理&lt;/h1&gt;
 &lt;ul&gt;
 &lt;li&gt;
@@ -577,17 +577,17 @@ num3 的值： 3.14157&lt;/p&gt;
 &lt;li&gt;第四。实践是检验认识真理性的唯一标准。判定认识或理论是否为真理，不是以主观上如何而决定，而是以客观上社会实践的结果如何而定。&lt;strong class=&#34;red&#34;&gt;真理的标准只能是社会的实践&lt;/strong&gt;。&lt;/li&gt;
 &lt;/ul&gt;
 </content>
-        <category term="考研笔记" scheme="https://whitesand.top/categories/%E8%80%83%E7%A0%94%E7%AC%94%E8%AE%B0/" />
-        <category term="考研政治" scheme="https://whitesand.top/categories/%E8%80%83%E7%A0%94%E7%AC%94%E8%AE%B0/%E8%80%83%E7%A0%94%E6%94%BF%E6%B2%BB/" />
-        <category term="Study" scheme="https://whitesand.top/tags/Study/" />
-        <category term="马克思主义基本原理" scheme="https://whitesand.top/tags/%E9%A9%AC%E5%85%8B%E6%80%9D%E4%B8%BB%E4%B9%89%E5%9F%BA%E6%9C%AC%E5%8E%9F%E7%90%86/" />
-        <category term="政治" scheme="https://whitesand.top/tags/%E6%94%BF%E6%B2%BB/" />
+        <category term="考研笔记" scheme="https://lyrashore.com/categories/%E8%80%83%E7%A0%94%E7%AC%94%E8%AE%B0/" />
+        <category term="考研政治" scheme="https://lyrashore.com/categories/%E8%80%83%E7%A0%94%E7%AC%94%E8%AE%B0/%E8%80%83%E7%A0%94%E6%94%BF%E6%B2%BB/" />
+        <category term="Study" scheme="https://lyrashore.com/tags/Study/" />
+        <category term="马克思主义基本原理" scheme="https://lyrashore.com/tags/%E9%A9%AC%E5%85%8B%E6%80%9D%E4%B8%BB%E4%B9%89%E5%9F%BA%E6%9C%AC%E5%8E%9F%E7%90%86/" />
+        <category term="政治" scheme="https://lyrashore.com/tags/%E6%94%BF%E6%B2%BB/" />
         <updated>2024-11-09T04:06:42.000Z</updated>
     </entry>
     <entry>
-        <id>https://whitesand.top/2024/11/08/kaoyan-notes/politics/Day3/</id>
+        <id>https://lyrashore.com/2024/11/08/kaoyan-notes/politics/Day3/</id>
         <title>Day3</title>
-        <link rel="alternate" href="https://whitesand.top/2024/11/08/kaoyan-notes/politics/Day3/"/>
+        <link rel="alternate" href="https://lyrashore.com/2024/11/08/kaoyan-notes/politics/Day3/"/>
         <content type="html">&lt;h1 id=&#34;矛盾的普遍性和特殊性的辩证关系原理&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#矛盾的普遍性和特殊性的辩证关系原理&#34;&gt;#&lt;/a&gt; 矛盾的普遍性和特殊性的辩证关系原理&lt;/h1&gt;
 &lt;p&gt;矛盾的普遍性简单来说可以表述为&lt;mark&gt;矛盾无处不在&lt;/mark&gt;、&lt;mark&gt;矛盾无时不有&lt;/mark&gt;。&lt;/p&gt;
 &lt;p&gt;矛盾的特殊性是指各个具体事物的矛盾及每一个矛盾的各个方面在发展的不同阶段上各有其特点。具体表现为三种情形：&lt;/p&gt;
@@ -623,17 +623,17 @@ num3 的值： 3.14157&lt;/p&gt;
 &lt;/ul&gt;
 &lt;/div&gt;
 </content>
-        <category term="考研笔记" scheme="https://whitesand.top/categories/%E8%80%83%E7%A0%94%E7%AC%94%E8%AE%B0/" />
-        <category term="考研政治" scheme="https://whitesand.top/categories/%E8%80%83%E7%A0%94%E7%AC%94%E8%AE%B0/%E8%80%83%E7%A0%94%E6%94%BF%E6%B2%BB/" />
-        <category term="Study" scheme="https://whitesand.top/tags/Study/" />
-        <category term="马克思主义基本原理" scheme="https://whitesand.top/tags/%E9%A9%AC%E5%85%8B%E6%80%9D%E4%B8%BB%E4%B9%89%E5%9F%BA%E6%9C%AC%E5%8E%9F%E7%90%86/" />
-        <category term="政治" scheme="https://whitesand.top/tags/%E6%94%BF%E6%B2%BB/" />
+        <category term="考研笔记" scheme="https://lyrashore.com/categories/%E8%80%83%E7%A0%94%E7%AC%94%E8%AE%B0/" />
+        <category term="考研政治" scheme="https://lyrashore.com/categories/%E8%80%83%E7%A0%94%E7%AC%94%E8%AE%B0/%E8%80%83%E7%A0%94%E6%94%BF%E6%B2%BB/" />
+        <category term="Study" scheme="https://lyrashore.com/tags/Study/" />
+        <category term="马克思主义基本原理" scheme="https://lyrashore.com/tags/%E9%A9%AC%E5%85%8B%E6%80%9D%E4%B8%BB%E4%B9%89%E5%9F%BA%E6%9C%AC%E5%8E%9F%E7%90%86/" />
+        <category term="政治" scheme="https://lyrashore.com/tags/%E6%94%BF%E6%B2%BB/" />
         <updated>2024-11-08T09:14:56.000Z</updated>
     </entry>
     <entry>
-        <id>https://whitesand.top/2024/11/07/kaoyan-notes/politics/Day2/</id>
+        <id>https://lyrashore.com/2024/11/07/kaoyan-notes/politics/Day2/</id>
         <title>Day2</title>
-        <link rel="alternate" href="https://whitesand.top/2024/11/07/kaoyan-notes/politics/Day2/"/>
+        <link rel="alternate" href="https://lyrashore.com/2024/11/07/kaoyan-notes/politics/Day2/"/>
         <content type="html">&lt;h1 id=&#34;客观规律性与主观能动性的辩证关系原理&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#客观规律性与主观能动性的辩证关系原理&#34;&gt;#&lt;/a&gt; 客观规律性与主观能动性的辩证关系原理&lt;/h1&gt;
 &lt;h2 id=&#34;主观能动性和客观规律的关系&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#主观能动性和客观规律的关系&#34;&gt;#&lt;/a&gt; 主观能动性和客观规律的关系&lt;/h2&gt;
 &lt;ul&gt;
@@ -680,17 +680,17 @@ num3 的值： 3.14157&lt;/p&gt;
 &lt;h2 id=&#34;矛盾的同一性和斗争性相互联结-相辅相成&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#矛盾的同一性和斗争性相互联结-相辅相成&#34;&gt;#&lt;/a&gt; 矛盾的同一性和斗争性相互联结、相辅相成&lt;/h2&gt;
 &lt;p&gt;没有斗争就没有同一性，没有同一性也没有斗争性，斗争性寓于同一性之中，同一性通过斗争性来体现。在事务矛盾中，&lt;mark&gt;矛盾的斗争性是&lt;span class=&#34;red&#34;&gt;无条件的、绝对的&lt;/span&gt;，矛盾的同一性是&lt;span class=&#34;red&#34;&gt;有条件的、相对的&lt;/span&gt;&lt;/mark&gt;。&lt;/p&gt;
 </content>
-        <category term="考研笔记" scheme="https://whitesand.top/categories/%E8%80%83%E7%A0%94%E7%AC%94%E8%AE%B0/" />
-        <category term="考研政治" scheme="https://whitesand.top/categories/%E8%80%83%E7%A0%94%E7%AC%94%E8%AE%B0/%E8%80%83%E7%A0%94%E6%94%BF%E6%B2%BB/" />
-        <category term="Study" scheme="https://whitesand.top/tags/Study/" />
-        <category term="马克思主义基本原理" scheme="https://whitesand.top/tags/%E9%A9%AC%E5%85%8B%E6%80%9D%E4%B8%BB%E4%B9%89%E5%9F%BA%E6%9C%AC%E5%8E%9F%E7%90%86/" />
-        <category term="政治" scheme="https://whitesand.top/tags/%E6%94%BF%E6%B2%BB/" />
+        <category term="考研笔记" scheme="https://lyrashore.com/categories/%E8%80%83%E7%A0%94%E7%AC%94%E8%AE%B0/" />
+        <category term="考研政治" scheme="https://lyrashore.com/categories/%E8%80%83%E7%A0%94%E7%AC%94%E8%AE%B0/%E8%80%83%E7%A0%94%E6%94%BF%E6%B2%BB/" />
+        <category term="Study" scheme="https://lyrashore.com/tags/Study/" />
+        <category term="马克思主义基本原理" scheme="https://lyrashore.com/tags/%E9%A9%AC%E5%85%8B%E6%80%9D%E4%B8%BB%E4%B9%89%E5%9F%BA%E6%9C%AC%E5%8E%9F%E7%90%86/" />
+        <category term="政治" scheme="https://lyrashore.com/tags/%E6%94%BF%E6%B2%BB/" />
         <updated>2024-11-07T04:40:41.000Z</updated>
     </entry>
     <entry>
-        <id>https://whitesand.top/2024/11/06/kaoyan-notes/politics/Day1/</id>
+        <id>https://lyrashore.com/2024/11/06/kaoyan-notes/politics/Day1/</id>
         <title>Day1</title>
-        <link rel="alternate" href="https://whitesand.top/2024/11/06/kaoyan-notes/politics/Day1/"/>
+        <link rel="alternate" href="https://lyrashore.com/2024/11/06/kaoyan-notes/politics/Day1/"/>
         <content type="html">&lt;h1 id=&#34;意识的能动性作用原理&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#意识的能动性作用原理&#34;&gt;#&lt;/a&gt; 意识的能动性作用原理&lt;/h1&gt;
 &lt;p&gt;意识的能动作用是人所特有的积极认识世界和改造世界的能力。&lt;/p&gt;
 &lt;ul&gt;
@@ -724,17 +724,17 @@ num3 的值： 3.14157&lt;/p&gt;
 马克思认为，应到合理地调节人与自然之间的物质转换，在最无愧于和最合适人类本性的条件下进行这种物质变换。恩格斯也提出了自然界 “对人进行报复” 以及 “人类同自然的和解” 问题。随着人类改造自然的拓展和深化，人们越来越认识到正确处理人与自然的关系、实现人与自然和谐统一的重要性。&lt;/p&gt;
 &lt;/div&gt;
 </content>
-        <category term="考研笔记" scheme="https://whitesand.top/categories/%E8%80%83%E7%A0%94%E7%AC%94%E8%AE%B0/" />
-        <category term="考研政治" scheme="https://whitesand.top/categories/%E8%80%83%E7%A0%94%E7%AC%94%E8%AE%B0/%E8%80%83%E7%A0%94%E6%94%BF%E6%B2%BB/" />
-        <category term="Study" scheme="https://whitesand.top/tags/Study/" />
-        <category term="马克思主义基本原理" scheme="https://whitesand.top/tags/%E9%A9%AC%E5%85%8B%E6%80%9D%E4%B8%BB%E4%B9%89%E5%9F%BA%E6%9C%AC%E5%8E%9F%E7%90%86/" />
-        <category term="政治" scheme="https://whitesand.top/tags/%E6%94%BF%E6%B2%BB/" />
+        <category term="考研笔记" scheme="https://lyrashore.com/categories/%E8%80%83%E7%A0%94%E7%AC%94%E8%AE%B0/" />
+        <category term="考研政治" scheme="https://lyrashore.com/categories/%E8%80%83%E7%A0%94%E7%AC%94%E8%AE%B0/%E8%80%83%E7%A0%94%E6%94%BF%E6%B2%BB/" />
+        <category term="Study" scheme="https://lyrashore.com/tags/Study/" />
+        <category term="马克思主义基本原理" scheme="https://lyrashore.com/tags/%E9%A9%AC%E5%85%8B%E6%80%9D%E4%B8%BB%E4%B9%89%E5%9F%BA%E6%9C%AC%E5%8E%9F%E7%90%86/" />
+        <category term="政治" scheme="https://lyrashore.com/tags/%E6%94%BF%E6%B2%BB/" />
         <updated>2024-11-06T05:22:55.000Z</updated>
     </entry>
     <entry>
-        <id>https://whitesand.top/2024/09/02/kaoyan-notes/mathematics/%E5%BE%AE%E5%88%86%E7%AE%97%E5%AD%90%E6%B3%95/</id>
+        <id>https://lyrashore.com/2024/09/02/kaoyan-notes/mathematics/%E5%BE%AE%E5%88%86%E7%AE%97%E5%AD%90%E6%B3%95/</id>
         <title>微分算子法</title>
-        <link rel="alternate" href="https://whitesand.top/2024/09/02/kaoyan-notes/mathematics/%E5%BE%AE%E5%88%86%E7%AE%97%E5%AD%90%E6%B3%95/"/>
+        <link rel="alternate" href="https://lyrashore.com/2024/09/02/kaoyan-notes/mathematics/%E5%BE%AE%E5%88%86%E7%AE%97%E5%AD%90%E6%B3%95/"/>
         <content type="html">&lt;div class=&#34;note primary&#34;&gt;
 &lt;p&gt;&lt;ins&gt;微分算子法&lt;/ins&gt;，一种用于求解高阶线性非齐次微分方程的方法，特点是简洁高效、易理解、易上手。&lt;br /&gt;
 不过值得一提的是微分算子法在考试中使用时如果计算错误，将面临无法得分的窘境，因此建议在&lt;ins&gt;草稿纸&lt;/ins&gt;上使用以简化计算，卷面上使用其他的方法。&lt;br /&gt;
@@ -784,10 +784,10 @@ D^2x^2 = D2x = 2 \\
 &lt;p&gt;例: &lt;span class=&#34;katex&#34;&gt;&lt;span class=&#34;katex-mathml&#34;&gt;&lt;math xmlns=&#34;http://www.w3.org/1998/Math/MathML&#34;&gt;&lt;semantics&gt;&lt;mrow&gt;&lt;msup&gt;&lt;mi&gt;y&lt;/mi&gt;&lt;mrow&gt;&lt;mo mathvariant=&#34;normal&#34;&gt;′&lt;/mo&gt;&lt;mo mathvariant=&#34;normal&#34;&gt;′&lt;/mo&gt;&lt;/mrow&gt;&lt;/msup&gt;&lt;mo&gt;+&lt;/mo&gt;&lt;mn&gt;4&lt;/mn&gt;&lt;mi&gt;y&lt;/mi&gt;&lt;mo&gt;=&lt;/mo&gt;&lt;mi&gt;c&lt;/mi&gt;&lt;mi&gt;o&lt;/mi&gt;&lt;mi&gt;s&lt;/mi&gt;&lt;mn&gt;2&lt;/mn&gt;&lt;mi&gt;x&lt;/mi&gt;&lt;/mrow&gt;&lt;annotation encoding=&#34;application/x-tex&#34;&gt;y&amp;#x27;&amp;#x27;+4y=cos2x&lt;/annotation&gt;&lt;/semantics&gt;&lt;/math&gt;&lt;/span&gt;&lt;span class=&#34;katex-html&#34; aria-hidden=&#34;true&#34;&gt;&lt;span class=&#34;base&#34;&gt;&lt;span class=&#34;strut&#34; style=&#34;height:0.9463em;vertical-align:-0.1944em;&#34;&gt;&lt;/span&gt;&lt;span class=&#34;mord&#34;&gt;&lt;span class=&#34;mord mathnormal&#34; style=&#34;margin-right:0.03588em;&#34;&gt;y&lt;/span&gt;&lt;span class=&#34;msupsub&#34;&gt;&lt;span class=&#34;vlist-t&#34;&gt;&lt;span class=&#34;vlist-r&#34;&gt;&lt;span class=&#34;vlist&#34; style=&#34;height:0.7519em;&#34;&gt;&lt;span style=&#34;top:-3.063em;margin-right:0.05em;&#34;&gt;&lt;span class=&#34;pstrut&#34; style=&#34;height:2.7em;&#34;&gt;&lt;/span&gt;&lt;span class=&#34;sizing reset-size6 size3 mtight&#34;&gt;&lt;span class=&#34;mord mtight&#34;&gt;&lt;span class=&#34;mord mtight&#34;&gt;′′&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;mspace&#34; style=&#34;margin-right:0.2222em;&#34;&gt;&lt;/span&gt;&lt;span class=&#34;mbin&#34;&gt;+&lt;/span&gt;&lt;span class=&#34;mspace&#34; style=&#34;margin-right:0.2222em;&#34;&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;base&#34;&gt;&lt;span class=&#34;strut&#34; style=&#34;height:0.8389em;vertical-align:-0.1944em;&#34;&gt;&lt;/span&gt;&lt;span class=&#34;mord&#34;&gt;4&lt;/span&gt;&lt;span class=&#34;mord mathnormal&#34; style=&#34;margin-right:0.03588em;&#34;&gt;y&lt;/span&gt;&lt;span class=&#34;mspace&#34; style=&#34;margin-right:0.2778em;&#34;&gt;&lt;/span&gt;&lt;span class=&#34;mrel&#34;&gt;=&lt;/span&gt;&lt;span class=&#34;mspace&#34; style=&#34;margin-right:0.2778em;&#34;&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;base&#34;&gt;&lt;span class=&#34;strut&#34; style=&#34;height:0.6444em;&#34;&gt;&lt;/span&gt;&lt;span class=&#34;mord mathnormal&#34;&gt;cos&lt;/span&gt;&lt;span class=&#34;mord&#34;&gt;2&lt;/span&gt;&lt;span class=&#34;mord mathnormal&#34;&gt;x&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;，求 y*&lt;br /&gt;
  前面步骤一样，写特征方程，设特解y*=\frag{1}{D^2+4}\cos{2x}&lt;/p&gt;
 </content>
-        <category term="考研笔记" scheme="https://whitesand.top/categories/%E8%80%83%E7%A0%94%E7%AC%94%E8%AE%B0/" />
-        <category term="高等数学" scheme="https://whitesand.top/categories/%E8%80%83%E7%A0%94%E7%AC%94%E8%AE%B0/%E9%AB%98%E7%AD%89%E6%95%B0%E5%AD%A6/" />
-        <category term="Study" scheme="https://whitesand.top/tags/Study/" />
-        <category term="Math" scheme="https://whitesand.top/tags/Math/" />
+        <category term="考研笔记" scheme="https://lyrashore.com/categories/%E8%80%83%E7%A0%94%E7%AC%94%E8%AE%B0/" />
+        <category term="高等数学" scheme="https://lyrashore.com/categories/%E8%80%83%E7%A0%94%E7%AC%94%E8%AE%B0/%E9%AB%98%E7%AD%89%E6%95%B0%E5%AD%A6/" />
+        <category term="Study" scheme="https://lyrashore.com/tags/Study/" />
+        <category term="Math" scheme="https://lyrashore.com/tags/Math/" />
         <updated>2024-09-02T10:08:39.000Z</updated>
     </entry>
 </feed>

@@ -2951,6 +2951,12 @@ use.stop-animation {
 .social .item.github i {
   color: #191717;
 }
+.social .item.bilibili::before {
+  background-color: #039bcd;
+}
+.social .item.bilibili i {
+  color: #039bcd;
+}
 .social .item.music::before {
   background-color: #e60026;
 }
