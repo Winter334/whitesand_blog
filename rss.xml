@@ -2,16 +2,23 @@
 <rss version="2.0">
     <channel>
         <title>流萤白沙</title>
-        <subtitle>凡骨の笔记</subtitle>
+        <subtitle>莫愁千里路，自有到来风</subtitle>
         <icon>https://whitesand.top/assets/favicon.ico</icon>
         <link>https://whitesand.top</link>
         <author>
           <name>Fireflies Whitesand</name>
         </author>
-        <description>团结，精确，完美</description>
+        <description>流萤白沙の学习笔记</description>
         <language>zh-CN</language>
         <pubDate>Fri, 14 Feb 2025 16:03:00 +0800</pubDate>
         <lastBuildDate>Fri, 14 Feb 2025 16:03:00 +0800</lastBuildDate>
+        <category term="流萤白沙" />
+        <category term="流萤" />
+        <category term="白沙" />
+        <category term="流萤博客" />
+        <category term="白沙博客" />
+        <category term="Noctilumina" />
+        <category term="whitesand" />
         <item>
             <guid isPermalink="true">https://whitesand.top/2025/02/14/computer-science/csharp/Nullable/</guid>
             <title>C#可空类型</title>

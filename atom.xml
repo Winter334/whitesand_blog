@@ -2,13 +2,20 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://whitesand.top</id>
     <title>流萤白沙</title>
-    <subtitle>凡骨の笔记</subtitle>
+    <subtitle>莫愁千里路，自有到来风</subtitle>
     <icon>https://whitesand.top/assets/favicon.ico</icon>
     <link href="https://whitesand.top" />
     <author>
       <name>Fireflies Whitesand</name>
     </author>
     <updated>2025-02-14T08:03:00.000Z</updated>
+    <category term="流萤白沙" />
+    <category term="流萤" />
+    <category term="白沙" />
+    <category term="流萤博客" />
+    <category term="白沙博客" />
+    <category term="Noctilumina" />
+    <category term="whitesand" />
     <entry>
         <id>https://whitesand.top/2025/02/14/computer-science/csharp/Nullable/</id>
         <title>C#可空类型</title>
