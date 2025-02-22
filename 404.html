@@ -310,17 +310,18 @@ var glitch_move_color_1 = '#08FFF2',
 	}
 
 	function glitchline() {
+    // 初始化 timeouts 对象
+    this.timeouts = {};
 
-
-        // 修改 interval 存储方式以便清理
-        this.start = function(div) {
-            selfline = this;
-            this.interval = setInterval(function() {  // 改为属性存储
-                setTimeout(function() {
-                    selfline.add(div);
-                }, randomInt(glitch_line_wait_min, glitch_line_wait_max));
-            }, randomInt(glitch_line_timer_min, glitch_line_timer_max));
-        }
+    // 修改后的 start 方法
+    this.start = function(div) {
+      let selfline = this;
+      this.interval = setInterval(function() {
+        setTimeout(function() {
+          selfline.add(div);
+        }, randomInt(glitch_line_wait_min, glitch_line_wait_max));
+      }, randomInt(glitch_line_timer_min, glitch_line_timer_max));
+    }
 
 	this.add = function(div) {
 		// change the height, width, top, and left using a random number
@@ -350,12 +351,21 @@ var glitch_move_color_1 = '#08FFF2',
 		this.remove(div);
 	}
 
-	this.remove = function(div) {
-		// Hide the div at a random time interval.
-		this.timeouts[div] = setTimeout(function() {
-			$(div).hide();
-		}, randomInt(glitch_line_duration_min, glitch_line_duration_max));
-	}
+  // 修改后的 remove 方法
+  this.remove = function(div) {
+    const timeoutID = setTimeout(function() {
+      $(div).hide();
+    }, randomInt(glitch_line_duration_min, glitch_line_duration_max));
+    
+    // 使用唯一标识符存储 timeout
+    this.timeouts[div] = timeoutID;
+  }
+
+    // 新增清理方法
+    this.cleanup = function() {
+    Object.values(this.timeouts).forEach(clearTimeout);
+    this.timeouts = {};
+  }
 
 }
 
