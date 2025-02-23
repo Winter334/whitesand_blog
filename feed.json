@@ -7,6 +7,20 @@
     "home_page_url": "https://lyrashore.com",
     "items": [
         {
+            "id": "https://lyrashore.com/computer-science/hexo/shokax/shokax-start/",
+            "url": "https://lyrashore.com/computer-science/hexo/shokax/shokax-start/",
+            "title": "Hexo+ShokaX主题+Vercel/Github Pages搭建个人博客(一)",
+            "date_published": "2025-02-23T08:03:42.000Z",
+            "content_html": "<p>:::info</p>\n<p>本文不算严格意义上的教程，只是记录一下我的搭建过程。</p>\n<p>以下均由博主自行摸索得来，其中如果有误，还请各位大佬指正。</p>\n<p>博主!!半瓶水!!术语使用不专业，如若有疑问，欢迎留言咨询。</p>\n<p>:::</p>\n<p>:::primary</p>\n<p>因过程比较长!!想多水几篇!!，故分成几个文章以提升观感，可以点击下面进行跳转</p>\n<p><a href=\"computer-science%5Chexo%5Cshokax%5Cshokax-start%5C\">:one:主题安装</a> - ​[:two:主题部署]​ - ​[:three:配套功能] - ​[:four:主题美化]​</p>\n<p>:::</p>\n<h1 id=\"准备工作\"><a href=\"#准备工作\" class=\"headerlink\" title=\"准备工作\"></a>准备工作</h1><h2 id=\"Node-js\"><a href=\"#Node-js\" class=\"headerlink\" title=\"Node.js\"></a>Node.js</h2><p>根据<a href=\"https://hexo.docs.shokax.top/getting-started/\">官方文档</a>中所述，ShokaX主题需要nodejs 18以及更高的版本，因此需要提前准备好，避免到时候掉链子</p>\n<p>如果你已经安装好nodejs的话，可以直接跳过去下一步</p>\n<p>如果没有的话，这边推荐使用<a href=\"https://github.com/coreybutler/nvm-windows/releases\">nvm</a>,方便以后管理nodejs版本，有时候不同的项目要求的nodejs版本不同，来回切换真的很麻烦</p>\n<p>通过nvm可以快速的切换nodejs版本，去Github<a href=\"https://github.com/coreybutler/nvm-windows/releases\">下载最新版nvm安装程序</a></p>\n<p><img loading=\"lazy\" data-src=\"https://pub-bb2fe671409047b187fac95b77253c54.r2.dev/img/20250223213724537.webp\" alt=\"image-20250223164620331\"></p>\n<p>之后一直下一步就行了</p>\n<p><img loading=\"lazy\" data-src=\"https://pub-bb2fe671409047b187fac95b77253c54.r2.dev/img/20250223213724538.webp\" alt=\"image-20250223165729195\"></p>\n<p>装完之后[Win]{.kbd} + [R]{.kbd .red}打开命令提示符，输入</p>\n<pre><code class=\"language-bash\">nvm version\n</code></pre>\n<p>能看见版本号就说明安装好了</p>\n<p><img loading=\"lazy\" data-src=\"https://pub-bb2fe671409047b187fac95b77253c54.r2.dev/img/20250223213724539.webp\" alt=\"image-20250223172119900\"></p>\n<p>接下来就是安装node了</p>\n<p>在命令提示符里面输入</p>\n<pre><code class=\"language-bash\">nvm install 18.19.0\n#静静等待安装完成的提示\n#速度慢的话切换国内镜像,网上教程很多，我就不过多赘述了，毕竟这不是今天的主题\nnvm use 18.19.0\n</code></pre>\n<p>到此nodejs就算安装成功了</p>\n<h2 id=\"包管理器-pnpm\"><a href=\"#包管理器-pnpm\" class=\"headerlink\" title=\"包管理器 pnpm\"></a><code>包管理器</code> pnpm</h2><p>接下来安装包管理器，官方文档建议我们使用pnpm，那我们就安装它</p>\n<p>很简单，只需要在命令提示符里面输入</p>\n<pre><code class=\"language-bash\">npm install -g pnpm@latest-10\n</code></pre>\n<h1 id=\"Hexo安装\"><a href=\"#Hexo安装\" class=\"headerlink\" title=\"Hexo安装\"></a>Hexo安装</h1><p>打开命令提示符，输入以下命令</p>\n<pre><code class=\"language-bash\">pnpm add hexo-cli -g\n#cd 你的博客目录\nhexo init\n#静静等待命令执行完成\n</code></pre>\n<p>完成之后我们会得到如图所示的一堆文件</p>\n<p><img loading=\"lazy\" data-src=\"https://pub-bb2fe671409047b187fac95b77253c54.r2.dev/img/20250223213724536.webp\" alt=\"image-20250223190336257\"></p>\n<p>命令行执行<code>hexo s</code>，打开给出的那串地址，可以看到hexo已经安装成功了</p>\n<p><img loading=\"lazy\" data-src=\"https://pub-bb2fe671409047b187fac95b77253c54.r2.dev/img/20250223225419220.webp\" alt=\"image-20250223225415009\"></p>\n<h1 id=\"ShoaX安装\"><a href=\"#ShoaX安装\" class=\"headerlink\" title=\"ShoaX安装\"></a>ShoaX安装</h1><p>下面我们cd到<code>themes</code>进行ShokaX主题的安装</p>\n<pre><code class=\"language-bash\">cd themes\ngit clone https://github.com/theme-shoka-x/hexo-theme-shokaX.git #这里可以替换成你自己的仓库，建议fork主题仓库，方便后续更新主题\n#clone完成之后，把hexo-theme-shokaX重命名成shokax\ncd shokax\nnode ./toolbox/compiler.mjs\n</code></pre>\n<p>这时候遇到报错了，先别急，仔细看看，貌似是缺少<code>esbuild</code>依赖包，我们把它装上</p>\n<p><img loading=\"lazy\" data-src=\"https://pub-bb2fe671409047b187fac95b77253c54.r2.dev/img/20250223223411724.webp\" alt=\"image-20250223223408250\"></p>\n<p>命令行执行<code>pnpm add esbuild</code></p>\n<pre><code class=\"language-bash\">pnpm add esbuild\n</code></pre>\n<p>等待安装完成之后再次执行刚刚报错的命令就能够顺利执行了</p>\n<p>编译完成之后我们cd到hexo根目录，执行下面的命令</p>\n<pre><code class=\"language-bash\">cd ../..\nnode ./themes/shokax/toolbox/hoistdep.mjs\n</code></pre>\n<p>等待运行完成之后，打开hexo根目录的<code>_config.yml</code>，把<code>theme: landscape</code>改成<code>theme: shokax</code></p>\n<p>顺便再把</p>\n<p>接着再次hexo s进行预览，看见下面这样的，就已经成功90%了</p>\n<p>:::info</p>\n<p>按[Ctrl]{.kbd} + [C]{.kbd .red}可以结束进程</p>\n<p>:::</p>\n<p><img loading=\"lazy\" data-src=\"https://pub-bb2fe671409047b187fac95b77253c54.r2.dev/img/20250223230719567.webp\" alt=\"image-20250223230715930\"></p>\n<h2 id=\"基本配置\"><a href=\"#基本配置\" class=\"headerlink\" title=\"基本配置\"></a>基本配置</h2><p>:::primary</p>\n<p>在此之前</p>\n<p>记得把hexo根目录的<code>_config.landscape.yml</code>重命名为<code>_config.shokax.yml</code></p>\n<p>这很重要，把主题配置独立出来，既方便管理，也能避免主题更新时配置被覆盖的问题</p>\n<p>:::</p>\n<h3 id=\"markdown配置\"><a href=\"#markdown配置\" class=\"headerlink\" title=\"markdown配置\"></a>markdown配置</h3><p>打开hexo根目录的<code>_config.yml</code>文件，把下面的配置加到最后面  [注意缩进]{.label .danger}</p>\n<pre><code class=\"language-yaml\">markdown:\n  render: # 渲染器设置\n    html: false # 过滤 HTML 标签\n    xhtmlOut: true # 使用 &#39;/&#39; 来闭合单标签 （比如 &lt;br /&gt;）。\n    breaks: true # 转换段落里的 &#39;\\n&#39; 到 &lt;br&gt;。\n    linkify: true # 将类似 URL 的文本自动转换为链接。\n    typographer:\n    quotes: &quot;“”‘’&quot;\n  plugins: # markdown-it 插件设置\n    - plugin:\n        name: markdown-it-toc-and-anchor\n        enable: true\n        options: # 文章目录以及锚点应用的 class 名称，shoka 系主题必须设置成这样\n          tocClassName: &quot;toc&quot;\n          anchorClassName: &quot;anchor&quot;\n    - plugin:\n        name: markdown-it-multimd-table\n        enable: true\n        options:\n          multiline: true\n          rowspan: true\n          headerless: true\n    - plugin:\n        name: ./markdown-it-furigana\n        enable: true\n        options:\n          fallbackParens: &quot;()&quot;\n    - plugin:\n        name: ./markdown-it-spoiler\n        enable: true\n        options:\n          title: &quot;你知道得太多了&quot;\n</code></pre>\n<h3 id=\"停用默认代码高亮\"><a href=\"#停用默认代码高亮\" class=\"headerlink\" title=\"停用默认代码高亮\"></a>停用默认代码高亮</h3><p>打开hexo根目录<code>package.json</code>，查看<code>hexo-renderer-marked</code>的版本</p>\n<p>如果小于等于<code>6.3.0</code>，修改<code>_config.yml</code></p>\n<pre><code class=\"language-yaml\">highlight:\n  enable: false\n\nprismjs:\n  enable: false\n</code></pre>\n<p>如果大于等于<code>7.0.0-rc1</code></p>\n<pre><code class=\"language-yaml\">syntax_highlighter: false\n</code></pre>\n<h3 id=\"文件压缩\"><a href=\"#文件压缩\" class=\"headerlink\" title=\"文件压缩\"></a>文件压缩</h3><p>把下面的配置加到<code>_config.yml</code>末尾</p>\n<pre><code class=\"language-yaml\">minify:\n  js:\n    enable: false # ShokaX 自带 esbuild 优化，不建议开启，其他主题建议开启\n    exclude: # 排除文件，接受 string[]，需符合 micromatch 格式\n  css:\n    enable: true # 开启 CSS 优化\n    options:\n      targets: &quot;&gt;= 0.5%&quot; # browserslist 格式的 target\n    exclude: # 排除文件，接受 string[]，需符合 micromatch 格式\n  html:\n    minifier: html-minifier\n    enable: true # 开启 HTML 优化\n    options:\n      comments: false # 是否保留注释内容\n    exclude: # 排除文件，接受 string[]，需符合 micromatch 格式\n  image:\n    enable: false # 开启图片预处理和自动 WebP 化\n    options:\n      avif: false\n      webp: true # 预留配置项，现版本无作用\n      quality: 80 # 质量，支持1-100的整数、lossless或nearLossless\n      effort: 2 # CPU 工作量，0-6之间的整数(越低越快)\n      replaceSrc: false # 自动替换生成html中的本地图片链接为webp链接\n      # 对于使用 CI 工作流部署的用户，请注意本配置可能导致图片 404，如果出现请关闭\n      # 我们更建议使用 Service Worker 来在用户侧实现 replaceSrc 的功能，这将能够以一种侵入式更小的方式实现链接替换\n    exclude:\n</code></pre>\n<h3 id=\"feed生成\"><a href=\"#feed生成\" class=\"headerlink\" title=\"feed生成\"></a>feed生成</h3><p>同样加到<code>_config.yml</code>末尾</p>\n<pre><code class=\"language-yaml\">feed:\n  limit: 20\n  order_by: &quot;-date&quot;\n  tag_dir: false\n  category_dir: false\n  rss:\n    enable: true\n    template: &quot;node_modules/hexo-theme-shokax/layout/_alternate/rss.ejs&quot;\n    output: &quot;rss.xml&quot;\n  atom:\n    enable: true\n    template: &quot;node_modules/hexo-theme-shokax/layout/_alternate/atom.ejs&quot;\n    output: &quot;atom.xml&quot;\n  jsonFeed:\n    enable: true\n    template: &quot;node_modules/hexo-theme-shokax/layout/_alternate/json.ejs&quot;\n    output: &quot;feed.json&quot;\n</code></pre>\n<h1 id=\"报错\"><a href=\"#报错\" class=\"headerlink\" title=\"报错\"></a>报错</h1><p><img loading=\"lazy\" data-src=\"https://pub-bb2fe671409047b187fac95b77253c54.r2.dev/img/20250224003043600.webp\" alt=\"image-20250224003038064\"></p>\n<ul>\n<li>解决办法：hexo根目录执行<code>pnpm add hexo-theme-shokax</code></li>\n</ul>\n<pre><code class=\"language-bash\">pnpm add hexo-theme-shokax\n</code></pre>\n",
+            "tags": [
+                "计算机科学",
+                "Hexo",
+                "Shokax",
+                "Hexo",
+                "ShokaX"
+            ]
+        },
+        {
             "id": "https://lyrashore.com/computer-science/csharp/Nullable/",
             "url": "https://lyrashore.com/computer-science/csharp/Nullable/",
             "title": "C#可空类型",
@@ -29,8 +43,8 @@
                 "考研笔记",
                 "考研政治",
                 "Study",
-                "毛泽东思想和中国特色社会主义理论体系概论",
-                "政治"
+                "政治",
+                "毛泽东思想和中国特色社会主义理论体系概论"
             ]
         },
         {
@@ -43,8 +57,8 @@
                 "考研笔记",
                 "考研政治",
                 "Study",
-                "毛泽东思想和中国特色社会主义理论体系概论",
-                "政治"
+                "政治",
+                "毛泽东思想和中国特色社会主义理论体系概论"
             ]
         },
         {
@@ -57,8 +71,8 @@
                 "考研笔记",
                 "考研政治",
                 "Study",
-                "毛泽东思想和中国特色社会主义理论体系概论",
-                "政治"
+                "政治",
+                "毛泽东思想和中国特色社会主义理论体系概论"
             ]
         },
         {
@@ -71,8 +85,8 @@
                 "考研笔记",
                 "考研政治",
                 "Study",
-                "毛泽东思想和中国特色社会主义理论体系概论",
-                "政治"
+                "政治",
+                "毛泽东思想和中国特色社会主义理论体系概论"
             ]
         },
         {
@@ -85,8 +99,8 @@
                 "考研笔记",
                 "考研政治",
                 "Study",
-                "毛泽东思想和中国特色社会主义理论体系概论",
-                "政治"
+                "政治",
+                "毛泽东思想和中国特色社会主义理论体系概论"
             ]
         },
         {
@@ -99,8 +113,8 @@
                 "考研笔记",
                 "考研政治",
                 "Study",
-                "毛泽东思想和中国特色社会主义理论体系概论",
-                "政治"
+                "政治",
+                "毛泽东思想和中国特色社会主义理论体系概论"
             ]
         },
         {
@@ -113,8 +127,8 @@
                 "考研笔记",
                 "考研政治",
                 "Study",
-                "政治",
-                "马克思主义基本原理"
+                "马克思主义基本原理",
+                "政治"
             ]
         },
         {
@@ -127,8 +141,8 @@
                 "考研笔记",
                 "考研政治",
                 "Study",
-                "政治",
-                "马克思主义基本原理"
+                "马克思主义基本原理",
+                "政治"
             ]
         },
         {
@@ -141,8 +155,8 @@
                 "考研笔记",
                 "考研政治",
                 "Study",
-                "政治",
-                "马克思主义基本原理"
+                "马克思主义基本原理",
+                "政治"
             ]
         },
         {
@@ -155,8 +169,8 @@
                 "考研笔记",
                 "考研政治",
                 "Study",
-                "政治",
-                "马克思主义基本原理"
+                "马克思主义基本原理",
+                "政治"
             ]
         },
         {
@@ -169,8 +183,8 @@
                 "考研笔记",
                 "考研政治",
                 "Study",
-                "政治",
-                "马克思主义基本原理"
+                "马克思主义基本原理",
+                "政治"
             ]
         },
         {
@@ -183,8 +197,8 @@
                 "考研笔记",
                 "考研政治",
                 "Study",
-                "政治",
-                "马克思主义基本原理"
+                "马克思主义基本原理",
+                "政治"
             ]
         },
         {
@@ -197,8 +211,8 @@
                 "考研笔记",
                 "考研政治",
                 "Study",
-                "政治",
-                "马克思主义基本原理"
+                "马克思主义基本原理",
+                "政治"
             ]
         },
         {
