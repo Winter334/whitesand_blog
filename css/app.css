@@ -599,6 +599,9 @@ details summary::before {
 .i-foot:before {
   content: "\e609";
 }
+.i-rss:before {
+  content: "\e7b9";
+}
 /* modern-normalize v2.0.0 | MIT License | https://github.com/sindresorhus/modern-normalize */
 *,
 ::before,
@@ -1718,8 +1721,8 @@ textarea {
 @font-face {
   font-family: 'ic';
   font-display: swap;
-  src: url("https://at.alicdn.com/t/c/font_4828435_j7diufdsj58.eot");
-  src: url("https://at.alicdn.com/t/c/font_4828435_j7diufdsj58.eot?#iefix") format('embedded-opentype'), url("https://at.alicdn.com/t/c/font_4828435_j7diufdsj58.woff2") format('woff2'), url("https://at.alicdn.com/t/c/font_4828435_j7diufdsj58.woff") format('woff'), url("https://at.alicdn.com/t/c/font_4828435_j7diufdsj58.ttf") format('truetype'), url("https://at.alicdn.com/t/c/font_4828435_j7diufdsj58.svg#ic") format('svg');
+  src: url("https://at.alicdn.com/t/c/font_4828435_r2whhi99t2.eot");
+  src: url("https://at.alicdn.com/t/c/font_4828435_r2whhi99t2.eot?#iefix") format('embedded-opentype'), url("https://at.alicdn.com/t/c/font_4828435_r2whhi99t2.woff2") format('woff2'), url("https://at.alicdn.com/t/c/font_4828435_r2whhi99t2.woff") format('woff'), url("https://at.alicdn.com/t/c/font_4828435_r2whhi99t2.ttf") format('truetype'), url("https://at.alicdn.com/t/c/font_4828435_r2whhi99t2.svg#ic") format('svg');
 }
 @font-face {
   font-family: 'jetbrains-mono';
@@ -2991,6 +2994,12 @@ use.stop-animation {
 }
 .social .item.bilibili i {
   color: #fb7299;
+}
+.social .item.rss::before {
+  background-color: #ff7200;
+}
+.social .item.rss i {
+  color: #ff7200;
 }
 .social .item.music::before {
   background-color: #e60026;
