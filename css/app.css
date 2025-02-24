@@ -51,9 +51,9 @@
   --grey-9-a5: rgba(0,0,0,0.5);
   --grey-2-a0: rgba(247,247,247,0);
   --color-pink-light-old: #ffe6fa;
-  --color-pink-light: rgba(255,181,182,0.88);
+  --color-pink-light: rgba(255,181,182,0.72);
   --color-cyan-light-old: #e3fdf5;
-  --color-cyan-light: rgba(27,222,242,0.56);
+  --color-cyan-light: rgba(27,222,242,0.72);
   --color-red: #e9546b;
   --color-pink: #ed6ea0;
   --color-orange: #ec8c69;
@@ -592,6 +592,12 @@ details summary::before {
 }
 .i-gitee:before {
   content: "\e607";
+}
+.i-leaf:before {
+  content: "\e608";
+}
+.i-foot:before {
+  content: "\e609";
 }
 /* modern-normalize v2.0.0 | MIT License | https://github.com/sindresorhus/modern-normalize */
 *,
@@ -1712,8 +1718,8 @@ textarea {
 @font-face {
   font-family: 'ic';
   font-display: swap;
-  src: url("https://at.alicdn.com/t/c/font_4828435_rp9218tzhi.eot");
-  src: url("https://at.alicdn.com/t/c/font_4828435_rp9218tzhi.eot?#iefix") format('embedded-opentype'), url("https://at.alicdn.com/t/c/font_4828435_rp9218tzhi.woff2") format('woff2'), url("https://at.alicdn.com/t/c/font_4828435_rp9218tzhi.woff") format('woff'), url("https://at.alicdn.com/t/c/font_4828435_rp9218tzhi.ttf") format('truetype'), url("https://at.alicdn.com/t/c/font_4828435_rp9218tzhi.svg#ic") format('svg');
+  src: url("https://at.alicdn.com/t/c/font_4828435_j7diufdsj58.eot");
+  src: url("https://at.alicdn.com/t/c/font_4828435_j7diufdsj58.eot?#iefix") format('embedded-opentype'), url("https://at.alicdn.com/t/c/font_4828435_j7diufdsj58.woff2") format('woff2'), url("https://at.alicdn.com/t/c/font_4828435_j7diufdsj58.woff") format('woff'), url("https://at.alicdn.com/t/c/font_4828435_j7diufdsj58.ttf") format('truetype'), url("https://at.alicdn.com/t/c/font_4828435_j7diufdsj58.svg#ic") format('svg');
 }
 @font-face {
   font-family: 'jetbrains-mono';
