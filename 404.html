@@ -1,0 +1,525 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>404 Not Found</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+<glitch>
+  <div class="hero"></div>
+  <div class="content-wrapper">
+    <h1>404?!</h1>
+    <h2>你似乎走到了一个无人的角落 &hellip;</h2>
+    <p>我们不知道你是怎么到这里来的，如果你想回去的话，可以试着点击<a href="/">这里</a>。</p>
+    <p>&hellip;&hellip;</p>
+    <p>抓紧时间，出口在███现象发生之后将会失效&hellip;</p>
+    <p>&hellip;</p>
+    <p>我们确信你的造访是一个错误，至于原因 &hellip; 抱歉，不过你可以试着联系<a href="mailto:robit@vip.qq.com">████</a>。</p>
+  </div>
+</glitch>
+
+<style>
+  /* 基础样式 */
+  :root {
+    font-size: 16px;
+  }
+
+  .hero {
+    min-height: 50vh;
+    width: 100%;
+    background: url(https://pub-bb2fe671409047b187fac95b77253c54.r2.dev/img/20250223213308162.webp);
+    background-size: cover;
+    background-position: top;
+  }
+
+  body {
+    margin: 0;
+    color: #585E62;
+    font-family: Arial;
+    line-height: 1.6;
+  }
+
+  .content-wrapper {
+    max-width: 800px;
+    margin: 0;
+    padding: 0 1.5rem;
+  }
+
+  h1 {
+    font-size: 2.5rem;
+    margin: 1.5rem 0 0.5rem;
+  }
+
+  h2 {
+    font-size: 1.5rem;
+    margin: 1rem 0;
+  }
+
+  p {
+    margin: 1rem 0;
+  }
+
+  a {
+    color: #4466FF;
+    text-decoration: none;
+    word-break: break-all;
+  }
+
+  /* 响应式调整 */
+  @media (max-width: 768px) {
+    :root {
+      font-size: 14px;
+    }
+    
+    h1 {
+      font-size: 2rem;
+    }
+    
+    h2 {
+      font-size: 1.25rem;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .content-wrapper {
+      padding: 0 1rem;
+    }
+    
+    h1 {
+      font-size: 1.75rem;
+    }
+  }
+
+  /* 新增重影效果 */
+  .text-ghost {
+    position: relative;
+    display: inline-block;
+  }
+
+  .text-ghost::before,
+  .text-ghost::after {
+    content: attr(data-text);
+    position: absolute;
+    top: 0;
+    left: 0;
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  .text-ghost::before {
+    color: #08FFF2;
+    transform: translate(4px, -2px);
+  }
+
+  .text-ghost::after {
+    color: #FC0DFF;
+    transform: translate(-3px, 2px);
+  }
+
+  /* 突然错位动画 */
+  @keyframes sudden-glitch {
+    0% { transform: translate(0, 0); }
+    10% { transform: translate(15px, -8px); }
+    20% { transform: translate(-12px, 6px); }
+    100% { transform: translate(0, 0); }
+  }
+
+  /* 重影闪现动画 */
+  @keyframes ghost-flash {
+    0% { opacity: 0; }
+    5% { opacity: 0.4; }
+    100% { opacity: 0; }
+  }
+
+  .sudden-glitch {
+    animation: sudden-glitch 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+  }
+
+  .ghost-active::before,
+  .ghost-active::after {
+    animation: ghost-flash 0.6s ease-out forwards;
+  }
+
+  /* 添加乱码字符样式 */
+  .glitch-char {
+    color: #FC0DFF;
+    animation: glitch-flicker 0.1s infinite;
+  }
+
+  @keyframes glitch-flicker {
+    0% { opacity: 0.8; }
+    50% { opacity: 0.2; }
+    100% { opacity: 0.8; }
+  }
+</style>
+
+<script>
+    // Glitch Line Vars
+var glitch_lines = 15,
+	glitch_line_duration_min = 100,
+	glitch_line_duration_max = 500,
+	glitch_line_timer_min = 100,
+	glitch_line_timer_max = 5000,
+	glitch_line_wait_min = 100,
+	glitch_line_wait_max = 3000,
+	glitch_line_height_min = 5,
+	glitch_line_height_max = 50;
+
+// Glitch Move Vars
+var glitch_move_color_1 = '#08FFF2',
+	glitch_move_color_2 = '#FC0DFF',
+	glitch_move_original_color = '#585E62',
+	glitch_move_opacity = .2,
+	glitch_move_duration_min = 1000,
+	glitch_move_duration_max = 300,
+	glitch_move_timer_min = 500,
+	glitch_move_timer_max = 1500,
+	glitch_move_wait_min = 1000,
+	glitch_move_wait_max = 2000,
+	glitch_move_amount_min = -10,
+	glitch_move_amount_max = 10;
+
+	// Do you want to autostart on page load?
+	var glitch_autostart = 1;
+
+	// Start Glitch on page load.
+	window.onload = function() {
+		if (glitch_autostart) {
+			glitch = new glitch();
+			glitch.init();
+		}
+		// 增强清理逻辑：使用命名空间存储定时器
+		window.addEventListener('beforeunload', function() {
+			// 清理 Glitch Move
+			clearTimeout(glitchmove?.timeout);
+			
+			// 清理 Glitch Lines
+			glitch?.glitchlines?.forEach(line => {
+				clearTimeout(line?.timeouts);
+				clearInterval(line?.interval);
+			});
+
+			// 强制移除所有残留元素
+			const elementsToRemove = document.querySelectorAll(
+				'[class^="glitch-line-"], .glitch-div-1, .glitch-div-2'
+			);
+			elementsToRemove.forEach(el => el.remove());
+		});
+	}
+
+	// Random integer function (Will correctly work w/ negative numbers)
+	function randomInt(min, max){
+		return Math.floor(Math.random()*(max-min+1)+min);
+	}
+
+	// Glitch functionality
+	function glitch() {
+
+		// Initialize the glitches
+		// - Create divs
+		// - Load divs from <glitch> element
+		// - Set body to not scroll on x-axis
+		// - Starts glitch animations
+
+		this.init = function() {
+			page_content = $('glitch').html();
+			$('body').css('overflow-x', 'hidden');
+
+			// Glitch Lines
+			linecount = 0;
+			this.glitchlines = [];
+			while (linecount < glitch_lines) {
+				$('body').append('<div class="glitch-line-'+linecount+'">'+page_content+'</div>');
+				$('.glitch-line-'+linecount).css({
+					'height': '100%',
+					'width': '100%',
+					'position': 'absolute',
+					'top': '0',
+					'left': '0'
+				}).hide();
+				this.glitchline('.glitch-line-'+linecount, linecount);
+				linecount++;
+			}
+
+			// Glitch Move
+			$('body').append('<div class="glitch-div-1">'+page_content+'</div>');
+			$('body').append('<div class="glitch-div-2">'+page_content+'</div>');
+			$('.glitch-div-1, .glitch-div-2').css({
+				'height': '100%',
+				'width': '100%',
+				'position': 'absolute',
+				'top': '0',
+				'left': '0'
+			});
+			this.glitchmove();
+		}
+
+		this.glitchline = function(div, id) {
+			// Store an array of glitchlines
+			this.glitchlines[id] = new glitchline;
+			this.glitchlines[id].start(div);
+		}
+
+		this.glitchmove = function() {
+			glitchmove = new glitchmove;
+			glitchmove.start();
+		}
+
+	}
+
+	// Glitch Move Animation
+
+	function glitchmove() {
+
+		// Start glitch
+		this.start = function() {
+			selfmove = this;
+
+			// Create a move on a regular duration
+			setInterval(function() {
+				// Wait a random number of ms to execute
+				setTimeout(function() {
+					// Create animation
+					selfmove.move();
+				}, randomInt(glitch_move_wait_min, glitch_move_wait_max));
+			}, randomInt(glitch_move_timer_min, glitch_move_timer_max));
+
+		}
+
+		this.move = function() {
+			// Move the divs a random number of pixels top & left, change the color & opacity.
+			$('.glitch-div-1').css({
+				'left': randomInt(glitch_move_amount_min, glitch_move_amount_max) + 'px',
+				'top': randomInt(glitch_move_amount_min, glitch_move_amount_max) + 'px',
+				'opacity': glitch_move_opacity,
+				'color': glitch_move_color_1
+			});
+			$('.glitch-div-2').css({
+				'left': randomInt(glitch_move_amount_min, glitch_move_amount_max) + 'px',
+				'top': randomInt(glitch_move_amount_min, glitch_move_amount_max) + 'px',
+				'opacity': glitch_move_opacity,
+				'color': glitch_move_color_2
+			});
+
+			// Prepare to move divs back
+			this.moveback();
+		}
+
+		this.moveback = function() {
+			// Move the divs back after a random time duration
+			this.timeout = setTimeout(function() {
+				// Make sure we set the text back to the original color!
+				$('.glitch-div-1, .glitch-div-2').css({
+					'left': '0px',
+					'top': '0px',
+					'color': glitch_move_original_color,
+					'opacity': '1',
+				});
+			}, randomInt(glitch_move_duration_min, glitch_move_duration_max));
+		}
+	}
+
+	function glitchline() {
+    // 初始化 timeouts 对象
+    this.timeouts = {};
+
+    // 修改后的 start 方法
+    this.start = function(div) {
+      let selfline = this;
+      this.interval = setInterval(function() {
+        setTimeout(function() {
+          selfline.add(div);
+        }, randomInt(glitch_line_wait_min, glitch_line_wait_max));
+      }, randomInt(glitch_line_timer_min, glitch_line_timer_max));
+    }
+
+	this.add = function(div) {
+		// change the height, width, top, and left using a random number
+		$(div).css({
+			'height': randomInt(glitch_line_height_min, glitch_line_height_max) + 'px',
+			'width': randomInt(window.innerWidth/2, window.innerWidth) + 'px',
+			'top': randomInt(0, window.innerHeight) + 'px',
+			'left': randomInt(0, window.innerWidth/2) + 'px',
+			'position': 'fixed',
+			'overflow': 'hidden',
+			'display': 'block',
+			'background': '#FFF'
+		});
+		// Set random scroll top & scroll left.
+		$(div).scrollTop(randomInt(0, window.innerHeight));
+  
+		// 添加窗口resize事件处理
+		let glitchInstance;
+		window.addEventListener('resize', () => {
+			if(glitchInstance) {
+			glitchInstance.init();
+			}
+		});
+		$(div).scrollLeft(randomInt(0, 100));
+
+		// Prepare to hide the div
+		this.remove(div);
+	}
+
+  // 修改后的 remove 方法
+  this.remove = function(div) {
+    const timeoutID = setTimeout(function() {
+      $(div).hide();
+    }, randomInt(glitch_line_duration_min, glitch_line_duration_max));
+    
+    // 使用唯一标识符存储 timeout
+    this.timeouts[div] = timeoutID;
+  }
+
+    // 新增清理方法
+    this.cleanup = function() {
+    Object.values(this.timeouts).forEach(clearTimeout);
+    this.timeouts = {};
+  }
+
+}
+
+  // 改进后的文字包装逻辑（保留链接结构）
+  function wrapTextNodes(node) {
+    if (node.nodeType === Node.TEXT_NODE && node.textContent.trim()) {
+      const wrapper = document.createElement('span');
+      wrapper.className = 'text-ghost';
+      wrapper.dataset.text = node.textContent;
+      wrapper.textContent = node.textContent;
+      node.replaceWith(wrapper);
+    } else if (node.nodeType === Node.ELEMENT_NODE && !node.classList.contains('no-glitch')) {
+      Array.from(node.childNodes).forEach(child => wrapTextNodes(child));
+    }
+  }
+
+  // 初始化文字包装（排除链接）
+  document.querySelectorAll('h1, h2, p').forEach(element => {
+    if (!element.closest('a')) { // 跳过链接内的元素
+      Array.from(element.childNodes).forEach(wrapTextNodes);
+    }
+  });
+
+  // 添加链接特效
+  function enhanceLinks() {
+    document.querySelectorAll('a').forEach(link => {
+      // 添加脉冲动画
+      link.style.animation = 'link-pulse 2s infinite';
+      // 添加悬浮效果
+      link.addEventListener('mouseenter', () => {
+        link.style.filter = 'drop-shadow(0 0 8px #4466FF)';
+      });
+      link.addEventListener('mouseleave', () => {
+        link.style.filter = 'none';
+      });
+    });
+  }
+
+  // 新增链接动画
+  const style = document.createElement('style');
+  style.textContent = `
+    @keyframes link-pulse {
+      0% { opacity: 1; }
+      50% { opacity: 0.7; }
+      100% { opacity: 1; }
+    }
+    a {
+      position: relative;
+      font-weight: bold;
+      transition: 0.3s all ease;
+    }
+    a::after {
+      content: "";
+      position: absolute;
+      bottom: -2px;
+      left: 0;
+      width: 100%;
+      height: 2px;
+      background: #4466FF;
+      transform: scaleX(0);
+      transition: 0.3s transform ease;
+    }
+    a:hover::after {
+      transform: scaleX(1);
+    }
+  `;
+  document.head.appendChild(style);
+
+  // 初始化链接增强
+  setTimeout(enhanceLinks, 1000);
+
+  // 乱码效果配置
+const glitchConfig = {
+  chars: 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyzÆÞÐ¥µ§¶ŧ←↓→øþðŁ€†‡‰Ω∆∏∑√∞∫≈≠≤≥◊◈♫♬♭♯♮⁃⁅⁆⁇⁈⁉❋❍❏❐❑❒❖❘❙❚❛❜❝❞❢❣❥❦#$%&?@[]^_{|}~¤¬¦¨¯´¸¿¡§¶·;', // 乱码字符集
+  replaceRatio: 0.3,     // 单次替换比例
+  interval: 3000,        // 效果触发间隔
+  duration: 800,         // 单次效果持续时间
+  protectedTexts: ['这里', 'robit@vip.qq.com'] // 受保护的关键词
+}
+
+// 生成随机字符
+function randomChar() {
+  return glitchConfig.chars.charAt(Math.floor(Math.random() * glitchConfig.chars.length))
+}
+
+// 文字乱码效果
+function textGlitch(element) {
+  const originalText = element.dataset.original || element.textContent
+  element.dataset.original = originalText
+  
+  // 跳过受保护内容
+  if (glitchConfig.protectedTexts.some(v => originalText.includes(v))) return
+
+  const chars = [...originalText]
+  let count = Math.floor(chars.length * glitchConfig.replaceRatio)
+  
+  // 生成替换位置
+  const replacePositions = new Set()
+  while (replacePositions.size < count) {
+    replacePositions.add(Math.floor(Math.random() * chars.length))
+  }
+
+  // 执行替换
+  Array.from(replacePositions).forEach(pos => {
+    chars[pos] = `<span class="glitch-char">${randomChar()}</span>`
+  })
+
+  element.innerHTML = chars.join('')
+  
+  // 恢复原始文本
+  setTimeout(() => {
+    element.textContent = originalText
+  }, glitchConfig.duration)
+}
+
+// 初始化乱码效果
+function initTextGlitch() {
+  // 选择需要添加效果的元素（排除链接内的文本）
+  document.querySelectorAll('h1, h2, p:not(a)').forEach(element => {
+    // 保存原始文本
+    element.dataset.original = element.textContent
+    
+    // 添加定时效果
+    setInterval(() => {
+      if (Math.random() > 0.7) return // 随机跳过部分触发
+      textGlitch(element)
+    }, glitchConfig.interval + Math.random() * 2000)
+  })
+}
+
+// 延迟初始化以确保原有效果加载完成
+setTimeout(() => {
+  initTextGlitch()
+  
+  // 保护链接内容（双重保险）
+  document.querySelectorAll('a').forEach(link => {
+    link.dataset.original = link.textContent
+    setInterval(() => {
+      link.textContent = link.dataset.original
+    }, 1000)
+  })
+}, 2000)
+</script>
+</body>
+</html>
