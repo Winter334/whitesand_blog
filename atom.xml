@@ -1,0 +1,1055 @@
+<?xml version="1.0"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+    <id>https://lyrashore.com</id>
+    <title>流萤白沙のBlog</title>
+    <subtitle>莫愁千里路，自有到来风</subtitle>
+    <icon>https://lyrashore.com/assets/favicon.ico</icon>
+    <link href="https://lyrashore.com" />
+    <author>
+      <name>流萤白沙</name>
+    </author>
+    <updated>2025-02-25T03:50:31.000Z</updated>
+    <category term="流萤白沙" />
+    <category term="流萤" />
+    <category term="白沙" />
+    <category term="流萤博客" />
+    <category term="白沙博客" />
+    <category term="Noctilumina" />
+    <category term="whitesand" />
+    <entry>
+        <id>https://lyrashore.com/computer-science/hexo/shokax/shokax-module/</id>
+        <title>Hexo+ShokaX主题+Vercel/Github Pages搭建个人博客(三)</title>
+        <link rel="alternate" href="https://lyrashore.com/computer-science/hexo/shokax/shokax-module/"/>
+        <content type="html">&lt;div class=&#34;note warning&#34;&gt;
+&lt;p&gt;本文会涉及到一些关键密钥，请在配置过程中妥善管理，避免泄露，从而影响使用或产生不必要的费用&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;note info&#34;&gt;
+&lt;p&gt;因为本文是记录博主的搭建过程，所以对于我没有选择的方案不会细说&lt;span class=&#34;spoiler&#34; title=&#34;你知道得太多了&#34;&gt;其实是因为懒，这也是为什么说自己是记录贴&lt;/span&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;note info&#34;&gt;
+&lt;p&gt;到这里应该就是本文的最后一部分了，如果有下一篇的话，应该是和主题美化相关的&lt;/p&gt;
+&lt;p&gt;但是我现在也在摸索阶段，感觉能说的内容比较少，故先不更新&lt;/p&gt;
+&lt;p&gt;不过可以插个眼，我攒足内容之后会接着更新&lt;/p&gt;
+&lt;/div&gt;
+&lt;h1 id=&#34;评论系统&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#评论系统&#34;&gt;#&lt;/a&gt; 评论系统&lt;/h1&gt;
+&lt;p&gt;shokax 内置两套评论系统，分别为 waline 和 twikoo，都需要独立部署后端，故使用 github pages 部署的无法使用。&lt;/p&gt;
+&lt;p&gt;可以自行修改代码替换 valine/minivaline，&lt;ins&gt;shokax 不提供支持，需要自行更新维护&lt;/ins&gt;。&lt;/p&gt;
+&lt;h2 id=&#34;waline配置&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#waline配置&#34;&gt;#&lt;/a&gt; Waline 配置&lt;/h2&gt;
+&lt;h3 id=&#34;leancloud设置&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#leancloud设置&#34;&gt;#&lt;/a&gt; LeanCloud 设置&lt;/h3&gt;
+&lt;div class=&#34;note info&#34;&gt;
+&lt;p&gt;waline 评论系统需求的数据库，评论数据都存在这里面，必须配置&lt;/p&gt;
+&lt;/div&gt;
+&lt;p&gt;首先，&lt;a href=&#34;https://console.leancloud.app/&#34;&gt;登陆 / 注册 LeanCloud&lt;/a&gt;，记得看一眼左上角，换成国际版&lt;/p&gt;
+&lt;p&gt;完成之后打开控制台，点击 &lt;code&gt;创建应用&lt;/code&gt; ，名字随意，大致能看出来是干什么的就行&lt;/p&gt;
+&lt;p&gt;&lt;img loading=&#34;lazy&#34; data-src=&#34;https://pub-bb2fe671409047b187fac95b77253c54.r2.dev/img/20250225142959627.webp&#34; alt=&#34;image-20250225142943957&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;创建好之后，左边 &lt;code&gt;设置&lt;/code&gt; → &lt;code&gt;应用凭证&lt;/code&gt; ，上面三个就是之后要用的，到这里第一步结束了&lt;/p&gt;
+&lt;p&gt;&lt;img loading=&#34;lazy&#34; data-src=&#34;https://pub-bb2fe671409047b187fac95b77253c54.r2.dev/img/20250225143713671.webp&#34; alt=&#34;image-20250225143622115&#34; /&gt;&lt;/p&gt;
+&lt;h3 id=&#34;vercel部署后端&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#vercel部署后端&#34;&gt;#&lt;/a&gt; Vercel 部署后端&lt;/h3&gt;
+&lt;p&gt;&lt;s&gt;按一下这个按钮，会自动带你到 vercel 的 waline 部署界面&lt;/s&gt;&lt;span class=&#34;spoiler&#34; title=&#34;你知道得太多了&#34;&gt;&lt;s&gt;这个功能真省心（￣︶￣）↗&lt;/s&gt;&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;貌似由于渲染问题，按钮点不了（；´д｀）ゞ，那将军只能走此小道了👉&lt;a href=&#34;https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fwalinejs%2Fwaline%2Ftree%2Fmain%2Fexample&#34;&gt;&lt;strong&gt;点这里跳转&lt;/strong&gt;&lt;/a&gt;👈&lt;/p&gt;
+&lt;p&gt;项目名随意，vercel 会自动给你建一个仓库，仓库名和你输的这个项目名一样，注意命名格式，不通过就按照框框里这种来&lt;/p&gt;
+&lt;p&gt;&lt;img loading=&#34;lazy&#34; data-src=&#34;https://pub-bb2fe671409047b187fac95b77253c54.r2.dev/img/20250225160917194.webp&#34; alt=&#34;image-20250225143948657&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;完成之后点击 &lt;code&gt;Create&lt;/code&gt; ，等待 vercel 自动部署，部署完成之后点击 &lt;code&gt;Go to Dashboard&lt;/code&gt;  去到控制台&lt;/p&gt;
+&lt;p&gt;然后上面导航栏 &lt;code&gt;Settings&lt;/code&gt; → &lt;code&gt;Environment Variables&lt;/code&gt; ，来到这个页面&lt;/p&gt;
+&lt;p&gt;&lt;img loading=&#34;lazy&#34; data-src=&#34;https://pub-bb2fe671409047b187fac95b77253c54.r2.dev/img/20250225160936339.webp&#34; alt=&#34;image-20250225145000890&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;在框框里添加环境变量，就是 LeanCloud 里那三个，对应规则参考下面&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th style=&#34;text-align:center&#34;&gt;Key&lt;/th&gt;
+&lt;th style=&#34;text-align:center&#34;&gt;Value&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:center&#34;&gt;LEAN_ID&lt;/td&gt;
+&lt;td style=&#34;text-align:center&#34;&gt;AppID&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:center&#34;&gt;LEAN_KEY&lt;/td&gt;
+&lt;td style=&#34;text-align:center&#34;&gt;AppKey&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:center&#34;&gt;LEAN_MASTER_KEY&lt;/td&gt;
+&lt;td style=&#34;text-align:center&#34;&gt;MasterKey&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;完事之后，点击 &lt;code&gt;Save&lt;/code&gt;  保存，需要重新部署一下才能生效，一般会自动弹窗让你点，如果没有的话&lt;/p&gt;
+&lt;p&gt;导航栏 &lt;code&gt;Deployments&lt;/code&gt; → &lt;code&gt;Redeploy&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img loading=&#34;lazy&#34; data-src=&#34;https://pub-bb2fe671409047b187fac95b77253c54.r2.dev/img/20250225145911752.webp&#34; alt=&#34;image-20250225145908631&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;之后绑定一下你的域名就可以了，不然用不了，原因前面说过&lt;/p&gt;
+&lt;p&gt;怎么绑定可以参考第二篇&lt;a href=&#34;/computer-science/hexo/shokax/shokax-deploy/#%E8%87%AA%E5%AE%9A%E4%B9%89%E5%9F%9F%E5%90%8D&#34;&gt;&lt;strong&gt;自定义域名&lt;/strong&gt;&lt;/a&gt;中给 vercel 项目绑定自定义域名的操作，记得起个有辨识度的二级域名&lt;/p&gt;
+&lt;h3 id=&#34;shokax-waline配置&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#shokax-waline配置&#34;&gt;#&lt;/a&gt; ShokaX Waline 配置&lt;/h3&gt;
+&lt;p&gt;来到我们的博客根目录，找到 &lt;code&gt;_config.shokax.yml&lt;/code&gt; ，如果你是跟着我安装的主题，这里应该有，没有可以去主题目录里改 &lt;code&gt;_config.yml&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;加入下面的配置，把 &lt;code&gt;serverURL: &amp;quot;&amp;quot;&lt;/code&gt;  改成 &lt;code&gt;serverURL: &amp;quot;你的waline后端域名&amp;quot;&lt;/code&gt;&lt;/p&gt;
+&lt;div class=&#34;note info&#34;&gt;
+&lt;p&gt;建议去主题目录 (thems/shokax) 把 &lt;code&gt;_config.yml&lt;/code&gt;  内容全部复制过来，不然下次要改其他的还得去找过来添加&lt;/p&gt;
+&lt;/div&gt;
+&lt;figure class=&#34;highlight yaml&#34;&gt;&lt;figcaption data-lang=&#34;YAML&#34;&gt;&lt;/figcaption&gt;&lt;table&gt;&lt;tr&gt;&lt;td data-num=&#34;1&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token key atrule&#34;&gt;waline&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;:&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;2&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;  &lt;span class=&#34;token key atrule&#34;&gt;enable&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;token boolean important&#34;&gt;true&lt;/span&gt; &lt;span class=&#34;token comment&#34;&gt;# 是否启用&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;3&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;  &lt;span class=&#34;token key atrule&#34;&gt;serverURL&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;token string&#34;&gt;&#34;&#34;&lt;/span&gt; &lt;span class=&#34;token comment&#34;&gt;# waline 服务端地址&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;4&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;  &lt;span class=&#34;token key atrule&#34;&gt;lang&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;token string&#34;&gt;&#34;zh-CN&#34;&lt;/span&gt; &lt;span class=&#34;token comment&#34;&gt;# 评论界面语言&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;5&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;  &lt;span class=&#34;token key atrule&#34;&gt;locale&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;token punctuation&#34;&gt;&amp;#123;&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;&amp;#125;&lt;/span&gt; &lt;span class=&#34;token comment&#34;&gt;# 本地化替换，详见 waline 文档&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;6&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;  &lt;span class=&#34;token key atrule&#34;&gt;emoji&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;token comment&#34;&gt;# 表情包，默认为 waline 官方配置&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;7&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;    &lt;span class=&#34;token punctuation&#34;&gt;-&lt;/span&gt; https&lt;span class=&#34;token punctuation&#34;&gt;:&lt;/span&gt;//unpkg.com/@waline/emojis@1.0.1/weibo&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;8&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;    &lt;span class=&#34;token punctuation&#34;&gt;-&lt;/span&gt; https&lt;span class=&#34;token punctuation&#34;&gt;:&lt;/span&gt;//unpkg.com/@waline/emojis@1.0.1/alus&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;9&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;    &lt;span class=&#34;token punctuation&#34;&gt;-&lt;/span&gt; https&lt;span class=&#34;token punctuation&#34;&gt;:&lt;/span&gt;//unpkg.com/@waline/emojis@1.0.1/bilibili&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;10&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;    &lt;span class=&#34;token punctuation&#34;&gt;-&lt;/span&gt; https&lt;span class=&#34;token punctuation&#34;&gt;:&lt;/span&gt;//unpkg.com/@waline/emojis@1.0.1/qq&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;11&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;    &lt;span class=&#34;token punctuation&#34;&gt;-&lt;/span&gt; https&lt;span class=&#34;token punctuation&#34;&gt;:&lt;/span&gt;//unpkg.com/@waline/emojis@1.0.1/tieba&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;12&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;    &lt;span class=&#34;token punctuation&#34;&gt;-&lt;/span&gt; https&lt;span class=&#34;token punctuation&#34;&gt;:&lt;/span&gt;//unpkg.com/@waline/emojis@1.0.1/tw&lt;span class=&#34;token punctuation&#34;&gt;-&lt;/span&gt;emoji&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;13&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;  &lt;span class=&#34;token key atrule&#34;&gt;meta&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;token comment&#34;&gt;# 评论可以填写的项目&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;14&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;    &lt;span class=&#34;token punctuation&#34;&gt;-&lt;/span&gt; nick&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;15&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;    &lt;span class=&#34;token punctuation&#34;&gt;-&lt;/span&gt; mail&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;16&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;    &lt;span class=&#34;token punctuation&#34;&gt;-&lt;/span&gt; link&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;17&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;  &lt;span class=&#34;token key atrule&#34;&gt;requiredMeta&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;token comment&#34;&gt;# 评论必须填写的项目&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;18&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;    &lt;span class=&#34;token punctuation&#34;&gt;-&lt;/span&gt; nick&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;19&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;    &lt;span class=&#34;token punctuation&#34;&gt;-&lt;/span&gt; mail&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;20&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;  &lt;span class=&#34;token key atrule&#34;&gt;wordLimit&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;token number&#34;&gt;0&lt;/span&gt; &lt;span class=&#34;token comment&#34;&gt;# 评论字数上限 (不建议为 0)&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;21&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;  &lt;span class=&#34;token key atrule&#34;&gt;pageSize&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;token number&#34;&gt;10&lt;/span&gt; &lt;span class=&#34;token comment&#34;&gt;# 每页显示评论条数&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;22&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;  &lt;span class=&#34;token key atrule&#34;&gt;pageview&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;token boolean important&#34;&gt;true&lt;/span&gt; &lt;span class=&#34;token comment&#34;&gt;# 页面浏览量显示&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;p&gt;到这里 Waline 就完成配置了&lt;/p&gt;
+&lt;h2 id=&#34;twikoo配置&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#twikoo配置&#34;&gt;#&lt;/a&gt; Twikoo 配置&lt;/h2&gt;
+&lt;p&gt;如何部署 Twikoo 评论系统后端请移步→&lt;a href=&#34;https://twikoo.js.org/backend.html#vercel-%E9%83%A8%E7%BD%B2&#34;&gt;Twikoo 文档&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;也可以看看下面的视频&lt;/p&gt;
+&lt;div class=&#34;box-player-video&#34; style=&#34;position: relative; padding: 30% 45%; margin: 1rem 0;&#34;&gt;
+    &lt;iframe 
+        style=&#34;position: absolute; width: 100%; height: 100%; left: 0; top: 0;&#34; 
+        src=&#34;//player.bilibili.com/player.html?isOutside=true&amp;aid=205905942&amp;bvid=BV1Fh411e7ZH&amp;cid=842070368&amp;p=1&amp;autoplay=0&amp;muted=0&#34; 
+        scrolling=&#34;no&#34; 
+        border=&#34;0&#34; 
+        frameborder=&#34;no&#34; 
+        framespacing=&#34;0&#34; 
+        allowfullscreen=&#34;true&#34;&gt;
+    &lt;/iframe&gt;
+&lt;/div&gt;
+&lt;h3 id=&#34;shokax-twikoo配置&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#shokax-twikoo配置&#34;&gt;#&lt;/a&gt; ShokaX Twikoo 配置&lt;/h3&gt;
+&lt;p&gt;来到我们的博客根目录，找到 &lt;code&gt;_config.shokax.yml&lt;/code&gt; ，加入下面的配置&lt;/p&gt;
+&lt;figure class=&#34;highlight yaml&#34;&gt;&lt;figcaption data-lang=&#34;YAML&#34;&gt;&lt;/figcaption&gt;&lt;table&gt;&lt;tr&gt;&lt;td data-num=&#34;1&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token key atrule&#34;&gt;twikoo&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;:&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;2&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;  &lt;span class=&#34;token key atrule&#34;&gt;enable&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;token boolean important&#34;&gt;true&lt;/span&gt; &lt;span class=&#34;token comment&#34;&gt;# 是否开启&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;3&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;  &lt;span class=&#34;token key atrule&#34;&gt;mode&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;:&lt;/span&gt; vercel &lt;span class=&#34;token comment&#34;&gt;# vercel (私有部署) 或 tencent&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;4&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;  &lt;span class=&#34;token key atrule&#34;&gt;envId&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;token string&#34;&gt;&#34;https://example.com&#34;&lt;/span&gt; &lt;span class=&#34;token comment&#34;&gt;# twikoo 环境 ID,vercel 和私有部署填地址&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;5&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;  &lt;span class=&#34;token key atrule&#34;&gt;region&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;token comment&#34;&gt;# vercel 和私有部署不填，腾讯云见 twikoo 文档&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;h1 id=&#34;搜索功能&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#搜索功能&#34;&gt;#&lt;/a&gt; 搜索功能&lt;/h1&gt;
+&lt;p&gt;第一步，先去&lt;a href=&#34;https://www.algolia.com/&#34;&gt; Algolia 官网&lt;/a&gt;，注册一个账号，建议使用 Github 账号来注册，有了也可以直接登陆&lt;/p&gt;
+&lt;p&gt;做完后，左侧导航栏找到 &lt;code&gt;Search&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;如果是第一次使用 algolia，需要先创建一个 Application，应该是在上面，因为我已经注册过了，不知道第一次来的时候是不是在这里，没有就多找找&lt;/p&gt;
+&lt;p&gt;&lt;img loading=&#34;lazy&#34; data-src=&#34;https://pub-bb2fe671409047b187fac95b77253c54.r2.dev/img/20250225161028503.webp&#34; alt=&#34;image-20250225155005425&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;创建好之后，就在旁边，点击 &lt;code&gt;+ Create Index&lt;/code&gt;  创建一个 &lt;code&gt;Index&lt;/code&gt; ，名字随意，但建议要有辨识度&lt;/p&gt;
+&lt;p&gt;然后还是左侧导航栏， &lt;code&gt;Settings&lt;/code&gt; → &lt;code&gt;API Keys&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;然后按照下面的对应关系&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th style=&#34;text-align:center&#34;&gt;配置&lt;/th&gt;
+&lt;th style=&#34;text-align:center&#34;&gt;页面数据&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:center&#34;&gt;appId&lt;/td&gt;
+&lt;td style=&#34;text-align:center&#34;&gt;Application ID&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:center&#34;&gt;apiKey&lt;/td&gt;
+&lt;td style=&#34;text-align:center&#34;&gt;Search API Key&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:center&#34;&gt;adminApiKey&lt;/td&gt;
+&lt;td style=&#34;text-align:center&#34;&gt;Admin API Key&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=&#34;text-align:center&#34;&gt;indexName&lt;/td&gt;
+&lt;td style=&#34;text-align:center&#34;&gt;你之前创建的 &lt;code&gt;Index&lt;/code&gt;  名称&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;p&gt;把下面的配置修改好后加到博客根目录 &lt;code&gt;_config.yml&lt;/code&gt;  的末尾，到此就大功告成了&lt;/p&gt;
+&lt;figure class=&#34;highlight yaml&#34;&gt;&lt;figcaption data-lang=&#34;YAML&#34;&gt;&lt;/figcaption&gt;&lt;table&gt;&lt;tr&gt;&lt;td data-num=&#34;1&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token key atrule&#34;&gt;algolia&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;:&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;2&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;  &lt;span class=&#34;token key atrule&#34;&gt;appId&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;token comment&#34;&gt;#Your appId&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;3&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;  &lt;span class=&#34;token key atrule&#34;&gt;apiKey&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;token comment&#34;&gt;#Your apiKey&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;4&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;  &lt;span class=&#34;token key atrule&#34;&gt;adminApiKey&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;token comment&#34;&gt;#Your adminApiKey&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;5&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;  &lt;span class=&#34;token key atrule&#34;&gt;chunkSize&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;token number&#34;&gt;5000&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;6&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;  &lt;span class=&#34;token key atrule&#34;&gt;indexName&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;token comment&#34;&gt;#&#34;shokaX&#34;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;7&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;  &lt;span class=&#34;token key atrule&#34;&gt;fields&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;:&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;8&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;    &lt;span class=&#34;token punctuation&#34;&gt;-&lt;/span&gt; title &lt;span class=&#34;token comment&#34;&gt;#必须配置&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;9&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;    &lt;span class=&#34;token punctuation&#34;&gt;-&lt;/span&gt; path &lt;span class=&#34;token comment&#34;&gt;#必须配置&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;10&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;    &lt;span class=&#34;token punctuation&#34;&gt;-&lt;/span&gt; categories &lt;span class=&#34;token comment&#34;&gt;#推荐配置&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;11&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;    &lt;span class=&#34;token punctuation&#34;&gt;-&lt;/span&gt; content&lt;span class=&#34;token punctuation&#34;&gt;:&lt;/span&gt;strip&lt;span class=&#34;token punctuation&#34;&gt;:&lt;/span&gt;truncate&lt;span class=&#34;token punctuation&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;token number&#34;&gt;0&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;token number&#34;&gt;2000&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;12&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;    &lt;span class=&#34;token punctuation&#34;&gt;-&lt;/span&gt; gallery&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;13&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;    &lt;span class=&#34;token punctuation&#34;&gt;-&lt;/span&gt; photos&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;14&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;    &lt;span class=&#34;token punctuation&#34;&gt;-&lt;/span&gt; tags&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;div class=&#34;note primary&#34;&gt;
+&lt;p&gt;不要忘记在博客部署前命令行执行 &lt;code&gt;hexo algolia&lt;/code&gt;  上传索引，不然搜不到东西&lt;/p&gt;
+&lt;/div&gt;
+</content>
+        <category term="计算机科学" scheme="https://lyrashore.com/categories/computer-science/" />
+        <category term="Hexo" scheme="https://lyrashore.com/categories/computer-science/hexo/" />
+        <category term="Shokax" scheme="https://lyrashore.com/categories/computer-science/hexo/shokax/" />
+        <category term="Hexo" scheme="https://lyrashore.com/tags/Hexo/" />
+        <category term="ShokaX" scheme="https://lyrashore.com/tags/ShokaX/" />
+        <updated>2025-02-25T03:50:31.000Z</updated>
+    </entry>
+    <entry>
+        <id>https://lyrashore.com/computer-science/hexo/shokax/shokax-deploy/</id>
+        <title>Hexo+ShokaX主题+Vercel/Github Pages搭建个人博客(二)</title>
+        <link rel="alternate" href="https://lyrashore.com/computer-science/hexo/shokax/shokax-deploy/"/>
+        <content type="html">&lt;div class=&#34;note info&#34;&gt;
+&lt;p&gt;当你看到这里时，你应该已经成功在本地搭建了你的 hexo 博客，并且装上了 shokax&lt;/p&gt;
+&lt;p&gt;如果没有的话请戳这里 &lt;a href=&#34;/computer-science/hexo/shokax/shokax-start/&#34;&gt;1️⃣主题安装&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;下面我将默认你看完了第一部分内容，Let&#39; go.&lt;/p&gt;
+&lt;/div&gt;
+&lt;h1 id=&#34;介绍&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#介绍&#34;&gt;#&lt;/a&gt; 介绍&lt;/h1&gt;
+&lt;p&gt;下面推荐两种部署方式&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;%5BGitHub%5D(https://github.com/)&#34;&gt;Github Pages&lt;/a&gt;：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;优点：稳定性强，部署简单，使用方便，还支持自定义域名，最重要的是  &lt;code&gt;完!全!免!费!&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;缺点：国内访问速度一般，而且拒绝百度爬虫访问，不支持本主题搭配的评论系统，想使用需要自行替换或使用第三方接入。&lt;/li&gt;
+&lt;li&gt;总结：适合不太想折腾的，对费用特别敏感的人。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;a href=&#34;https://vercel.com/&#34;&gt;Vercel&lt;/a&gt;：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;优点：国内访问速度比 Github Pages 要快，支持自定义域名和自动部署。&lt;/li&gt;
+&lt;li&gt;缺点：构建次数和构建时长有限制，每月带宽限制 100G，国内域名被墙，需要搭配域名食用。&lt;/li&gt;
+&lt;li&gt;总结：速度快，每月资源的限制对个人博客而言完全够用，适合能够接受付费购买域名，对访问速度有要求的人。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;小声 bb：其实还有其他的选择比如 Netlify，这个和 vercel 差不多，甚至不需要域名就可以在国内访问，但听说速度不太理想，我也没试过，感兴趣的可以尝试尝试&lt;/p&gt;
+&lt;h1 id=&#34;github-pages-部署&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#github-pages-部署&#34;&gt;#&lt;/a&gt; Github Pages 部署&lt;/h1&gt;
+&lt;p&gt;首先，你要有一个 github 账号，这个我默认你已经有了。&lt;/p&gt;
+&lt;p&gt;来到 &lt;a href=&#34;%5BGitHub%5D(https://github.com/)&#34;&gt;github&lt;/a&gt; 首页，点击左上角的  &lt;code&gt;new&lt;/code&gt;  创建一个新仓库&lt;/p&gt;
+&lt;p&gt;&lt;img loading=&#34;lazy&#34; data-src=&#34;https://pub-bb2fe671409047b187fac95b77253c54.r2.dev/img/20250224135538687.webp&#34; alt=&#34;image-20250224135433941&#34; /&gt;&lt;/p&gt;
+&lt;div class=&#34;note info&#34;&gt;
+&lt;p&gt;&lt;span class=&#34;label danger&#34;&gt;注意&lt;/span&gt;仓库名必须是  &lt;code&gt;你的github用户名.github.io&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;仓库类型选择公开 (Public)&lt;/p&gt;
+&lt;/div&gt;
+&lt;p&gt;创建成功之后回到我们的 hexo 根目录，在命令行中安装 git 插件&lt;/p&gt;
+&lt;figure class=&#34;highlight bash&#34;&gt;&lt;figcaption data-lang=&#34;bash&#34;&gt;&lt;/figcaption&gt;&lt;table&gt;&lt;tr&gt;&lt;td data-num=&#34;1&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token function&#34;&gt;pnpm&lt;/span&gt; &lt;span class=&#34;token function&#34;&gt;add&lt;/span&gt; hexo-deployer-git&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;p&gt;安装完成之后回 github，复制仓库链接&lt;/p&gt;
+&lt;p&gt;&lt;img loading=&#34;lazy&#34; data-src=&#34;https://pub-bb2fe671409047b187fac95b77253c54.r2.dev/img/20250224140509790.webp&#34; alt=&#34;image-20250224140505681&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;打开 hexo 根目录的  &lt;code&gt;_config.yml&lt;/code&gt; ，找到&lt;/p&gt;
+&lt;figure class=&#34;highlight yaml&#34;&gt;&lt;figcaption data-lang=&#34;YAML&#34;&gt;&lt;/figcaption&gt;&lt;table&gt;&lt;tr&gt;&lt;td data-num=&#34;1&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token key atrule&#34;&gt;deploy&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;:&lt;/span&gt; &lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;2&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;  &lt;span class=&#34;token key atrule&#34;&gt;type&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;token string&#34;&gt;&#39;&#39;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;p&gt;修改成&lt;/p&gt;
+&lt;figure class=&#34;highlight yaml&#34;&gt;&lt;figcaption data-lang=&#34;YAML&#34;&gt;&lt;/figcaption&gt;&lt;table&gt;&lt;tr&gt;&lt;td data-num=&#34;1&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token key atrule&#34;&gt;deploy&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;:&lt;/span&gt; &lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;2&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;  &lt;span class=&#34;token key atrule&#34;&gt;type&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;:&lt;/span&gt; git&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;3&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;  &lt;span class=&#34;token key atrule&#34;&gt;repository&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;:&lt;/span&gt; https&lt;span class=&#34;token punctuation&#34;&gt;:&lt;/span&gt;//github.com/Winter334/Winter334.github.io.git &lt;span class=&#34;token comment&#34;&gt;#你刚刚复制的链接&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;4&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;  &lt;span class=&#34;token key atrule&#34;&gt;branch&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;:&lt;/span&gt; main&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;p&gt;然后命令行执行&lt;/p&gt;
+&lt;figure class=&#34;highlight bash&#34;&gt;&lt;figcaption data-lang=&#34;bash&#34;&gt;&lt;/figcaption&gt;&lt;table&gt;&lt;tr&gt;&lt;td data-num=&#34;1&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;hexo clean &lt;span class=&#34;token operator&#34;&gt;&amp;amp;&amp;amp;&lt;/span&gt; hexo g &lt;span class=&#34;token operator&#34;&gt;&amp;amp;&amp;amp;&lt;/span&gt; hexo d&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;p&gt;静静等待执行完毕，就可以通过  &lt;code&gt;你的github用户名.github.io&lt;/code&gt;  访问你的博客啦&lt;/p&gt;
+&lt;h1 id=&#34;vercel-部署&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#vercel-部署&#34;&gt;#&lt;/a&gt; Vercel 部署&lt;/h1&gt;
+&lt;h2 id=&#34;项目托管&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#项目托管&#34;&gt;#&lt;/a&gt; 项目托管&lt;/h2&gt;
+&lt;p&gt;vercel 部署依赖 github 仓库，首先先创建一个仓库，名字随意，仓库类型随意&lt;/p&gt;
+&lt;p&gt;然后按照 Github Pages 的教程把博客部署到你的刚刚创建的仓库里&lt;/p&gt;
+&lt;p&gt;&lt;img loading=&#34;lazy&#34; data-src=&#34;https://pub-bb2fe671409047b187fac95b77253c54.r2.dev/img/20250224145752649.webp&#34; alt=&#34;image-20250224145742324&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;之后 &lt;a href=&#34;https://vercel.com/&#34;&gt;登陆 Vercel&lt;/a&gt;, 建议使用 github 登陆&lt;/p&gt;
+&lt;p&gt;登陆之后右上角  &lt;code&gt;Add New...&lt;/code&gt; ➡️ &lt;code&gt;Project&lt;/code&gt; ，添加新项目&lt;/p&gt;
+&lt;p&gt;&lt;img loading=&#34;lazy&#34; data-src=&#34;https://pub-bb2fe671409047b187fac95b77253c54.r2.dev/img/20250224150420628.webp&#34; alt=&#34;image-20250224150418458&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;在这里搜索你之前创建的仓库，点击  &lt;code&gt;Import&lt;/code&gt;  ➡️  &lt;code&gt;Deploy&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;然后只需要慢慢等待部署成功就可以了&lt;/p&gt;
+&lt;p&gt;之后我们点进刚刚部署成功的项目，右上角找到  &lt;code&gt;Domains&lt;/code&gt; ，点击它，进入域名管理页&lt;/p&gt;
+&lt;p&gt;&lt;img loading=&#34;lazy&#34; data-src=&#34;https://pub-bb2fe671409047b187fac95b77253c54.r2.dev/img/20250224151251491.webp&#34; alt=&#34;image-20250224151249774&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;这个就是 vercel 为你自动分配的域名，不过现在 vercel 的域名在国内被墙了，不用魔法的话是访问不了的，不过我们可以绑定自己的域名来实现国内访问&lt;/p&gt;
+&lt;h2 id=&#34;自定义域名&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#自定义域名&#34;&gt;#&lt;/a&gt; 自定义域名&lt;/h2&gt;
+&lt;p&gt;其实 Github Pages 也支持自定义域名，但是需要自备 SSL 证书，不然会被浏览器提醒危险，而 vercel 会为我们自动配置证书&lt;/p&gt;
+&lt;p&gt;找一个域名商，我这里以阿里云为例&lt;/p&gt;
+&lt;p&gt;&lt;img loading=&#34;lazy&#34; data-src=&#34;https://pub-bb2fe671409047b187fac95b77253c54.r2.dev/img/20250224152057115.webp&#34; alt=&#34;image-20250224152053215&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;输入你想要的域名，先查询域名是否被注册&lt;/p&gt;
+&lt;p&gt;如果被注册了，那就只能换一个了，除非你愿意支付高额的转让费用&lt;span class=&#34;spoiler&#34; title=&#34;你知道得太多了&#34;&gt;只恨财力不足 (´Д`) y━･~~&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;挑好自己满意的域名之后，购买即可，需要实名，一般引导都很详细，跟着照做即可&lt;/p&gt;
+&lt;p&gt;一切都准备就绪之后，我们打开 vercel 域名管理页点击  &lt;code&gt;Add&lt;/code&gt; ，添加你刚刚购买的域名&lt;/p&gt;
+&lt;p&gt;&lt;img loading=&#34;lazy&#34; data-src=&#34;https://pub-bb2fe671409047b187fac95b77253c54.r2.dev/img/20250224154001473.webp&#34; alt=&#34;image-20250224153957167&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;然后 vercel 会给出这样两条记录&lt;/p&gt;
+&lt;p&gt;之后我们返回你的云服务商，打开控制台，选择  &lt;code&gt;云解析DNS&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img loading=&#34;lazy&#34; data-src=&#34;https://pub-bb2fe671409047b187fac95b77253c54.r2.dev/img/20250224153414566.webp&#34; alt=&#34;image-20250224153411273&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;点击你购买的域名，选择添加记录&lt;/p&gt;
+&lt;p&gt;&lt;img loading=&#34;lazy&#34; data-src=&#34;https://pub-bb2fe671409047b187fac95b77253c54.r2.dev/img/20250224154413415.webp&#34; alt=&#34;image-20250224154411693&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;对于规则如下，一一对照把 vercel 上显示的内容添加过来就行了，两条都要添加&lt;/p&gt;
+&lt;div class=&#34;note primary&#34;&gt;
+&lt;ul&gt;
+&lt;li&gt;Type：记录类型&lt;/li&gt;
+&lt;li&gt;Name：主机记录&lt;/li&gt;
+&lt;li&gt;Value：记录值&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;p&gt;做完这一切之后，稍微等待一会&lt;/p&gt;
+&lt;p&gt;&lt;img loading=&#34;lazy&#34; data-src=&#34;https://pub-bb2fe671409047b187fac95b77253c54.r2.dev/img/20250224154849434.webp&#34; alt=&#34;image-20250224154846686&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;vercel 域名控制页显示这样就绑定成功了，现在你就可以使用你的域名访问你的博客啦&lt;/p&gt;
+&lt;h1 id=&#34;其他问题&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#其他问题&#34;&gt;#&lt;/a&gt; 其他问题&lt;/h1&gt;
+&lt;h2 id=&#34;检测到仿冒网站弹窗&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#检测到仿冒网站弹窗&#34;&gt;#&lt;/a&gt; 检测到仿冒网站弹窗&lt;/h2&gt;
+&lt;p&gt;如果遇到下面这种情况，是因为 shokax 默认开启防镜像站功能&lt;/p&gt;
+&lt;p&gt;&lt;img loading=&#34;lazy&#34; data-src=&#34;https://pub-bb2fe671409047b187fac95b77253c54.r2.dev/img/20250224141602665.webp&#34; alt=&#34;image-20250224141600362&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;解决办法也很简单，打开  &lt;code&gt;_config.yml&lt;/code&gt; , 找到  &lt;code&gt;url&lt;/code&gt;  一栏&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Github Pages 部署：将网址修改成  &lt;code&gt;https://你的github用户名.github.io/&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;Vercel: 将网址修改成  &lt;code&gt;https://你的域名&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;示例:&lt;/p&gt;
+&lt;figure class=&#34;highlight yaml&#34;&gt;&lt;figcaption data-lang=&#34;YAML&#34;&gt;&lt;/figcaption&gt;&lt;table&gt;&lt;tr&gt;&lt;td data-num=&#34;1&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token comment&#34;&gt;#Github Pages&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;2&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token key atrule&#34;&gt;url&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;:&lt;/span&gt; https&lt;span class=&#34;token punctuation&#34;&gt;:&lt;/span&gt;//winter334.github.io/&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;3&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token comment&#34;&gt;#Vercel&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;4&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token key atrule&#34;&gt;url&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;:&lt;/span&gt; https&lt;span class=&#34;token punctuation&#34;&gt;:&lt;/span&gt;//你的域名&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;p&gt;然后重新部署就可以了&lt;/p&gt;
+&lt;h2 id=&#34;图片不显示&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#图片不显示&#34;&gt;#&lt;/a&gt; 图片不显示&lt;/h2&gt;
+&lt;p&gt;关于图片，shokax 自带的 images 链接已经失效，可以使用静态图片代替，具体操作可以参考 &lt;a href=&#34;https://docs.kaitaku.xyz/guide/theme.html#%E8%87%AA%E5%AE%9A%E4%B9%89%E7%BD%91%E7%AB%99%E5%9B%BE%E7%89%87&#34;&gt;自定义网站图片&lt;/a&gt;，以及 &lt;a href=&#34;https://docs.kaitaku.xyz/guide/theme.html#%E5%9B%BE%E7%89%87%E8%87%AA%E5%AE%9A%E4%B9%89&#34;&gt;图片自定义&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;不过使用静态图像会拖慢网站的加载速度，也会增加网站的流量负担，建议使用图床代替&lt;/p&gt;
+&lt;p&gt;如何自建免费图床，可以期待我之后的更新&lt;/p&gt;
+</content>
+        <category term="计算机科学" scheme="https://lyrashore.com/categories/computer-science/" />
+        <category term="Hexo" scheme="https://lyrashore.com/categories/computer-science/hexo/" />
+        <category term="Shokax" scheme="https://lyrashore.com/categories/computer-science/hexo/shokax/" />
+        <category term="Hexo" scheme="https://lyrashore.com/tags/Hexo/" />
+        <category term="ShokaX" scheme="https://lyrashore.com/tags/ShokaX/" />
+        <updated>2025-02-24T00:54:28.000Z</updated>
+    </entry>
+    <entry>
+        <id>https://lyrashore.com/computer-science/hexo/shokax/shokax-start/</id>
+        <title>Hexo+ShokaX主题+Vercel/Github Pages搭建个人博客(一)</title>
+        <link rel="alternate" href="https://lyrashore.com/computer-science/hexo/shokax/shokax-start/"/>
+        <content type="html">&lt;div class=&#34;note info&#34;&gt;
+&lt;p&gt;本文记录了我的搭建过程，以及过程中我遇到的问题和解决方法，应该可以给同样想要搭建 shokax 主题博客的大家提供一定的参考。&lt;/p&gt;
+&lt;p&gt;以下内容由博主自行摸索 + 查阅相关文档整理得来，其中如果有误，还请各位大佬指正。&lt;/p&gt;
+&lt;p&gt;博主&lt;span class=&#34;spoiler&#34; title=&#34;你知道得太多了&#34;&gt;半瓶水&lt;/span&gt; 术语使用不专业，如若有疑问，欢迎留言咨询。&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;note primary&#34;&gt;
+&lt;p&gt;因文章比较长&lt;span class=&#34;spoiler&#34; title=&#34;你知道得太多了&#34;&gt;想多水几篇&lt;/span&gt;，故分成几个以提升观感，可以点击下面进行跳转&lt;/p&gt;
+&lt;p&gt;&lt;a href=&#34;/computer-science/hexo/shokax/shokax-start/&#34;&gt;1️⃣主题安装&lt;/a&gt; - &lt;a href=&#34;/computer-science/hexo/shokax/shokax-deploy/&#34;&gt;2️⃣主题部署&lt;/a&gt; - &lt;a href=&#34;/computer-science/hexo/shokax/shokax-module/&#34;&gt;3️⃣配套功能&lt;/a&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;h1 id=&#34;准备工作&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#准备工作&#34;&gt;#&lt;/a&gt; 准备工作&lt;/h1&gt;
+&lt;h2 id=&#34;nodejs&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#nodejs&#34;&gt;#&lt;/a&gt; Node.js&lt;/h2&gt;
+&lt;p&gt;根据 &lt;a href=&#34;https://hexo.docs.shokax.top/getting-started/&#34;&gt;官方文档&lt;/a&gt; 中所述，ShokaX 主题需要 nodejs 18 以及更高的版本，因此需要提前准备好，避免到时候掉链子&lt;/p&gt;
+&lt;p&gt;如果你已经安装好 nodejs 的话，可以直接跳过去下一步&lt;/p&gt;
+&lt;p&gt;如果没有的话，这边推荐使用 &lt;a href=&#34;https://github.com/coreybutler/nvm-windows/releases&#34;&gt;nvm&lt;/a&gt;, 方便以后管理 nodejs 版本，有时候不同的项目要求的 nodejs 版本不同，来回切换真的很麻烦&lt;/p&gt;
+&lt;p&gt;通过 nvm 可以快速的切换 nodejs 版本，去 Github &lt;a href=&#34;https://github.com/coreybutler/nvm-windows/releases&#34;&gt;下载最新版 nvm 安装程序&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img loading=&#34;lazy&#34; data-src=&#34;https://pub-bb2fe671409047b187fac95b77253c54.r2.dev/img/20250223213724537.webp&#34; alt=&#34;image-20250223164620331&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;之后一直下一步就行了&lt;/p&gt;
+&lt;p&gt;&lt;img loading=&#34;lazy&#34; data-src=&#34;https://pub-bb2fe671409047b187fac95b77253c54.r2.dev/img/20250223213724538.webp&#34; alt=&#34;image-20250223165729195&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;装完之后 &lt;span class=&#34;kbd&#34;&gt;Win&lt;/span&gt; + &lt;span class=&#34;kbd red&#34;&gt;R&lt;/span&gt; 打开命令提示符，输入&lt;/p&gt;
+&lt;figure class=&#34;highlight bash&#34;&gt;&lt;figcaption data-lang=&#34;bash&#34;&gt;&lt;/figcaption&gt;&lt;table&gt;&lt;tr&gt;&lt;td data-num=&#34;1&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;nvm version&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;p&gt;能看见版本号就说明安装好了&lt;/p&gt;
+&lt;p&gt;&lt;img loading=&#34;lazy&#34; data-src=&#34;https://pub-bb2fe671409047b187fac95b77253c54.r2.dev/img/20250223213724539.webp&#34; alt=&#34;image-20250223172119900&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;接下来就是安装 node 了&lt;/p&gt;
+&lt;p&gt;在命令提示符里面输入&lt;/p&gt;
+&lt;figure class=&#34;highlight bash&#34;&gt;&lt;figcaption data-lang=&#34;bash&#34;&gt;&lt;/figcaption&gt;&lt;table&gt;&lt;tr&gt;&lt;td data-num=&#34;1&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;nvm &lt;span class=&#34;token function&#34;&gt;install&lt;/span&gt; &lt;span class=&#34;token number&#34;&gt;18.19&lt;/span&gt;.0&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;2&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token comment&#34;&gt;#静静等待安装完成的提示&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;3&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token comment&#34;&gt;#速度慢的话切换国内镜像，网上教程很多，我就不过多赘述了，毕竟这不是今天的主题&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;4&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;nvm use &lt;span class=&#34;token number&#34;&gt;18.19&lt;/span&gt;.0&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;p&gt;到此 nodejs 就算安装成功了&lt;/p&gt;
+&lt;h2 id=&#34;包管理器-pnpm&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#包管理器-pnpm&#34;&gt;#&lt;/a&gt;  &lt;code&gt;包管理器&lt;/code&gt;  pnpm&lt;/h2&gt;
+&lt;p&gt;接下来安装包管理器，官方文档建议我们使用 pnpm，那我们就安装它&lt;/p&gt;
+&lt;p&gt;很简单，只需要在命令提示符里面输入&lt;/p&gt;
+&lt;figure class=&#34;highlight bash&#34;&gt;&lt;figcaption data-lang=&#34;bash&#34;&gt;&lt;/figcaption&gt;&lt;table&gt;&lt;tr&gt;&lt;td data-num=&#34;1&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token function&#34;&gt;npm&lt;/span&gt; &lt;span class=&#34;token function&#34;&gt;install&lt;/span&gt; &lt;span class=&#34;token parameter variable&#34;&gt;-g&lt;/span&gt; pnpm@latest-10&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;h1 id=&#34;hexo-安装&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#hexo-安装&#34;&gt;#&lt;/a&gt; Hexo 安装&lt;/h1&gt;
+&lt;p&gt;打开命令提示符，输入以下命令&lt;/p&gt;
+&lt;figure class=&#34;highlight bash&#34;&gt;&lt;figcaption data-lang=&#34;bash&#34;&gt;&lt;/figcaption&gt;&lt;table&gt;&lt;tr&gt;&lt;td data-num=&#34;1&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token function&#34;&gt;pnpm&lt;/span&gt; &lt;span class=&#34;token function&#34;&gt;add&lt;/span&gt; hexo-cli &lt;span class=&#34;token parameter variable&#34;&gt;-g&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;2&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token comment&#34;&gt;#cd 你的博客目录&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;3&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;hexo init&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;4&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token comment&#34;&gt;#静静等待命令执行完成&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;p&gt;完成之后我们会得到如图所示的一堆文件&lt;/p&gt;
+&lt;p&gt;&lt;img loading=&#34;lazy&#34; data-src=&#34;https://pub-bb2fe671409047b187fac95b77253c54.r2.dev/img/20250223213724536.webp&#34; alt=&#34;image-20250223190336257&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;命令行执行  &lt;code&gt;hexo s&lt;/code&gt; ，打开给出的那串地址，可以看到 hexo 已经安装成功了&lt;/p&gt;
+&lt;p&gt;&lt;img loading=&#34;lazy&#34; data-src=&#34;https://pub-bb2fe671409047b187fac95b77253c54.r2.dev/img/20250223225419220.webp&#34; alt=&#34;image-20250223225415009&#34; /&gt;&lt;/p&gt;
+&lt;h1 id=&#34;shoax-安装&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#shoax-安装&#34;&gt;#&lt;/a&gt; ShoaX 安装&lt;/h1&gt;
+&lt;p&gt;下面我们 cd 到  &lt;code&gt;themes&lt;/code&gt;  进行 ShokaX 主题的安装&lt;/p&gt;
+&lt;figure class=&#34;highlight bash&#34;&gt;&lt;figcaption data-lang=&#34;bash&#34;&gt;&lt;/figcaption&gt;&lt;table&gt;&lt;tr&gt;&lt;td data-num=&#34;1&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token builtin class-name&#34;&gt;cd&lt;/span&gt; themes&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;2&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token function&#34;&gt;git&lt;/span&gt; clone https://github.com/theme-shoka-x/hexo-theme-shokaX.git &lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;3&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token comment&#34;&gt;#这里可以替换成你自己的仓库，建议 fork 主题仓库，方便后续更新主题&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;4&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token comment&#34;&gt;#clone 完成之后，把 hexo-theme-shokaX 重命名成 shokax&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;5&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token builtin class-name&#34;&gt;cd&lt;/span&gt; shokax&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;6&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token function&#34;&gt;node&lt;/span&gt; ./toolbox/compiler.mjs&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;p&gt;这时候遇到报错了，先别急，仔细看看，貌似是缺少  &lt;code&gt;esbuild&lt;/code&gt;  依赖包，我们把它装上&lt;/p&gt;
+&lt;p&gt;&lt;img loading=&#34;lazy&#34; data-src=&#34;https://pub-bb2fe671409047b187fac95b77253c54.r2.dev/img/20250223223411724.webp&#34; alt=&#34;image-20250223223408250&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;命令行执行  &lt;code&gt;pnpm add esbuild&lt;/code&gt;&lt;/p&gt;
+&lt;figure class=&#34;highlight bash&#34;&gt;&lt;figcaption data-lang=&#34;bash&#34;&gt;&lt;/figcaption&gt;&lt;table&gt;&lt;tr&gt;&lt;td data-num=&#34;1&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token function&#34;&gt;pnpm&lt;/span&gt; &lt;span class=&#34;token function&#34;&gt;add&lt;/span&gt; esbuild&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;p&gt;等待安装完成之后再次执行刚刚报错的命令就能够顺利执行了&lt;/p&gt;
+&lt;p&gt;编译完成之后我们 cd 到 hexo 根目录，执行下面的命令&lt;/p&gt;
+&lt;figure class=&#34;highlight bash&#34;&gt;&lt;figcaption data-lang=&#34;bash&#34;&gt;&lt;/figcaption&gt;&lt;table&gt;&lt;tr&gt;&lt;td data-num=&#34;1&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token builtin class-name&#34;&gt;cd&lt;/span&gt; &lt;span class=&#34;token punctuation&#34;&gt;..&lt;/span&gt;/&lt;span class=&#34;token punctuation&#34;&gt;..&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;2&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token function&#34;&gt;node&lt;/span&gt; ./themes/shokax/toolbox/hoistdep.mjs&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;p&gt;等待运行完成之后，打开 hexo 根目录的  &lt;code&gt;_config.yml&lt;/code&gt; ，把  &lt;code&gt;theme: landscape&lt;/code&gt;  改成  &lt;code&gt;theme: shokax&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;顺便再把  &lt;code&gt;language: cn&lt;/code&gt;  改成  &lt;code&gt;language: zh-CN&lt;/code&gt;  更换博客主语言&lt;/p&gt;
+&lt;p&gt;接着再次 hexo s 进行预览，看见下面这样的，就已经成功 90% 了&lt;/p&gt;
+&lt;div class=&#34;note info&#34;&gt;
+&lt;p&gt;按 &lt;span class=&#34;kbd&#34;&gt;Ctrl&lt;/span&gt; + &lt;span class=&#34;kbd red&#34;&gt;C&lt;/span&gt; 可以结束进程&lt;/p&gt;
+&lt;/div&gt;
+&lt;p&gt;&lt;img loading=&#34;lazy&#34; data-src=&#34;https://pub-bb2fe671409047b187fac95b77253c54.r2.dev/img/20250223230719567.webp&#34; alt=&#34;image-20250223230715930&#34; /&gt;&lt;/p&gt;
+&lt;h2 id=&#34;基本配置&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#基本配置&#34;&gt;#&lt;/a&gt; 基本配置&lt;/h2&gt;
+&lt;div class=&#34;note primary&#34;&gt;
+&lt;p&gt;在此之前&lt;/p&gt;
+&lt;p&gt;记得把 hexo 根目录的  &lt;code&gt;_config.landscape.yml&lt;/code&gt;  重命名为  &lt;code&gt;_config.shokax.yml&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;这很重要，把主题配置独立出来，既方便管理，也能避免主题更新时配置被覆盖的问题&lt;/p&gt;
+&lt;/div&gt;
+&lt;h3 id=&#34;markdown-配置&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#markdown-配置&#34;&gt;#&lt;/a&gt; markdown 配置&lt;/h3&gt;
+&lt;p&gt;打开 hexo 根目录的  &lt;code&gt;_config.yml&lt;/code&gt;  文件，把下面的配置加到最后面  &lt;span class=&#34;label danger&#34;&gt;注意缩进&lt;/span&gt;&lt;/p&gt;
+&lt;figure class=&#34;highlight yaml&#34;&gt;&lt;figcaption data-lang=&#34;YAML&#34;&gt;&lt;/figcaption&gt;&lt;table&gt;&lt;tr&gt;&lt;td data-num=&#34;1&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token key atrule&#34;&gt;markdown&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;:&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;2&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;  &lt;span class=&#34;token key atrule&#34;&gt;render&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;token comment&#34;&gt;# 渲染器设置&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;3&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;    &lt;span class=&#34;token key atrule&#34;&gt;html&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;token boolean important&#34;&gt;false&lt;/span&gt; &lt;span class=&#34;token comment&#34;&gt;# 过滤 HTML 标签&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;4&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;    &lt;span class=&#34;token key atrule&#34;&gt;xhtmlOut&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;token boolean important&#34;&gt;true&lt;/span&gt; &lt;span class=&#34;token comment&#34;&gt;# 使用 &#39;/&#39; 来闭合单标签 （比如 &amp;lt;br /&gt;）。&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;5&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;    &lt;span class=&#34;token key atrule&#34;&gt;breaks&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;token boolean important&#34;&gt;true&lt;/span&gt; &lt;span class=&#34;token comment&#34;&gt;# 转换段落里的 &#39;\n&#39; 到 &amp;lt;br&gt;。&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;6&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;    &lt;span class=&#34;token key atrule&#34;&gt;linkify&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;token boolean important&#34;&gt;true&lt;/span&gt; &lt;span class=&#34;token comment&#34;&gt;# 将类似 URL 的文本自动转换为链接。&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;7&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;    &lt;span class=&#34;token key atrule&#34;&gt;typographer&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;:&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;8&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;    &lt;span class=&#34;token key atrule&#34;&gt;quotes&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;token string&#34;&gt;&#34;“”‘’&#34;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;9&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;  &lt;span class=&#34;token key atrule&#34;&gt;plugins&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;token comment&#34;&gt;# markdown-it 插件设置&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;10&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;    &lt;span class=&#34;token punctuation&#34;&gt;-&lt;/span&gt; &lt;span class=&#34;token key atrule&#34;&gt;plugin&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;:&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;11&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;        &lt;span class=&#34;token key atrule&#34;&gt;name&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;:&lt;/span&gt; markdown&lt;span class=&#34;token punctuation&#34;&gt;-&lt;/span&gt;it&lt;span class=&#34;token punctuation&#34;&gt;-&lt;/span&gt;toc&lt;span class=&#34;token punctuation&#34;&gt;-&lt;/span&gt;and&lt;span class=&#34;token punctuation&#34;&gt;-&lt;/span&gt;anchor&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;12&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;        &lt;span class=&#34;token key atrule&#34;&gt;enable&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;token boolean important&#34;&gt;true&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;13&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;        &lt;span class=&#34;token key atrule&#34;&gt;options&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;token comment&#34;&gt;# 文章目录以及锚点应用的 class 名称，shoka 系主题必须设置成这样&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;14&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;          &lt;span class=&#34;token key atrule&#34;&gt;tocClassName&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;token string&#34;&gt;&#34;toc&#34;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;15&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;          &lt;span class=&#34;token key atrule&#34;&gt;anchorClassName&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;token string&#34;&gt;&#34;anchor&#34;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;16&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;    &lt;span class=&#34;token punctuation&#34;&gt;-&lt;/span&gt; &lt;span class=&#34;token key atrule&#34;&gt;plugin&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;:&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;17&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;        &lt;span class=&#34;token key atrule&#34;&gt;name&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;:&lt;/span&gt; markdown&lt;span class=&#34;token punctuation&#34;&gt;-&lt;/span&gt;it&lt;span class=&#34;token punctuation&#34;&gt;-&lt;/span&gt;multimd&lt;span class=&#34;token punctuation&#34;&gt;-&lt;/span&gt;table&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;18&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;        &lt;span class=&#34;token key atrule&#34;&gt;enable&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;token boolean important&#34;&gt;true&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;19&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;        &lt;span class=&#34;token key atrule&#34;&gt;options&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;:&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;20&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;          &lt;span class=&#34;token key atrule&#34;&gt;multiline&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;token boolean important&#34;&gt;true&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;21&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;          &lt;span class=&#34;token key atrule&#34;&gt;rowspan&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;token boolean important&#34;&gt;true&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;22&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;          &lt;span class=&#34;token key atrule&#34;&gt;headerless&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;token boolean important&#34;&gt;true&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;23&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;    &lt;span class=&#34;token punctuation&#34;&gt;-&lt;/span&gt; &lt;span class=&#34;token key atrule&#34;&gt;plugin&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;:&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;24&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;        &lt;span class=&#34;token key atrule&#34;&gt;name&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;:&lt;/span&gt; ./markdown&lt;span class=&#34;token punctuation&#34;&gt;-&lt;/span&gt;it&lt;span class=&#34;token punctuation&#34;&gt;-&lt;/span&gt;furigana&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;25&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;        &lt;span class=&#34;token key atrule&#34;&gt;enable&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;token boolean important&#34;&gt;true&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;26&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;        &lt;span class=&#34;token key atrule&#34;&gt;options&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;:&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;27&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;          &lt;span class=&#34;token key atrule&#34;&gt;fallbackParens&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;token string&#34;&gt;&#34;()&#34;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;28&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;    &lt;span class=&#34;token punctuation&#34;&gt;-&lt;/span&gt; &lt;span class=&#34;token key atrule&#34;&gt;plugin&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;:&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;29&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;        &lt;span class=&#34;token key atrule&#34;&gt;name&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;:&lt;/span&gt; ./markdown&lt;span class=&#34;token punctuation&#34;&gt;-&lt;/span&gt;it&lt;span class=&#34;token punctuation&#34;&gt;-&lt;/span&gt;spoiler&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;30&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;        &lt;span class=&#34;token key atrule&#34;&gt;enable&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;token boolean important&#34;&gt;true&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;31&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;        &lt;span class=&#34;token key atrule&#34;&gt;options&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;:&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;32&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;          &lt;span class=&#34;token key atrule&#34;&gt;title&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;token string&#34;&gt;&#34;你知道得太多了&#34;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;h3 id=&#34;停用默认代码高亮&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#停用默认代码高亮&#34;&gt;#&lt;/a&gt; 停用默认代码高亮&lt;/h3&gt;
+&lt;p&gt;打开 hexo 根目录  &lt;code&gt;package.json&lt;/code&gt; ，查看  &lt;code&gt;hexo&lt;/code&gt;  的版本，停用内建代码高亮组件&lt;/p&gt;
+&lt;div class=&#34;note info&#34;&gt;
+&lt;p&gt;shokax 自己的渲染器自带代码高亮&lt;/p&gt;
+&lt;/div&gt;
+&lt;p&gt;如果小于等于  &lt;code&gt;6.3.0&lt;/code&gt; ，修改  &lt;code&gt;_config.yml&lt;/code&gt;&lt;/p&gt;
+&lt;figure class=&#34;highlight yaml&#34;&gt;&lt;figcaption data-lang=&#34;YAML&#34;&gt;&lt;/figcaption&gt;&lt;table&gt;&lt;tr&gt;&lt;td data-num=&#34;1&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token key atrule&#34;&gt;highlight&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;:&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;2&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;  &lt;span class=&#34;token key atrule&#34;&gt;enable&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;token boolean important&#34;&gt;false&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;3&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;4&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token key atrule&#34;&gt;prismjs&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;:&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;5&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;  &lt;span class=&#34;token key atrule&#34;&gt;enable&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;token boolean important&#34;&gt;false&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;p&gt;如果大于等于  &lt;code&gt;7.0.0-rc1&lt;/code&gt;&lt;/p&gt;
+&lt;figure class=&#34;highlight yaml&#34;&gt;&lt;figcaption data-lang=&#34;YAML&#34;&gt;&lt;/figcaption&gt;&lt;table&gt;&lt;tr&gt;&lt;td data-num=&#34;1&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token key atrule&#34;&gt;syntax_highlighter&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;token boolean important&#34;&gt;false&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;h3 id=&#34;文件压缩&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#文件压缩&#34;&gt;#&lt;/a&gt; 文件压缩&lt;/h3&gt;
+&lt;p&gt;把下面的配置加到  &lt;code&gt;_config.yml&lt;/code&gt;  末尾&lt;/p&gt;
+&lt;figure class=&#34;highlight yaml&#34;&gt;&lt;figcaption data-lang=&#34;YAML&#34;&gt;&lt;/figcaption&gt;&lt;table&gt;&lt;tr&gt;&lt;td data-num=&#34;1&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token key atrule&#34;&gt;minify&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;:&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;2&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;  &lt;span class=&#34;token key atrule&#34;&gt;js&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;:&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;3&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;    &lt;span class=&#34;token key atrule&#34;&gt;enable&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;token boolean important&#34;&gt;false&lt;/span&gt; &lt;span class=&#34;token comment&#34;&gt;# ShokaX 自带 esbuild 优化，不建议开启，其他主题建议开启&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;4&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;    &lt;span class=&#34;token key atrule&#34;&gt;exclude&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;token comment&#34;&gt;# 排除文件，接受 string []，需符合 micromatch 格式&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;5&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;  &lt;span class=&#34;token key atrule&#34;&gt;css&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;:&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;6&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;    &lt;span class=&#34;token key atrule&#34;&gt;enable&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;token boolean important&#34;&gt;true&lt;/span&gt; &lt;span class=&#34;token comment&#34;&gt;# 开启 CSS 优化&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;7&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;    &lt;span class=&#34;token key atrule&#34;&gt;options&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;:&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;8&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;      &lt;span class=&#34;token key atrule&#34;&gt;targets&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;token string&#34;&gt;&#34;&gt;= 0.5%&#34;&lt;/span&gt; &lt;span class=&#34;token comment&#34;&gt;# browserslist 格式的 target&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;9&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;    &lt;span class=&#34;token key atrule&#34;&gt;exclude&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;token comment&#34;&gt;# 排除文件，接受 string []，需符合 micromatch 格式&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;10&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;  &lt;span class=&#34;token key atrule&#34;&gt;html&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;:&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;11&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;    &lt;span class=&#34;token key atrule&#34;&gt;minifier&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;:&lt;/span&gt; html&lt;span class=&#34;token punctuation&#34;&gt;-&lt;/span&gt;minifier&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;12&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;    &lt;span class=&#34;token key atrule&#34;&gt;enable&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;token boolean important&#34;&gt;true&lt;/span&gt; &lt;span class=&#34;token comment&#34;&gt;# 开启 HTML 优化&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;13&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;    &lt;span class=&#34;token key atrule&#34;&gt;options&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;:&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;14&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;      &lt;span class=&#34;token key atrule&#34;&gt;comments&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;token boolean important&#34;&gt;false&lt;/span&gt; &lt;span class=&#34;token comment&#34;&gt;# 是否保留注释内容&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;15&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;    &lt;span class=&#34;token key atrule&#34;&gt;exclude&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;token comment&#34;&gt;# 排除文件，接受 string []，需符合 micromatch 格式&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;16&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;  &lt;span class=&#34;token key atrule&#34;&gt;image&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;:&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;17&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;    &lt;span class=&#34;token key atrule&#34;&gt;enable&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;token boolean important&#34;&gt;false&lt;/span&gt; &lt;span class=&#34;token comment&#34;&gt;# 开启图片预处理和自动 WebP 化&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;18&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;    &lt;span class=&#34;token key atrule&#34;&gt;options&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;:&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;19&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;      &lt;span class=&#34;token key atrule&#34;&gt;avif&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;token boolean important&#34;&gt;false&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;20&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;      &lt;span class=&#34;token key atrule&#34;&gt;webp&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;token boolean important&#34;&gt;true&lt;/span&gt; &lt;span class=&#34;token comment&#34;&gt;# 预留配置项，现版本无作用&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;21&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;      &lt;span class=&#34;token key atrule&#34;&gt;quality&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;token number&#34;&gt;80&lt;/span&gt; &lt;span class=&#34;token comment&#34;&gt;# 质量，支持 1-100 的整数、lossless 或 nearLossless&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;22&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;      &lt;span class=&#34;token key atrule&#34;&gt;effort&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;token number&#34;&gt;2&lt;/span&gt; &lt;span class=&#34;token comment&#34;&gt;# CPU 工作量，0-6 之间的整数 (越低越快)&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;23&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;      &lt;span class=&#34;token key atrule&#34;&gt;replaceSrc&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;token boolean important&#34;&gt;false&lt;/span&gt; &lt;span class=&#34;token comment&#34;&gt;# 自动替换生成 html 中的本地图片链接为 webp 链接&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;24&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;      &lt;span class=&#34;token comment&#34;&gt;# 对于使用 CI 工作流部署的用户，请注意本配置可能导致图片 404，如果出现请关闭&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;25&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;      &lt;span class=&#34;token comment&#34;&gt;# 我们更建议使用 Service Worker 来在用户侧实现 replaceSrc 的功能，这将能够以一种侵入式更小的方式实现链接替换&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;26&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;    exclude&lt;span class=&#34;token punctuation&#34;&gt;:&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;h3 id=&#34;feed-生成&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#feed-生成&#34;&gt;#&lt;/a&gt; feed 生成&lt;/h3&gt;
+&lt;p&gt;同样加到  &lt;code&gt;_config.yml&lt;/code&gt;  末尾&lt;/p&gt;
+&lt;figure class=&#34;highlight yaml&#34;&gt;&lt;figcaption data-lang=&#34;YAML&#34;&gt;&lt;/figcaption&gt;&lt;table&gt;&lt;tr&gt;&lt;td data-num=&#34;1&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token key atrule&#34;&gt;feed&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;:&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;2&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;  &lt;span class=&#34;token key atrule&#34;&gt;limit&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;token number&#34;&gt;20&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;3&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;  &lt;span class=&#34;token key atrule&#34;&gt;order_by&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;token string&#34;&gt;&#34;-date&#34;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;4&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;  &lt;span class=&#34;token key atrule&#34;&gt;tag_dir&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;token boolean important&#34;&gt;false&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;5&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;  &lt;span class=&#34;token key atrule&#34;&gt;category_dir&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;token boolean important&#34;&gt;false&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;6&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;  &lt;span class=&#34;token key atrule&#34;&gt;rss&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;:&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;7&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;    &lt;span class=&#34;token key atrule&#34;&gt;enable&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;token boolean important&#34;&gt;true&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;8&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;    &lt;span class=&#34;token key atrule&#34;&gt;template&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;token string&#34;&gt;&#34;node_modules/hexo-theme-shokax/layout/_alternate/rss.ejs&#34;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;9&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;    &lt;span class=&#34;token key atrule&#34;&gt;output&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;token string&#34;&gt;&#34;rss.xml&#34;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;10&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;  &lt;span class=&#34;token key atrule&#34;&gt;atom&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;:&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;11&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;    &lt;span class=&#34;token key atrule&#34;&gt;enable&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;token boolean important&#34;&gt;true&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;12&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;    &lt;span class=&#34;token key atrule&#34;&gt;template&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;token string&#34;&gt;&#34;node_modules/hexo-theme-shokax/layout/_alternate/atom.ejs&#34;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;13&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;    &lt;span class=&#34;token key atrule&#34;&gt;output&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;token string&#34;&gt;&#34;atom.xml&#34;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;14&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;  &lt;span class=&#34;token key atrule&#34;&gt;jsonFeed&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;:&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;15&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;    &lt;span class=&#34;token key atrule&#34;&gt;enable&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;token boolean important&#34;&gt;true&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;16&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;    &lt;span class=&#34;token key atrule&#34;&gt;template&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;token string&#34;&gt;&#34;node_modules/hexo-theme-shokax/layout/_alternate/json.ejs&#34;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;17&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;    &lt;span class=&#34;token key atrule&#34;&gt;output&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;:&lt;/span&gt; &lt;span class=&#34;token string&#34;&gt;&#34;feed.json&#34;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;h1 id=&#34;其他问题&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#其他问题&#34;&gt;#&lt;/a&gt; 其他问题&lt;/h1&gt;
+&lt;h2 id=&#34;hexo-gs-报错&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#hexo-gs-报错&#34;&gt;#&lt;/a&gt; hexo g/s 报错&lt;/h2&gt;
+&lt;p&gt;&lt;img loading=&#34;lazy&#34; data-src=&#34;https://pub-bb2fe671409047b187fac95b77253c54.r2.dev/img/20250224003043600.webp&#34; alt=&#34;image-20250224003038064&#34; /&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;解决办法：hexo 根目录执行  &lt;code&gt;pnpm add hexo-theme-shokax&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;figure class=&#34;highlight bash&#34;&gt;&lt;figcaption data-lang=&#34;bash&#34;&gt;&lt;/figcaption&gt;&lt;table&gt;&lt;tr&gt;&lt;td data-num=&#34;1&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token function&#34;&gt;pnpm&lt;/span&gt; &lt;span class=&#34;token function&#34;&gt;add&lt;/span&gt; hexo-theme-shokax&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;h2 id=&#34;文档不渲染部分渲染&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#文档不渲染部分渲染&#34;&gt;#&lt;/a&gt; 文档不渲染 / 部分渲染&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;解决办法：更换 hexo 自带 md 渲染器为 shokax 的 md 渲染器，hexo 根目录执行&lt;/li&gt;
+&lt;/ul&gt;
+&lt;figure class=&#34;highlight bash&#34;&gt;&lt;figcaption data-lang=&#34;bash&#34;&gt;&lt;/figcaption&gt;&lt;table&gt;&lt;tr&gt;&lt;td data-num=&#34;1&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token function&#34;&gt;pnpm&lt;/span&gt; remove hexo-renderer-marked&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;2&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token function&#34;&gt;pnpm&lt;/span&gt; &lt;span class=&#34;token function&#34;&gt;add&lt;/span&gt; hexo-renderer-multi-next-markdown-it&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;3&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;hexo clean &lt;span class=&#34;token operator&#34;&gt;&amp;amp;&amp;amp;&lt;/span&gt; hexo g&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;4&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt; &lt;span class=&#34;token comment&#34;&gt;#如果问题仍然存在，系浏览器缓存问题，清除缓存之后再次尝试&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;</content>
+        <category term="计算机科学" scheme="https://lyrashore.com/categories/computer-science/" />
+        <category term="Hexo" scheme="https://lyrashore.com/categories/computer-science/hexo/" />
+        <category term="Shokax" scheme="https://lyrashore.com/categories/computer-science/hexo/shokax/" />
+        <category term="Hexo" scheme="https://lyrashore.com/tags/Hexo/" />
+        <category term="ShokaX" scheme="https://lyrashore.com/tags/ShokaX/" />
+        <updated>2025-02-23T08:03:42.000Z</updated>
+    </entry>
+    <entry>
+        <id>https://lyrashore.com/computer-science/csharp/Nullable/</id>
+        <title>C#可空类型</title>
+        <link rel="alternate" href="https://lyrashore.com/computer-science/csharp/Nullable/"/>
+        <content type="html">&lt;h1 id=&#34;c单问号&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#c单问号&#34;&gt;#&lt;/a&gt;  &lt;code&gt;?&lt;/code&gt;  C# 单问号&lt;/h1&gt;
+&lt;p&gt;&lt;span class=&#34;label&#34;&gt;?&lt;/span&gt; 单问号用于对 &lt;strong&gt;int、double、bool&lt;/strong&gt; 等无法直接赋值为 null 的数据类型进行 null 的赋值，意思是这个数据类型是 Nullable 类型的。&lt;/p&gt;
+&lt;figure class=&#34;highlight csharp&#34;&gt;&lt;figcaption data-lang=&#34;C#&#34;&gt;&lt;/figcaption&gt;&lt;table&gt;&lt;tr&gt;&lt;td data-num=&#34;1&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token class-name&#34;&gt;&lt;span class=&#34;token keyword&#34;&gt;int&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;?&lt;/span&gt;&lt;/span&gt; i &lt;span class=&#34;token operator&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;token number&#34;&gt;7&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;p&gt;换一种写法就是：&lt;/p&gt;
+&lt;figure class=&#34;highlight csharp&#34;&gt;&lt;figcaption data-lang=&#34;C#&#34;&gt;&lt;/figcaption&gt;&lt;table&gt;&lt;tr&gt;&lt;td data-num=&#34;1&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token class-name&#34;&gt;Nullable&lt;span class=&#34;token punctuation&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;token keyword&#34;&gt;int&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;&gt;&lt;/span&gt;&lt;/span&gt; i &lt;span class=&#34;token operator&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;token keyword&#34;&gt;new&lt;/span&gt; &lt;span class=&#34;token constructor-invocation class-name&#34;&gt;Nullable&lt;span class=&#34;token punctuation&#34;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&#34;token keyword&#34;&gt;int&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;&gt;&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;token number&#34;&gt;7&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;p&gt;值得注意的是，这时候变量的默认值将会发生变化：&lt;/p&gt;
+&lt;figure class=&#34;highlight csharp&#34;&gt;&lt;figcaption data-lang=&#34;C#&#34;&gt;&lt;/figcaption&gt;&lt;table&gt;&lt;tr&gt;&lt;td data-num=&#34;1&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token class-name&#34;&gt;&lt;span class=&#34;token keyword&#34;&gt;int&lt;/span&gt;&lt;/span&gt; i1&lt;span class=&#34;token punctuation&#34;&gt;;&lt;/span&gt; &lt;span class=&#34;token comment&#34;&gt;// 默认值 0&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;2&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token class-name&#34;&gt;&lt;span class=&#34;token keyword&#34;&gt;int&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;?&lt;/span&gt;&lt;/span&gt; i2&lt;span class=&#34;token punctuation&#34;&gt;;&lt;/span&gt; &lt;span class=&#34;token comment&#34;&gt;// 默认值 null&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;h1 id=&#34;nullable-c可空类型&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#nullable-c可空类型&#34;&gt;#&lt;/a&gt;  &lt;code&gt;Nullable&lt;/code&gt;  C# 可空类型&lt;/h1&gt;
+&lt;p&gt;C# 提供了一个特殊的数据类型，nullable 类型（可空类型），可空类型可以表示其基础值类型正常范围内的值，再加上一个 null 值。&lt;/p&gt;
+&lt;p&gt;例如，Nullable&amp;lt;Int32&amp;gt;，读作 &amp;quot;可空的 Int32&amp;quot;，可以被赋值为 -2,147,483,648 到 2,147,483,647 之间的任意值，也可以被赋值为 null 值。类似的，Nullable&amp;lt; bool &amp;gt; 变量可以被赋值为 true 或 false 或 null。&lt;/p&gt;
+&lt;p&gt;在处理数据库和其他包含可能未赋值的元素的数据类型时，将 null 赋值给数值类型或布尔型的功能特别有用。例如，数据库中的布尔型字段可以存储值 true 或 false，或者，该字段也可以未定义。&lt;/p&gt;
+&lt;p&gt;声明一个 &lt;strong&gt;nullable&lt;/strong&gt; 类型（可空类型）的语法如下：&lt;/p&gt;
+&lt;figure class=&#34;highlight csharp&#34;&gt;&lt;figcaption data-lang=&#34;C#&#34;&gt;&lt;/figcaption&gt;&lt;table&gt;&lt;tr&gt;&lt;td data-num=&#34;1&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token operator&#34;&gt;&amp;lt;&lt;/span&gt; data_type&lt;span class=&#34;token operator&#34;&gt;&gt;&lt;/span&gt; &lt;span class=&#34;token punctuation&#34;&gt;?&lt;/span&gt; &lt;span class=&#34;token operator&#34;&gt;&amp;lt;&lt;/span&gt;variable_name&lt;span class=&#34;token operator&#34;&gt;&gt;&lt;/span&gt; &lt;span class=&#34;token operator&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;token keyword&#34;&gt;null&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;p&gt;举个例子：&lt;/p&gt;
+&lt;figure class=&#34;highlight csharp&#34;&gt;&lt;figcaption data-lang=&#34;C#&#34;&gt;&lt;span&gt;可空类型示例&lt;/span&gt;&lt;/figcaption&gt;&lt;table&gt;&lt;tr&gt;&lt;td data-num=&#34;1&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token keyword&#34;&gt;using&lt;/span&gt; &lt;span class=&#34;token namespace&#34;&gt;System&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;2&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token keyword&#34;&gt;namespace&lt;/span&gt; &lt;span class=&#34;token namespace&#34;&gt;CalculatorApplication&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;3&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token punctuation&#34;&gt;&amp;#123;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;4&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;   &lt;span class=&#34;token keyword&#34;&gt;class&lt;/span&gt; &lt;span class=&#34;token class-name&#34;&gt;NullablesAtShow&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;5&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;   &lt;span class=&#34;token punctuation&#34;&gt;&amp;#123;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;6&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;      &lt;span class=&#34;token keyword&#34;&gt;static&lt;/span&gt; &lt;span class=&#34;token return-type class-name&#34;&gt;&lt;span class=&#34;token keyword&#34;&gt;void&lt;/span&gt;&lt;/span&gt; &lt;span class=&#34;token function&#34;&gt;Main&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;token class-name&#34;&gt;&lt;span class=&#34;token keyword&#34;&gt;string&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;]&lt;/span&gt;&lt;/span&gt; args&lt;span class=&#34;token punctuation&#34;&gt;)&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;7&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;      &lt;span class=&#34;token punctuation&#34;&gt;&amp;#123;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;8&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;         &lt;span class=&#34;token class-name&#34;&gt;&lt;span class=&#34;token keyword&#34;&gt;int&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;?&lt;/span&gt;&lt;/span&gt; num1 &lt;span class=&#34;token operator&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;token keyword&#34;&gt;null&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;9&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;         &lt;span class=&#34;token class-name&#34;&gt;&lt;span class=&#34;token keyword&#34;&gt;int&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;?&lt;/span&gt;&lt;/span&gt; num2 &lt;span class=&#34;token operator&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;token number&#34;&gt;45&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;10&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;         &lt;span class=&#34;token class-name&#34;&gt;&lt;span class=&#34;token keyword&#34;&gt;double&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;?&lt;/span&gt;&lt;/span&gt; num3 &lt;span class=&#34;token operator&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;token keyword&#34;&gt;new&lt;/span&gt; &lt;span class=&#34;token constructor-invocation class-name&#34;&gt;&lt;span class=&#34;token keyword&#34;&gt;double&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;?&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;11&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;         &lt;span class=&#34;token class-name&#34;&gt;&lt;span class=&#34;token keyword&#34;&gt;double&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;?&lt;/span&gt;&lt;/span&gt; num4 &lt;span class=&#34;token operator&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;token number&#34;&gt;3.14157&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;12&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;         &lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;13&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;         &lt;span class=&#34;token class-name&#34;&gt;&lt;span class=&#34;token keyword&#34;&gt;bool&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;?&lt;/span&gt;&lt;/span&gt; boolval &lt;span class=&#34;token operator&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;token keyword&#34;&gt;new&lt;/span&gt; &lt;span class=&#34;token constructor-invocation class-name&#34;&gt;&lt;span class=&#34;token keyword&#34;&gt;bool&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;?&lt;/span&gt;&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;14&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;15&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;         &lt;span class=&#34;token comment&#34;&gt;// 显示值&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;16&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;         &lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;17&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;         Console&lt;span class=&#34;token punctuation&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;token function&#34;&gt;WriteLine&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;token string&#34;&gt;&#34;显示可空类型的值： &amp;#123;0&amp;#125;, &amp;#123;1&amp;#125;, &amp;#123;2&amp;#125;, &amp;#123;3&amp;#125;&#34;&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;,&lt;/span&gt; num1&lt;span class=&#34;token punctuation&#34;&gt;,&lt;/span&gt; num2&lt;span class=&#34;token punctuation&#34;&gt;,&lt;/span&gt; num3&lt;span class=&#34;token punctuation&#34;&gt;,&lt;/span&gt; num4&lt;span class=&#34;token punctuation&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;18&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;         Console&lt;span class=&#34;token punctuation&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;token function&#34;&gt;WriteLine&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;token string&#34;&gt;&#34;一个可空的布尔值： &amp;#123;0&amp;#125;&#34;&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;,&lt;/span&gt; boolval&lt;span class=&#34;token punctuation&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;19&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;20&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;      &lt;span class=&#34;token punctuation&#34;&gt;&amp;#125;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;21&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;   &lt;span class=&#34;token punctuation&#34;&gt;&amp;#125;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;22&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token punctuation&#34;&gt;&amp;#125;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;p&gt;上面代码的运行结果如下：&lt;/p&gt;
+&lt;div class=&#34;note default&#34;&gt;
+&lt;p&gt;显示可空类型的值： , 45,  , 3.14157&lt;br /&gt;
+ 一个可空的布尔值：&lt;/p&gt;
+&lt;/div&gt;
+&lt;h1 id=&#34;c双问号&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#c双问号&#34;&gt;#&lt;/a&gt;  &lt;code&gt;??&lt;/code&gt;  C# 双问号&lt;/h1&gt;
+&lt;p&gt;双问号 (Null 合并运算符) 用于定义可空类型和引用类型的默认值。Null 合并运算符为类型转换定义了一个预设值，以防可空类型的值为 Null。Null 合并运算符把操作数类型隐式转换为另一个可空（或不可空）的值类型的操作数的类型。&lt;br /&gt;
+简单来说就是如果第一个操作数的值为 null，就返回第二个操作数的值，否则返回第一个操作数的值。&lt;/p&gt;
+&lt;p&gt;举个例子：&lt;/p&gt;
+&lt;figure class=&#34;highlight csharp&#34;&gt;&lt;figcaption data-lang=&#34;C#&#34;&gt;&lt;/figcaption&gt;&lt;table&gt;&lt;tr&gt;&lt;td data-num=&#34;1&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token keyword&#34;&gt;using&lt;/span&gt; &lt;span class=&#34;token namespace&#34;&gt;System&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;2&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token keyword&#34;&gt;namespace&lt;/span&gt; &lt;span class=&#34;token namespace&#34;&gt;CalculatorApplication&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;3&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token punctuation&#34;&gt;&amp;#123;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;4&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;   &lt;span class=&#34;token keyword&#34;&gt;class&lt;/span&gt; &lt;span class=&#34;token class-name&#34;&gt;NullablesAtShow&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;5&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;   &lt;span class=&#34;token punctuation&#34;&gt;&amp;#123;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;6&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;         &lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;7&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;      &lt;span class=&#34;token keyword&#34;&gt;static&lt;/span&gt; &lt;span class=&#34;token return-type class-name&#34;&gt;&lt;span class=&#34;token keyword&#34;&gt;void&lt;/span&gt;&lt;/span&gt; &lt;span class=&#34;token function&#34;&gt;Main&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;token class-name&#34;&gt;&lt;span class=&#34;token keyword&#34;&gt;string&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;[&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;]&lt;/span&gt;&lt;/span&gt; args&lt;span class=&#34;token punctuation&#34;&gt;)&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;8&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;      &lt;span class=&#34;token punctuation&#34;&gt;&amp;#123;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;9&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;         &lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;10&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;         &lt;span class=&#34;token class-name&#34;&gt;&lt;span class=&#34;token keyword&#34;&gt;double&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;?&lt;/span&gt;&lt;/span&gt; num1 &lt;span class=&#34;token operator&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;token keyword&#34;&gt;null&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;11&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;         &lt;span class=&#34;token class-name&#34;&gt;&lt;span class=&#34;token keyword&#34;&gt;double&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;?&lt;/span&gt;&lt;/span&gt; num2 &lt;span class=&#34;token operator&#34;&gt;=&lt;/span&gt; &lt;span class=&#34;token number&#34;&gt;3.14157&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;12&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;         &lt;span class=&#34;token class-name&#34;&gt;&lt;span class=&#34;token keyword&#34;&gt;double&lt;/span&gt;&lt;/span&gt; num3&lt;span class=&#34;token punctuation&#34;&gt;;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;13&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;         num3 &lt;span class=&#34;token operator&#34;&gt;=&lt;/span&gt; num1 &lt;span class=&#34;token operator&#34;&gt;??&lt;/span&gt; &lt;span class=&#34;token number&#34;&gt;5.34&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;;&lt;/span&gt;      &lt;span class=&#34;token comment&#34;&gt;//num1 如果为空值则返回 5.34&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;14&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;         Console&lt;span class=&#34;token punctuation&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;token function&#34;&gt;WriteLine&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;token string&#34;&gt;&#34;num3 的值： &amp;#123;0&amp;#125;&#34;&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;,&lt;/span&gt; num3&lt;span class=&#34;token punctuation&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;15&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;         num3 &lt;span class=&#34;token operator&#34;&gt;=&lt;/span&gt; num2 &lt;span class=&#34;token operator&#34;&gt;??&lt;/span&gt; &lt;span class=&#34;token number&#34;&gt;5.34&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;16&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;         Console&lt;span class=&#34;token punctuation&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;token function&#34;&gt;WriteLine&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;token string&#34;&gt;&#34;num3 的值： &amp;#123;0&amp;#125;&#34;&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;,&lt;/span&gt; num3&lt;span class=&#34;token punctuation&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;17&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;         Console&lt;span class=&#34;token punctuation&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;token function&#34;&gt;ReadLine&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;(&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;)&lt;/span&gt;&lt;span class=&#34;token punctuation&#34;&gt;;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;18&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;19&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;      &lt;span class=&#34;token punctuation&#34;&gt;&amp;#125;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;20&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;   &lt;span class=&#34;token punctuation&#34;&gt;&amp;#125;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td data-num=&#34;21&#34;&gt;&lt;/td&gt;&lt;td&gt;&lt;pre&gt;&lt;span class=&#34;token punctuation&#34;&gt;&amp;#125;&lt;/span&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;&lt;p&gt;上面代码的运行结果如下：&lt;/p&gt;
+&lt;div class=&#34;note default&#34;&gt;
+&lt;p&gt;num3 的值： 5.34&lt;br /&gt;
+num3 的值： 3.14157&lt;/p&gt;
+&lt;/div&gt;
+</content>
+        <category term="计算机科学" scheme="https://lyrashore.com/categories/computer-science/" />
+        <category term="C#" scheme="https://lyrashore.com/categories/computer-science/csharp/" />
+        <category term="C#" scheme="https://lyrashore.com/tags/C/" />
+        <category term="笔记" scheme="https://lyrashore.com/tags/%E7%AC%94%E8%AE%B0/" />
+        <updated>2025-02-14T08:03:00.000Z</updated>
+    </entry>
+    <entry>
+        <id>https://lyrashore.com/kaoyan-notes/politics/Day13/</id>
+        <title>Day13</title>
+        <link rel="alternate" href="https://lyrashore.com/kaoyan-notes/politics/Day13/"/>
+        <content type="html">&lt;h1 id=&#34;为什么说现阶段我们要把实现全体人民共同富裕摆在更重要的位置&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#为什么说现阶段我们要把实现全体人民共同富裕摆在更重要的位置&#34;&gt;#&lt;/a&gt; 为什么说现阶段我们要把实现全体人民共同富裕摆在更重要的位置？&lt;/h1&gt;
+&lt;p&gt;党的十八大以来，党中央把握发展阶段新变化，把逐步实现全体人民共同富裕摆在更加重要的位置上，推动区域协调发展，采取有力措施保障和改善民生，打赢脱贫攻坚战，全面建成小康社会，为促进共同富裕创造了良好条件。现在，已经到了扎实推动共同富裕的历史阶段。&lt;/p&gt;
+&lt;h2 id=&#34;具体来说有三点&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#具体来说有三点&#34;&gt;#&lt;/a&gt; 具体来说有三点&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;第一，我们正在向第二个百年奋斗目标迈进。适应我国社会主要矛盾的变化，更好满足人民日益增长的美好生活需要，必须把促进全体人民共同富裕作为为人民谋幸福的着力点，不断夯实党长期执政基础。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;第二，高质量发展需要高素质劳动者，只有促进共同富裕，提高城乡居民收入，提升人力资本，才能提高全要素生产率，夯实高质量发展的动力基础。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;第三，当前，全球收入不平等问题突出，一些国家贫富分化，中产阶级塌陷，导致社会撕裂、政治极化、民粹主义泛滥，教训十分深刻！我国必须坚决防止两极分化，促进共同富裕，才能实现社会和谐安定。&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h1 id=&#34;如何在高质量发展中促进共同富裕&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#如何在高质量发展中促进共同富裕&#34;&gt;#&lt;/a&gt; 如何在高质量发展中促进共同富裕？&lt;/h1&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;总的来说，坚持以人民为中心的发展思想，在高质量发展中促进共同富裕，正确处理效率和公平的关系，构建初次分配、再分配、三次分配协调配套的基础性制度安排，加大税收、社保、转移支付等调节力度并提高精准性，扩大中等收入群体比重，增加低收入群体收入，合理调节高收入，取缔非法收入，形成中间大、两头小的橄榄型分配结构，促进社会公平正义，促进人的全面发展，使全体人民朝着共同富裕目标扎实迈进。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;第一，提高发展的平衡性、协调性、包容性。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;第二，着力扩大中等收入群体规模。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;第三，促进基本公共服务均等化。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;第四，加强对高收入的规范和调节。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;第五，促进人民精神生活共同富裕。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;第六，促进农民农村共同富裕。促进共同富裕，最艰巨繁重的任务仍然在农村。&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+</content>
+        <category term="考研笔记" scheme="https://lyrashore.com/categories/%E8%80%83%E7%A0%94%E7%AC%94%E8%AE%B0/" />
+        <category term="考研政治" scheme="https://lyrashore.com/categories/%E8%80%83%E7%A0%94%E7%AC%94%E8%AE%B0/%E8%80%83%E7%A0%94%E6%94%BF%E6%B2%BB/" />
+        <category term="Study" scheme="https://lyrashore.com/tags/Study/" />
+        <category term="政治" scheme="https://lyrashore.com/tags/%E6%94%BF%E6%B2%BB/" />
+        <category term="毛泽东思想和中国特色社会主义理论体系概论" scheme="https://lyrashore.com/tags/%E6%AF%9B%E6%B3%BD%E4%B8%9C%E6%80%9D%E6%83%B3%E5%92%8C%E4%B8%AD%E5%9B%BD%E7%89%B9%E8%89%B2%E7%A4%BE%E4%BC%9A%E4%B8%BB%E4%B9%89%E7%90%86%E8%AE%BA%E4%BD%93%E7%B3%BB%E6%A6%82%E8%AE%BA/" />
+        <updated>2024-11-18T03:38:07.000Z</updated>
+    </entry>
+    <entry>
+        <id>https://lyrashore.com/kaoyan-notes/politics/Day12/</id>
+        <title>Day12</title>
+        <link rel="alternate" href="https://lyrashore.com/kaoyan-notes/politics/Day12/"/>
+        <content type="html">&lt;h1 id=&#34;推动高质量发展的必要性有哪些&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#推动高质量发展的必要性有哪些&#34;&gt;#&lt;/a&gt; 推动 “高质量发展” 的必要性有哪些？&lt;/h1&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;第一，推动高质量发展使保持经济持续健康发展的必然要求。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;第二，推动高质量发展是适应我国社会主要矛盾变化、全面建设社会主义现代化国家的必然选择。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;第三，推动高质量发展是遵循经济规律发展的内在要求。经济发展规律表明，经济发展中量的积累到达一定阶段必须及时转向质的提升。一个国家进入工业化中后期，只有实现发展方式从规模速度型转向质量效益型，推动高质量发展，才能顺利完成工业化、实现现代化。&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h1 id=&#34;怎么做才能实现高质量发展&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#怎么做才能实现高质量发展&#34;&gt;#&lt;/a&gt; 怎么做才能实现 “高质量发展”？&lt;/h1&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;第一，要准确识变、科学应变、主动求变，更加重视激活高质量发展的动力活力，更加重视催生高质量发展的新动能新优势。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;第二，要有序推进产业结构优化升级，加快发展优势产业，着力构筑产业基础，推动产业链现代化。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;第三，要注重扩大有效投资、繁荣居民消费。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;第四，要围绕产业链部署创新链、围绕创新链布局产业链，强化企业技术创新主体地位，完善成果转化和激励机制，提升自主创新能力。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;第五，要坚持目标引领和问题导向，拿出更大的勇气，更实的举措破除深层次体制机制障碍。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;第六，要主动服务国家开放战略，深度融入共建 “一带一路”，推动对外贸易创新发展。&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h1 id=&#34;全面建设社会主义现代化国家面临的新机遇挑战&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#全面建设社会主义现代化国家面临的新机遇挑战&#34;&gt;#&lt;/a&gt; 全面建设社会主义现代化国家面临的新机遇挑战&lt;/h1&gt;
+&lt;h2 id=&#34;当今世界的宏观形势&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#当今世界的宏观形势&#34;&gt;#&lt;/a&gt;  &lt;code&gt;当今世界的宏观形势&lt;/code&gt;&lt;/h2&gt;
+&lt;p&gt;当今世界正经历&lt;mark&gt;百年未有之大变局&lt;/mark&gt;，新一轮科技革命和产业革命深入发展，&lt;mark&gt;人类命运共同体理念深入人心&lt;/mark&gt;。&lt;/p&gt;
+&lt;h2 id=&#34;从国际看&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#从国际看&#34;&gt;#&lt;/a&gt;  &lt;code&gt;从国际看&lt;/code&gt;&lt;/h2&gt;
+&lt;p&gt;国际环境日趋复杂，不稳定性和不确定性明显增加，疫情影响广泛深远，经济全球化遭遇逆流，国际经济政治格局复杂多变，&lt;mark&gt;世界进入动荡变革期&lt;/mark&gt;，单边主义、保护主义、霸权主义对世界和平与发展构成威胁。&lt;/p&gt;
+&lt;h2 id=&#34;从国内看&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#从国内看&#34;&gt;#&lt;/a&gt;  &lt;code&gt;从国内看&lt;/code&gt;&lt;/h2&gt;
+&lt;p&gt;我国已经转向&lt;mark&gt;高质量发展阶段&lt;/mark&gt;，&lt;br /&gt;
+&lt;ins&gt;制度优势&lt;/ins&gt;显著，&lt;ins&gt;治理能效&lt;/ins&gt;提升，&lt;br /&gt;
+&lt;ins&gt;经济&lt;/ins&gt;长期向好，&lt;ins&gt;物质基础&lt;/ins&gt;雄厚，&lt;br /&gt;
+&lt;ins&gt;人力资源&lt;/ins&gt;丰富，&lt;ins&gt;市场空间&lt;/ins&gt;广阔，&lt;br /&gt;
+&lt;ins&gt;发展韧性&lt;/ins&gt;强劲，&lt;ins&gt;社会大局&lt;/ins&gt;稳定，&lt;br /&gt;
+继续发展具有多方面优势和条件。&lt;/p&gt;
+&lt;h2 id=&#34;国内的问题&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#国内的问题&#34;&gt;#&lt;/a&gt;  &lt;code&gt;国内的问题&lt;/code&gt;&lt;/h2&gt;
+&lt;p&gt;同时我国&lt;mark&gt;发展不平衡不充分问题&lt;/mark&gt;仍然突出，重点领域关键环节改革任务仍然艰巨，特别是创新能力不适应高质量发展的要求，关键核心技术受制于人的局面没有得到根本性改变，多个领域如高端芯片、基础元器件等存在 **“卡脖子” 问题 **{.red}，在科技发展面临外部打压和遏制加剧的形势下，须加快自主创新步伐。&lt;span class=&#34;label danger&#34;&gt;仍有一些问题&lt;/span&gt;&lt;/p&gt;
+&lt;h2 id=&#34;总的来说&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#总的来说&#34;&gt;#&lt;/a&gt;  &lt;code&gt;总的来说&lt;/code&gt;&lt;/h2&gt;
+&lt;p&gt;当前和今后一个时期，我国发展仍然处于&lt;strong class=&#34;red&#34;&gt;重要战略机遇期&lt;/strong&gt;。&lt;/p&gt;
+</content>
+        <category term="考研笔记" scheme="https://lyrashore.com/categories/%E8%80%83%E7%A0%94%E7%AC%94%E8%AE%B0/" />
+        <category term="考研政治" scheme="https://lyrashore.com/categories/%E8%80%83%E7%A0%94%E7%AC%94%E8%AE%B0/%E8%80%83%E7%A0%94%E6%94%BF%E6%B2%BB/" />
+        <category term="Study" scheme="https://lyrashore.com/tags/Study/" />
+        <category term="政治" scheme="https://lyrashore.com/tags/%E6%94%BF%E6%B2%BB/" />
+        <category term="毛泽东思想和中国特色社会主义理论体系概论" scheme="https://lyrashore.com/tags/%E6%AF%9B%E6%B3%BD%E4%B8%9C%E6%80%9D%E6%83%B3%E5%92%8C%E4%B8%AD%E5%9B%BD%E7%89%B9%E8%89%B2%E7%A4%BE%E4%BC%9A%E4%B8%BB%E4%B9%89%E7%90%86%E8%AE%BA%E4%BD%93%E7%B3%BB%E6%A6%82%E8%AE%BA/" />
+        <updated>2024-11-17T06:09:59.000Z</updated>
+    </entry>
+    <entry>
+        <id>https://lyrashore.com/kaoyan-notes/politics/Day11/</id>
+        <title>Day11</title>
+        <link rel="alternate" href="https://lyrashore.com/kaoyan-notes/politics/Day11/"/>
+        <content type="html">&lt;h1 id=&#34;如何构建新发展格局&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#如何构建新发展格局&#34;&gt;#&lt;/a&gt; 如何构建 “新发展格局”？&lt;/h1&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;第一，救助扩大内需的战略基点，畅通国民经济循环。在我国发展现阶段，畅通经济循环最主要的任务使供给侧有效畅通，有效供给能力可以穿透循环堵点、消除瓶颈制约，可以创造就业和提供收入，从而形成需求能力。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;第二，大力推动科技创新，打造经济发展新动能。构建新发展格局最本质的特征使实现高水平的自立自强。随着中国进入新发展阶段，支撑发展的要素条件发生了深刻的变化，必须实现依靠创新驱动的内涵增长。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;第三，发挥全面深化改革在构建新发展格局中的关键作用，要围绕实现高水平自立自强深化改革，完善党对科技工作领导的体制机制，要围绕畅通经济循环深化改革，在完善公平竞争制度、加强产权和知识产权保护、激发市场主体活力、推动产业链供应链优化升级、建设现代化流通体系、建设全国统一大市场等方面推出更有针对性的改革举措，促进各项改革融会贯通、系统集成。&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h1 id=&#34;以国内大循环为主体是不是意味着停止对外开放&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#以国内大循环为主体是不是意味着停止对外开放&#34;&gt;#&lt;/a&gt; “以国内大循环为主体” 是不是意味着停止对外开放？&lt;/h1&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;构建新发展格局绝不意味着对外开放地位的下降，而是要进一步敞开开放的大门，实现国内国际双循环相互促进。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;要立足国内大循环，协同推进强大国内市场和贸易强国建设，形成全球资源要素强大引力场，促进内需和外需、进口和出口、引进外资和对外投资协调发展，使国内市场和国际市场更好联通，强化国内大循环的主体作用，以国际循环提升国内大循环效率和水平，从而为中国经济发展开辟空间，促进同各国互利共赢、共同繁荣发展，为世界经济复苏和增长增添动力。&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h1 id=&#34;全面推进乡村振兴的举措怎么做&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#全面推进乡村振兴的举措怎么做&#34;&gt;#&lt;/a&gt; 全面推进乡村振兴的举措（怎么做）？&lt;/h1&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;第一，提高农业质量效益和竞争力。适应确保国计民生要求，以保障国家粮食安全为底线，健全农业支持保护制度。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;第二，实施乡村建设行动。把乡村建设摆在社会主义现代化建设的重要位置。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;第三，深化农村改革。健全城乡融合发展机制，推动城乡要素平等交换、双向流动。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;第四，实施巩固拓展脱贫攻坚成果同乡村振兴有效衔接。&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h1 id=&#34;脱贫攻坚成果怎样同乡村振兴有效衔接&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#脱贫攻坚成果怎样同乡村振兴有效衔接&#34;&gt;#&lt;/a&gt; 脱贫攻坚成果怎样同乡村振兴有效衔接？&lt;/h1&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;建立农村低收入人口和欠发达地区帮扶制度，保持财政投入力度总体稳定，接续推进脱贫地区发展。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;健全防止返贫检测和帮扶机制，做好易地扶贫搬迁后续帮扶工作，加强扶贫项目资金管理和监督，推动特色产业可持续性发展。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;健全农村社会保障和救助制度。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;在西部地区脱贫县中集中支持一批乡村振兴重点帮扶县，增强其巩固脱贫成果及内生发展能力。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;坚持和完善东西部协作和对口支援、社会力量参与帮扶等机制。&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+</content>
+        <category term="考研笔记" scheme="https://lyrashore.com/categories/%E8%80%83%E7%A0%94%E7%AC%94%E8%AE%B0/" />
+        <category term="考研政治" scheme="https://lyrashore.com/categories/%E8%80%83%E7%A0%94%E7%AC%94%E8%AE%B0/%E8%80%83%E7%A0%94%E6%94%BF%E6%B2%BB/" />
+        <category term="Study" scheme="https://lyrashore.com/tags/Study/" />
+        <category term="政治" scheme="https://lyrashore.com/tags/%E6%94%BF%E6%B2%BB/" />
+        <category term="毛泽东思想和中国特色社会主义理论体系概论" scheme="https://lyrashore.com/tags/%E6%AF%9B%E6%B3%BD%E4%B8%9C%E6%80%9D%E6%83%B3%E5%92%8C%E4%B8%AD%E5%9B%BD%E7%89%B9%E8%89%B2%E7%A4%BE%E4%BC%9A%E4%B8%BB%E4%B9%89%E7%90%86%E8%AE%BA%E4%BD%93%E7%B3%BB%E6%A6%82%E8%AE%BA/" />
+        <updated>2024-11-16T03:55:55.000Z</updated>
+    </entry>
+    <entry>
+        <id>https://lyrashore.com/kaoyan-notes/politics/Day10/</id>
+        <title>Day10</title>
+        <link rel="alternate" href="https://lyrashore.com/kaoyan-notes/politics/Day10/"/>
+        <content type="html">&lt;h1 id=&#34;实体经济&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#实体经济&#34;&gt;#&lt;/a&gt; 实体经济&lt;/h1&gt;
+&lt;h2 id=&#34;实体经济有多重要&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#实体经济有多重要&#34;&gt;#&lt;/a&gt; 实体经济有多重要？&lt;/h2&gt;
+&lt;p&gt;实体经济是一国经济的立生之本，是财富创造的根本源泉，是国家强盛的重要支柱，是现代化经济体系的坚实基础。&lt;/p&gt;
+&lt;h2 id=&#34;如何发展实体经济&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#如何发展实体经济&#34;&gt;#&lt;/a&gt; 如何发展实体经济？&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;要深化供给侧结构性改革，加快发展先进制造业，推动互联网、大数据、人工智能同实体经济深度融合，推动资源要素向实体经济集聚、政策措施向实体经济倾斜、工作力量向实体经济加强，激发和保护企业家精神，弘扬劳模精神和工匠精神，营造脚踏实地、勤劳创业、实业致富的发展环境和社会氛围。&lt;/li&gt;
+&lt;li&gt;必须不断推进工业现代化，强化实体经济吸引力和竞争力。&lt;/li&gt;
+&lt;li&gt;加大重要领域改革力度，推动实现经济发展数量和规模扩张向质量和效益提升转变。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h1 id=&#34;人民代表大会制度&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#人民代表大会制度&#34;&gt;#&lt;/a&gt; 人民代表大会制度&lt;/h1&gt;
+&lt;h2 id=&#34;性质&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#性质&#34;&gt;#&lt;/a&gt; 性质&lt;/h2&gt;
+&lt;p&gt;&lt;code&gt;四个是&lt;/code&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;人民代表大会制度是我国根本政治制度&lt;/li&gt;
+&lt;li&gt;是符合中国国情、体现中国社会主义国家性质、能够保证人民当家作主的根本政治制度和最高实现形式&lt;/li&gt;
+&lt;li&gt;也是党在国家政权中充分发扬民主、贯彻群众路线的最好实现形式&lt;/li&gt;
+&lt;li&gt;是坚持党的领导、人民当家做主、依法治国有机统一的根本政治制度安排。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;如何完善&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#如何完善&#34;&gt;#&lt;/a&gt; 如何完善&lt;/h2&gt;
+&lt;p&gt;要支持和保证人民通过人民代表大会行使国家权力。&lt;br /&gt;
+发挥人大及常委会在立法工作中的主导作用，健全人大组织制度和工作制度，支持和保证人大依法行使立法权、监督权、决定权、任免权，更好发挥人大代表作用，使各级人大及常委会成为全面负担起宪法法律赋予的各项职责的工作机关，成为同人民群众保持密切联系的代表机关。&lt;/p&gt;
+</content>
+        <category term="考研笔记" scheme="https://lyrashore.com/categories/%E8%80%83%E7%A0%94%E7%AC%94%E8%AE%B0/" />
+        <category term="考研政治" scheme="https://lyrashore.com/categories/%E8%80%83%E7%A0%94%E7%AC%94%E8%AE%B0/%E8%80%83%E7%A0%94%E6%94%BF%E6%B2%BB/" />
+        <category term="Study" scheme="https://lyrashore.com/tags/Study/" />
+        <category term="政治" scheme="https://lyrashore.com/tags/%E6%94%BF%E6%B2%BB/" />
+        <category term="毛泽东思想和中国特色社会主义理论体系概论" scheme="https://lyrashore.com/tags/%E6%AF%9B%E6%B3%BD%E4%B8%9C%E6%80%9D%E6%83%B3%E5%92%8C%E4%B8%AD%E5%9B%BD%E7%89%B9%E8%89%B2%E7%A4%BE%E4%BC%9A%E4%B8%BB%E4%B9%89%E7%90%86%E8%AE%BA%E4%BD%93%E7%B3%BB%E6%A6%82%E8%AE%BA/" />
+        <updated>2024-11-15T02:58:34.000Z</updated>
+    </entry>
+    <entry>
+        <id>https://lyrashore.com/kaoyan-notes/politics/Day9/</id>
+        <title>Day9</title>
+        <link rel="alternate" href="https://lyrashore.com/kaoyan-notes/politics/Day9/"/>
+        <content type="html">&lt;h1 id=&#34;开放发展的必要性&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#开放发展的必要性&#34;&gt;#&lt;/a&gt; 开放发展的必要性&lt;/h1&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;开放带来进步，封闭必然落后。中国的发展离不开世界，世界的繁荣也需要中国。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;我们统筹国内国际两个大局，坚持对外开放的基本国策，实行积极主动的开放政策，形成全方位、多层次、宽领域的全面开放新格局，为我国创造了良好的国际环境、开拓了广阔发展空间。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;中国扩大开放的举措，是根据中国改革发展客观需求做出的自我选择，这有利于推动经济高质量发展，有利于满足人民对美好生活的向往，有利于世界和平、稳定、发展。&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h1 id=&#34;开放发展的要求&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#开放发展的要求&#34;&gt;#&lt;/a&gt; 开放发展的要求&lt;/h1&gt;
+&lt;p&gt;坚持开放发展，就要奉行互利共赢的开放战略，坚持内外需协调、进出口平衡、引进来和走出去并重、引资和引技引智并举，发展更高层次的开放型经济，积极参与全球经济治理和公共产品供给，提高我国在全球经济治理中的制度性话语权、构建广泛的利益共同体。&lt;/p&gt;
+&lt;h1 id=&#34;开放发展的举措&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#开放发展的举措&#34;&gt;#&lt;/a&gt; 开放发展的举措&lt;/h1&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;第一，要以 “一带一路” 建设为重点，坚持 “引进来” 和 “走出去” 并重，形成海内外联动、东西双向互济的开放格局。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;第二，拓展对外贸易，培育贸易新业态新模式。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;第三，有序放宽市场准入，全面实行准入钱国民待遇加负面清单管理模式，继续精简负面清单，抓紧完善外资相关法律，加强知识产权保护。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;第四，优化区域开放格局，加大西部开放力度。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;第五，赋予自由贸易试验区更大改革自主权，促进国际产能合作，加快培育国际经济合作和竞争新优势。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;第六，促进贸易平衡，更加注重提升出口质量和附加值，积极扩大进口，下调部分产品进口关税，大力发展服务贸易。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;第七，继续推进自由贸易试验区改革试点，有效引导支持对外投资。&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+</content>
+        <category term="考研笔记" scheme="https://lyrashore.com/categories/%E8%80%83%E7%A0%94%E7%AC%94%E8%AE%B0/" />
+        <category term="考研政治" scheme="https://lyrashore.com/categories/%E8%80%83%E7%A0%94%E7%AC%94%E8%AE%B0/%E8%80%83%E7%A0%94%E6%94%BF%E6%B2%BB/" />
+        <category term="Study" scheme="https://lyrashore.com/tags/Study/" />
+        <category term="政治" scheme="https://lyrashore.com/tags/%E6%94%BF%E6%B2%BB/" />
+        <category term="毛泽东思想和中国特色社会主义理论体系概论" scheme="https://lyrashore.com/tags/%E6%AF%9B%E6%B3%BD%E4%B8%9C%E6%80%9D%E6%83%B3%E5%92%8C%E4%B8%AD%E5%9B%BD%E7%89%B9%E8%89%B2%E7%A4%BE%E4%BC%9A%E4%B8%BB%E4%B9%89%E7%90%86%E8%AE%BA%E4%BD%93%E7%B3%BB%E6%A6%82%E8%AE%BA/" />
+        <updated>2024-11-14T04:26:20.000Z</updated>
+    </entry>
+    <entry>
+        <id>https://lyrashore.com/kaoyan-notes/politics/Day8/</id>
+        <title>Day8</title>
+        <link rel="alternate" href="https://lyrashore.com/kaoyan-notes/politics/Day8/"/>
+        <content type="html">&lt;h1 id=&#34;新发展阶段&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#新发展阶段&#34;&gt;#&lt;/a&gt; 新发展阶段&lt;/h1&gt;
+&lt;h2 id=&#34;角度一新发展阶段面临怎样的发展环境&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#角度一新发展阶段面临怎样的发展环境&#34;&gt;#&lt;/a&gt;  &lt;code&gt;角度一&lt;/code&gt; 新发展阶段面临怎样的发展环境？&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;第一，当今世界正经历百年未有之大变局，新一轮科技革命和产业革命深入发展，国际力量对比深刻调整，和平与发展仍是时代主题，人类命运共同体理念深入人心。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;第二，国际环境日趋复杂，不稳定性不确定性明显增加，疫情影响广泛深远，经济全球化遭遇逆流，世界进入动荡变革期，单边主义、保护主义、霸权主义对世界和平发展构成威胁，我国发展会面对更多逆风逆水的外部环境。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;第三，时与势在我们一边，这是我们的定力和底气所在，也是我们的决心和信心所在，我国经济长期向好的基本面没有改变，外部冲击只能倒逼我们加快改革创新步伐。&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;角度二如何看待新发展阶段的重要性&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#角度二如何看待新发展阶段的重要性&#34;&gt;#&lt;/a&gt;  &lt;code&gt;角度二&lt;/code&gt; 如何看待新发展阶段的重要性？&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;第一，新发展阶段是我国社会主义发展过程的一个重要阶段，社会主义初级阶段不是一个静态、一成不变、停滞不前的阶段，也不是一个自发、被动、不用费多大力气自然而然就可以跨过的阶段，而是一个动态、积极有为、始终洋溢着蓬勃生机活力的过程，是一个阶梯式递进、不断发展进步、日益接近质的飞跃的量的积累和发展变化的过程。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;第二，全面建设社会主义现代化国家、基本实现社会主义现代化（新发展阶段），既是社会主义初级阶段我国发展的要求，也是我国社会主义从初级阶段向更高级阶段迈进的要求。&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h1 id=&#34;创新时引领发展的第一动力&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#创新时引领发展的第一动力&#34;&gt;#&lt;/a&gt; 创新时引领发展的第一动力&lt;/h1&gt;
+&lt;div class=&#34;tab&#34; data-id=&#34;id1&#34; data-title=&#34;创新的必要性&#34;&gt;
+&lt;p&gt;发展动力决定发展速度、效能、可持续。坚持创新发展，是应对发展环境变化、增强发展动力、把握发展主动权，更好引领新常态的根本之策。&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;tab&#34; data-id=&#34;id1&#34; data-title=&#34;创新的要求&#34;&gt;
+&lt;p&gt;坚持创新发展，就是把创新摆在国家发展全局的核心位置，不断推进理论创新、制度创新、科技创新、文化创新等各方面创新，让创新贯穿党和国家一切工作，让创新在全社会蔚然成风。&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;tab&#34; data-id=&#34;id1&#34; data-title=&#34;创新的举措&#34;&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;第一，要瞄准世界科技前沿，强化&lt;strong class=&#34;red&#34;&gt;基础研究、应用基础研究&lt;/strong&gt;和战略科技力量，推动重大科技创新取得新进展。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;第二，加强国家创新体系建设，强化战略科技力量，推动&lt;strong class=&#34;red&#34;&gt;科技创新&lt;/strong&gt;和&lt;strong class=&#34;red&#34;&gt;经济社会发展深度融合&lt;/strong&gt;，塑造更多依靠创新驱动、更多发挥先发优势的引领型发展。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;第三，培养造就一大批具有国际水平的战略科技人才、科技领军人才、青年科技人才和高科技创新团队。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;第四，建立以&lt;strong class=&#34;red&#34;&gt;企业为主体、市场为导向、产学研深度融合&lt;/strong&gt;的技术创新体系，促进科技成果转化。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;第五，倡导创新文化，强化&lt;strong class=&#34;red&#34;&gt;知识产权保护&lt;/strong&gt;，提升大众创业、万众创新水平。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;第六，深入实施&lt;strong class=&#34;red&#34;&gt;科教兴国战略、人才强国战略、创新驱动发展战略&lt;/strong&gt;，努力实现到 2035 年跻身创新型国家前列的目标。&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+</content>
+        <category term="考研笔记" scheme="https://lyrashore.com/categories/%E8%80%83%E7%A0%94%E7%AC%94%E8%AE%B0/" />
+        <category term="考研政治" scheme="https://lyrashore.com/categories/%E8%80%83%E7%A0%94%E7%AC%94%E8%AE%B0/%E8%80%83%E7%A0%94%E6%94%BF%E6%B2%BB/" />
+        <category term="Study" scheme="https://lyrashore.com/tags/Study/" />
+        <category term="政治" scheme="https://lyrashore.com/tags/%E6%94%BF%E6%B2%BB/" />
+        <category term="毛泽东思想和中国特色社会主义理论体系概论" scheme="https://lyrashore.com/tags/%E6%AF%9B%E6%B3%BD%E4%B8%9C%E6%80%9D%E6%83%B3%E5%92%8C%E4%B8%AD%E5%9B%BD%E7%89%B9%E8%89%B2%E7%A4%BE%E4%BC%9A%E4%B8%BB%E4%B9%89%E7%90%86%E8%AE%BA%E4%BD%93%E7%B3%BB%E6%A6%82%E8%AE%BA/" />
+        <updated>2024-11-13T06:48:53.000Z</updated>
+    </entry>
+    <entry>
+        <id>https://lyrashore.com/kaoyan-notes/politics/Day7/</id>
+        <title>Day7</title>
+        <link rel="alternate" href="https://lyrashore.com/kaoyan-notes/politics/Day7/"/>
+        <content type="html">&lt;h1 id=&#34;认识论的真理尺度和价值尺度的辩证关系原理&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#认识论的真理尺度和价值尺度的辩证关系原理&#34;&gt;#&lt;/a&gt; 认识论的真理尺度和价值尺度的辩证关系原理&lt;/h1&gt;
+&lt;div class=&#34;tab&#34; data-id=&#34;id1&#34; data-title=&#34;真理尺度&#34;&gt;
+&lt;p&gt;在实践中人们必须&lt;strong class=&#34;red&#34;&gt;遵循正确反映客观事物本质和规律&lt;/strong&gt;的真理。&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;tab&#34; data-id=&#34;id1&#34; data-title=&#34;价值尺度&#34;&gt;
+&lt;p&gt;在实践中人们都是&lt;strong class=&#34;red&#34;&gt;按照自己的尺度和需要&lt;/strong&gt;去认识世界和改造世界，创造和实现价值的。&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;tab&#34; data-id=&#34;id1&#34; data-title=&#34;辩证关系&#34;&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;首先，成功的实践必然是&lt;strong class=&#34;red&#34;&gt;以真理和价值的辩证统一为前提的&lt;/strong&gt;。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;其次，价值的形成必须&lt;strong class=&#34;red&#34;&gt;以坚持真理为前提&lt;/strong&gt;，真理是必然有价值的。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;最后，真理和价值在实践和认识活动中&lt;strong class=&#34;red&#34;&gt;相互制约，相互引导，相互促进&lt;/strong&gt;。&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;h1 id=&#34;社会历史趋向和主题能动选择的关系原理&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#社会历史趋向和主题能动选择的关系原理&#34;&gt;#&lt;/a&gt; 社会历史趋向和主题能动选择的关系原理&lt;/h1&gt;
+&lt;div class=&#34;tab&#34; data-id=&#34;id2&#34; data-title=&#34;社会历史趋向&#34;&gt;
+&lt;p&gt;社会历史规律的&lt;strong class=&#34;red&#34;&gt;客观性&lt;/strong&gt;和&lt;strong class=&#34;red&#34;&gt;必然性&lt;/strong&gt;。&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;tab&#34; data-id=&#34;id2&#34; data-title=&#34;主体能动选择&#34;&gt;
+&lt;p&gt;历史主体在社会发展的&lt;strong class=&#34;red&#34;&gt;能动性&lt;/strong&gt;和&lt;strong class=&#34;red&#34;&gt;选择性&lt;/strong&gt;。&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;tab&#34; data-id=&#34;id2&#34; data-title=&#34;两者之间的关系&#34;&gt;
+&lt;p&gt;社会历史的客观性和必然性规定了人的活动要&lt;strong class=&#34;red&#34;&gt;受规律性的制约&lt;/strong&gt;，但与此同时，又不能否定人作为历史主体的能动性和选择性，社会历史趋向&lt;strong class=&#34;red&#34;&gt;决定着是会发展的必然方向&lt;/strong&gt;，但是实现这个目标，又不是一个自发的、盲目的、不需要努力就能实现的过程。它需要人们根据自身的需求&lt;strong class=&#34;red&#34;&gt;发挥主观能动性&lt;/strong&gt;，努力&lt;strong class=&#34;red&#34;&gt;将目标变为现实&lt;/strong&gt;。&lt;/p&gt;
+&lt;/div&gt;
+&lt;h1 id=&#34;真理和谬误的辩证关系原理&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#真理和谬误的辩证关系原理&#34;&gt;#&lt;/a&gt; 真理和谬误的辩证关系原理&lt;/h1&gt;
+&lt;div class=&#34;tab&#34; data-id=&#34;id3&#34; data-title=&#34;相互区别&#34;&gt;
+&lt;p&gt;由于真理和谬误的区分取决于认识的内容&lt;strong class=&#34;red&#34;&gt;是否如实的反映了客观事物&lt;/strong&gt;，因此真理与谬误是性质不同的两种认识，它们是对立的。&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;tab&#34; data-id=&#34;id3&#34; data-title=&#34;相互联系&#34;&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;真理与谬误又是统一的，它们相互依存、相互转化。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;真理与谬误相比较而存在，没有真理就无所谓谬误，没有谬误也就无所谓真理，真理中包含着某种以后会暴露出来的错误方面或因素，谬误中也隐藏着以后会显露出来的真理的成分或萌芽。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;在一定条件下，真理与谬误相互转化，真理与谬误在一定范围内的对立是绝对的，但超出一定范围，它们就会相互转化，真理变成谬误，谬误变成真理。&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;h1 id=&#34;历史的创造者问题&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#历史的创造者问题&#34;&gt;#&lt;/a&gt; 历史的创造者问题&lt;/h1&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;在社会历史发展过程中，&lt;strong class=&#34;red&#34;&gt;人民群众起着决定性的作用&lt;/strong&gt;。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;人民群众是社会历史实践的主体，在创造历史中起决定性作用。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;人民群众是顺应生产力发展要求的社会力量，是具有变革旧的生产关系愿望的社会力量，是主张变革旧的社会制度和旧的思想观念的社会力量。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;人民群众的总体意愿和行动代表了历史发展的方向，人民群众的社会实践最终决定历史发展的结局。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;唯物史观要求我们坚持全心全意为人们服务的马克思主义群众观点，贯彻党的群众路线，即一切为了群众，一切依靠群众。从群众中来，到群众中去。&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+</content>
+        <category term="考研笔记" scheme="https://lyrashore.com/categories/%E8%80%83%E7%A0%94%E7%AC%94%E8%AE%B0/" />
+        <category term="考研政治" scheme="https://lyrashore.com/categories/%E8%80%83%E7%A0%94%E7%AC%94%E8%AE%B0/%E8%80%83%E7%A0%94%E6%94%BF%E6%B2%BB/" />
+        <category term="Study" scheme="https://lyrashore.com/tags/Study/" />
+        <category term="马克思主义基本原理" scheme="https://lyrashore.com/tags/%E9%A9%AC%E5%85%8B%E6%80%9D%E4%B8%BB%E4%B9%89%E5%9F%BA%E6%9C%AC%E5%8E%9F%E7%90%86/" />
+        <category term="政治" scheme="https://lyrashore.com/tags/%E6%94%BF%E6%B2%BB/" />
+        <updated>2024-11-12T04:57:24.000Z</updated>
+    </entry>
+    <entry>
+        <id>https://lyrashore.com/kaoyan-notes/politics/Day6/</id>
+        <title>Day6</title>
+        <link rel="alternate" href="https://lyrashore.com/kaoyan-notes/politics/Day6/"/>
+        <content type="html">&lt;h1 id=&#34;认识的影响因素理性因素与非理性因素的原理&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#认识的影响因素理性因素与非理性因素的原理&#34;&gt;#&lt;/a&gt; 认识的影响因素（理性因素与非理性因素的原理）&lt;/h1&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;span class=&#34;label danger&#34;&gt;理性因素&lt;/span&gt;是指人的理性直观、理性思维等能力，在认识活动中有&lt;strong class=&#34;red&#34;&gt;指导作用&lt;/strong&gt;、&lt;strong class=&#34;red&#34;&gt;解释作用&lt;/strong&gt;、&lt;strong class=&#34;red&#34;&gt;预见作用&lt;/strong&gt;等。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;span class=&#34;label danger&#34;&gt;非理性因素&lt;/span&gt;指认识主题的情感和意志具有不自觉、非逻辑性等特点的联想、想象、顿悟、灵感等认识形式，它在认识活动中的作用主要有&lt;strong class=&#34;red&#34;&gt;激活作用、驱动作用&lt;/strong&gt;和&lt;strong class=&#34;red&#34;&gt;控制作用&lt;/strong&gt;。&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h1 id=&#34;认识的两大规律反复性和无限性&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#认识的两大规律反复性和无限性&#34;&gt;#&lt;/a&gt; 认识的两大规律 —— 反复性和无限性&lt;/h1&gt;
+&lt;h2 id=&#34;认识过程的反复性&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#认识过程的反复性&#34;&gt;#&lt;/a&gt; 认识过程的反复性&lt;/h2&gt;
+&lt;p&gt;是指人们对于一个复杂事物的认识，往往要经过感性认识到理性认识，再由理性认识到实践的多次反复才能完成。&lt;span class=&#34;label danger&#34;&gt;感性&lt;/span&gt;⇒&lt;span class=&#34;label danger&#34;&gt;理性&lt;/span&gt;⇒&lt;span class=&#34;label danger&#34;&gt;实践&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;为什么人们认识一个事物要经过多次反复？&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;span class=&#34;label danger&#34;&gt;客观原因&lt;/span&gt;事物的各个方面和本质的暴露有一个过程&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;span class=&#34;label danger&#34;&gt;主观原因&lt;/span&gt;人的认识能力也有一个提高的过程&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;认识过程的无限性&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#认识过程的无限性&#34;&gt;#&lt;/a&gt; 认识过程的无限性&lt;/h2&gt;
+&lt;p&gt;是指对于事物发展过程的推移来说人类的认识是&lt;strong class=&#34;red&#34;&gt;永无止境、无限发展&lt;/strong&gt;的。它表现为&lt;strong class=&#34;red&#34;&gt;实践 —— 认识 —— 再实践 —— 再认识&lt;/strong&gt;的&lt;strong class=&#34;red&#34;&gt;无限循环&lt;/strong&gt;。由&lt;strong class=&#34;red&#34;&gt;初级阶段向高级阶段不断推移&lt;/strong&gt;的永无止境的前进活动。这种认识的上无限发展过程再形式上是&lt;strong class=&#34;red&#34;&gt;循环往复&lt;/strong&gt;的，再实质上是&lt;strong class=&#34;red&#34;&gt;前进上升&lt;/strong&gt;的、&lt;/p&gt;
+</content>
+        <category term="考研笔记" scheme="https://lyrashore.com/categories/%E8%80%83%E7%A0%94%E7%AC%94%E8%AE%B0/" />
+        <category term="考研政治" scheme="https://lyrashore.com/categories/%E8%80%83%E7%A0%94%E7%AC%94%E8%AE%B0/%E8%80%83%E7%A0%94%E6%94%BF%E6%B2%BB/" />
+        <category term="Study" scheme="https://lyrashore.com/tags/Study/" />
+        <category term="马克思主义基本原理" scheme="https://lyrashore.com/tags/%E9%A9%AC%E5%85%8B%E6%80%9D%E4%B8%BB%E4%B9%89%E5%9F%BA%E6%9C%AC%E5%8E%9F%E7%90%86/" />
+        <category term="政治" scheme="https://lyrashore.com/tags/%E6%94%BF%E6%B2%BB/" />
+        <updated>2024-11-11T04:02:50.000Z</updated>
+    </entry>
+    <entry>
+        <id>https://lyrashore.com/kaoyan-notes/politics/Day5/</id>
+        <title>Day5</title>
+        <link rel="alternate" href="https://lyrashore.com/kaoyan-notes/politics/Day5/"/>
+        <content type="html">&lt;h1 id=&#34;从感性认识到理性认识的飞跃&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#从感性认识到理性认识的飞跃&#34;&gt;#&lt;/a&gt; 从感性认识到理性认识的飞跃&lt;/h1&gt;
+&lt;h2 id=&#34;概念&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#概念&#34;&gt;#&lt;/a&gt; 概念&lt;/h2&gt;
+&lt;div class=&#34;tab&#34; data-id=&#34;id1&#34; data-title=&#34;感性认识&#34;&gt;
+&lt;p&gt;感性认识是认识的&lt;strong class=&#34;red&#34;&gt;初级阶段&lt;/strong&gt;，是人们在实践基础上，由&lt;strong class=&#34;red&#34;&gt;感官直接感受到的&lt;/strong&gt;关于事物的现象、事物的外部联系、事物的各方面的认识。&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&#34;tab&#34; data-id=&#34;id1&#34; data-title=&#34;理性认识&#34;&gt;
+&lt;p&gt;理性认识是认识的&lt;strong class=&#34;red&#34;&gt;高级阶段&lt;/strong&gt;，是人们借助抽象思维，在概括整理大量感性材料的基础上，达到关于事物的&lt;strong class=&#34;red&#34;&gt;本质、全体、内部联系&lt;/strong&gt;和事物自身&lt;strong class=&#34;red&#34;&gt;规律性&lt;/strong&gt;的认识。&lt;/p&gt;
+&lt;/div&gt;
+&lt;h2 id=&#34;感性认识和理性认识的辩证关系&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#感性认识和理性认识的辩证关系&#34;&gt;#&lt;/a&gt; 感性认识和理性认识的辩证关系&lt;/h2&gt;
+&lt;div class=&#34;tab&#34; data-id=&#34;id2&#34; data-title=&#34;相互区别&#34;&gt;
+&lt;details class=&#34;info&#34;&gt;&lt;summary&gt;第一，对象不同&lt;/summary&gt;&lt;div&gt;
+&lt;p&gt;感性认识是对事物&lt;strong class=&#34;red&#34;&gt;外部联系的反映&lt;/strong&gt;，而理性认识是对&lt;strong class=&#34;red&#34;&gt;事物内部联系的反映&lt;/strong&gt;。&lt;/p&gt;
+&lt;/div&gt;&lt;/details&gt;
+&lt;details class=&#34;primary&#34;&gt;&lt;summary&gt;第二，形式不同&lt;/summary&gt;&lt;div&gt;
+&lt;p&gt;感性认识包括&lt;strong class=&#34;red&#34;&gt;感觉、知觉&lt;/strong&gt;和&lt;strong class=&#34;red&#34;&gt;表象&lt;/strong&gt;三种形式，而理性认识包括&lt;strong class=&#34;red&#34;&gt;概念、判断&lt;/strong&gt;和&lt;strong class=&#34;red&#34;&gt;推理&lt;/strong&gt;三种形式。&lt;/p&gt;
+&lt;/div&gt;&lt;/details&gt;
+&lt;details class=&#34;warning&#34;&gt;&lt;summary&gt;第三，特点不同&lt;/summary&gt;&lt;div&gt;
+&lt;p&gt;感性认识的特点是&lt;strong class=&#34;red&#34;&gt;直接性&lt;/strong&gt;和&lt;strong class=&#34;red&#34;&gt;具体性&lt;/strong&gt;，而理性认识的特点是&lt;strong class=&#34;red&#34;&gt;间接性&lt;/strong&gt;和&lt;strong class=&#34;red&#34;&gt;抽象性&lt;/strong&gt;。&lt;/p&gt;
+&lt;/div&gt;&lt;/details&gt;
+&lt;/div&gt;
+&lt;div class=&#34;tab&#34; data-id=&#34;id2&#34; data-title=&#34;相互联系&#34;&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;首先，感性认识有待于&lt;strong class=&#34;red&#34;&gt;发展&lt;/strong&gt;和&lt;strong class=&#34;red&#34;&gt;深化&lt;/strong&gt;为理性认识。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;其次，理性认识&lt;strong class=&#34;red&#34;&gt;依赖&lt;/strong&gt;于感性认识。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;最后，在实际的认识过程中，感性认识和理性认识又是&lt;strong class=&#34;red&#34;&gt;相互交织&lt;/strong&gt;，&lt;strong class=&#34;red&#34;&gt;相互渗透&lt;/strong&gt;的。一方面，感性中&lt;strong class=&#34;red&#34;&gt;渗透&lt;/strong&gt;着理性的因素；另一方面，理性中&lt;strong class=&#34;red&#34;&gt;渗透&lt;/strong&gt;着感性的因素。感性认识和理性认识又是&lt;strong class=&#34;red&#34;&gt;辩证统一&lt;/strong&gt;的，二者统一的基础是&lt;strong class=&#34;red&#34;&gt;实践&lt;/strong&gt;。&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;h2 id=&#34;从感性认识到理性认识的飞跃必须具备两个基本条件&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#从感性认识到理性认识的飞跃必须具备两个基本条件&#34;&gt;#&lt;/a&gt; 从感性认识到理性认识的飞跃，必须具备两个基本条件&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;一是勇于实践，深入调查，获取十分丰富和合乎实际的感性材料。&lt;span class=&#34;label danger&#34;&gt;调查研究&lt;/span&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;二是必须经过理性思考的作用，运用理论思维和科学抽象，将丰富的感性材料去粗取精、去伪存真、由此及彼、由表及里的加工制作，形成概念和理论的系统。&lt;span class=&#34;label danger&#34;&gt;理性思考&lt;/span&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;思维导图&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#思维导图&#34;&gt;#&lt;/a&gt; 思维导图&lt;/h2&gt;
+&lt;p&gt;&lt;img loading=&#34;lazy&#34; data-src=&#34;https://dlink.host/wx3.sinaimg.cn/large/008GLkgIly8hvh03dctfvj30m80kg0u4.jpg&#34; alt=&#34;&#34; title=&#34;思维导图&#34; /&gt;&lt;/p&gt;
+</content>
+        <category term="考研笔记" scheme="https://lyrashore.com/categories/%E8%80%83%E7%A0%94%E7%AC%94%E8%AE%B0/" />
+        <category term="考研政治" scheme="https://lyrashore.com/categories/%E8%80%83%E7%A0%94%E7%AC%94%E8%AE%B0/%E8%80%83%E7%A0%94%E6%94%BF%E6%B2%BB/" />
+        <category term="Study" scheme="https://lyrashore.com/tags/Study/" />
+        <category term="马克思主义基本原理" scheme="https://lyrashore.com/tags/%E9%A9%AC%E5%85%8B%E6%80%9D%E4%B8%BB%E4%B9%89%E5%9F%BA%E6%9C%AC%E5%8E%9F%E7%90%86/" />
+        <category term="政治" scheme="https://lyrashore.com/tags/%E6%94%BF%E6%B2%BB/" />
+        <updated>2024-11-10T03:16:54.000Z</updated>
+    </entry>
+    <entry>
+        <id>https://lyrashore.com/kaoyan-notes/politics/Day4/</id>
+        <title>Day4</title>
+        <link rel="alternate" href="https://lyrashore.com/kaoyan-notes/politics/Day4/"/>
+        <content type="html">&lt;h1 id=&#34;矛盾的不平衡发展原理&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#矛盾的不平衡发展原理&#34;&gt;#&lt;/a&gt; 矛盾的不平衡发展原理&lt;/h1&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;主要矛盾是矛盾体系中处于&lt;strong class=&#34;red&#34;&gt;支配地位&lt;/strong&gt;、对事物发展起&lt;strong class=&#34;red&#34;&gt;决定作用&lt;/strong&gt;的矛盾。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;次要矛盾是矛盾体系中处于&lt;strong class=&#34;red&#34;&gt;从属地位&lt;/strong&gt;、对事物发展起&lt;strong class=&#34;red&#34;&gt;次要作用&lt;/strong&gt;的矛盾。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;在每一对矛盾中既有矛盾的主要方面也有矛盾的次要方面。事物的性质是由主要矛盾的主要方面来的决定的。&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h1 id=&#34;实践对认识的决定作用原理&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#实践对认识的决定作用原理&#34;&gt;#&lt;/a&gt; 实践对认识的决定作用原理&lt;/h1&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;第一，实践是认识的来源。离开实践的认识是不可能产生的。一切真知都是从直接经验发源的。一个人的认识不外是直接经验和间接经验两部分。就知识的本源来说，任何知识都不能离开直接经验。从根本上说，&lt;strong class=&#34;red&#34;&gt;实践是认识的源头活水&lt;/strong&gt;。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;第二，实践是认识发展的动力。实践的需要推动认识的产生和发展，推动人类的科学发现和技术发明，推动人类思想进步和理论创新。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;第三，实践是认识的目的。人们通过实践获得认识，不是为认识而认识，其最终目的是为实践服务，指导实践，以满足人们生活和生产的需要。&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;div class=&#34;note info&#34;&gt;
+&lt;p&gt;&lt;span class=&#34;label danger&#34;&gt;实践&lt;/span&gt;⇒&lt;span class=&#34;label danger&#34;&gt;认识&lt;/span&gt;⇒&lt;span class=&#34;label danger&#34;&gt;指导实践&lt;/span&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;ul&gt;
+&lt;li&gt;第四。实践是检验认识真理性的唯一标准。判定认识或理论是否为真理，不是以主观上如何而决定，而是以客观上社会实践的结果如何而定。&lt;strong class=&#34;red&#34;&gt;真理的标准只能是社会的实践&lt;/strong&gt;。&lt;/li&gt;
+&lt;/ul&gt;
+</content>
+        <category term="考研笔记" scheme="https://lyrashore.com/categories/%E8%80%83%E7%A0%94%E7%AC%94%E8%AE%B0/" />
+        <category term="考研政治" scheme="https://lyrashore.com/categories/%E8%80%83%E7%A0%94%E7%AC%94%E8%AE%B0/%E8%80%83%E7%A0%94%E6%94%BF%E6%B2%BB/" />
+        <category term="Study" scheme="https://lyrashore.com/tags/Study/" />
+        <category term="马克思主义基本原理" scheme="https://lyrashore.com/tags/%E9%A9%AC%E5%85%8B%E6%80%9D%E4%B8%BB%E4%B9%89%E5%9F%BA%E6%9C%AC%E5%8E%9F%E7%90%86/" />
+        <category term="政治" scheme="https://lyrashore.com/tags/%E6%94%BF%E6%B2%BB/" />
+        <updated>2024-11-09T04:06:42.000Z</updated>
+    </entry>
+    <entry>
+        <id>https://lyrashore.com/kaoyan-notes/politics/Day3/</id>
+        <title>Day3</title>
+        <link rel="alternate" href="https://lyrashore.com/kaoyan-notes/politics/Day3/"/>
+        <content type="html">&lt;h1 id=&#34;矛盾的普遍性和特殊性的辩证关系原理&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#矛盾的普遍性和特殊性的辩证关系原理&#34;&gt;#&lt;/a&gt; 矛盾的普遍性和特殊性的辩证关系原理&lt;/h1&gt;
+&lt;p&gt;矛盾的普遍性简单来说可以表述为&lt;mark&gt;矛盾无处不在&lt;/mark&gt;、&lt;mark&gt;矛盾无时不有&lt;/mark&gt;。&lt;/p&gt;
+&lt;p&gt;矛盾的特殊性是指各个具体事物的矛盾及每一个矛盾的各个方面在发展的不同阶段上各有其特点。具体表现为三种情形：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;一是&lt;mark&gt;不同事物&lt;/mark&gt;的矛盾各有其特点。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;二是&lt;mark&gt;同一事物&lt;/mark&gt;的矛盾在&lt;mark&gt;不同发展过程&lt;/mark&gt;和&lt;mark&gt;发展阶段&lt;/mark&gt;各有不同。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;三是&lt;mark&gt;构成事物的诸多矛盾以及每一矛盾&lt;/mark&gt;的&lt;mark&gt;不同方面&lt;/mark&gt;各有不同的性质、地位、作用。&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;矛盾的普遍性和特殊性的辨证同一关系&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#矛盾的普遍性和特殊性的辨证同一关系&#34;&gt;#&lt;/a&gt; 矛盾的普遍性和特殊性的辨证同一关系&lt;/h2&gt;
+&lt;p&gt;矛盾的普遍性即矛盾的共性，矛盾的特殊性即矛盾的个性。&lt;/p&gt;
+&lt;div class=&#34;note info&#34;&gt;
+&lt;p&gt;普遍性：&lt;span class=&#34;label danger&#34;&gt;共性&lt;/span&gt;   特殊性：&lt;span class=&#34;label danger&#34;&gt;个性&lt;/span&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;p&gt;矛盾的共性是&lt;mark&gt;无条件的、绝对的&lt;/mark&gt;，矛盾的个性是&lt;mark&gt;有条件的、相对的&lt;/mark&gt;。任何现实存在的事物都是共性和个性的有机统一体，共性寓于个性之中，没有离开个性的共性，也没有离开共性的个性。&lt;/p&gt;
+&lt;h1 id=&#34;量变和质变的辩证关系&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#量变和质变的辩证关系&#34;&gt;#&lt;/a&gt; 量变和质变的辩证关系&lt;/h1&gt;
+&lt;div class=&#34;tab&#34; data-id=&#34;1&#34; data-title=&#34;相互区别&#34;&gt;
+&lt;ul&gt;
+&lt;li&gt;量变是保持事物的质的相对稳定性的&lt;strong class=&#34;red&#34;&gt;不显著变化&lt;/strong&gt;，而质变是事物性质的&lt;strong class=&#34;red&#34;&gt;根本变化&lt;/strong&gt;。&lt;/li&gt;
+&lt;li&gt;量变体现了事物发展渐进过程的&lt;strong class=&#34;red&#34;&gt;连续性&lt;/strong&gt;，而质变体现了事物发展渐进过程和连续性的&lt;strong class=&#34;red&#34;&gt;终端&lt;/strong&gt;。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;div class=&#34;tab&#34; data-id=&#34;1&#34; data-title=&#34;相互联系&#34;&gt;
+&lt;ul&gt;
+&lt;li&gt;第一，量变是质变的&lt;strong class=&#34;red&#34;&gt;必要准备&lt;/strong&gt;。&lt;/li&gt;
+&lt;li&gt;第二，质变是量变的&lt;strong class=&#34;red&#34;&gt;必然结果&lt;/strong&gt;。&lt;/li&gt;
+&lt;li&gt;第三，量变和质变是&lt;strong class=&#34;red&#34;&gt;相互渗透&lt;/strong&gt;的。一方面在量变的过程中有阶段性和局部性的&lt;strong class=&#34;red&#34;&gt;部分质变&lt;/strong&gt;；另一方面，在质变过程中也有&lt;strong class=&#34;red&#34;&gt;旧质在量上的收缩&lt;/strong&gt;和&lt;strong class=&#34;red&#34;&gt;新质在量上的扩张&lt;/strong&gt;。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+</content>
+        <category term="考研笔记" scheme="https://lyrashore.com/categories/%E8%80%83%E7%A0%94%E7%AC%94%E8%AE%B0/" />
+        <category term="考研政治" scheme="https://lyrashore.com/categories/%E8%80%83%E7%A0%94%E7%AC%94%E8%AE%B0/%E8%80%83%E7%A0%94%E6%94%BF%E6%B2%BB/" />
+        <category term="Study" scheme="https://lyrashore.com/tags/Study/" />
+        <category term="马克思主义基本原理" scheme="https://lyrashore.com/tags/%E9%A9%AC%E5%85%8B%E6%80%9D%E4%B8%BB%E4%B9%89%E5%9F%BA%E6%9C%AC%E5%8E%9F%E7%90%86/" />
+        <category term="政治" scheme="https://lyrashore.com/tags/%E6%94%BF%E6%B2%BB/" />
+        <updated>2024-11-08T09:14:56.000Z</updated>
+    </entry>
+    <entry>
+        <id>https://lyrashore.com/kaoyan-notes/politics/Day2/</id>
+        <title>Day2</title>
+        <link rel="alternate" href="https://lyrashore.com/kaoyan-notes/politics/Day2/"/>
+        <content type="html">&lt;h1 id=&#34;客观规律性与主观能动性的辩证关系原理&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#客观规律性与主观能动性的辩证关系原理&#34;&gt;#&lt;/a&gt; 客观规律性与主观能动性的辩证关系原理&lt;/h1&gt;
+&lt;h2 id=&#34;主观能动性和客观规律的关系&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#主观能动性和客观规律的关系&#34;&gt;#&lt;/a&gt; 主观能动性和客观规律的关系&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;第一，必须尊重客观规律，尊重客观规律是充分发挥主观能动性的前提。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;第二，只有充分发挥主观能动性，才能正确认识和利用客观规律。&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;怎样发挥好人的主观能动性&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#怎样发挥好人的主观能动性&#34;&gt;#&lt;/a&gt; 怎样发挥好人的主观能动性？&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;第一，&lt;mark&gt;从实际出发&lt;/mark&gt;是正确发挥人的主观能动性的前提。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;第二，&lt;mark&gt;实践&lt;/mark&gt;是正确发挥主观能动性的&lt;mark&gt;基本途径&lt;/mark&gt;。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;第三，正确发挥人的主观能动性还依赖于一定的&lt;mark&gt;物质条件&lt;/mark&gt;和&lt;mark&gt;物质手段&lt;/mark&gt;。&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h1 id=&#34;矛盾的同一性和斗争性的辩证关系原理&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#矛盾的同一性和斗争性的辩证关系原理&#34;&gt;#&lt;/a&gt; 矛盾的同一性和斗争性的辩证关系原理&lt;/h1&gt;
+&lt;p&gt;&lt;span class=&#34;label danger&#34;&gt;高频&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;矛盾是反映&lt;mark&gt;事物内部&lt;/mark&gt;和&lt;mark&gt;事物之间&lt;/mark&gt;对立统一关系的哲学范畴。&lt;/p&gt;
+&lt;p&gt;对立统一分别体现了矛盾的两种基本属性，矛盾的对立属性又称为斗争性，矛盾的统一属性又称矛盾的同一性。&lt;/p&gt;
+&lt;div class=&#34;note info&#34;&gt;
+&lt;p&gt;对立：&lt;span class=&#34;label danger&#34;&gt;斗争性&lt;/span&gt;      统一：&lt;span class=&#34;label danger&#34;&gt;同一性&lt;/span&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;h2 id=&#34;矛盾的同一性&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#矛盾的同一性&#34;&gt;#&lt;/a&gt; 矛盾的同一性&lt;/h2&gt;
+&lt;p&gt;矛盾双方&lt;ins class=&#34;dot&#34;&gt;相互依存&lt;/ins&gt;、&lt;ins class=&#34;dot&#34;&gt;相互贯通&lt;/ins&gt;的性质和趋势。&lt;/p&gt;
+&lt;p&gt;它有两个方面的含义：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;一是矛盾着的对立面&lt;mark&gt;相互依存&lt;/mark&gt;，&lt;mark&gt;互为存在&lt;/mark&gt;的前提，并共&lt;mark&gt;处于一个统一体中&lt;/mark&gt;；&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;二是矛盾着的对立面之间&lt;mark&gt;相互贯通&lt;/mark&gt;，在一定条件下可以&lt;mark&gt;相互转化&lt;/mark&gt;。&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;矛盾的斗争性&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#矛盾的斗争性&#34;&gt;#&lt;/a&gt; 矛盾的斗争性&lt;/h2&gt;
+&lt;p&gt;矛盾着的对立面之间&lt;mark&gt;相互排斥、相互分离&lt;/mark&gt;的性质和趋势。&lt;/p&gt;
+&lt;p&gt;由于矛盾的性质不同，矛盾的斗争形式也不同，对于多种多样的斗争形式，可以分为&lt;mark&gt;对抗性矛盾&lt;/mark&gt;和&lt;mark&gt;非对抗性矛盾&lt;/mark&gt;两种基本形式。&lt;/p&gt;
+&lt;h2 id=&#34;矛盾的同一性和斗争性相互联结-相辅相成&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#矛盾的同一性和斗争性相互联结-相辅相成&#34;&gt;#&lt;/a&gt; 矛盾的同一性和斗争性相互联结、相辅相成&lt;/h2&gt;
+&lt;p&gt;没有斗争就没有同一性，没有同一性也没有斗争性，斗争性寓于同一性之中，同一性通过斗争性来体现。在事务矛盾中，&lt;mark&gt;矛盾的斗争性是&lt;span class=&#34;red&#34;&gt;无条件的、绝对的&lt;/span&gt;，矛盾的同一性是&lt;span class=&#34;red&#34;&gt;有条件的、相对的&lt;/span&gt;&lt;/mark&gt;。&lt;/p&gt;
+</content>
+        <category term="考研笔记" scheme="https://lyrashore.com/categories/%E8%80%83%E7%A0%94%E7%AC%94%E8%AE%B0/" />
+        <category term="考研政治" scheme="https://lyrashore.com/categories/%E8%80%83%E7%A0%94%E7%AC%94%E8%AE%B0/%E8%80%83%E7%A0%94%E6%94%BF%E6%B2%BB/" />
+        <category term="Study" scheme="https://lyrashore.com/tags/Study/" />
+        <category term="马克思主义基本原理" scheme="https://lyrashore.com/tags/%E9%A9%AC%E5%85%8B%E6%80%9D%E4%B8%BB%E4%B9%89%E5%9F%BA%E6%9C%AC%E5%8E%9F%E7%90%86/" />
+        <category term="政治" scheme="https://lyrashore.com/tags/%E6%94%BF%E6%B2%BB/" />
+        <updated>2024-11-07T04:40:41.000Z</updated>
+    </entry>
+    <entry>
+        <id>https://lyrashore.com/kaoyan-notes/politics/Day1/</id>
+        <title>Day1</title>
+        <link rel="alternate" href="https://lyrashore.com/kaoyan-notes/politics/Day1/"/>
+        <content type="html">&lt;h1 id=&#34;意识的能动性作用原理&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#意识的能动性作用原理&#34;&gt;#&lt;/a&gt; 意识的能动性作用原理&lt;/h1&gt;
+&lt;p&gt;意识的能动作用是人所特有的积极认识世界和改造世界的能力。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;第一，意识反应世界具有&lt;mark&gt;自觉性&lt;/mark&gt;，意识活动具有目的性和计划性。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;第二，意识活动具有&lt;mark&gt;创造性&lt;/mark&gt;，不仅反应事物的外部现象，而且反应事物的本质和规律。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;第三，意识活动具有&lt;mark&gt;指导实践、改造客观世界&lt;/mark&gt;的作用。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;第四，意识具有&lt;mark&gt;控制人的行为&lt;/mark&gt;和&lt;mark&gt;生理活动&lt;/mark&gt;的作用。&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h1 id=&#34;人与自然的辩证关系原理&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#人与自然的辩证关系原理&#34;&gt;#&lt;/a&gt; 人与自然的辩证关系原理&lt;/h1&gt;
+&lt;p&gt;&lt;span class=&#34;label danger&#34;&gt;两前提&lt;/span&gt; &lt;span class=&#34;label danger&#34;&gt;两基础&lt;/span&gt; &lt;span class=&#34;label danger&#34;&gt;两方面&lt;/span&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;自然界是人类社会形成的&lt;mark&gt;前提&lt;/mark&gt;，是构成人类社会客观现实性的&lt;mark&gt;基础&lt;/mark&gt;。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;实践是是物质世界分化为自然界和人类社会的的历史&lt;mark&gt;前提&lt;/mark&gt;，又是使自然界和人类社会统一起来的&lt;mark&gt;基础&lt;/mark&gt;。&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;span class=&#34;label danger&#34;&gt;必背&lt;/span&gt;自然规律的存在&lt;mark&gt;制约&lt;/mark&gt;着人类的实践活动。人可以在认识规律，尊重规律的基础上，发挥自己的主观能动性，合理的&lt;mark&gt;改造&lt;/mark&gt;自然，同时又改造自己。&lt;/p&gt;
+&lt;p&gt;&lt;img loading=&#34;lazy&#34; data-src=&#34;https://dlink.host/wx4.sinaimg.cn/large/008GLkgIly8hvci73kx5ej30u00u041s.jpg&#34; alt=&#34;&#34; title=&#34;人与自然的辩证关系&#34; height=&#34;500px&#34; width=&#34;500px&#34; /&gt;&lt;/p&gt;
+&lt;div class=&#34;note info&#34;&gt;
+&lt;p&gt;延伸：当今世界出现的生态、环境、人口、资源等全球危机问题，并不单纯是自然系统内平衡关系的严重破坏，实际上也是人与自然关系的的严重失衡。&lt;br /&gt;
+马克思认为，应到合理地调节人与自然之间的物质转换，在最无愧于和最合适人类本性的条件下进行这种物质变换。恩格斯也提出了自然界 “对人进行报复” 以及 “人类同自然的和解” 问题。随着人类改造自然的拓展和深化，人们越来越认识到正确处理人与自然的关系、实现人与自然和谐统一的重要性。&lt;/p&gt;
+&lt;/div&gt;
+</content>
+        <category term="考研笔记" scheme="https://lyrashore.com/categories/%E8%80%83%E7%A0%94%E7%AC%94%E8%AE%B0/" />
+        <category term="考研政治" scheme="https://lyrashore.com/categories/%E8%80%83%E7%A0%94%E7%AC%94%E8%AE%B0/%E8%80%83%E7%A0%94%E6%94%BF%E6%B2%BB/" />
+        <category term="Study" scheme="https://lyrashore.com/tags/Study/" />
+        <category term="马克思主义基本原理" scheme="https://lyrashore.com/tags/%E9%A9%AC%E5%85%8B%E6%80%9D%E4%B8%BB%E4%B9%89%E5%9F%BA%E6%9C%AC%E5%8E%9F%E7%90%86/" />
+        <category term="政治" scheme="https://lyrashore.com/tags/%E6%94%BF%E6%B2%BB/" />
+        <updated>2024-11-06T05:22:55.000Z</updated>
+    </entry>
+</feed>
