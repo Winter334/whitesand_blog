@@ -17,9 +17,9 @@
     <category term="Noctilumina" />
     <category term="whitesand" />
     <entry>
-        <id>https://lyrashore.com/computer-science/image-hosting/</id>
+        <id>https://lyrashore.com/computer-science/technical-sharing/image-hosting/</id>
         <title>利用Cloudflare R2搭建免费图床</title>
-        <link rel="alternate" href="https://lyrashore.com/computer-science/image-hosting/"/>
+        <link rel="alternate" href="https://lyrashore.com/computer-science/technical-sharing/image-hosting/"/>
         <content type="html">&lt;h1 id=&#34;前言&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#前言&#34;&gt;#&lt;/a&gt; 前言&lt;/h1&gt;
 &lt;p&gt;由于主题自带的图片都挂掉了，我就在网上搜寻可以使用的免费图床，首先映入我眼帘的是&lt;a href=&#34;https://sm.ms/&#34;&gt; SM.MS&lt;/a&gt;，免费且支持 API，于是我一通操作，发现已经停止注册了（2025 年 2 月）。无奈我又开始寻找其他的免费图床，发现诸如&lt;/p&gt;
 &lt;ul&gt;
@@ -96,6 +96,7 @@
 &lt;p&gt;至此整个流程结束。&lt;/p&gt;
 </content>
         <category term="计算机科学" scheme="https://lyrashore.com/categories/computer-science/" />
+        <category term="技术分享" scheme="https://lyrashore.com/categories/computer-science/technical-sharing/" />
         <category term="技术分享" scheme="https://lyrashore.com/tags/%E6%8A%80%E6%9C%AF%E5%88%86%E4%BA%AB/" />
         <updated>2025-02-28T01:01:19.000Z</updated>
     </entry>
