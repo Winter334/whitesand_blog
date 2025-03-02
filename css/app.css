@@ -602,6 +602,12 @@ details summary::before {
 .i-rss:before {
   content: "\e7b9";
 }
+.i-statistics:before {
+  content: "\e60b";
+}
+.i-others:before {
+  content: "\e60a";
+}
 /* modern-normalize v2.0.0 | MIT License | https://github.com/sindresorhus/modern-normalize */
 *,
 ::before,
@@ -1721,8 +1727,8 @@ textarea {
 @font-face {
   font-family: 'ic';
   font-display: swap;
-  src: url("https://at.alicdn.com/t/c/font_4828435_r2whhi99t2.eot");
-  src: url("https://at.alicdn.com/t/c/font_4828435_r2whhi99t2.eot?#iefix") format('embedded-opentype'), url("https://at.alicdn.com/t/c/font_4828435_r2whhi99t2.woff2") format('woff2'), url("https://at.alicdn.com/t/c/font_4828435_r2whhi99t2.woff") format('woff'), url("https://at.alicdn.com/t/c/font_4828435_r2whhi99t2.ttf") format('truetype'), url("https://at.alicdn.com/t/c/font_4828435_r2whhi99t2.svg#ic") format('svg');
+  src: url("https://at.alicdn.com/t/c/font_4828435_y11rgoyurdh.eot");
+  src: url("https://at.alicdn.com/t/c/font_4828435_y11rgoyurdh.eot?#iefix") format('embedded-opentype'), url("https://at.alicdn.com/t/c/font_4828435_y11rgoyurdh.woff2") format('woff2'), url("https://at.alicdn.com/t/c/font_4828435_y11rgoyurdh.woff") format('woff'), url("https://at.alicdn.com/t/c/font_4828435_y11rgoyurdh.ttf") format('truetype'), url("https://at.alicdn.com/t/c/font_4828435_y11rgoyurdh.svg#ic") format('svg');
 }
 @font-face {
   font-family: 'jetbrains-mono';
