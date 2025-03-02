@@ -134,6 +134,7 @@
   --color-blue: #f3cdce;
   --color-purple: #cfacc5;
   --color-grey: #c3c8ca;
+  --color-pink-a3: rgba(55,159,189,0.3);
   --body-bg-shadow: #000;
   --box-bg-shadow: #000;
   --text-color: var(--grey-5);
