@@ -6312,3 +6312,8 @@ html .sakana-box {
   bottom: 0;
   transform-origin: 0 100%;
 }
+@media (max-width: 768px) {
+  .sakana-box {
+    display: none; /* 在屏幕宽度小于768px时隐藏 */
+  }
+}
