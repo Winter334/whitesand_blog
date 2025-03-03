@@ -6306,3 +6306,9 @@ span.label {
 .audio.playing .cover .disc {
   animation-play-state: running;
 }
+html .sakana-box {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  transform-origin: 0 100%;
+}
