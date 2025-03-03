@@ -6306,6 +6306,22 @@ span.label {
 .audio.playing .cover .disc {
   animation-play-state: running;
 }
+.extra-status {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.extra-status .icp-gov-moe-warp {
+  display: flex;
+  align-items: center;
+}
+.extra-status .icp-gov-moe-warp .separator {
+  margin: 0 8px;
+}
+.extra-status .createtime-warp {
+  width: 100%;
+  text-align: center;
+}
 html .sakana-box {
   position: fixed;
   left: 0;
