@@ -6311,12 +6311,37 @@ span.label {
   flex-direction: column;
   align-items: center;
 }
-.extra-status .icp-gov-moe-warp {
+.extra-status .icp-gov-moe-warp,
+.extra-status .travel-link {
   display: flex;
   align-items: center;
 }
-.extra-status .icp-gov-moe-warp .separator {
+.extra-status .icp-gov-moe-warp .icon-text,
+.extra-status .travel-link .icon-text {
+  display: flex;
+  align-items: center;
+}
+.extra-status .icp-gov-moe-warp .separator,
+.extra-status .travel-link .separator {
   margin: 0 8px;
+}
+.extra-status .icp-link {
+  text-decoration: none;
+}
+.extra-status .icp-icon {
+  width: 20px;
+  height: 20px;
+  margin-bottom: -4px;
+  margin-right: 4px;
+}
+.extra-status .travel-link {
+  text-decoration: none;
+  color: #51c4d3;
+}
+.extra-status .travel-icon {
+  width: 24px;
+  height: 24px;
+  margin-right: 4px;
 }
 .extra-status .createtime-warp {
   width: 100%;
