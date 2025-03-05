@@ -6306,6 +6306,17 @@ span.label {
 .audio.playing .cover .disc {
   animation-play-state: running;
 }
+html .sakana-box {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  transform-origin: 0 100%;
+}
+@media (max-width: 1400px) {
+  .sakana-box {
+    display: none; /* 隐藏该组件 */
+  }
+}
 .extra-status {
   display: flex;
   flex-direction: column;
@@ -6346,15 +6357,4 @@ span.label {
 .extra-status .createtime-warp {
   width: 100%;
   text-align: center;
-}
-html .sakana-box {
-  position: fixed;
-  left: 0;
-  bottom: 0;
-  transform-origin: 0 100%;
-}
-@media (max-width: 768px) {
-  .sakana-box {
-    display: none; /* 在屏幕宽度小于768px时隐藏 */
-  }
 }
