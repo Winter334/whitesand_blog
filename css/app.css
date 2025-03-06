@@ -2492,6 +2492,9 @@ main >.inner {
   font-size: 2.5em;
   letter-spacing: 0.125rem;
 }
+#brand h1 span {
+  color: inherit;
+}
 #brand .artboard + h1 {
   margin: 0.625rem 0;
 }
@@ -2520,6 +2523,9 @@ main >.inner {
   }
   #brand h1 {
     font-size: 1.5em;
+  }
+  #brand h1 span {
+    color: inherit;
   }
   #brand .meta {
     font-size: 0.75em;
@@ -6306,17 +6312,6 @@ span.label {
 .audio.playing .cover .disc {
   animation-play-state: running;
 }
-html .sakana-box {
-  position: fixed;
-  left: 0;
-  bottom: 0;
-  transform-origin: 0 100%;
-}
-@media (max-width: 1400px) {
-  .sakana-box {
-    display: none; /* 隐藏该组件 */
-  }
-}
 .extra-status {
   display: flex;
   flex-direction: column;
@@ -6357,4 +6352,15 @@ html .sakana-box {
 .extra-status .createtime-warp {
   width: 100%;
   text-align: center;
+}
+html .sakana-box {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  transform-origin: 0 100%;
+}
+@media (max-width: 1400px) {
+  .sakana-box {
+    display: none; /* 隐藏该组件 */
+  }
 }
