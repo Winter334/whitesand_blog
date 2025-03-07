@@ -6353,6 +6353,14 @@ span.label {
   width: 100%;
   text-align: center;
 }
+.extra-status .traval-logo-warp {
+  display: flex;
+  width: 510px;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
 html .sakana-box {
   position: fixed;
   left: 0;
