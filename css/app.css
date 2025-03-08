@@ -6355,20 +6355,9 @@ span.label {
 }
 .extra-status .traval-logo-warp {
   display: flex;
-  width: 510px;
+  width: 60%;
   justify-content: center;
   align-items: center;
   gap: 10px;
   flex-wrap: wrap;
-}
-html .sakana-box {
-  position: fixed;
-  left: 0;
-  bottom: 0;
-  transform-origin: 0 100%;
-}
-@media (max-width: 1400px) {
-  .sakana-box {
-    display: none; /* 隐藏该组件 */
-  }
 }
