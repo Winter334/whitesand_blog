@@ -2,6 +2,15 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://lyrashore.com/talk/index.html</loc>
+    
+    <lastmod>2025-03-10</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>https://lyrashore.com/others/Announcements/</loc>
     
     <lastmod>2025-03-09</lastmod>
@@ -372,14 +381,14 @@
   </url>
   
   <url>
-    <loc>https://lyrashore.com/tags/%E6%94%BF%E6%B2%BB/</loc>
+    <loc>https://lyrashore.com/tags/Rules/</loc>
     <lastmod>2025-03-10</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>https://lyrashore.com/tags/Rules/</loc>
+    <loc>https://lyrashore.com/tags/%E6%94%BF%E6%B2%BB/</loc>
     <lastmod>2025-03-10</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -423,28 +432,7 @@
   </url>
   
   <url>
-    <loc>https://lyrashore.com/categories/%E8%80%83%E7%A0%94%E7%AC%94%E8%AE%B0/</loc>
-    <lastmod>2025-03-10</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://lyrashore.com/categories/computer-science/csharp/</loc>
-    <lastmod>2025-03-10</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://lyrashore.com/categories/computer-science/technical-sharing/</loc>
-    <lastmod>2025-03-10</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://lyrashore.com/categories/%E8%80%83%E7%A0%94%E7%AC%94%E8%AE%B0/%E8%80%83%E7%A0%94%E6%94%BF%E6%B2%BB/</loc>
+    <loc>https://lyrashore.com/categories/others/Rules/</loc>
     <lastmod>2025-03-10</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -458,7 +446,28 @@
   </url>
   
   <url>
-    <loc>https://lyrashore.com/categories/others/Rules/</loc>
+    <loc>https://lyrashore.com/categories/computer-science/csharp/</loc>
+    <lastmod>2025-03-10</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://lyrashore.com/categories/%E8%80%83%E7%A0%94%E7%AC%94%E8%AE%B0/</loc>
+    <lastmod>2025-03-10</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://lyrashore.com/categories/computer-science/technical-sharing/</loc>
+    <lastmod>2025-03-10</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>https://lyrashore.com/categories/others/novels/%E5%B0%8F%E5%89%A7%E5%9C%BA/</loc>
     <lastmod>2025-03-10</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -472,6 +481,13 @@
   </url>
   
   <url>
+    <loc>https://lyrashore.com/categories/%E8%80%83%E7%A0%94%E7%AC%94%E8%AE%B0/%E8%80%83%E7%A0%94%E6%94%BF%E6%B2%BB/</loc>
+    <lastmod>2025-03-10</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
     <loc>https://lyrashore.com/categories/computer-science/technical-sharing/%E6%BA%90%E7%A0%81%E5%88%86%E4%BA%AB/</loc>
     <lastmod>2025-03-10</lastmod>
     <changefreq>weekly</changefreq>
@@ -479,14 +495,14 @@
   </url>
   
   <url>
-    <loc>https://lyrashore.com/categories/computer-science/technical-sharing/%E7%BB%8F%E9%AA%8C%E5%88%86%E4%BA%AB/</loc>
+    <loc>https://lyrashore.com/categories/others/novels/%E6%81%B6%E9%AD%94%E9%99%8D%E4%B8%B4%E6%88%91%E8%BA%AB%E8%BE%B9/</loc>
     <lastmod>2025-03-10</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
-    <loc>https://lyrashore.com/categories/others/novels/%E5%B0%8F%E5%89%A7%E5%9C%BA/</loc>
+    <loc>https://lyrashore.com/categories/computer-science/technical-sharing/%E7%BB%8F%E9%AA%8C%E5%88%86%E4%BA%AB/</loc>
     <lastmod>2025-03-10</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
@@ -501,13 +517,6 @@
   
   <url>
     <loc>https://lyrashore.com/categories/computer-science/hexo/shokax/</loc>
-    <lastmod>2025-03-10</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.2</priority>
-  </url>
-  
-  <url>
-    <loc>https://lyrashore.com/categories/others/novels/%E6%81%B6%E9%AD%94%E9%99%8D%E4%B8%B4%E6%88%91%E8%BA%AB%E8%BE%B9/</loc>
     <lastmod>2025-03-10</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
