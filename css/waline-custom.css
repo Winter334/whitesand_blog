@@ -1,0 +1,65 @@
+:root {
+    --waline-theme-color: #02afd0;
+    --waline-active-color: #feadac;
+}
+
+.wl-header {
+    overflow: visible !important;
+}
+
+.wl-header-item {
+    position: relative;
+}
+
+.wl-header-item:nth-child(1):before {
+    content: '✨ 怎么称呼阁下呢？';
+}
+
+.wl-header-item:nth-child(2):before {
+    content: '📧填写邮箱能收到评论通知哦';
+}
+
+.wl-header-item:nth-child(3):before {
+    content: '🏠通过昵称能前往您的网站';
+}
+
+.wl-header-item:focus-within::before{
+    opacity: 1;                             /* 完全显示 */
+    visibility: visible;                    /* 显示元素 */
+    transform: translate(-50%) scale(1);    
+    top: -35px;                             /* 移动到目标位置 */
+}
+
+/* 主内容区 */
+.wl-header-item::before {
+    opacity: 0;                 /* 初始透明的为0 */
+    visibility: hidden;         /* 初始隐藏 */
+    transform: translate(-50%) scale(0.9);   /* 添加过渡动画 */
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); 
+    top: -30px;                 /* 初始位置稍高 */
+    position: absolute;        /* 绝对定位 */
+    white-space: nowrap;       /* 文字强制不换行，防止left:50%导致的文字换行 */
+    border-radius: 7px;       /* 圆角 */
+    left: 50%;                 /* 距离左边50% */
+    transform: translate(-50%);/* 然后再向左边挪动自身的一半，即可实现居中 */
+    /* 填充 */
+    padding: 0px 18px;
+    background: #02afd0;
+    color: #fff;
+}
+
+.wl-editor {
+    background-image: url(https://img.whitesand.top/img/2025/03/comment-background.gif) !important;
+    background-size: 20% !important;
+    background-repeat: no-repeat !important;
+    background-position: right bottom !important;
+    background-color: rgba(255, 255, 255, 0) !important;
+}
+
+.wl-editor:focus{
+    background-color: var(--waline-bg-color-light) !important;
+    background-image: url(https://img.whitesand.top/img/2025/03/comment-background.gif) !important;
+    background-size: 20% !important;
+    background-repeat: no-repeat !important;
+    background-position: right bottom !important;
+}
