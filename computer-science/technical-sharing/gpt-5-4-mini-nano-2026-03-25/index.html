@@ -1,0 +1,559 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=2"/><meta name="theme-color" content="#222"/><meta http-equiv="X-UA-COMPATIBLE" content="IE=edge,chrome=1"/><meta name="renderer" content="webkit"/><link rel="icon" type="image/ico" sizes="32x32" href="/assets/favicon.ico"/><link rel="apple-touch-icon" sizes="180x180" href="/assets/apple-touch-icon.webp"/><meta name="msvalidate.01" content="50A6F82517700BE9C41FDC54C1B63A08"/><meta name="google-site-verification" content="wwS5JXZr2wheQgpYq5XgUiHA0R-wbAPMgdjteXJaxfs"/><meta name="yandex-verification" content="bb323aa93a90edf8"/><meta name="baidu-site-verification" content="codeva-BFec3ICoPw"/><link rel="alternate" href="/rss.xml" title="流萤白沙のBlog" type="application/rss+xml"><link rel="alternate" href="/atom.xml" title="流萤白沙のBlog" type="application/atom+xml"><link rel="alternate" type="application/json" title="流萤白沙のBlog" href="https://lyrashore.com/feed.json"/><link rel="preconnect" href="https://s4.zstatic.net"/><link rel="preconnect" href="https://at.alicdn.com"/><link rel="preconnect" href="https://waline.lyrashore.com"/><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Mulish:400,400italic,700,700italic%7CFredericka%20the%20Great:400,400italic,700,700italic%7CNoto%20Serif%20JP:400,400italic,700,700italic%7CNoto%20Serif%20SC:400,400italic,700,700italic%7CInconsolata:400,400italic,700,700italic&display=swap&subset=latin,latin-ext" media="none" onload="this.media&#x3D;&#39;all&#39;"><link rel="stylesheet" href="/css/app.css?v=0.4.25"><link rel="modulepreload" href="/js/chunk-AJKU6CZT.js"></link><link rel="modulepreload" href="/js/chunk-IMZOKRP6.js"></link><link rel="modulepreload" href="/js/chunk-ORUMY5WD.js"></link><link rel="modulepreload" href="/js/chunk-QXVRLEXP.js"></link><link rel="modulepreload" href="/js/chunk-RHYTKCK2.js"></link><link rel="modulepreload" href="/js/chunk-WIQECBEN.js"></link><link rel="modulepreload" href="/js/comments-TIAPYZC3.js"></link><link rel="modulepreload" href="/js/copy-tex-FXIFIRJK.js"></link><link rel="modulepreload" href="/js/index.esm-G5KOB7LP.js"></link><link rel="modulepreload" href="/js/post-C6VR44BB.js"></link><link rel="modulepreload" href="/js/quicklink-6JIJ3M4U.js"></link><link rel="modulepreload" href="/js/search-IJMHTRRQ.js"></link><link rel="modulepreload" href="/js/siteInit.js"></link><link rel="modulepreload" href="/js/waline-2UOSOEHM.js"></link><link rel="stylesheet" href="/css/comments-Q7XOIZMJ.css" media="none" onload="this.media&#x3D;&#39;all&#39;"></link><link rel="stylesheet" href="/css/siteInit.css" media="none" onload="this.media&#x3D;&#39;all&#39;"></link><link rel="stylesheet" href="/css/waline-7LW2J7A6.css" media="none" onload="this.media&#x3D;&#39;all&#39;"></link><link rel="preload" href="https://img.lyrashore.com/img/2025/03/20250305124604853.webp" as="image" fetchpriority="high"><link rel="preload" href="https://img.lyrashore.com/img/2025/03/20250320174145714.webp" as="image" fetchpriority="high"><link rel="preload" href="https://img.lyrashore.com/img/20250224203900263.webp" as="image" fetchpriority="high"><link rel="preload" href="https://img.lyrashore.com/img/20250224203900261.webp" as="image" fetchpriority="high"><link rel="preload" href="https://img.lyrashore.com/img/2025/03/20250320173543117.webp" as="image" fetchpriority="high"><link rel="preload" href="https://img.lyrashore.com/img/2025/03/20250320173503597.webp" as="image" fetchpriority="high"><link rel="stylesheet" href="/css/waline-custom.css"><meta name="keywords" content="AI,Agent,GitHub Copilot"/><meta name="description" content="OpenAI 发布 GPT-5.4 mini 与 nano，把更强的小模型推到高频编码、工具调用和子代理场景；这次重点不只是更便宜，而是性能/时延比终于开始真正能打。"/><link rel="canonical" href="https://lyrashore.com/computer-science/technical-sharing/gpt-5-4-mini-nano-2026-03-25/"><title>GPT-5.4 mini 与 nano 发布：小模型开始接管 Agent 的高频工作</title><meta name="generator" content="Hexo 7.3.0"><link rel="sitemap" type="application/xml" title="Sitemap" href="/sitemap.xml"></head><body itemscope itemtype="http://schema.org/WebPage"><div id="loading"><div class="cat"><div class="body"></div><div class="head"><div class="face"></div></div><div class="foot"><div class="tummy-end"></div><div class="bottom"></div><div class="legs left"></div><div class="legs right"></div></div><div class="paw"><div class="hands left"></div><div class="hands right"></div></div></div></div><div id="container"><header id="header" itemscope itemtype="http://schema.org/WPHeader"><div class="inner"><div id="brand"><div class="pjax"><h1 itemprop="name headline">GPT-5.4 mini 与 nano 发布：小模型开始接管 Agent 的高频工作</h1><div class="meta"><span class="item" title="创建时间：2026-03-25 08:00:00"><span class="icon"><i class="ic i-calendar"></i></span><span class="text">发表于</span><time itemprop="dateCreated datePublished" datetime="2026-03-25T08:00:00+00:00">2026-03-25</time></span><span class="item" title="本文字数"><span class="icon"><i class="ic i-pen"></i></span><span class="text">本文字数</span><span>2.4k</span><span class="text">字</span></span><span class="item" title="阅读时长"><span class="icon"><i class="ic i-clock"></i></span><span class="text">阅读时长</span><span>2 分钟</span></span></div></div></div><nav id="nav"><div class="inner"><div class="toggle"><div class="lines" aria-label="切换导航栏"><span class="line"></span><span class="line"></span><span class="line"></span></div></div><ul class="menu"><li class="item title"><a href="/" rel="start">Noctilumina</a></li></ul><ul class="right" id="rightNav"><li class="item theme"><i class="ic i-sun"></i></li><li class="item search"><i class="ic i-search"></i></li><li class="item random-post"><i class="ic i-dice-outline" onclick="toRandomPost()" title="随机文章"></i></li></ul></div></nav></div><div class="pjax" id="imgs"><ul><li class="item" style="background-image: url(&quot;https://img.lyrashore.com/img/2025/03/20250305124604853.webp&quot;);"></li><li class="item" style="background-image: url(&quot;https://img.lyrashore.com/img/2025/03/20250320174145714.webp&quot;);"></li><li class="item" style="background-image: url(&quot;https://img.lyrashore.com/img/20250224203900263.webp&quot;);"></li><li class="item" style="background-image: url(&quot;https://img.lyrashore.com/img/20250224203900261.webp&quot;);"></li><li class="item" style="background-image: url(&quot;https://img.lyrashore.com/img/2025/03/20250320173543117.webp&quot;);"></li><li class="item" style="background-image: url(&quot;https://img.lyrashore.com/img/2025/03/20250320173503597.webp&quot;);"></li></ul></div><div id="waves"><svg class="waves" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto"><defs><path id="gentle-wave" d="M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z"></path></defs><g class="parallax"><use xlink:href="#gentle-wave" x="48" y="0"></use><use xlink:href="#gentle-wave" x="48" y="3"></use><use xlink:href="#gentle-wave" x="48" y="5"></use><use xlink:href="#gentle-wave" x="48" y="7"></use></g></svg></div></header><main><div class="inner"><div class="pjax" id="main"><div class="article wrap"><div class="breadcrumb" itemListElement itemscope itemtype="https://schema.org/BreadcrumbList"><i class="ic i-home"></i><span><a href="/">首页</a></span><i class="ic i-angle-right"></i><span class="current" itemprop="itemListElement" itemscope="itemscope" itemtype="https://schema.org/ListItem"><a href="/categories/technical-sharing/" itemprop="item" rel="index" title="分类于technical-sharing"><span itemprop="name">technical-sharing<meta itemprop="position" content="0"/></span></a></span></div><article class="post block" itemscope="itemscope" itemtype="http://schema.org/Article" lang="zh-CN"><link itemprop="mainEntityOfPage" href="https://lyrashore.com/computer-science/technical-sharing/gpt-5-4-mini-nano-2026-03-25/"/><span hidden="hidden" itemprop="author" itemscope="itemscope" itemtype="http://schema.org/Person"><meta itemprop="image" content="/assets/avatar.webp"/><meta itemprop="name" content="流萤白沙"/><meta itemprop="description" content="莫愁千里路，自有到来风, 学习-记录-分享"/></span><span hidden="hidden" itemprop="publisher" itemscope="itemscope" itemtype="http://schema.org/Organization"><meta itemprop="name" content="流萤白沙のBlog"/></span><div class="body md " itemprop="articleBody"><div class="tabs" id="summary"><div class="show-btn"></div><div class="nav"><ul class="special"></ul></div><div class="tab" data-id="summary" data-title="自我介绍"><p>✨ 我是流萤白沙的「文章捕手」，擅长在文字的星海中打捞精华。每当新的篇章诞生，我就会像整理贝壳一样，将思想的闪光点串成珍珠项链~</p></div><div class="tab active" data-id="summary" data-title="文章概括"><p>OpenAI 的 GPT-5.4 mini/nano 把小模型正式推到 Agent 执行层：mini 主打速度、并发和工具调用，nano 负责极低成本的抽取与分类；关键变化不是更便宜，而是“大模型规划、小模型执行”的协作架构开始落地到 Copilot 等真实开发流程。</p></div></div><p>如果最近还把 “小模型” 理解成 “大模型的阉割版”，那 OpenAI 这次的 <strong>GPT-5.4 mini / nano</strong>，大概就是专门来纠正这个印象的。</p>
+<p>它最值得看的地方，不是又多了两个便宜型号，而是 OpenAI 已经把它们明确推向一个很具体的方向：<strong>高频、低延迟、可并发的 Agent 工作流</strong>。说白一点，就是那些不值得每一步都上大模型、但又必须做得够稳够快的杂活，现在开始有更像样的主力了。</p>
+<h2 id="这次到底发了什么"><a class="anchor" href="#这次到底发了什么">#</a> 这次到底发了什么？</h2>
+<p>按照 OpenAI 官方说明：</p>
+<ul>
+<li><strong>GPT-5.4 mini</strong> 是更快、更强的小型主力模型；</li>
+<li><strong>GPT-5.4 nano</strong> 是更便宜、更轻量的版本；</li>
+<li>两者都面向高吞吐场景，尤其适合编码辅助、工具调用、图像理解和子代理任务。</li>
+</ul>
+<p>其中 mini 的定位最清楚：</p>
+<ul>
+<li>官方称其相较 GPT-5 mini <strong>运行速度超过 2 倍</strong>；</li>
+<li>支持 <strong>文本 + 图像输入</strong>；</li>
+<li>支持 <strong>tool use、function calling、web search、file search、computer use、skills</strong>；</li>
+<li>拥有 <strong>400k 上下文窗口</strong>；</li>
+<li>API 价格为 <strong>每百万输入 token 0.75 美元、每百万输出 token 4.50 美元</strong>。</li>
+</ul>
+<p>而 nano 更像是专门给流水线准备的 “轻工位”：</p>
+<ul>
+<li>适合 <strong>分类、信息抽取、排序、简单编码子任务</strong>；</li>
+<li>API 价格进一步压到 <strong>每百万输入 token 0.20 美元、输出 token 1.25 美元</strong>。</li>
+</ul>
+<p>这套分层很有意思，因为它已经不是 “一个模型包打天下” 的叙事，而是在鼓励开发者把系统拆成不同层级：<strong>大模型负责规划，小模型负责执行。</strong></p>
+<h2 id="真正值得注意的不是便宜而是小模型终于够用"><a class="anchor" href="#真正值得注意的不是便宜而是小模型终于够用">#</a> 真正值得注意的，不是便宜，而是 “小模型终于够用”</h2>
+<p>OpenAI 给出的 benchmark 里，GPT-5.4 mini 的信号相当明确：</p>
+<ul>
+<li><strong>SWE-Bench Pro</strong> 达到 <strong>54.4%</strong>；</li>
+<li><strong>Terminal-Bench 2.0</strong> 达到 <strong>60.0%</strong>；</li>
+<li><strong>OSWorld-Verified</strong> 达到 <strong>72.1%</strong>；</li>
+<li>在若干编码与工具使用测试中，已经明显超过上一代 GPT-5 mini，并逼近完整版 GPT-5.4。</li>
+</ul>
+<p>这里面最关键的一点，不是某个榜单高了几分，而是：</p>
+<blockquote>
+<p>过去很多 “小模型” 只能做边角料；现在的小模型，已经开始能接住真正会影响产品体验的主流程。</p>
+</blockquote>
+<p>尤其在 Agent 系统里，这个变化非常现实。</p>
+<p>一个成熟的工作流往往不是 “让一个超强模型从头干到尾”，而是：</p>
+<ol>
+<li>先由更强的模型做任务拆解；</li>
+<li>再把搜索代码库、阅读大文件、提取信息、批量检查这类子任务并发分发出去；</li>
+<li>最后再回到主模型做汇总和判断。</li>
+</ol>
+<p>官方甚至直接拿 <strong>Codex 的 subagents</strong> 当例子：大模型负责规划与最终裁决，mini 去并行处理更窄、更快的子任务。这个表述很重要，因为它说明 “多模型协作” 已经不是社区玩家自己的土办法，而是在被主流产品架构正式吸收。</p>
+<h2 id="github-copilot-也跟进了这比实验室分数更有说服力"><a class="anchor" href="#github-copilot-也跟进了这比实验室分数更有说服力">#</a> GitHub Copilot 也跟进了，这比实验室分数更有说服力</h2>
+<p>另一条很关键的佐证，是 <strong>GitHub Copilot 已经开始提供 GPT-5.4 mini</strong>。</p>
+<p>GitHub 在 changelog 里给出的描述很直接：它认为 GPT-5.4 mini 是 OpenAI 目前表现最强的 mini 模型之一，特点包括：</p>
+<ul>
+<li><strong>更快的首 token 响应</strong>；</li>
+<li>更强的 <strong>代码库探索能力</strong>；</li>
+<li>在使用 grep 风格工具时尤其有效。</li>
+</ul>
+<p>这意味着它的价值并不只停留在 API 宣传页，而是已经被放进真实开发者工具里，接受日常编码工作流的检验。</p>
+<p>很多模型新闻的问题在于 “看起来很强，但不知道会不会真被用起来”。Copilot 的接入至少说明，行业已经开始把这种快模型当成<strong>可以直接接活</strong>的角色，而不是单纯补位。</p>
+<h2 id="我的判断2026-年小模型卷的是系统角色"><a class="anchor" href="#我的判断2026-年小模型卷的是系统角色">#</a> 我的判断：2026 年，小模型卷的是 “系统角色”</h2>
+<p>如果说前两年大家还在问 “小模型能不能替代大模型”，那现在更值得问的问题已经变成：</p>
+<p><strong>小模型到底该在系统里承担哪一层职责？</strong></p>
+<p>从 GPT-5.4 mini /nano 的发布方式来看，OpenAI 的答案很明确：</p>
+<ul>
+<li><strong>mini</strong> 负责高频但不能太笨的执行层；</li>
+<li><strong>nano</strong> 负责成本极敏感的基础处理层；</li>
+<li><strong>大模型</strong> 负责更贵但更关键的规划、判断和收尾。</li>
+</ul>
+<p>这背后的趋势很值得记一下：</p>
+<blockquote>
+<p>下一阶段的 Agent 竞争，不只是 “谁家旗舰模型更强”，而是 “谁能把不同尺寸的模型组织成一套更顺手、更便宜、更稳定的协作系统”。</p>
+</blockquote>
+<p>所以这次发布真正的重点，并不是 OpenAI 又补了两个 SKU，而是小模型终于越来越像 <strong>Agent 时代的基础设施工种</strong> 了。</p>
+<h2 id="参考来源"><a class="anchor" href="#参考来源">#</a> 参考来源</h2>
+<ul>
+<li>OpenAI: <a target="_blank" rel="noopener" href="https://openai.com/index/introducing-gpt-5-4-mini-and-nano/">Introducing GPT-5.4 mini and nano</a></li>
+<li>GitHub Blog: <a target="_blank" rel="noopener" href="https://github.blog/changelog/2026-03-17-gpt-5-4-mini-is-now-generally-available-for-github-copilot/">GPT-5.4 mini is now generally available for GitHub Copilot</a></li>
+</ul>
+<div class="tags"><a href="/tags/AI/" rel="tag"><i class="ic i-tag"></i>AI</a><a href="/tags/OpenAI/" rel="tag"><i class="ic i-tag"></i>OpenAI</a><a href="/tags/Agent/" rel="tag"><i class="ic i-tag"></i>Agent</a><a href="/tags/GPT-5-4/" rel="tag"><i class="ic i-tag"></i>GPT-5.4</a><a href="/tags/GitHub-Copilot/" rel="tag"><i class="ic i-tag"></i>GitHub Copilot</a></div></div><footer><div class="meta"><span class="item"><span class="icon"><i class="ic i-eye"></i></span><span class="text">总访问量：</span><span class="waline-pageview-count" id="twikoo_visitors" data-path="/computer-science/technical-sharing/gpt-5-4-mini-nano-2026-03-25/">加载中...</span></span></div><div class="reward"><button><i class="ic i-heartbeat"></i>赞赏</button><p>请我喝[茶]~(￣▽￣)~*</p><div id="qr"><div><img loading="lazy" data-src="/assets/wechatpay.webp" alt="流萤白沙 微信支付"/><p>微信支付</p></div><div><img loading="lazy" data-src="/assets/alipay.webp" alt="流萤白沙 支付宝"/><p>支付宝</p></div></div></div><div id="copyright"><ul><li class="author"><strong>本文作者：</strong>流萤白沙<i class="ic i-at"><em>@</em></i>流萤白沙のBlog</li><li class="link"><strong>本文链接：</strong><a href="https://lyrashore.com/computer-science/technical-sharing/gpt-5-4-mini-nano-2026-03-25/" title="GPT-5.4 mini 与 nano 发布：小模型开始接管 Agent 的高频工作">https://lyrashore.com/computer-science/technical-sharing/gpt-5-4-mini-nano-2026-03-25/</a></li><li class="license"><strong>版权声明：</strong>本站所有文章除特别声明外，均采用 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh-hans"><i class="ic i-creative-commons"><em>(CC)</em></i>BY-NC-SA</a> 许可协议。转载请注明出处！</li></ul></div></footer></article></div><div class="post-nav"><div class="item left"><a href="/computer-science/technical-sharing/mistral-small-4-2026-03-24/" rel="prev" itemprop="url" data-background-image="https:&#x2F;&#x2F;img.lyrashore.com&#x2F;img&#x2F;20250224203900261.webp" title="Mistral Small 4 开源发布：把推理、多模态和 Agent 编码装进同一个模型"><span class="type">上一篇</span><span class="category"><i class="ic i-flag"></i>technical-sharing</span><h3>Mistral Small 4 开源发布：把推理、多模态和 Agent 编码装进同一个模型</h3></a></div><div class="item right"><a href="/computer-science/technical-sharing/istio-1-29-ai-inference-2026-03-26/" rel="next" itemprop="url" data-background-image="https:&#x2F;&#x2F;img.lyrashore.com&#x2F;img&#x2F;20250223213425158.webp" title="Istio 1.29 把服务网格推向 AI 时代：推理流量终于有了“原生路由”"><span class="type">下一篇</span><span class="category"><i class="ic i-flag"></i>technical-sharing</span><h3>Istio 1.29 把服务网格推向 AI 时代：推理流量终于有了“原生路由”</h3></a></div></div><div class="wrap" id="comments"></div></div><div id="sidebar"><div class="inner"><div class="panels"><div class="inner"><div class="contents panel pjax" data-title="文章目录"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%BF%99%E6%AC%A1%E5%88%B0%E5%BA%95%E5%8F%91%E4%BA%86%E4%BB%80%E4%B9%88"><span class="toc-number">1.</span> <span class="toc-text"> 这次到底发了什么？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%9C%9F%E6%AD%A3%E5%80%BC%E5%BE%97%E6%B3%A8%E6%84%8F%E7%9A%84%E4%B8%8D%E6%98%AF%E4%BE%BF%E5%AE%9C%E8%80%8C%E6%98%AF%E5%B0%8F%E6%A8%A1%E5%9E%8B%E7%BB%88%E4%BA%8E%E5%A4%9F%E7%94%A8"><span class="toc-number">2.</span> <span class="toc-text"> 真正值得注意的，不是便宜，而是 “小模型终于够用”</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#github-copilot-%E4%B9%9F%E8%B7%9F%E8%BF%9B%E4%BA%86%E8%BF%99%E6%AF%94%E5%AE%9E%E9%AA%8C%E5%AE%A4%E5%88%86%E6%95%B0%E6%9B%B4%E6%9C%89%E8%AF%B4%E6%9C%8D%E5%8A%9B"><span class="toc-number">3.</span> <span class="toc-text"> GitHub Copilot 也跟进了，这比实验室分数更有说服力</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%88%91%E7%9A%84%E5%88%A4%E6%96%AD2026-%E5%B9%B4%E5%B0%8F%E6%A8%A1%E5%9E%8B%E5%8D%B7%E7%9A%84%E6%98%AF%E7%B3%BB%E7%BB%9F%E8%A7%92%E8%89%B2"><span class="toc-number">4.</span> <span class="toc-text"> 我的判断：2026 年，小模型卷的是 “系统角色”</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%82%E8%80%83%E6%9D%A5%E6%BA%90"><span class="toc-number">5.</span> <span class="toc-text"> 参考来源</span></a></li></ol></div><div class="related panel pjax" data-title="系列文章"><ul><li ><a href="/computer-science/technical-sharing/ai-os-daily-2026-03-22/" rel="bookmark" title="AI & Open Source Daily (2026-03-22)">AI & Open Source Daily (2026-03-22)</a></li><li ><a href="/computer-science/technical-sharing/ai-os-daily-2026-03-24/" rel="bookmark" title="AI & Open Source Daily (2026-03-24)">AI & Open Source Daily (2026-03-24)</a></li><li ><a href="/computer-science/technical-sharing/mistral-small-4-2026-03-24/" rel="bookmark" title="Mistral Small 4 开源发布：把推理、多模态和 Agent 编码装进同一个模型">Mistral Small 4 开源发布：把推理、多模态和 Agent 编码装进同一个模型</a></li><li  class="active"><a href="/computer-science/technical-sharing/gpt-5-4-mini-nano-2026-03-25/" rel="bookmark" title="GPT-5.4 mini 与 nano 发布：小模型开始接管 Agent 的高频工作">GPT-5.4 mini 与 nano 发布：小模型开始接管 Agent 的高频工作</a></li><li ><a href="/computer-science/technical-sharing/istio-1-29-ai-inference-2026-03-26/" rel="bookmark" title="Istio 1.29 把服务网格推向 AI 时代：推理流量终于有了“原生路由”">Istio 1.29 把服务网格推向 AI 时代：推理流量终于有了“原生路由”</a></li><li ><a href="/computer-science/technical-sharing/ai-tech-daily-2026-03-27/" rel="bookmark" title="AI 技术日报（2026-03-27）：Mistral 3、Gemini 语音升级与 OpenAI 安全赏金">AI 技术日报（2026-03-27）：Mistral 3、Gemini 语音升级与 OpenAI 安全赏金</a></li><li ><a href="/computer-science/technical-sharing/mozilla-mila-sovereign-ai-2026-03-28/" rel="bookmark" title="Mozilla × Mila 联手做主权 AI：真正稀缺的开始不是模型，而是可信代理记忆">Mozilla × Mila 联手做主权 AI：真正稀缺的开始不是模型，而是可信代理记忆</a></li><li ><a href="/computer-science/technical-sharing/github-copilot-data-training-policy-2026-03-29/" rel="bookmark" title="GitHub 更新 Copilot 数据规则：默认被拿去训练的，不是整座私仓，而是你的交互上下文">GitHub 更新 Copilot 数据规则：默认被拿去训练的，不是整座私仓，而是你的交互上下文</a></li><li ><a href="/computer-science/technical-sharing/claude-code-auto-mode-2026-03-30/" rel="bookmark" title="Claude Code 推出 Auto Mode：编码 Agent 开始认真处理“少打扰”和“别乱动”之间的那条线">Claude Code 推出 Auto Mode：编码 Agent 开始认真处理“少打扰”和“别乱动”之间的那条线</a></li><li ><a href="/computer-science/technical-sharing/deepseek-major-outage-2026-03-31/" rel="bookmark" title="DeepSeek 这次 7 小时级故障，真正开始被检验的是 AI 服务的基础设施成熟度">DeepSeek 这次 7 小时级故障，真正开始被检验的是 AI 服务的基础设施成熟度</a></li><li ><a href="/computer-science/technical-sharing/anthropic-emotion-concepts-2026-04-03/" rel="bookmark" title="Anthropic 发现 LLM 里的“情绪概念”：值得在意的不是像不像人，而是真的会改写模型行为">Anthropic 发现 LLM 里的“情绪概念”：值得在意的不是像不像人，而是真的会改写模型行为</a></li><li ><a href="/computer-science/technical-sharing/gemma-4-apache-open-model-2026-04-04/" rel="bookmark" title="Gemma 4 发布后，最值得在意的不是参数，而是 Google 终于把开放模型做得更像产品">Gemma 4 发布后，最值得在意的不是参数，而是 Google 终于把开放模型做得更像产品</a></li><li ><a href="/computer-science/technical-sharing/holo3-computer-use-agent-2026-04-06/" rel="bookmark" title="Holo3 开源之后，computer-use Agent 的竞争开始更像“训练工厂”之争">Holo3 开源之后，computer-use Agent 的竞争开始更像“训练工厂”之争</a></li><li ><a href="/computer-science/technical-sharing/gemini-api-flex-priority-inference-2026-04-07/" rel="bookmark" title="Gemini API 加入 Flex / Priority 分层后，AI 成本优化终于从“架构题”变成“配置题”">Gemini API 加入 Flex / Priority 分层后，AI 成本优化终于从“架构题”变成“配置题”</a></li><li ><a href="/computer-science/technical-sharing/cloudflare-post-quantum-security-2029-2026-04-08/" rel="bookmark" title="Cloudflare 把后量子目标提前到 2029：现在更危险的，已经不是“以后再解密”，而是“认证先被打穿”">Cloudflare 把后量子目标提前到 2029：现在更危险的，已经不是“以后再解密”，而是“认证先被打穿”</a></li><li ><a href="/computer-science/technical-sharing/meta-muse-spark-meta-ai-2026-04-09/" rel="bookmark" title="Meta 发布 Muse Spark：真正值得看的不是新模型参数，而是“子代理 + 多模态”开始进入大众产品">Meta 发布 Muse Spark：真正值得看的不是新模型参数，而是“子代理 + 多模态”开始进入大众产品</a></li><li ><a href="/computer-science/technical-sharing/safetensors-pytorch-foundation-2026-04-10/" rel="bookmark" title="Safetensors 加入 PyTorch Foundation：这次值得在意的不是“换东家”，而是开源 AI 权重格式终于更像公共基础设施">Safetensors 加入 PyTorch Foundation：这次值得在意的不是“换东家”，而是开源 AI 权重格式终于更像公共基础设施</a></li><li ><a href="/computer-science/technical-sharing/altk-evolve-agent-memory-2026-04-11/" rel="bookmark" title="ALTK‑Evolve 值得关注的，不是“给 Agent 加记忆”，而是把经验沉淀做成可复用的操作守则">ALTK‑Evolve 值得关注的，不是“给 Agent 加记忆”，而是把经验沉淀做成可复用的操作守则</a></li></ul></div><div class="overview panel" data-title="站点概览"><div class="author" itemprop="author" itemscope="itemscope" itemtype="http://schema.org/Person"><img class="image" loading="lazy" decoding="async" itemprop="image" alt="流萤白沙" src="/assets/avatar.webp"/><p class="name" itemprop="name">流萤白沙</p><div class="description" itemprop="description">学习-记录-分享</div></div><nav class="state"><div class="item posts"><a href="/archives/"><span class="count">59</span><span class="name">文章</span></a></div><div class="item categories"><a href="/categories/"><span class="count">14</span><span class="name">分类</span></a></div><div class="item tags"><a href="/tags/"><span class="count">59</span><span class="name">标签</span></a></div></nav><div class="social"><a target="_blank" rel="noopener" href="https://github.com/Winter334" class="item github" title="https:&#x2F;&#x2F;github.com&#x2F;Winter334"><i class="ic i-github"></i></a><a target="_blank" rel="noopener" href="https://space.bilibili.com/106140797" class="item bilibili" title="https:&#x2F;&#x2F;space.bilibili.com&#x2F;106140797"><i class="ic i-bilibili"></i></a><a href="https://lyrashore.com/atom.xml" class="item rss" title="https:&#x2F;&#x2F;lyrashore.com&#x2F;atom.xml"><i class="ic i-rss"></i></a><a target="_blank" rel="noopener" href="https://music.163.com/#/user/home?id=417310841" class="item music" title="https:&#x2F;&#x2F;music.163.com&#x2F;#&#x2F;user&#x2F;home?id&#x3D;417310841"><i class="ic i-cloud-music"></i></a><a href="mailto:robit@vip.qq.com" class="item email" title="mailto:robit@vip.qq.com"><i class="ic i-envelope"></i></a></div><div class="menu"><li class="item"><a href="/" rel="section"><i class="ic i-home"></i>首页</a></li><li class="item dropdown"><a href="#" onclick="return false;"><i class="ic i-feather"></i>文章</a><ul class="submenu"><li class="item"><a href="/archives/" rel="section"><i class="ic i-list-alt"></i>归档</a></li><li class="item"><a href="/categories/" rel="section"><i class="ic i-th"></i>分类</a></li><li class="item"><a href="/tags/" rel="section"><i class="ic i-tags"></i>标签</a></li><li class="item"><a href="/statistics/" rel="section"><i class="ic i-statistics"></i>统计</a></li></ul></li><li class="item dropdown"><a href="#" onclick="return false;"><i class="ic i-address-card"></i>关于</a><ul class="submenu"><li class="item"><a href="/about/" rel="section"><i class="ic i-user"></i>关于我</a></li><li class="item"><a href="/aboutsite/" rel="section"><i class="ic i-web"></i>关于本站</a></li></ul></li><li class="item dropdown"><a href="#" onclick="return false;"><i class="ic i-interact"></i>互动</a><ul class="submenu"><li class="item"><a href="/message/" rel="section"><i class="ic i-comments"></i>留言</a></li><li class="item"><a href="/talks/" rel="section"><i class="ic i-talk"></i>说说</a></li></ul></li><li class="item dropdown"><a href="#" onclick="return false;"><i class="ic i-magic"></i>链环</a><ul class="submenu"><li class="item"><a href="/friends/" rel="section"><i class="ic i-heart"></i>友链</a></li><li class="item"><a href="/webstack/" rel="section"><i class="ic i-star"></i>网址</a></li></ul></li><li class="item"><a target="_blank" href="https://www.travellings.cn/go-by-clouds.html" rel="section noopener"><i class="ic i-high-speed-train"></i>开往</a></li></div></div></div></div><ul id="quick"><li class="prev pjax"><a href="/computer-science/technical-sharing/istio-1-29-ai-inference-2026-03-26/" rel="prev" title="上一篇"><i class="ic i-chevron-left"></i></a></li><li class="up"><i class="ic i-arrow-up"></i></li><li class="down"><i class="ic i-arrow-down"></i></li><li class="next pjax"><a href="/computer-science/technical-sharing/mistral-small-4-2026-03-24/" rel="next" title="下一篇"><i class="ic i-chevron-right"></i></a></li><li class="percent"></li></ul></div></div><div class="dimmer"></div></div></main><footer id="footer"><div class="inner"><div class="widgets"><div class="rpost pjax"><h2>随机文章</h2><ul><li class="item"><div class="breadcrumb"><a href="/categories/technical-sharing/" title="分类于technical-sharing">technical-sharing</a></div><span><a href="/computer-science/technical-sharing/meta-muse-spark-meta-ai-2026-04-09/">Meta 发布 Muse Spark：真正值得看的不是新模型参数，而是“子代理 + 多模态”开始进入大众产品</a></span></li><li class="item"><div class="breadcrumb"><a href="/categories/technical-sharing/" title="分类于technical-sharing">technical-sharing</a></div><span><a href="/computer-science/technical-sharing/cloudflare-post-quantum-security-2029-2026-04-08/">Cloudflare 把后量子目标提前到 2029：现在更危险的，已经不是“以后再解密”，而是“认证先被打穿”</a></span></li><li class="item"><div class="breadcrumb"><a href="/categories/others/" title="分类于其他">其他</a><i class="ic i-angle-right"></i><a href="/categories/others/novels/" title="分类于杂笔">杂笔</a><i class="ic i-angle-right"></i><a href="/categories/others/novels/%E5%B0%8F%E5%89%A7%E5%9C%BA/" title="分类于小剧场">小剧场</a></div><span><a href="/others/novels/2025-3-4/">一生的故事</a></span></li><li class="item"><div class="breadcrumb"><a href="/categories/others/" title="分类于其他">其他</a><i class="ic i-angle-right"></i><a href="/categories/others/novels/" title="分类于杂笔">杂笔</a><i class="ic i-angle-right"></i><a href="/categories/others/novels/%E6%81%B6%E9%AD%94%E9%99%8D%E4%B8%B4%E6%88%91%E8%BA%AB%E8%BE%B9/" title="分类于恶魔降临我身边">恶魔降临我身边</a></div><span><a href="/others/novels/one/2025-3-13/">第六章：被爱者的苦楚</a></span></li><li class="item"><div class="breadcrumb"><a href="/categories/others/" title="分类于其他">其他</a><i class="ic i-angle-right"></i><a href="/categories/others/novels/" title="分类于杂笔">杂笔</a><i class="ic i-angle-right"></i><a href="/categories/others/novels/%E6%81%B6%E9%AD%94%E9%99%8D%E4%B8%B4%E6%88%91%E8%BA%AB%E8%BE%B9/" title="分类于恶魔降临我身边">恶魔降临我身边</a></div><span><a href="/others/novels/one/2025-3-5/">序章</a></span></li><li class="item"><div class="breadcrumb"><a href="/categories/others/" title="分类于其他">其他</a><i class="ic i-angle-right"></i><a href="/categories/others/novels/" title="分类于杂笔">杂笔</a><i class="ic i-angle-right"></i><a href="/categories/others/novels/%E6%81%B6%E9%AD%94%E9%99%8D%E4%B8%B4%E6%88%91%E8%BA%AB%E8%BE%B9/" title="分类于恶魔降临我身边">恶魔降临我身边</a></div><span><a href="/others/novels/one/2025-3-9-2/">第五章：灵魂的重量(下)</a></span></li><li class="item"><div class="breadcrumb"><a href="/categories/technical-sharing/" title="分类于technical-sharing">technical-sharing</a></div><span><a href="/computer-science/technical-sharing/ai-os-daily-2026-03-22/">AI & Open Source Daily (2026-03-22)</a></span></li><li class="item"><div class="breadcrumb"><a href="/categories/others/" title="分类于其他">其他</a><i class="ic i-angle-right"></i><a href="/categories/others/novels/" title="分类于杂笔">杂笔</a><i class="ic i-angle-right"></i><a href="/categories/others/novels/%E6%81%B6%E9%AD%94%E9%99%8D%E4%B8%B4%E6%88%91%E8%BA%AB%E8%BE%B9/" title="分类于恶魔降临我身边">恶魔降临我身边</a></div><span><a href="/others/novels/one/2025-4-25-2/">第十四章：没来由的恶意（下）</a></span></li><li class="item"><div class="breadcrumb"><a href="/categories/computer-science/" title="分类于计算机科学">计算机科学</a><i class="ic i-angle-right"></i><a href="/categories/computer-science/hexo/" title="分类于Hexo">Hexo</a><i class="ic i-angle-right"></i><a href="/categories/computer-science/hexo/shokax/" title="分类于Shokax">Shokax</a></div><span><a href="/computer-science/hexo/shokax/shokax-deploy/">Hexo+ShokaX主题+Vercel/Github Pages搭建个人博客(二)</a></span></li><li class="item"><div class="breadcrumb"><a href="/categories/others/" title="分类于其他">其他</a><i class="ic i-angle-right"></i><a href="/categories/others/novels/" title="分类于杂笔">杂笔</a><i class="ic i-angle-right"></i><a href="/categories/others/novels/%E6%81%B6%E9%AD%94%E9%99%8D%E4%B8%B4%E6%88%91%E8%BA%AB%E8%BE%B9/" title="分类于恶魔降临我身边">恶魔降临我身边</a></div><span><a href="/others/novels/one/2025-3-17/">第八章：暴饮暴食有害健康（上）</a></span></li></ul></div><div class="rpost pjax"><h2>最新评论</h2><ul class="leancloud-recent-comment" id="new-comment"></ul></div></div><div class="status"><div class="copyright">&copy; 2024 -<span itemprop="copyrightYear">2026</span><span class="with-love"><i class="ic i-sakura rotate"></i></span><span class="author" itemprop="copyrightHolder">流萤白沙 @ Noctilumina</span></div><div class="count"><span class="post-meta-item-icon"><i class="ic i-chart-area"></i></span><span title="站点总字数">242k 字</span><span class="post-meta-divider"> | </span><span class="post-meta-item-icon"><i class="ic i-coffee"></i></span><span title="站点阅读时长">3:40</span></div><div class="powered-by">基于 <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a> & Theme.<a target="_blank" rel="noopener" href="https://github.com/theme-shoka-x/hexo-theme-shokaX/">ShokaX</a></div><div class="extra-status"><div class="icp-gov-moe-warp"><a class="icp-link" href="https://icp.gov.moe/?keyword=20250715" target="_blank"><span class="icon-text"><img class="icp-icon" src="https://moe.one/view/img/ico64.png"/>萌ICP备20250715号</span></a><span class="separator">| </span><a class="travel-link" href="https://travel.moe/go.html" title="异次元之旅-跃迁-我们一起去萌站成员的星球旅行吧！" target="_blank"><span class="icon-text"><img class="travel-icon" src="https://travel.moe/images/icon/icon64.png"/>异次元之旅</span></a></div><div class="traval-logo-warp"><a href="https://www.travellings.cn/go-by-clouds.html" target="_blank" rel="noopener" title="开往-友链接力"><img src="https://www.travellings.cn/assets/logo.gif" alt="开往-友链接力" width="120"/></a></div><div class="createtime-warp"><div class="createtime-counter"><span id="time"></span></div></div></div><script>function createtime() {
+    const n = new Date("2025/02/16 18:30:50");
+    now.setTime(now.getTime() + 250), days = (now - n) / 1e3 / 60 / 60 / 24, dnum = Math.floor(days), hours = (now - n) / 1e3 / 60 / 60 - 24 * dnum, hnum = Math.floor(hours), 1 == String(hnum).length && (hnum = "0" + hnum), minutes = (now - n) / 1e3 / 60 - 1440 * dnum - 60 * hnum, mnum = Math.floor(minutes), 1 == String(mnum).length && (mnum = "0" + mnum), seconds = (now - n) / 1e3 - 86400 * dnum - 3600 * hnum - 60 * mnum, snum = Math.round(seconds), 1 == String(snum).length && (snum = "0" + snum), document.getElementById("time").innerHTML = "小破站已在风雨中漂泊了" + dnum + " 天 " + hnum + " 小时 " + mnum + " 分 " + snum + " 秒"
+}
+const now = new Date;
+setInterval("createtime()", 250)</script></div><script>const cdnPath = 'https://cdn.jsdmirror.com/gh/winter334/live2d-widget-v3@main'
+const config = {
+  path: {
+    modelPath: cdnPath + "/Resources/",
+    cssPath: cdnPath + "/waifu.css",
+    tipsJsonPath: cdnPath + "/waifu-tips.json",
+    tipsJsPath: cdnPath + "/waifu-tips.js",
+    live2dCorePath: cdnPath + "/Core/live2dcubismcore.js",
+    live2dSdkPath: cdnPath + "/live2d-sdk.js"
+  },
+  tools: ["hitokoto", "asteroids", "express","photo", "quit"],
+  drag: {
+    enable: true,
+    direction: ["x"]
+  },
+  switchType: "order"
+}
+
+// +++++++++++++++ 新增改动部分开始 +++++++++++++++
+if (screen.width >= 768) {
+  // 延迟到页面完全加载后执行
+  window.addEventListener('load', () => {
+    // 添加加载状态提示
+    const loadingTip = document.createElement('div')
+    loadingTip.textContent = '看板娘加载中...'
+    loadingTip.style.cssText = `
+      position: fixed;
+      bottom: 20px;
+      left: 20px;
+      padding: 8px 12px;
+      background: #fff;
+      border-radius: 4px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      z-index: 9999;
+      opacity: 0;
+      animation: tipFadeIn 0.5s ease-out 0.3s forwards;
+    `
+    // 添加CSS动画关键帧
+    const style = document.createElement('style')
+    style.textContent = `
+      @keyframes tipFadeIn {
+        from { opacity: 0; transform: translateY(10px); }
+        to { opacity: 1; transform: translateY(0); }
+      }
+    `
+    document.head.appendChild(style)
+
+    document.body.appendChild(loadingTip)
+
+    // 分阶段加载策略
+    // 第一阶段：优先加载核心SDK
+    loadExternalResource(config.path.live2dCorePath, "js")
+      .then(() => {
+        // 第二阶段：加载其他依赖
+        return Promise.all([
+          loadExternalResource(config.path.cssPath, "css"),
+          loadExternalResource(config.path.live2dSdkPath, "js"),
+          loadExternalResource(config.path.tipsJsPath, "js")
+        ])
+      })
+      .then(() => {
+        // 第三阶段：初始化组件
+        initWidget({
+          waifuPath: config.path.tipsJsonPath,
+          cdnPath: config.path.modelPath,
+          tools: config.tools,
+          dragEnable: config.drag.enable,
+          dragDirection: config.drag.direction,
+          switchType: config.switchType
+        })
+        // 移除加载提示
+        loadingTip.remove()
+      })
+      .catch(error => {
+        console.error('资源加载失败:', error)
+        loadingTip.textContent = '看板娘加载失败'
+        setTimeout(() => loadingTip.remove(), 3000)
+      })
+  })
+}
+// +++++++++++++++ 新增改动部分结束 +++++++++++++++
+
+function loadExternalResource(url, type) {
+  return new Promise((resolve, reject) => {
+    let tag
+    if (type === "css") {
+      tag = document.createElement("link")
+      tag.rel = "stylesheet"
+      tag.href = url
+      // 增加预加载提示
+      tag.onload = () => {
+        console.log(`CSS加载完成: ${url}`)
+        resolve(url)
+      }
+    } else if (type === "js") {
+      tag = document.createElement("script")
+      tag.src = url
+      // 增加异步加载标记
+      tag.async = true
+    }
+    if (tag) {
+      tag.onload = () => {
+        console.log(`脚本加载完成: ${url}`)
+        resolve(url)
+      }
+      tag.onerror = () => {
+        console.error(`加载失败: ${url}`)
+        reject(url)
+      }
+      document.head.appendChild(tag)
+    }
+  })
+}</script><script defer src="https://cn.vercount.one/js"></script><div class="vercount-wrap" style="width: 100%; text-align: center;"><span class="counter-meta-item-icon"><i class="ic i-leaf"></i></span><span id="vercount_container_site_pv">页面足迹： <span id="vercount_value_site_pv"></span> 次阅读</span> | <span class="counter-meta-item-icon"><i class="ic i-foot"></i></span><span id="vercount_container_site_uv">独立访客： <span id="vercount_value_site_uv"></span> 位过客</span></div></div></footer></div><script data-config type="text/javascript">var LOCAL = {
+    ispost: true,
+    path: `computer-science/technical-sharing/gpt-5-4-mini-nano-2026-03-25/`,
+    favicon: {
+        show: `(ゝ∀･)我就知道你舍不得我`,
+        hide: `o(TヘTo)我会想你的`
+    },
+    search: {
+        placeholder: "文章搜索",
+        empty: "关于 「 ${query} 」，什么也没搜到",
+        stats: "${time} ms 内找到 ${hits} 条结果"
+    },
+    nocopy: "false",
+    copyright: `复制成功，转载请遵守 <i class="ic i-creative-commons"></i>BY-NC-SA 协议。`,
+    copy_tex: false,
+    katex: false,
+    mermaid: false,
+    audio: undefined,
+    fancybox: true,
+    nocopy: false,
+    outime: true,
+    template: `<div class="note warning"><p><span class="label warning">文章时效性提示</span><br>这是一篇发布于 {{publish}} 天前，最后一次更新在 {{updated}} 天前的文章，部分信息可能已经发生改变，请注意甄别。</p></div>`,
+    quiz: {
+        choice: `单选题`,
+        multiple: `多选题`,
+        true_false: `判断题`,
+        essay: `问答题`,
+        gap_fill: `填空题`,
+        mistake: `错题备注`
+    },
+    ignores: [
+        (uri) => uri.includes('#'),
+        (uri) => new RegExp(LOCAL.path + '$').test(uri),
+            []
+    ]
+};
+</script><script src="https://s4.zstatic.net/ajax/libs/pace/1.2.4/pace.min.js" integrity="sha384-k6YtvFUEIuEFBdrLKJ3YAUbBki333tj1CSUisai5Cswsg9wcLNaPzsTHDswp4Az8" crossorigin="anonymous" fetchpriority="high"></script><script src="https://s4.zstatic.net/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha384-ZvpUoO&#x2F;+PpLXR1lu4jmpXWu80pZlYUAfxl5NsBMWOEPSjUn&#x2F;6Z&#x2F;hRTt8+pR6L4N2" crossorigin="anonymous" fetchpriority="high"></script><script src="https://s4.zstatic.net/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js" integrity="sha384-Zm+UU4tdcfAm29vg+MTbfu&#x2F;&#x2F;q5B&#x2F;lInMbMCr4T8c9rQFyOv6PlfQYpB5wItcXWe7" crossorigin="anonymous" fetchpriority="high"></script><script src="https://s4.zstatic.net/ajax/libs/justifiedGallery/3.8.1/js/jquery.justifiedGallery.min.js" integrity="sha384-TOxsBplaL96&#x2F;QDWPIUg+ye3v89qSE3s22XNtJMmCeZEep3cVDmXy1zEfZvVv+y2m" crossorigin="anonymous" fetchpriority="high"></script><script src="/js/siteInit.js?v=0.4.25" type="module" fetchpriority="high" defer></script><script>(() => {
+  const SUMMARY_SELECTOR = '#summary .tab[data-title="文章概括"] p';
+  const PUNCTUATION_PAUSE = new Set(['，', '。', '！', '？', '；', '：', '、', ',', '.', '!', '?', ';', ':']);
+
+  const normalizeText = (text) => (text || '').replace(/\s+/g, ' ').trim();
+
+  const finishTyping = (element, text) => {
+    if (!element) return;
+    if (element.__aiSummaryTypingTimer) {
+      clearTimeout(element.__aiSummaryTypingTimer);
+      element.__aiSummaryTypingTimer = null;
+    }
+    element.textContent = text;
+    element.dataset.aiSummaryTyped = 'true';
+    element.classList.add('ai-summary-typing', 'ai-summary-typing-done');
+    element.classList.remove('is-typing');
+  };
+
+  const startTyping = (element) => {
+    if (!element) return;
+
+    const sourceText = normalizeText(element.dataset.aiSummarySource || element.textContent);
+    if (!sourceText) return;
+
+    element.dataset.aiSummarySource = sourceText;
+
+    if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      finishTyping(element, sourceText);
+      return;
+    }
+
+    if (element.dataset.aiSummaryTyped === 'true') {
+      finishTyping(element, sourceText);
+      return;
+    }
+
+    if (element.__aiSummaryTypingTimer) {
+      clearTimeout(element.__aiSummaryTypingTimer);
+    }
+
+    element.textContent = '';
+    element.classList.add('ai-summary-typing', 'is-typing');
+    element.classList.remove('ai-summary-typing-done');
+
+    let index = 0;
+    const step = () => {
+      index += 1;
+      element.textContent = sourceText.slice(0, index);
+
+      if (index >= sourceText.length) {
+        finishTyping(element, sourceText);
+        return;
+      }
+
+      const currentChar = sourceText[index - 1];
+      const delay = PUNCTUATION_PAUSE.has(currentChar) ? 85 : 22;
+      element.__aiSummaryTypingTimer = setTimeout(step, delay);
+    };
+
+    element.__aiSummaryTypingTimer = setTimeout(step, 140);
+  };
+
+  const initAiSummaryTyping = () => {
+    document.querySelectorAll(SUMMARY_SELECTOR).forEach((element) => {
+      startTyping(element);
+    });
+  };
+
+  document.addEventListener('DOMContentLoaded', initAiSummaryTyping);
+  window.addEventListener('pjax:success', initAiSummaryTyping, { passive: true });
+  document.addEventListener('pjax:complete', initAiSummaryTyping);
+})();</script><script>// 漂浮物
+// 新增函数 
+// 首先获取 Url，然后把 Url 通过 // 截成两部分，再从后一部分中截取相对路径。如果截取到的相对路径中有参数，则把参数去掉。
+// 获取相对路径
+function GetUrlRelativePath()
+{
+    var url = document.location.toString();
+    var arrUrl = url.split("//");
+
+    var start = arrUrl[1].indexOf("/");
+    var relUrl = arrUrl[1].substring(start);//stop省略，截取从start开始到结尾的所有字符
+
+    if(relUrl.indexOf("?") != -1){
+        relUrl = relUrl.split("?")[0];
+    }
+    return relUrl;
+}
+var allowAll = true; // true 则允许所有网页存在漂浮物
+// 允许显示漂浮物的网址列表
+var urlAllowList = ["/"] || [
+    "/",
+]
+
+var isAllowFloat = false;   // 全局变量，允许使用漂浮特效
+
+// 判断
+function decide(){
+    if (document.getElementById('canvas_float')) return; // 防止重复
+    isAllowFloat = true;
+    if(!allowAll){
+        // 判断当前页面是否为指定页面
+        var url = GetUrlRelativePath();
+        var i = 0;
+        for(;i<urlAllowList.length;i++){
+            if(url===urlAllowList[i]){
+                // console.log(i);
+                isAllowFloat = true;
+                break;
+            }
+        }
+        if(i===urlAllowList.length){
+            isAllowFloat = false;
+        }
+    }
+    //console.log(isAllowFloat)
+    if(isAllowFloat)startFloat();
+}
+
+var stop, staticx;
+var img = new Image();
+img.src = "/assets/float.png"; // 图片
+
+function Float(x, y, s, r, fn) {
+    this.x = x;
+    this.y = y;
+    this.s = s;
+    this.r = r;
+    this.fn = fn;
+}
+
+Float.prototype.draw = function(cxt) {
+    cxt.save();
+    var xc = 40 * this.s / 4;
+    cxt.translate(this.x, this.y);
+    cxt.rotate(this.r);
+    cxt.drawImage(img, 0, 0, 35 * this.s, 35 * this.s)
+    //漂浮物大小
+    cxt.restore();
+}
+
+Float.prototype.update = function() {
+    this.x = this.fn.x(this.x, this.y);
+    this.y = this.fn.y(this.y, this.y);
+    this.r = this.fn.r(this.r);
+    if (this.x > window.innerWidth || this.x < 0 || this.y > window.innerHeight || this.y < 0) {
+        this.r = getRandom('fnr');
+        if (Math.random() > 0.4) {
+            this.x = getRandom('x');
+            this.y = 0;
+            this.s = getRandom('s');
+            this.r = getRandom('r');
+        } else {
+            this.x = window.innerWidth;
+            this.y = getRandom('y');
+            this.s = getRandom('s');
+            this.r = getRandom('r');
+        }
+    }
+}
+
+FloatList = function() {
+    this.list = [];
+}
+FloatList.prototype.push = function(float) {
+    this.list.push(float);
+}
+FloatList.prototype.update = function() {
+    for (var i = 0, len = this.list.length; i < len; i++) {
+        this.list[i].update();
+    }
+}
+FloatList.prototype.draw = function(cxt) {
+    for (var i = 0, len = this.list.length; i < len; i++) {
+        this.list[i].draw(cxt);
+    }
+}
+FloatList.prototype.get = function(i) {
+    return this.list[i];
+}
+FloatList.prototype.size = function() {
+    return this.list.length;
+}
+
+function getRandom(option) {
+    var ret, random;
+    switch (option) {
+    case 'x':
+        ret = Math.random() * window.innerWidth;
+        break;
+    case 'y':
+        ret = Math.random() * window.innerHeight;
+        break;
+    case 's':
+        ret = Math.random();
+        break;
+    case 'r':
+        ret = Math.random() * 6;
+        break;
+    case 'fnx':
+        random = -0.5 + Math.random() * 1;
+        ret = function(x, y) {
+            return x + 0.5 * random - 0.6;
+            //x轴速度
+        }
+        ;
+        break;
+    case 'fny':
+        random = 0.8 + Math.random() * 0.7
+        //y轴速度
+        ret = function(x, y) {
+            return y + random;
+        }
+        ;
+        break;
+    case 'fnr':
+        random = Math.random() * 0.03;
+        ret = function(r) {
+            return r + random;
+        }
+        ;
+        break;
+    }
+    return ret;
+}
+
+function startFloat() {
+
+    requestAnimationFrame = window.requestAnimationFrame || window.mozRequestAnimationFrame || window.webkitRequestAnimationFrame || window.msRequestAnimationFrame || window.oRequestAnimationFrame;
+    var canvas = document.createElement('canvas'), cxt;
+    staticx = true;
+    canvas.height = window.innerHeight;
+    canvas.width = window.innerWidth;
+    canvas.setAttribute('style', 'position: fixed;left: 0;top: 0;pointer-events: none; z-index: 4;');
+    canvas.setAttribute('id', 'canvas_float');
+    document.getElementsByTagName('body')[0].appendChild(canvas);
+    cxt = canvas.getContext('2d');
+    var floatList = new FloatList();
+    for (var i = 0; i < 10; i++) {
+        //漂浮物数量
+        var float, randomX, randomY, randomS, randomR, randomFnx, randomFny;
+        randomX = getRandom('x');
+        randomY = getRandom('y');
+        randomR = getRandom('r');
+        randomS = getRandom('s');
+        randomFnx = getRandom('fnx');
+        randomFny = getRandom('fny');
+        randomFnR = getRandom('fnr');
+        float = new Float(randomX,randomY,randomS,randomR,{
+            x: randomFnx,
+            y: randomFny,
+            r: randomFnR
+        });
+        float.draw(cxt);
+        floatList.push(float);
+    }
+    stop = requestAnimationFrame(function() {
+        cxt.clearRect(0, 0, canvas.width, canvas.height);
+        floatList.update();
+        floatList.draw(cxt);
+        stop = requestAnimationFrame(arguments.callee);
+    })
+}
+
+window.onresize = function() {
+    if(!isAllowFloat)return;
+    var canvasSnow = document.getElementById('canvas_float');
+    canvasSnow.width = window.innerWidth;
+    canvasSnow.height = window.innerHeight;
+}
+
+function stopp(isPjaxReload) {
+    var canvas = document.getElementById('canvas_float');
+    if (canvas) {
+        canvas.parentNode.removeChild(canvas);
+        window.cancelAnimationFrame(stop);
+    }
+    if (isPjaxReload) {
+        setTimeout(decide, 50); // 50ms 延迟足够大多数场景
+    }
+}
+//pjax兼容
+['DOMContentLoaded', 'pjax:complete', 'turbolinks:load'].forEach(event => {
+    document.addEventListener(event, () => {
+        if (event !== 'DOMContentLoaded') {
+            stopp(true);
+        } else {
+            decide();
+        }
+    });
+});</script><script src="https://s4.zstatic.net/ajax/libs/typed.js/2.1.0/typed.umd.js"></script><script>function initTyped() {
+  if (window.typedInstance) {
+    window.typedInstance.destroy(); // 修复变量引用问题
+  }
+  
+  if (document.getElementById('typer-title')) {
+    // 默认配置
+    const defaultConfig = {
+      strings: ["Hello World!", "你好，世界!"],
+      typeSpeed: 50,
+      startDelay: 2000,
+      backSpeed: 25,
+      backDelay: 2000,
+      loop: true,
+      showCursor: true,
+      cursorChar: "|"
+    };
+
+    // 获取主题配置
+    const themeConfig = {"strings":["流萤白沙のBlog","学习 - 记录 - 分享","Learn - Record - Share"],"typeSpeed":50,"startDelay":500,"backSpeed":25,"backDelay":2000,"loop":true,"showCursor":true,"cursorChar":"|"};
+    
+    // 合并配置（主题配置优先）
+    const finalConfig = {
+      ...defaultConfig,
+      ...themeConfig,
+      // 特别处理 strings 数组
+      strings: themeConfig.strings && themeConfig.strings.length > 0 
+        ? themeConfig.strings 
+        : defaultConfig.strings
+    };
+
+    // 初始化 Typed.js
+    window.typedInstance = new Typed("#typer-title", finalConfig);
+  }
+}
+
+document.addEventListener('DOMContentLoaded', initTyped);
+document.addEventListener('pjax:complete', initTyped);</script></body></html><script>
+            var posts = ["others/Announcements/","others/ai-chief-publishing-officer-onboarding/","computer-science/csharp/Nullable/","computer-science/technical-sharing/2025-3-8-1/","computer-science/technical-sharing/ai-os-daily-2026-03-22/","computer-science/technical-sharing/ai-os-daily-2026-03-24/","computer-science/technical-sharing/ai-tech-daily-2026-03-27/","computer-science/technical-sharing/altk-evolve-agent-memory-2026-04-11/","computer-science/technical-sharing/anthropic-emotion-concepts-2026-04-03/","computer-science/technical-sharing/artitalk/","computer-science/technical-sharing/claude-code-auto-mode-2026-03-30/","computer-science/technical-sharing/cloudflare-post-quantum-security-2029-2026-04-08/","computer-science/technical-sharing/deepseek-major-outage-2026-03-31/","computer-science/technical-sharing/gemini-api-flex-priority-inference-2026-04-07/","computer-science/technical-sharing/github-copilot-data-training-policy-2026-03-29/","computer-science/technical-sharing/gpt-5-4-mini-nano-2026-03-25/","computer-science/technical-sharing/gemma-4-apache-open-model-2026-04-04/","computer-science/technical-sharing/holo3-computer-use-agent-2026-04-06/","computer-science/technical-sharing/image-hosting/","computer-science/technical-sharing/istio-1-29-ai-inference-2026-03-26/","computer-science/technical-sharing/meta-muse-spark-meta-ai-2026-04-09/","computer-science/technical-sharing/mistral-small-4-2026-03-24/","computer-science/technical-sharing/mozilla-mila-sovereign-ai-2026-03-28/","computer-science/technical-sharing/safetensors-pytorch-foundation-2026-04-10/","others/novels/2025-3-4/","others/novels/declaration/","computer-science/hexo/enhance/2025-3-2/","computer-science/hexo/enhance/2025-3-3/","computer-science/technical-sharing/qexo/","computer-science/hexo/enhance/2025-3-6/","computer-science/hexo/shokax/shokax-deploy/","computer-science/hexo/shokax/shokax-module/","computer-science/hexo/shokax/shokax-start/","others/novels/one/2025-3-13/","others/novels/one/2025-3-15/","others/novels/one/2025-3-17/","others/novels/one/2025-3-19-1/","others/novels/one/2025-3-19-2/","others/novels/one/2025-3-20-1/","others/novels/one/2025-3-20-2/","others/novels/one/2025-3-17-2/","others/novels/one/2025-3-25/","others/novels/one/2025-3-27/","others/novels/one/2025-3-5/","others/novels/one/2025-3-22-2/","others/novels/one/2025-3-7-1/","others/novels/one/2025-3-22-1/","others/novels/one/2025-3-7-2/","others/novels/one/2025-3-8-2/","others/novels/one/2025-3-8-3/","others/novels/one/2025-3-9-1/","others/novels/one/2025-3-9-2/","others/novels/one/2025-4-25-1/","others/novels/one/2025-4-25-2/","others/novels/one/2025-4-27-1/","others/novels/one/2025-4-27-3/","others/novels/one/2025-4-27-4/","others/novels/one/2025-4-27-2/","others/novels/one/2025-4-3/"];
+            function toRandomPost() { 
+                var post = posts[Math.floor(Math.random() * posts.length)];
+                window.pjax ? pjax.loadUrl('/' + post) : window.open('/' + post, "_self"); 
+            };
+        </script>
