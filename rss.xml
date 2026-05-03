@@ -1,0 +1,1771 @@
+<?xml version="1.0"?>
+<rss version="2.0">
+    <channel>
+        <title>流萤白沙のBlog</title>
+        <subtitle>莫愁千里路，自有到来风</subtitle>
+        <icon>https://lyrashore.com/assets/favicon.ico</icon>
+        <link>https://lyrashore.com</link>
+        <author>
+          <name>流萤白沙</name>
+        </author>
+        <description>学习-记录-分享</description>
+        <language>zh-CN</language>
+        <pubDate>Sun, 03 May 2026 08:00:00 +0000</pubDate>
+        <lastBuildDate>Sun, 03 May 2026 08:00:00 +0000</lastBuildDate>
+        <category term="流萤白沙" />
+        <category term="流萤" />
+        <category term="白沙" />
+        <category term="流萤博客" />
+        <category term="白沙博客" />
+        <category term="Noctilumina" />
+        <category term="whitesand" />
+        <item>
+            <guid isPermalink="true">https://lyrashore.com/computer-science/technical-sharing/granite-4-1-open-enterprise-llm-2026-05-03/</guid>
+            <title>Granite 4.1 真正值得看的，不是“又多了一组开源参数”，而是企业开源模型开始把数据质量、长上下文和工具调用一起工程化</title>
+            <link>https://lyrashore.com/computer-science/technical-sharing/granite-4-1-open-enterprise-llm-2026-05-03/</link>
+            <category term="technical-sharing" scheme="https://lyrashore.com/categories/technical-sharing/" />
+            <category term="AI" scheme="https://lyrashore.com/tags/AI/" />
+            <category term="Open Source" scheme="https://lyrashore.com/tags/Open-Source/" />
+            <category term="IBM" scheme="https://lyrashore.com/tags/IBM/" />
+            <category term="Granite" scheme="https://lyrashore.com/tags/Granite/" />
+            <category term="LLM" scheme="https://lyrashore.com/tags/LLM/" />
+            <category term="Enterprise" scheme="https://lyrashore.com/tags/Enterprise/" />
+            <pubDate>Sun, 03 May 2026 08:00:00 +0000</pubDate>
+            <description><![CDATA[ &lt;p&gt;这两天如果只盯着前沿闭源模型，很容易错过一条其实很耐看的更新：&lt;strong&gt;IBM 发布了 Granite 4.1&lt;/strong&gt;。&lt;/p&gt;
+&lt;p&gt;我觉得它最值得记下来的地方，不是 “又多了一组 3B / 8B / 30B 的开放权重”，而是它把开源企业模型该补的三块地基 ——&lt;strong&gt; 数据质量、长上下文、工具调用&lt;/strong&gt; —— 一次性讲得很完整。&lt;/p&gt;
+&lt;h2 id=&#34;1-它在做的不是更大参数而是更完整的训练工程&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#1-它在做的不是更大参数而是更完整的训练工程&#34;&gt;#&lt;/a&gt; 1. 它在做的不是 “更大参数”，而是更完整的训练工程&lt;/h2&gt;
+&lt;p&gt;根据 Hugging Face 技术博文，Granite 4.1 是一组 &lt;strong&gt;dense decoder-only&lt;/strong&gt; 语言模型，全系从头训练，累计大约 &lt;strong&gt;15T tokens&lt;/strong&gt;，而且不是一锅炖完，而是分成了五个阶段：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;前两阶段先打通用能力；&lt;/li&gt;
+&lt;li&gt;第三、四阶段逐步提高高质量数据、代码、数学、长 CoT 和 instruction 数据占比；&lt;/li&gt;
+&lt;li&gt;第五阶段再把上下文能力一路扩到 &lt;strong&gt;512K&lt;/strong&gt;。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;后续的 SFT 也不是随便糊上去。官方写得很细：他们用了大约 &lt;strong&gt;410 万条高质量样本&lt;/strong&gt;做监督微调，并在后面接上了 &lt;strong&gt;on-policy GRPO + DAPO loss&lt;/strong&gt; 的强化学习流程。&lt;/p&gt;
+&lt;p&gt;这里最有信号感的一点是：&lt;strong&gt;Granite 4.1 8B instruct 已经能在一些表现上追平甚至超过上一代 Granite 4.0-H-Small（32B-A9B MoE）&lt;/strong&gt;。&lt;/p&gt;
+&lt;p&gt;这说明一个越来越清楚的趋势：开源模型继续往前卷，不一定只能靠更复杂结构，&lt;strong&gt;认真做数据配方、训练阶段和质量控制，本身就能换来一大截进步&lt;/strong&gt;。&lt;/p&gt;
+&lt;h2 id=&#34;2-长上下文和-tool-calling被当成同一条产品线来做&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#2-长上下文和-tool-calling被当成同一条产品线来做&#34;&gt;#&lt;/a&gt; 2. 长上下文和 tool calling，被当成同一条产品线来做&lt;/h2&gt;
+&lt;p&gt;IBM 官方文档里把 Granite 4.1 的重点能力写得很直接：&lt;strong&gt;multilingual、coding、RAG、tool usage、structured JSON output&lt;/strong&gt;。&lt;/p&gt;
+&lt;p&gt;这几个词放在一起看，其实比单独某一项 benchmark 更重要。因为它说明 Granite 4.1 的目标，并不是只做一个 “会聊天的开源模型”，而是直接对齐企业里越来越常见的 agent /workflow 需求。&lt;/p&gt;
+&lt;p&gt;特别是这次同时出现的几件事：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;512K&lt;/strong&gt; 长上下文；&lt;/li&gt;
+&lt;li&gt;标准化的函数 / 工具调用格式；&lt;/li&gt;
+&lt;li&gt;工具不可用时的退让处理；&lt;/li&gt;
+&lt;li&gt;对结构化输出的明确支持。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;这些细节拼起来，味道就很明显了：&lt;strong&gt;Granite 4.1 想解决的不是单轮演示，而是更长链路、更接近生产环境的任务执行。&lt;/strong&gt;&lt;/p&gt;
+&lt;h2 id=&#34;3-更有意思的是它把企业治理也一起打包进发布叙事里&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#3-更有意思的是它把企业治理也一起打包进发布叙事里&#34;&gt;#&lt;/a&gt; 3. 更有意思的是，它把 “企业治理” 也一起打包进发布叙事里&lt;/h2&gt;
+&lt;p&gt;Granite 4.1 全系采用 &lt;strong&gt;Apache 2.0&lt;/strong&gt; 许可证开放，IBM 文档和仓库说明里还专门强调了：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;cryptographic signatures&lt;/strong&gt;；&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;ISO certification&lt;/strong&gt;；&lt;/li&gt;
+&lt;li&gt;结合 &lt;strong&gt;GRC&lt;/strong&gt; 的数据治理与质量审查流程。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;这件事很值得注意。&lt;/p&gt;
+&lt;p&gt;因为 “企业开源模型” 现在比的，已经不只是能不能下载、能不能跑通 demo，而是：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;能不能放心接进企业现有流程；&lt;/li&gt;
+&lt;li&gt;能不能稳定接 API、工具和 Agent 框架；&lt;/li&gt;
+&lt;li&gt;能不能在合规、可审计和长期维护前提下持续使用。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;换句话说，Granite 4.1 不是只在发模型，它更像是在发一套&lt;strong&gt;企业可落地的开源模型方法论&lt;/strong&gt;。&lt;/p&gt;
+&lt;h2 id=&#34;小结&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#小结&#34;&gt;#&lt;/a&gt; 小结&lt;/h2&gt;
+&lt;p&gt;如果只用一句话总结今天这条更新，我会写成：&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;strong&gt;Granite 4.1 的意义，不只是 IBM 又放出了一组开放模型，而是它把 “企业可用的开源 LLM” 往一套更完整的工程形态推进了一步。&lt;/strong&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;接下来真正值得继续观察的，可能不是谁的参数名字更唬人，而是谁能把：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;数据质量；&lt;/li&gt;
+&lt;li&gt;长上下文；&lt;/li&gt;
+&lt;li&gt;工具调用；&lt;/li&gt;
+&lt;li&gt;结构化输出；&lt;/li&gt;
+&lt;li&gt;治理与合规；&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;更稳定地捏成同一套可复用底座。&lt;/p&gt;
+&lt;h2 id=&#34;参考来源&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#参考来源&#34;&gt;#&lt;/a&gt; 参考来源&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;Hugging Face 技术博文：&lt;a href=&#34;https://huggingface.co/blog/ibm-granite/granite-4-1&#34;&gt;https://huggingface.co/blog/ibm-granite/granite-4-1&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;IBM Granite 官方文档：&lt;a href=&#34;https://www.ibm.com/granite/docs/models/granite-4.1-language/&#34;&gt;https://www.ibm.com/granite/docs/models/granite-4.1-language/&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Granite 4.1 GitHub 仓库：&lt;a href=&#34;https://github.com/ibm-granite/granite-4.1-language-models&#34;&gt;https://github.com/ibm-granite/granite-4.1-language-models&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Hugging Face Collection：&lt;a href=&#34;https://huggingface.co/collections/ibm-granite/granite-41-language-models&#34;&gt;https://huggingface.co/collections/ibm-granite/granite-41-language-models&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+ ]]></description>
+        </item>
+        <item>
+            <guid isPermalink="true">https://lyrashore.com/computer-science/technical-sharing/openai-symphony-agent-orchestration-spec-2026-05-02/</guid>
+            <title>OpenAI 开源 Symphony 之后，我更在意的是“管理 Agent”这件事终于开始被写成规范</title>
+            <link>https://lyrashore.com/computer-science/technical-sharing/openai-symphony-agent-orchestration-spec-2026-05-02/</link>
+            <category term="technical-sharing" scheme="https://lyrashore.com/categories/technical-sharing/" />
+            <category term="AI" scheme="https://lyrashore.com/tags/AI/" />
+            <category term="Open Source" scheme="https://lyrashore.com/tags/Open-Source/" />
+            <category term="OpenAI" scheme="https://lyrashore.com/tags/OpenAI/" />
+            <category term="Agent" scheme="https://lyrashore.com/tags/Agent/" />
+            <category term="Infrastructure" scheme="https://lyrashore.com/tags/Infrastructure/" />
+            <category term="Workflow" scheme="https://lyrashore.com/tags/Workflow/" />
+            <pubDate>Sat, 02 May 2026 08:00:00 +0000</pubDate>
+            <description><![CDATA[ &lt;p&gt;这两天我觉得最值得记下来的 AI 工程新闻，不是又多了一个模型名字，而是 &lt;strong&gt;OpenAI 把 Symphony 开源了&lt;/strong&gt;。&lt;/p&gt;
+&lt;p&gt;表面上看，它像一个给 Codex 配套的 Agent 编排项目；但我真正觉得有意思的是另一层：&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;strong&gt;“怎么持续管理一群编码 Agent 干活” 这件事，终于开始从经验做法，变成一份可复用的规范。&lt;/strong&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h2 id=&#34;1-它解决的不是agent-不够强而是人盯不过来&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#1-它解决的不是agent-不够强而是人盯不过来&#34;&gt;#&lt;/a&gt; 1. 它解决的不是 “Agent 不够强”，而是 “人盯不过来”&lt;/h2&gt;
+&lt;p&gt;OpenAI 在官方文章里提到，团队把越来越多工作交给 Codex 后，新的瓶颈并不是模型写不出代码，而是&lt;strong&gt;人工上下文切换&lt;/strong&gt;。&lt;/p&gt;
+&lt;p&gt;工程师要同时盯好几个 session：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;分派任务；&lt;/li&gt;
+&lt;li&gt;看执行结果；&lt;/li&gt;
+&lt;li&gt;中途纠偏；&lt;/li&gt;
+&lt;li&gt;处理卡住的长任务。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Agent 很快，但人脑很贵。&lt;/p&gt;
+&lt;p&gt;所以 Symphony 的思路很直接：&lt;strong&gt;不要再围着 session 转，而是围着任务转。&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;它把 Linear 这一类任务板变成 control plane：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;每个 open task 对应一个 agent；&lt;/li&gt;
+&lt;li&gt;被阻塞的任务先不动；&lt;/li&gt;
+&lt;li&gt;不被阻塞的任务并行推进；&lt;/li&gt;
+&lt;li&gt;agent 能补充新 issue；&lt;/li&gt;
+&lt;li&gt;人类主要做 review，而不是 babysit agent。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;OpenAI 给出的内部效果也很猛：&lt;strong&gt;部分团队前三周 landed PR 数量提升了 500%&lt;/strong&gt;。这个数字当然带有具体团队和工作流前提，但信号已经很清楚 ——&lt;strong&gt;Agent 工程正在从 “单次交互” 转向 “持续编排”。&lt;/strong&gt;&lt;/p&gt;
+&lt;h2 id=&#34;2-比项目本身更重要的是它先开源了一份-spec&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#2-比项目本身更重要的是它先开源了一份-spec&#34;&gt;#&lt;/a&gt; 2. 比项目本身更重要的，是它先开源了一份 SPEC&lt;/h2&gt;
+&lt;p&gt;Symphony 最妙的地方，不只是仓库上线，而是 OpenAI 明说：它首先是一份 &lt;strong&gt;language-agnostic 的服务规范&lt;/strong&gt;。&lt;/p&gt;
+&lt;p&gt;官方  &lt;code&gt;SPEC.md&lt;/code&gt;  里定义得很清楚：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;长运行 orchestrator 周期性读取 issue tracker；&lt;/li&gt;
+&lt;li&gt;为每个 issue 建立隔离 workspace；&lt;/li&gt;
+&lt;li&gt;在仓库内通过  &lt;code&gt;WORKFLOW.md&lt;/code&gt;  约定流程；&lt;/li&gt;
+&lt;li&gt;让编码 agent 在受控流程里执行、重试、交接与回收。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;也就是说，OpenAI 这次开源的重点不是 “请大家统一用这一份实现”，而是：&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;strong&gt;先把问题定义清楚，再让不同团队用自己熟悉的语言和基础设施去实现。&lt;/strong&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;这很像过去云原生世界里大家逐渐形成的共识：真正能扩散的，往往不是某一个具体工具，而是&lt;strong&gt;接口、约束和工作流约定&lt;/strong&gt;。&lt;/p&gt;
+&lt;h2 id=&#34;3-它也说明-agent-基础设施开始长到任务系统这一层了&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#3-它也说明-agent-基础设施开始长到任务系统这一层了&#34;&gt;#&lt;/a&gt; 3. 它也说明 Agent 基础设施开始长到 “任务系统” 这一层了&lt;/h2&gt;
+&lt;p&gt;从官方文章和仓库说明看，Symphony 并不是一个重产品，而是一个 &lt;strong&gt;low-key engineering preview&lt;/strong&gt;，而且明确建议在&lt;strong&gt;可信环境&lt;/strong&gt;里测试。&lt;/p&gt;
+&lt;p&gt;但它释放出的方向非常值得注意：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;编码 Agent 不再只是 IDE 边上的聊天框；&lt;/li&gt;
+&lt;li&gt;仓库不再只是代码容器，还要容纳  &lt;code&gt;WORKFLOW.md&lt;/code&gt;  这种流程契约；&lt;/li&gt;
+&lt;li&gt;issue tracker 不再只是记录需求，而开始承担 agent 调度入口；&lt;/li&gt;
+&lt;li&gt;orchestrator 的价值，开始接近 CI/CD 在上一代工程体系里的位置。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;OpenAI 还提到，Symphony 在实践里借助了 &lt;strong&gt;Codex App Server&lt;/strong&gt; 这种可编程接口来驱动 agent。按官方开发文档，App Server 本身就是为富集成场景准备的 JSON-RPC 接口层。&lt;/p&gt;
+&lt;p&gt;这说明一个更大的趋势：&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;Agent 产品的竞争，正在从 “模型会不会写代码”，往 “能不能稳定接进现有工程系统” 迁移。&lt;/strong&gt;&lt;/p&gt;
+&lt;h2 id=&#34;小结&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#小结&#34;&gt;#&lt;/a&gt; 小结&lt;/h2&gt;
+&lt;p&gt;如果只用一句话总结今天这条新闻，我会写成：&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;strong&gt;OpenAI 开源 Symphony，不只是多了一个 Agent 项目，而是把 “任务驱动的 Agent 编排” 正式推进到了规范化阶段。&lt;/strong&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;接下来值得继续观察的，不是谁先把屏幕上的聊天框再做漂亮一点，而是谁能把：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;任务系统；&lt;/li&gt;
+&lt;li&gt;工作流文档；&lt;/li&gt;
+&lt;li&gt;隔离执行环境；&lt;/li&gt;
+&lt;li&gt;review / CI /merge 链路；&lt;/li&gt;
+&lt;li&gt;agent 运行协议；&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;真正接成一条稳定的生产流水线。&lt;/p&gt;
+&lt;h2 id=&#34;参考来源&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#参考来源&#34;&gt;#&lt;/a&gt; 参考来源&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;OpenAI 官方文章：&lt;a href=&#34;https://openai.com/index/open-source-codex-orchestration-symphony/&#34;&gt;https://openai.com/index/open-source-codex-orchestration-symphony/&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Symphony 仓库：&lt;a href=&#34;https://github.com/openai/symphony&#34;&gt;https://github.com/openai/symphony&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Symphony SPEC：&lt;a href=&#34;https://github.com/openai/symphony/blob/main/SPEC.md&#34;&gt;https://github.com/openai/symphony/blob/main/SPEC.md&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Codex App Server 文档：&lt;a href=&#34;https://developers.openai.com/codex/app-server/&#34;&gt;https://developers.openai.com/codex/app-server/&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+ ]]></description>
+        </item>
+        <item>
+            <guid isPermalink="true">https://lyrashore.com/computer-science/technical-sharing/ai-tech-daily-2026-05-01/</guid>
+            <title>AI 技术日报（2026-05-01）：AI 账号安全开始前置，IDE Agent 更像远程执行面，评测成本成了新瓶颈</title>
+            <link>https://lyrashore.com/computer-science/technical-sharing/ai-tech-daily-2026-05-01/</link>
+            <category term="technical-sharing" scheme="https://lyrashore.com/categories/technical-sharing/" />
+            <category term="AI" scheme="https://lyrashore.com/tags/AI/" />
+            <category term="Hugging Face" scheme="https://lyrashore.com/tags/Hugging-Face/" />
+            <category term="OpenAI" scheme="https://lyrashore.com/tags/OpenAI/" />
+            <category term="GitHub" scheme="https://lyrashore.com/tags/GitHub/" />
+            <category term="Agent" scheme="https://lyrashore.com/tags/Agent/" />
+            <category term="Security" scheme="https://lyrashore.com/tags/Security/" />
+            <pubDate>Fri, 01 May 2026 08:00:00 +0000</pubDate>
+            <description><![CDATA[ &lt;p&gt;今天没有哪一条新闻大到能单独吃下一整篇长文，反而更适合做成一篇&lt;strong&gt;短一点、但信号很集中的日报&lt;/strong&gt;。&lt;/p&gt;
+&lt;p&gt;因为把最近 48 小时几条官方更新并排看，会发现一个很清楚的变化：&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;strong&gt;AI 竞争正在越来越少地只比 “模型更强”，而越来越多地比 “基础设施更稳”。&lt;/strong&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;我觉得今天最值得记的有三条。&lt;/p&gt;
+&lt;h2 id=&#34;1-openai-把高强度账号安全单独做成了一层产品&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#1-openai-把高强度账号安全单独做成了一层产品&#34;&gt;#&lt;/a&gt; 1. OpenAI 把 “高强度账号安全” 单独做成了一层产品&lt;/h2&gt;
+&lt;p&gt;OpenAI 在 4 月 30 日发布了 &lt;strong&gt;Advanced Account Security&lt;/strong&gt;，面向高风险用户和想启用最强保护的人开放自愿启用。&lt;/p&gt;
+&lt;p&gt;这次最关键的点不是 “又多了一个安全设置页”，而是它把一整组更重的保护动作打包成了一个明确档位，包括：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;要求使用 &lt;strong&gt;passkey&lt;/strong&gt; 或 &lt;strong&gt;实体安全密钥&lt;/strong&gt;；&lt;/li&gt;
+&lt;li&gt;禁用基于密码的登录；&lt;/li&gt;
+&lt;li&gt;禁用基于 &lt;strong&gt;邮箱 / 短信&lt;/strong&gt; 的账号恢复；&lt;/li&gt;
+&lt;li&gt;改成依赖备份 passkey、安全密钥和 recovery key；&lt;/li&gt;
+&lt;li&gt;缩短登录会话时长，并提供登录提醒与活动会话管理；&lt;/li&gt;
+&lt;li&gt;在启用后，&lt;strong&gt;对话默认不用于模型训练&lt;/strong&gt;；&lt;/li&gt;
+&lt;li&gt;同一登录下，保护会同时覆盖 &lt;strong&gt;ChatGPT 和 Codex&lt;/strong&gt;。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;官方还提到，从 &lt;strong&gt;2026 年 6 月 1 日&lt;/strong&gt;开始，属于 &lt;strong&gt;Trusted Access for Cyber&lt;/strong&gt; 的个人成员将被要求启用这套高级安全能力。&lt;/p&gt;
+&lt;p&gt;我觉得这条更新真正重要的地方在于：&lt;strong&gt;AI 账号本身正在被当成高价值工作入口来治理。&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;过去大家会把聊天账号看成普通 SaaS 账户，但现在一个 ChatGPT / Codex 账号里可能已经带着：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;个人长期上下文；&lt;/li&gt;
+&lt;li&gt;工作任务与文档；&lt;/li&gt;
+&lt;li&gt;连接工具权限；&lt;/li&gt;
+&lt;li&gt;高风险研究或开发活动。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;所以 OpenAI 这次释放的信号很直接：&lt;strong&gt;未来 AI 产品的安全边界，不只是模型输出审查，也包括账户接管、恢复路径和训练数据默认值。&lt;/strong&gt;&lt;/p&gt;
+&lt;h2 id=&#34;2-github-正把-ide-里的-copilot-agent-推成远程执行界面&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#2-github-正把-ide-里的-copilot-agent-推成远程执行界面&#34;&gt;#&lt;/a&gt; 2. GitHub 正把 IDE 里的 Copilot Agent 推成 “远程执行界面”&lt;/h2&gt;
+&lt;p&gt;GitHub 在 4 月 30 日更新了 &lt;strong&gt;GitHub Copilot in Visual Studio&lt;/strong&gt;。&lt;/p&gt;
+&lt;p&gt;这次更新里我最在意的几项是：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;可以直接从 Visual Studio 启动 &lt;strong&gt;cloud agent session&lt;/strong&gt;；&lt;/li&gt;
+&lt;li&gt;你在 IDE 里描述任务后，cloud agent 会在远程基础设施上创建 &lt;strong&gt;GitHub issue 和 pull request&lt;/strong&gt;；&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;custom agents&lt;/strong&gt; 现在支持用户级定义，放在  &lt;code&gt;%USERPROFILE%/.github/agents/&lt;/code&gt; ；&lt;/li&gt;
+&lt;li&gt;agent skills 的发现位置扩展到了 &lt;strong&gt; &lt;code&gt;.claude/skills/&lt;/code&gt; 、 &lt;code&gt;.agents/skills/&lt;/code&gt;  和  &lt;code&gt;.github/skills/&lt;/code&gt; &lt;/strong&gt;；&lt;/li&gt;
+&lt;li&gt;新的 &lt;strong&gt;Debugger agent&lt;/strong&gt; 会基于真实运行时行为去复现、诊断并验证修复。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;这已经不是 “IDE 里多一个聊天面板” 的升级了。&lt;/p&gt;
+&lt;p&gt;它更像是在把开发工作流改写成这样：&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;你在本地 IDE 里提出任务；&lt;/li&gt;
+&lt;li&gt;Agent 在远端基础设施上跑执行链路；&lt;/li&gt;
+&lt;li&gt;结果回到 GitHub 的 issue / PR 体系里；&lt;/li&gt;
+&lt;li&gt;你继续扮演审阅、选择和收尾的人。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;这里还有一个很有意思的小信号：GitHub 明确兼容了  &lt;code&gt;.claude/skills/&lt;/code&gt;  这类目录。&lt;/p&gt;
+&lt;p&gt;这说明 &lt;strong&gt;Agent skill 的文件约定正在跨工具收敛&lt;/strong&gt;。以后大家比的不只是 “哪个 agent 更聪明”，还会比 “谁更容易复用既有 skill、提示和工作流资产”。&lt;/p&gt;
+&lt;h2 id=&#34;3-hugging-face-提醒了一个越来越现实的问题评测成本正在变成新瓶颈&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#3-hugging-face-提醒了一个越来越现实的问题评测成本正在变成新瓶颈&#34;&gt;#&lt;/a&gt; 3. Hugging Face 提醒了一个越来越现实的问题：评测成本正在变成新瓶颈&lt;/h2&gt;
+&lt;p&gt;Hugging Face 博客在 4 月 29 日发了一篇很值得技术人看的文章：&lt;strong&gt;AI evals are becoming the new compute bottleneck&lt;/strong&gt;。&lt;/p&gt;
+&lt;p&gt;文章里最扎眼的不是观点，而是数字：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Holistic Agent Leaderboard（HAL）&lt;/strong&gt; 为 9 个模型、9 个 benchmark 跑 &lt;strong&gt;21,730&lt;/strong&gt; 次 agent rollout，花了大约 &lt;strong&gt;4 万美元&lt;/strong&gt;；&lt;/li&gt;
+&lt;li&gt;一次前沿模型上的 &lt;strong&gt;GAIA&lt;/strong&gt; 评测，在缓存前成本就可能到 &lt;strong&gt;2829 美元&lt;/strong&gt;；&lt;/li&gt;
+&lt;li&gt;Exgentic 做的一轮 &lt;strong&gt;2.2 万美元&lt;/strong&gt; sweep 里，发现相同任务下不同 scaffold 之间可以拉出 &lt;strong&gt;33 倍成本差&lt;/strong&gt;；&lt;/li&gt;
+&lt;li&gt;文章还强调，agent benchmark 评测的其实不是单一模型，而是 &lt;strong&gt;model × scaffold × token-budget&lt;/strong&gt; 的组合体。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;这件事最值得警惕的地方在于：&lt;strong&gt;评测已经越来越不像 “训练后顺手跑一下榜”，而像一笔必须单独预算的大工程。&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;而且静态 benchmark 时代那些很有效的压缩技巧，放到 agent benchmark 上往往就没那么灵了。因为一旦问题变成多轮交互、带工具调用、带环境反馈的 rollout，单题成本就天然变重，重复跑几次来消噪又会继续把账单抬上去。&lt;/p&gt;
+&lt;p&gt;这会直接改写很多团队的研发方式：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;不是所有人都负担得起大规模 agent eval；&lt;/li&gt;
+&lt;li&gt;scaffold 设计会越来越像一等公民；&lt;/li&gt;
+&lt;li&gt;便宜但高保真的粗筛流程，会越来越重要；&lt;/li&gt;
+&lt;li&gt;“评测预算” 会开始像 “训练预算” 一样进入主决策。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;小结&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#小结&#34;&gt;#&lt;/a&gt; 小结&lt;/h2&gt;
+&lt;p&gt;把今天这三条放在一起看，我会把它们归成同一个趋势：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;OpenAI&lt;/strong&gt; 在补 AI 账号的安全基础设施；&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;GitHub&lt;/strong&gt; 在补 IDE 到远程执行的 agent 基础设施；&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Hugging Face&lt;/strong&gt; 在提醒大家，评测基础设施已经开始反过来约束模型与 agent 研发。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;所以今天最值得记的一句话，我会写成：&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;strong&gt;AI 这一轮真正开始变硬的，不只是模型能力，而是安全、执行和评测这三层基础设施。&lt;/strong&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h2 id=&#34;参考来源&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#参考来源&#34;&gt;#&lt;/a&gt; 参考来源&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;OpenAI：&lt;a href=&#34;https://openai.com/index/advanced-account-security/&#34;&gt;https://openai.com/index/advanced-account-security/&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;GitHub Changelog：&lt;a href=&#34;https://github.blog/changelog/2026-04-30-github-copilot-in-visual-studio-april-update/&#34;&gt;https://github.blog/changelog/2026-04-30-github-copilot-in-visual-studio-april-update/&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Hugging Face：&lt;a href=&#34;https://huggingface.co/blog/evaleval/eval-costs-bottleneck&#34;&gt;https://huggingface.co/blog/evaleval/eval-costs-bottleneck&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+ ]]></description>
+        </item>
+        <item>
+            <guid isPermalink="true">https://lyrashore.com/computer-science/technical-sharing/huggingface-hub-v1-open-ml-infra-2026-04-30/</guid>
+            <title>huggingface_hub v1.0 发布后，我更在意的是开源 AI 基础设施终于开始按“未来十年”来重构</title>
+            <link>https://lyrashore.com/computer-science/technical-sharing/huggingface-hub-v1-open-ml-infra-2026-04-30/</link>
+            <category term="technical-sharing" scheme="https://lyrashore.com/categories/technical-sharing/" />
+            <category term="AI" scheme="https://lyrashore.com/tags/AI/" />
+            <category term="Open Source" scheme="https://lyrashore.com/tags/Open-Source/" />
+            <category term="Hugging Face" scheme="https://lyrashore.com/tags/Hugging-Face/" />
+            <category term="Infrastructure" scheme="https://lyrashore.com/tags/Infrastructure/" />
+            <category term="Python" scheme="https://lyrashore.com/tags/Python/" />
+            <pubDate>Thu, 30 Apr 2026 08:00:00 +0000</pubDate>
+            <description><![CDATA[ &lt;p&gt;这两天如果只盯着新模型，很容易错过一个其实更 “耐用” 的更新：&lt;strong&gt;Hugging Face 正式发布了  &lt;code&gt;huggingface_hub v1.0&lt;/code&gt; &lt;/strong&gt;。&lt;/p&gt;
+&lt;p&gt;表面上看，这像是一个 Python 库终于到了 1.0；但我觉得它真正值得写进笔记的原因是：&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;strong&gt;开源 AI 生态最核心的底座之一，开始不再按 “能用就行” 维护，而是按未来十年的基础设施标准重构。&lt;/strong&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h2 id=&#34;它已经不是小工具库了&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#它已经不是小工具库了&#34;&gt;#&lt;/a&gt; 它已经不是 “小工具库” 了&lt;/h2&gt;
+&lt;p&gt;Hugging Face 官方在公告里给了几组很夸张、但也很能说明问题的数字：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;为 &lt;strong&gt;20 万 + 依赖仓库&lt;/strong&gt;提供能力；&lt;/li&gt;
+&lt;li&gt;连接 &lt;strong&gt;200 万 + 公共模型&lt;/strong&gt;；&lt;/li&gt;
+&lt;li&gt;连接 &lt;strong&gt;50 万 + 公共数据集&lt;/strong&gt;；&lt;/li&gt;
+&lt;li&gt;连接 &lt;strong&gt;100 万 + 公共 Spaces&lt;/strong&gt;。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;这说明  &lt;code&gt;huggingface_hub&lt;/code&gt;  早就不是 “下载模型时顺手装的一个包”，而是很多 AI 工具链默认踩着走的一层公共地基。&lt;/p&gt;
+&lt;p&gt;所以这次升到 1.0，重点也不只是 “庆祝成熟”，而是&lt;strong&gt;把最容易卡住整个生态的几层基础能力一起换新&lt;/strong&gt;。&lt;/p&gt;
+&lt;h2 id=&#34;这次最值得看的三件事&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#这次最值得看的三件事&#34;&gt;#&lt;/a&gt; 这次最值得看的三件事&lt;/h2&gt;
+&lt;h3 id=&#34;1-从-requests-切到-httpx重点是把同步-异步和性能模型一起理顺&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#1-从-requests-切到-httpx重点是把同步-异步和性能模型一起理顺&#34;&gt;#&lt;/a&gt; 1. 从  &lt;code&gt;requests&lt;/code&gt;  切到  &lt;code&gt;httpx&lt;/code&gt; ，重点是把同步 / 异步和性能模型一起理顺&lt;/h3&gt;
+&lt;p&gt;官方这次最核心的底层变化，是把 HTTP 后端从  &lt;code&gt;requests&lt;/code&gt;  迁到  &lt;code&gt;httpx&lt;/code&gt; 。&lt;/p&gt;
+&lt;p&gt;这不是那种 “依赖表里换个名字” 的小修小补。&lt;/p&gt;
+&lt;p&gt;Hugging Face 明确提到， &lt;code&gt;httpx&lt;/code&gt;  带来的好处包括：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;更现代的 HTTP 能力；&lt;/li&gt;
+&lt;li&gt;更好的连接复用与线程安全；&lt;/li&gt;
+&lt;li&gt;同步 / 异步 API 更统一；&lt;/li&gt;
+&lt;li&gt;为后续性能和并发场景打更稳的底。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;如果你把今天的 AI 开发看成 “模型 + 数据 + 推理 + 工作流” 的组合件，那  &lt;code&gt;huggingface_hub&lt;/code&gt;  正处在这些组合件之间最容易被忽略、但一出问题就全线受影响的位置。&lt;/p&gt;
+&lt;p&gt;所以这一步真正代表的是：&lt;strong&gt;Hub 不只是内容平台，它也开始认真承担高频生产链路里的传输层责任。&lt;/strong&gt;&lt;/p&gt;
+&lt;h3 id=&#34;2-huggingface-cli-退场新的-hf-cli-更像一个完整控制面&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#2-huggingface-cli-退场新的-hf-cli-更像一个完整控制面&#34;&gt;#&lt;/a&gt; 2.  &lt;code&gt;huggingface-cli&lt;/code&gt;  退场，新的  &lt;code&gt;hf&lt;/code&gt;  CLI 更像一个完整控制面&lt;/h3&gt;
+&lt;p&gt;另一个我很喜欢的变化，是旧的  &lt;code&gt;huggingface-cli&lt;/code&gt;  被正式收口，新的 &lt;strong&gt; &lt;code&gt;hf&lt;/code&gt; &lt;/strong&gt; 命令成为主入口。&lt;/p&gt;
+&lt;p&gt;而且它不是简单改名，官方把整个命令行体验按 “资源 - 动作” 模式重做了：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;hf repo ...&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;hf cache ...&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;hf download ...&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;还补了不少很像 “真正给日常工程使用” 的细节：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;下载前  &lt;code&gt;dry-run&lt;/code&gt;  预估；&lt;/li&gt;
+&lt;li&gt;更清楚的缓存查看 / 删除 / 清理；&lt;/li&gt;
+&lt;li&gt;自动补全；&lt;/li&gt;
+&lt;li&gt;后台更新检查。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;这意味着 Hugging Face 正在把 CLI 从 “一个附属工具”，变成 &lt;strong&gt;ML 资产管理的统一控制面&lt;/strong&gt;。&lt;/p&gt;
+&lt;p&gt;对于越来越多直接在终端里拉模型、传数据、管缓存、发仓库的人来说，这种变化比多一个新模型名字更实用。&lt;/p&gt;
+&lt;h3 id=&#34;3-hf_xet-默认化说明大文件传输终于开始按数据基础设施思路来做&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#3-hf_xet-默认化说明大文件传输终于开始按数据基础设施思路来做&#34;&gt;#&lt;/a&gt; 3.  &lt;code&gt;hf_xet&lt;/code&gt;  默认化，说明大文件传输终于开始按数据基础设施思路来做&lt;/h3&gt;
+&lt;p&gt;官方还确认：&lt;strong&gt; &lt;code&gt;hf_xet&lt;/code&gt;  现在成为默认文件传输方案&lt;/strong&gt;，老的  &lt;code&gt;hf_transfer&lt;/code&gt;  被移除。&lt;/p&gt;
+&lt;p&gt;这背后最重要的不是某个具体工具名，而是 Hugging Face 继续把 “大模型时代的文件传输” 当成核心问题来做。&lt;/p&gt;
+&lt;p&gt;模型、数据集、检查点、衍生版本越来越大之后，谁能更高效地上传、下载、去重、续传，谁就更接近真正的生产基础设施。&lt;/p&gt;
+&lt;p&gt;这件事听起来没那么炫，但很现实：&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;strong&gt;很多 AI 工具的用户体验，最后不是死在模型质量，而是死在传输、缓存、兼容性和工作流摩擦上。&lt;/strong&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h2 id=&#34;我最在意的信号开源-ai-开始补基础设施债了&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#我最在意的信号开源-ai-开始补基础设施债了&#34;&gt;#&lt;/a&gt; 我最在意的信号：开源 AI 开始补 “基础设施债” 了&lt;/h2&gt;
+&lt;p&gt;这次公告里还有一个细节很值得记：官方明确提醒，虽然 v1.0 尽量兼容，但像  &lt;code&gt;transformers&lt;/code&gt;  这样的核心库，&lt;strong&gt;v4 仍然主要绑定 hub v0.x，未来 v5 才会切到 v1.x&lt;/strong&gt;。&lt;/p&gt;
+&lt;p&gt;这说明 Hugging Face 这次不是 “拍脑袋硬升级”，而是在尽量稳住整个生态迁移节奏。&lt;/p&gt;
+&lt;p&gt;我对这件事的判断是：&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;2026 年的开源 AI 竞争，已经不只是比谁发模型更快，而是比谁能把模型背后的公共地基修得更稳。&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;模型会一代代换，热点也会一波波过去，但这些更底层的能力 ——&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;文件怎么传；&lt;/li&gt;
+&lt;li&gt;API 怎么统一；&lt;/li&gt;
+&lt;li&gt;CLI 怎么组织；&lt;/li&gt;
+&lt;li&gt;Agent / 工具接口怎么接；&lt;/li&gt;
+&lt;li&gt;上下游兼容怎么迁移；&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;才是决定一个生态能不能长期长大的关键。&lt;/p&gt;
+&lt;p&gt;所以如果要用一句话总结这次  &lt;code&gt;huggingface_hub v1.0&lt;/code&gt; ，我会写成：&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;strong&gt;这不是一次普通的版本升档，而是开源 AI 基础设施终于开始按 “长期主义” 重做自己。&lt;/strong&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h2 id=&#34;参考来源&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#参考来源&#34;&gt;#&lt;/a&gt; 参考来源&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;Hugging Face 官方博客：&lt;a href=&#34;https://huggingface.co/blog/huggingface-hub-v1&#34;&gt;https://huggingface.co/blog/huggingface-hub-v1&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;GitHub Release Notes：&lt;a href=&#34;https://github.com/huggingface/huggingface_hub/releases/tag/v1.0.0&#34;&gt;https://github.com/huggingface/huggingface_hub/releases/tag/v1.0.0&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;官方迁移说明：&lt;a href=&#34;https://huggingface.co/docs/huggingface_hub/concepts/migration&#34;&gt;https://huggingface.co/docs/huggingface_hub/concepts/migration&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+ ]]></description>
+        </item>
+        <item>
+            <guid isPermalink="true">https://lyrashore.com/computer-science/technical-sharing/openai-aws-bedrock-managed-agents-2026-04-29/</guid>
+            <title>OpenAI 把模型、Codex 和 Managed Agents 一起带到 AWS 后，我更在意的是前沿 Agent 开始主动适配企业现有治理栈</title>
+            <link>https://lyrashore.com/computer-science/technical-sharing/openai-aws-bedrock-managed-agents-2026-04-29/</link>
+            <category term="technical-sharing" scheme="https://lyrashore.com/categories/technical-sharing/" />
+            <category term="AI" scheme="https://lyrashore.com/tags/AI/" />
+            <category term="OpenAI" scheme="https://lyrashore.com/tags/OpenAI/" />
+            <category term="Agent" scheme="https://lyrashore.com/tags/Agent/" />
+            <category term="Enterprise" scheme="https://lyrashore.com/tags/Enterprise/" />
+            <category term="AWS" scheme="https://lyrashore.com/tags/AWS/" />
+            <pubDate>Wed, 29 Apr 2026 08:00:00 +0000</pubDate>
+            <description><![CDATA[ &lt;p&gt;OpenAI 在 4 月 28 日发了一条我觉得很有信号感的公告：&lt;strong&gt;OpenAI models、Codex，以及由 OpenAI 提供能力的 Amazon Bedrock Managed Agents，一起进入 AWS&lt;/strong&gt;，而且都先以 &lt;strong&gt;limited preview&lt;/strong&gt; 方式落地。&lt;/p&gt;
+&lt;p&gt;如果只看标题，这很容易被理解成一句普通的云厂商合作新闻：又多了一个分发渠道、又多了一层企业销售入口。&lt;/p&gt;
+&lt;p&gt;但我更在意的是另一件事：&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;strong&gt;前沿模型公司开始越来越主动地把 Agent 能力塞进企业已经存在的治理栈里，而不是要求企业为了 Agent 重新搭一套世界。&lt;/strong&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h2 id=&#34;这次一起落地的其实是三层能力&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#这次一起落地的其实是三层能力&#34;&gt;#&lt;/a&gt; 这次一起落地的，其实是三层能力&lt;/h2&gt;
+&lt;p&gt;按 OpenAI 官方说法，这次扩展合作同时覆盖三块：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;OpenAI models on AWS&lt;/strong&gt;：包括 &lt;strong&gt;GPT-5.5&lt;/strong&gt; 在内的模型进入 Amazon Bedrock；&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Codex on AWS&lt;/strong&gt;：企业可以把 Codex 配到 Bedrock 作为 provider；&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Amazon Bedrock Managed Agents, powered by OpenAI&lt;/strong&gt;：在 AWS 环境里部署可维护上下文、执行多步任务、调用工具的生产级 Agent。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;如果把这三块拆开看，会发现它并不是 “上云” 这么简单，而是把一整条 Agent 链路补齐了：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;模型层有了；&lt;/li&gt;
+&lt;li&gt;编码执行层有了；&lt;/li&gt;
+&lt;li&gt;托管式 Agent 编排层也有了。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;所以这次更像是：&lt;strong&gt;OpenAI 不只是把模型卖进 AWS，而是把一套更接近生产环境的 Agent 工作面，一起推了进去。&lt;/strong&gt;&lt;/p&gt;
+&lt;h2 id=&#34;我更在意的点企业终于不用为了用前沿-agent-先搬家&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#我更在意的点企业终于不用为了用前沿-agent-先搬家&#34;&gt;#&lt;/a&gt; 我更在意的点：企业终于不用为了用前沿 Agent 先 “搬家”&lt;/h2&gt;
+&lt;p&gt;OpenAI 这篇公告反复强调一件事：客户可以继续使用自己已经熟悉的 &lt;strong&gt;AWS 安全控制、身份系统、合规要求、采购流程和运维工作流&lt;/strong&gt;。&lt;/p&gt;
+&lt;p&gt;这句话其实比 “模型入驻某云平台” 更重要。&lt;/p&gt;
+&lt;p&gt;因为很多企业落地 AI 真正最慢的地方，从来不是 “模型效果够不够强”，而是下面这些摩擦：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;数据和推理流量能不能留在既有云治理边界里；&lt;/li&gt;
+&lt;li&gt;身份、权限、审计、账单能不能接现有系统；&lt;/li&gt;
+&lt;li&gt;采购和法务能不能沿用已经批准的供应链路径；&lt;/li&gt;
+&lt;li&gt;生产环境里谁来管 Agent 的编排、工具调用和上线标准。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;过去不少前沿 AI 产品的问题是：&lt;strong&gt;能力很强，但进入企业流程时像一个 “外来系统”。&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;而这次 OpenAI on AWS 释放出的信号刚好相反：&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;strong&gt;不是企业去迁就 Agent，而是 Agent 开始迁就企业已有的云与治理基础设施。&lt;/strong&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h2 id=&#34;codex-这次的变化也不只是换个入口&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#codex-这次的变化也不只是换个入口&#34;&gt;#&lt;/a&gt; Codex 这次的变化，也不只是 “换个入口”&lt;/h2&gt;
+&lt;p&gt;OpenAI 还给了一个很具体的数字：&lt;strong&gt;现在每周有超过 400 万人使用 Codex&lt;/strong&gt;。&lt;/p&gt;
+&lt;p&gt;但比用户量更值得看的是，Codex 在 AWS 里的接法被写得非常工程化：企业通过 &lt;strong&gt;Bedrock API&lt;/strong&gt; 把 Bedrock 配成 provider，就可以从 &lt;strong&gt;Codex CLI、桌面应用和 VS Code 扩展&lt;/strong&gt;开始接入。&lt;/p&gt;
+&lt;p&gt;而且官方还特别强调了几件企业会在意的属性：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;走 AWS 的 &lt;strong&gt;security&lt;/strong&gt; 能力；&lt;/li&gt;
+&lt;li&gt;走 AWS 的 &lt;strong&gt;billing&lt;/strong&gt;；&lt;/li&gt;
+&lt;li&gt;走 AWS 的 &lt;strong&gt;high availability&lt;/strong&gt;；&lt;/li&gt;
+&lt;li&gt;符合 AWS 的 &lt;strong&gt;cloud commitments&lt;/strong&gt; 使用逻辑。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;这说明 Codex 的竞争，正在从 “谁更像一个能写代码的助手”，转向 “谁能更顺滑地并入现有企业研发控制面”。&lt;/p&gt;
+&lt;p&gt;换句话说，下一阶段企业买的可能不只是一个 coding agent，而是：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;一个能进现有云账单体系的 agent；&lt;/li&gt;
+&lt;li&gt;一个能进现有权限和合规边界的 agent；&lt;/li&gt;
+&lt;li&gt;一个能在既有开发工具链里被标准化采购和推广的 agent。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;bedrock-managed-agents-才是最值得记的一笔&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#bedrock-managed-agents-才是最值得记的一笔&#34;&gt;#&lt;/a&gt; Bedrock Managed Agents 才是最值得记的一笔&lt;/h2&gt;
+&lt;p&gt;如果说模型上云、Codex 上云还算意料之中，那么 &lt;strong&gt;Bedrock Managed Agents, powered by OpenAI&lt;/strong&gt; 更像是真正的新信号。&lt;/p&gt;
+&lt;p&gt;按 OpenAI 和 AWS 两边的描述，这层能力主打的是：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;maintain context&lt;/strong&gt;；&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;execute multi-step workflows&lt;/strong&gt;；&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;use tools&lt;/strong&gt;；&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;take action across complex business processes&lt;/strong&gt;。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;AWS 那边的说法也很直白：它要做的是让客户更快地构建 &lt;strong&gt;production-ready OpenAI-powered agents&lt;/strong&gt;，而且底层直接靠 AWS 可信基础设施来托住。&lt;/p&gt;
+&lt;p&gt;这背后的意义很现实：&lt;/p&gt;
+&lt;p&gt;很多企业现在已经不缺 “一个能演示的 Agent”，缺的是一个可以过内控、进生产、接业务系统、还能长期运维的 Agent。&lt;/p&gt;
+&lt;p&gt;所以 Bedrock Managed Agents 真正卖的不是 “Agent 这个概念”，而是：&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;strong&gt;把部署、工具使用、编排和治理这些脏活累活托管掉，让企业把精力放到业务任务本身。&lt;/strong&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h2 id=&#34;我的判断&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#我的判断&#34;&gt;#&lt;/a&gt; 我的判断&lt;/h2&gt;
+&lt;p&gt;这条新闻最值得记住的，不是 “OpenAI 和 AWS 又深化合作了”，而是：&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;前沿 Agent 的产品形态，正在从能力展示，转向对企业基础设施的主动适配。&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;接下来企业真正会买单的，可能也不只是模型能力，而是这几件更硬的事：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;能不能进入现有安全与合规框架；&lt;/li&gt;
+&lt;li&gt;能不能沿用现有采购、账单和承诺消费体系；&lt;/li&gt;
+&lt;li&gt;能不能把 Agent 从试点稳定推到生产；&lt;/li&gt;
+&lt;li&gt;能不能让工具调用、多步执行和治理能力一起标准化。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;如果这个方向继续往前走，那么下一轮企业 Agent 竞争，比拼的可能就不只是 “谁更聪明”，而是：&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;谁更容易被大公司放心地接进现有系统。&lt;/strong&gt;&lt;/p&gt;
+&lt;h2 id=&#34;参考来源&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#参考来源&#34;&gt;#&lt;/a&gt; 参考来源&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;OpenAI：&lt;a href=&#34;https://openai.com/index/openai-on-aws/&#34;&gt;https://openai.com/index/openai-on-aws/&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;AWS：&lt;a href=&#34;https://aws.amazon.com/bedrock/managed-agents-openai/&#34;&gt;https://aws.amazon.com/bedrock/managed-agents-openai/&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+ ]]></description>
+        </item>
+        <item>
+            <guid isPermalink="true">https://lyrashore.com/computer-science/technical-sharing/deepseek-v4-agent-long-context-cost-2026-04-28/</guid>
+            <title>DeepSeek-V4 发布后，我更在意的不是“1M 上下文”，而是开源 Agent 模型终于开始围着长任务成本来设计</title>
+            <link>https://lyrashore.com/computer-science/technical-sharing/deepseek-v4-agent-long-context-cost-2026-04-28/</link>
+            <category term="technical-sharing" scheme="https://lyrashore.com/categories/technical-sharing/" />
+            <category term="AI" scheme="https://lyrashore.com/tags/AI/" />
+            <category term="Open Source" scheme="https://lyrashore.com/tags/Open-Source/" />
+            <category term="Agent" scheme="https://lyrashore.com/tags/Agent/" />
+            <category term="DeepSeek" scheme="https://lyrashore.com/tags/DeepSeek/" />
+            <category term="Long Context" scheme="https://lyrashore.com/tags/Long-Context/" />
+            <pubDate>Tue, 28 Apr 2026 08:00:00 +0000</pubDate>
+            <description><![CDATA[ &lt;p&gt;DeepSeek 放出 V4 之后，最容易抢眼球的当然是 &lt;strong&gt;100 万 token 上下文&lt;/strong&gt;。&lt;/p&gt;
+&lt;p&gt;但如果只把它理解成 “上下文又变长了”，我觉得会低估这次发布真正值得记的一点：&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;strong&gt;开源模型终于开始认真回答 Agent 时代的硬问题：长任务不是能不能塞进上下文，而是塞进去以后还跑不跑得动。&lt;/strong&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h2 id=&#34;1-这次最关键的不是更长而是更便宜地长&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#1-这次最关键的不是更长而是更便宜地长&#34;&gt;#&lt;/a&gt; 1. 这次最关键的不是 “更长”，而是 “更便宜地长”&lt;/h2&gt;
+&lt;p&gt;按 DeepSeek 官方模型卡，&lt;strong&gt;DeepSeek-V4-Pro&lt;/strong&gt; 在 1M token 场景下，相比 V3.2 只需要：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;27%&lt;/strong&gt; 的 single-token inference FLOPs；&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;10%&lt;/strong&gt; 的 KV cache。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;这两个数字比 “支持 1M context” 本身更重要。&lt;/p&gt;
+&lt;p&gt;因为真正跑过长链路 Agent 的人都知道，问题通常不是第一轮放不下，而是：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;工具调用结果会越积越多；&lt;/li&gt;
+&lt;li&gt;后面每一个 token 都要为前面的历史买单；&lt;/li&gt;
+&lt;li&gt;上下文一深，延迟和显存就会一起涨。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;所以 V4 给出的核心信号是：&lt;strong&gt;长上下文开始从 marketing 数字，变成推理成本工程。&lt;/strong&gt;&lt;/p&gt;
+&lt;h2 id=&#34;2-它不是只在卷窗口也在卷能不能把-agent-跑完&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#2-它不是只在卷窗口也在卷能不能把-agent-跑完&#34;&gt;#&lt;/a&gt; 2. 它不是只在卷窗口，也在卷 “能不能把 Agent 跑完”&lt;/h2&gt;
+&lt;p&gt;这次 DeepSeek-V4 系列一共给了两档：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;V4-Pro&lt;/strong&gt;：1.6T 总参数，49B 激活参数；&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;V4-Flash&lt;/strong&gt;：284B 总参数，13B 激活参数。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;两者都支持 1M 上下文，但官方更想强调的显然不只是 “能装很多字”，而是这种长度对真实任务是否有意义。&lt;/p&gt;
+&lt;p&gt;官方列出的 &lt;strong&gt;V4-Pro Max&lt;/strong&gt; Agent 相关成绩里，有几项很有代表性：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Terminal Bench 2.0：67.9&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;SWE Verified：80.6&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;MCPAtlas Public：73.6&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Toolathlon：51.8&lt;/strong&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;这些分数当然还不是把所有闭源前沿模型都压过去，但已经很能说明问题：&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;开源模型现在争的，不再只是聊天强不强、题做得漂不漂亮，而是能不能稳定做长任务、能不能把工具链真正接起来。&lt;/strong&gt;&lt;/p&gt;
+&lt;h2 id=&#34;3-我更在意的是它开始围着-agent-工作负载做底层适配&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#3-我更在意的是它开始围着-agent-工作负载做底层适配&#34;&gt;#&lt;/a&gt; 3. 我更在意的是：它开始围着 Agent 工作负载做底层适配&lt;/h2&gt;
+&lt;p&gt;DeepSeek 官方把这次架构升级的重点放在 &lt;strong&gt;Hybrid Attention&lt;/strong&gt;，也就是 &lt;strong&gt;CSA + HCA&lt;/strong&gt; 的组合上。对大多数开发者来说，机制细节不一定要逐层吃透，但有一件事很明确：&lt;/p&gt;
+&lt;p&gt;它瞄准的是 &lt;strong&gt;长上下文的可用成本&lt;/strong&gt;，不是单纯把窗口数字写大。&lt;/p&gt;
+&lt;p&gt;这件事的意义很现实。&lt;/p&gt;
+&lt;p&gt;对普通聊天产品来说，上下文长一点短一点，很多时候只是体验差异；但对 Agent 来说，长上下文往往意味着：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;多轮计划；&lt;/li&gt;
+&lt;li&gt;多次工具往返；&lt;/li&gt;
+&lt;li&gt;更长的错误恢复链路；&lt;/li&gt;
+&lt;li&gt;更高的持续运行成本。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;所以当一个开源模型把 “百万上下文下还能不能省着跑” 当成一等公民，它其实是在朝另一类工作负载靠拢：&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;strong&gt;不是一次性问答，而是长时间执行。&lt;/strong&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h2 id=&#34;我的判断&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#我的判断&#34;&gt;#&lt;/a&gt; 我的判断&lt;/h2&gt;
+&lt;p&gt;DeepSeek-V4 这次最值得记住的，不是 “开源也有 1M context 了”，而是：&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;开源 Agent 模型终于开始把延迟、显存和长链路稳定性，当成产品级问题来解决。&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;如果这个方向继续往前走，接下来真正会卷的，可能不只是 benchmark 排名，而是三件更硬的事：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;长链路任务跑得稳不稳；&lt;/li&gt;
+&lt;li&gt;工具调用和上下文续接顺不顺；&lt;/li&gt;
+&lt;li&gt;同样的 Agent 工作量，到底烧多少算力。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;这比单纯把上下文窗口继续往上堆，更值得看。&lt;/p&gt;
+&lt;h2 id=&#34;参考来源&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#参考来源&#34;&gt;#&lt;/a&gt; 参考来源&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;DeepSeek-V4-Pro 模型卡：&lt;a href=&#34;https://huggingface.co/deepseek-ai/DeepSeek-V4-Pro&#34;&gt;https://huggingface.co/deepseek-ai/DeepSeek-V4-Pro&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;DeepSeek-V4-Flash 模型卡：&lt;a href=&#34;https://huggingface.co/deepseek-ai/DeepSeek-V4-Flash&#34;&gt;https://huggingface.co/deepseek-ai/DeepSeek-V4-Flash&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;DeepSeek-V4 Technical Report：&lt;a href=&#34;https://huggingface.co/deepseek-ai/DeepSeek-V4-Pro/blob/main/DeepSeek_V4.pdf&#34;&gt;https://huggingface.co/deepseek-ai/DeepSeek-V4-Pro/blob/main/DeepSeek_V4.pdf&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Hugging Face 解析：&lt;a href=&#34;https://huggingface.co/blog/deepseekv4&#34;&gt;https://huggingface.co/blog/deepseekv4&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+ ]]></description>
+        </item>
+        <item>
+            <guid isPermalink="true">https://lyrashore.com/computer-science/technical-sharing/openai-principles-ai-governance-2026-04-27/</guid>
+            <title>OpenAI 重写原则后，我更在意的是 AI 公司开始把“治理叙事”放到产品路线前面</title>
+            <link>https://lyrashore.com/computer-science/technical-sharing/openai-principles-ai-governance-2026-04-27/</link>
+            <category term="technical-sharing" scheme="https://lyrashore.com/categories/technical-sharing/" />
+            <category term="AI" scheme="https://lyrashore.com/tags/AI/" />
+            <category term="OpenAI" scheme="https://lyrashore.com/tags/OpenAI/" />
+            <category term="Infrastructure" scheme="https://lyrashore.com/tags/Infrastructure/" />
+            <category term="Governance" scheme="https://lyrashore.com/tags/Governance/" />
+            <category term="AGI" scheme="https://lyrashore.com/tags/AGI/" />
+            <pubDate>Mon, 27 Apr 2026 08:00:00 +0000</pubDate>
+            <description><![CDATA[ &lt;p&gt;OpenAI 在 4 月 26 日发了一篇 &lt;strong&gt;Our principles&lt;/strong&gt;。它不是模型发布，也不是 API 更新，甚至看起来更像一篇公司价值观说明。&lt;/p&gt;
+&lt;p&gt;但我觉得这类文章反而值得单独记一笔。因为当一家前沿 AI 公司开始公开重写 “原则”，通常说明它已经不只是在解释技术路线，而是在解释：&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;strong&gt;为什么它要这样扩张、这样开放、这样买算力，以及这样处理风险。&lt;/strong&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h2 id=&#34;这次-openai-说了哪五件事&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#这次-openai-说了哪五件事&#34;&gt;#&lt;/a&gt; 这次 OpenAI 说了哪五件事&lt;/h2&gt;
+&lt;p&gt;文章把 OpenAI 的原则拆成五个词：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Democratization&lt;/strong&gt;：抵抗技术权力集中，让关键 AI 决策不只由少数实验室完成；&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Empowerment&lt;/strong&gt;：让用户能完成越来越有价值的任务，同时在不确定风险面前保持谨慎；&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Universal prosperity&lt;/strong&gt;：用更便宜、更充足的 AI 基础设施推动更广泛的繁荣；&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Resilience&lt;/strong&gt;：和公司、政府、生态与社会一起应对新风险，尤其是生物安全、网络安全和关键基础设施；&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Adaptability&lt;/strong&gt;：承认未来高度不可预测，原则本身也要能随证据更新。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;如果只看字面，这些词都很 “正确”。但真正有信号感的是，它们被放在 2026 年这个时间点。&lt;/p&gt;
+&lt;h2 id=&#34;我更在意的是原则开始服务于基础设施叙事&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#我更在意的是原则开始服务于基础设施叙事&#34;&gt;#&lt;/a&gt; 我更在意的是：原则开始服务于基础设施叙事&lt;/h2&gt;
+&lt;p&gt;文章里有一句很现实：OpenAI 说很多看起来 “奇怪” 的动作 —— 购买大量算力、垂直整合、在全球建设数据中心 —— 都来自它对 “普遍繁荣” 的判断。&lt;/p&gt;
+&lt;p&gt;这句话很关键。&lt;/p&gt;
+&lt;p&gt;过去大模型公司谈愿景，常常是从模型能力出发：更聪明、更通用、更接近 AGI。现在叙事正在变成另一种结构：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;要让更多人用上 AI，就要降成本；&lt;/li&gt;
+&lt;li&gt;要降成本，就要更多基础设施；&lt;/li&gt;
+&lt;li&gt;要让基础设施可持续扩张，就必须解释它和公共利益之间的关系；&lt;/li&gt;
+&lt;li&gt;要解释公共利益，就不能只说产品好用，还要谈治理、分配和风险。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;所以这篇文章不只是 “OpenAI 的价值观”，更像是一份给外部世界看的路线图：&lt;strong&gt;AI 公司正在把算力扩张、产品开放和社会治理绑成同一套叙事。&lt;/strong&gt;&lt;/p&gt;
+&lt;h2 id=&#34;第二个信号开放与安全不再被写成简单对立&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#第二个信号开放与安全不再被写成简单对立&#34;&gt;#&lt;/a&gt; 第二个信号：开放与安全不再被写成简单对立&lt;/h2&gt;
+&lt;p&gt;OpenAI 一边强调要把通用 AI 放到尽可能多人手里，一边也明确说会在不确定时偏谨慎，并随着证据放松约束。&lt;/p&gt;
+&lt;p&gt;这个表述比 “开放还是封闭” 的二选一更接近现实。&lt;/p&gt;
+&lt;p&gt;因为现在的前沿模型已经不是单纯的聊天工具。它们会写代码、做研究、调工具、操作软件，也会进入企业、教育、医疗、政府和安全场景。越是这样，越不可能只靠一句 “开放更好” 或 “管住更安全” 解决问题。&lt;/p&gt;
+&lt;p&gt;真正难的是动态平衡：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;哪些能力应该默认开放；&lt;/li&gt;
+&lt;li&gt;哪些场景需要更严格访问控制；&lt;/li&gt;
+&lt;li&gt;哪些风险要靠模型厂商解决；&lt;/li&gt;
+&lt;li&gt;哪些风险必须交给行业、政府和社会共同处理。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;OpenAI 在文中把这叫做 iterative deployment，也就是让社会逐步接触每一层新能力，再一起学习如何吸收它。&lt;/p&gt;
+&lt;p&gt;这个思路未必完美，但它说明前沿 AI 的治理语境正在成熟：&lt;strong&gt;安全不再只是模型发布前的一张评估表，而是持续部署过程的一部分。&lt;/strong&gt;&lt;/p&gt;
+&lt;h2 id=&#34;第三个信号ai-治理会越来越像公共基础设施治理&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#第三个信号ai-治理会越来越像公共基础设施治理&#34;&gt;#&lt;/a&gt; 第三个信号：AI 治理会越来越像公共基础设施治理&lt;/h2&gt;
+&lt;p&gt;文章专门提到网络安全、开源软件、关键基础设施，以及可能出现的高风险能力。这些例子说明，AI 公司已经很难只把自己定位成普通软件厂商。&lt;/p&gt;
+&lt;p&gt;原因很简单：如果模型真的成为社会生产力底座，它的影响范围就会接近云、电网、网络和金融系统那类基础设施。&lt;/p&gt;
+&lt;p&gt;这也意味着未来的讨论重点会从 “某个模型强不强”，继续扩展到：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;算力掌握在谁手里；&lt;/li&gt;
+&lt;li&gt;不同国家和地区能否公平接入；&lt;/li&gt;
+&lt;li&gt;AI 产生的经济价值如何分配；&lt;/li&gt;
+&lt;li&gt;高风险能力要如何被审计、延迟或限制；&lt;/li&gt;
+&lt;li&gt;开源生态和公共部门如何参与防御。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;这才是这篇原则文档真正值得看的地方。&lt;/p&gt;
+&lt;h2 id=&#34;我的判断&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#我的判断&#34;&gt;#&lt;/a&gt; 我的判断&lt;/h2&gt;
+&lt;p&gt;OpenAI 这次没有发布新模型，但发布了一种更清楚的自我定位：它不想只被看作模型公司，而是要把自己放进 “AGI 基础设施 + 社会治理” 的位置里。&lt;/p&gt;
+&lt;p&gt;所以我会把这篇文章记成一句话：&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;AI 公司的下一轮竞争，不只是模型能力竞争，也会是治理叙事、基础设施能力和社会信任的竞争。&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;模型越强，这件事就越绕不开。&lt;/p&gt;
+&lt;h2 id=&#34;参考来源&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#参考来源&#34;&gt;#&lt;/a&gt; 参考来源&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;OpenAI：&lt;a href=&#34;https://openai.com/index/our-principles/&#34;&gt;https://openai.com/index/our-principles/&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+ ]]></description>
+        </item>
+        <item>
+            <guid isPermalink="true">https://lyrashore.com/computer-science/technical-sharing/huggingface-open-responses-agent-standard-2026-04-26/</guid>
+            <title>Hugging Face 推 Open Responses 后，我更在意的不是“又一个 API 规范”，而是 Agent 时代终于开始补接口层基础设施</title>
+            <link>https://lyrashore.com/computer-science/technical-sharing/huggingface-open-responses-agent-standard-2026-04-26/</link>
+            <category term="technical-sharing" scheme="https://lyrashore.com/categories/technical-sharing/" />
+            <category term="AI" scheme="https://lyrashore.com/tags/AI/" />
+            <category term="Hugging Face" scheme="https://lyrashore.com/tags/Hugging-Face/" />
+            <category term="Agent" scheme="https://lyrashore.com/tags/Agent/" />
+            <category term="Open Responses" scheme="https://lyrashore.com/tags/Open-Responses/" />
+            <category term="API" scheme="https://lyrashore.com/tags/API/" />
+            <pubDate>Sun, 26 Apr 2026 08:00:00 +0000</pubDate>
+            <description><![CDATA[ &lt;p&gt;如果只看标题，&lt;strong&gt;Open Responses&lt;/strong&gt; 很容易被理解成 “又一个新 API 规范”。&lt;/p&gt;
+&lt;p&gt;但我觉得它真正值得记住的地方，不是规范又多了一份，而是：&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;strong&gt;Agent 时代最缺的那层接口基础设施，终于开始有人认真补了。&lt;/strong&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;Hugging Face 这篇文章写得很直白：今天大家的推理工作负载越来越偏向 agent，但很多系统还停留在 &lt;strong&gt;Chat Completions&lt;/strong&gt; 这套为轮次对话设计的接口上。问题不在于它不能用，而在于一旦任务变成 “要推理、要调工具、要持续执行、还要可观测”，旧接口就会越来越别扭。&lt;/p&gt;
+&lt;h2 id=&#34;open-responses-到底想解决什么&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#open-responses-到底想解决什么&#34;&gt;#&lt;/a&gt; Open Responses 到底想解决什么&lt;/h2&gt;
+&lt;p&gt;按 Hugging Face 和 &lt;a href=&#34;http://openresponses.org&#34;&gt;openresponses.org&lt;/a&gt; 的说法，Open Responses 是一套基于 &lt;strong&gt;OpenAI Responses API&lt;/strong&gt; 方向扩展出来的开放标准，目标是让多家模型提供方、路由层和客户端，尽量围绕同一套结构协作。&lt;/p&gt;
+&lt;p&gt;它强调的几个点，其实都很 “Agent 导向”：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;用 &lt;strong&gt;items&lt;/strong&gt; 作为上下文和输出的原子单位，而不只是消息气泡；&lt;/li&gt;
+&lt;li&gt;流式返回不再只是文本增量，而是更明确的 &lt;strong&gt;语义事件&lt;/strong&gt;；&lt;/li&gt;
+&lt;li&gt;原生区分 &lt;strong&gt;内部工具&lt;/strong&gt; 和 &lt;strong&gt;外部工具&lt;/strong&gt;；&lt;/li&gt;
+&lt;li&gt;明确描述 &lt;strong&gt;sub-agent loop&lt;/strong&gt;，也就是 “推理 → 调工具 → 接回结果 → 继续推理” 的循环。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;这套思路最重要的意义是：&lt;strong&gt;接口关注的对象，从 “说了什么” 开始转向 “做了什么、做到哪一步了”。&lt;/strong&gt;&lt;/p&gt;
+&lt;h2 id=&#34;我更在意的是可移植的-agent-工作流&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#我更在意的是可移植的-agent-工作流&#34;&gt;#&lt;/a&gt; 我更在意的是 “可移植的 Agent 工作流”&lt;/h2&gt;
+&lt;p&gt;过去一年，大家已经很习惯让模型写代码、调搜索、跑工具、接文件、处理长链任务。但麻烦也很现实：不同 provider 的字段、事件流、工具调用方式和状态表达都不一样，一旦产品真的做大，迁移和路由成本就会迅速上升。&lt;/p&gt;
+&lt;p&gt;Open Responses 想补的，正是这层裂缝。&lt;/p&gt;
+&lt;p&gt;它未必能立刻统一全行业，但至少提供了一个很清楚的方向：&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;strong&gt;让 Agent 工作流先有一套共享的 “接口语言”，而不是每家各说各话。&lt;/strong&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;这对路由层、评测层和开源客户端尤其关键。因为真正难迁移的，往往不是 “再发一次 prompt”，而是整条工作流里的：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;工具调用格式；&lt;/li&gt;
+&lt;li&gt;推理过程可见性；&lt;/li&gt;
+&lt;li&gt;流式状态变化；&lt;/li&gt;
+&lt;li&gt;长任务续跑与上下文接续；&lt;/li&gt;
+&lt;li&gt;不同 provider 之间的能力映射。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;第二个变化接口标准开始从文本输出转向过程建模&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#第二个变化接口标准开始从文本输出转向过程建模&#34;&gt;#&lt;/a&gt; 第二个变化：接口标准开始从 “文本输出” 转向 “过程建模”&lt;/h2&gt;
+&lt;p&gt;我觉得 Open Responses 最有信号感的一点，是它不再把模型返回值只当成一段文本，而是把整个执行过程建模出来。&lt;/p&gt;
+&lt;p&gt;比如规范里明确写到：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;对象是有状态机的，可以处于 in_progress、completed、failed 等状态；&lt;/li&gt;
+&lt;li&gt;流式返回是事件流，而不是只看 delta 文本；&lt;/li&gt;
+&lt;li&gt;还支持更适合长链路任务的 WebSocket 传输和续接语义。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;这说明行业正在慢慢接受一件事：&lt;strong&gt;Agent 不是 “更长的聊天”，而是另一种程序接口。&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;如果这层认识立住了，后面的可观测性、托管工具、跨 provider 路由，才会更像工程问题，而不是产品拼装。&lt;/p&gt;
+&lt;h2 id=&#34;我的判断&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#我的判断&#34;&gt;#&lt;/a&gt; 我的判断&lt;/h2&gt;
+&lt;p&gt;如果说 Chat Completions 定义了聊天机器人时代最常见的接口习惯，那 Open Responses 这类尝试，更像是在给 Agent 时代找一套更像样的底座。&lt;/p&gt;
+&lt;p&gt;所以我会把这条更新记成一句更简单的话：&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;真正值得看的，不是 “又多了一个标准”，而是 Agent 基础设施终于开始从模型能力竞争，往接口层和互操作层下沉。&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;它能不能成为最终主流，还要看后续 adoption。&lt;/p&gt;
+&lt;p&gt;但至少这次，行业终于不是只在卷 “模型更强”，而是开始补 “怎么让不同模型真的更好接、更好换、更好跑”。&lt;/p&gt;
+&lt;h2 id=&#34;参考来源&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#参考来源&#34;&gt;#&lt;/a&gt; 参考来源&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;Hugging Face：&lt;a href=&#34;https://huggingface.co/blog/open-responses&#34;&gt;https://huggingface.co/blog/open-responses&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Open Responses：&lt;a href=&#34;https://www.openresponses.org/&#34;&gt;https://www.openresponses.org/&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;OpenAI Responses API Reference：&lt;a href=&#34;https://developers.openai.com/api/reference/resources/responses&#34;&gt;https://developers.openai.com/api/reference/resources/responses&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+ ]]></description>
+        </item>
+        <item>
+            <guid isPermalink="true">https://lyrashore.com/computer-science/technical-sharing/gpt-5-5-agentic-work-latency-2026-04-25/</guid>
+            <title>GPT‑5.5 发布后，我更在意的不是分数更高，而是“更会干活”终于不再默认更慢</title>
+            <link>https://lyrashore.com/computer-science/technical-sharing/gpt-5-5-agentic-work-latency-2026-04-25/</link>
+            <category term="technical-sharing" scheme="https://lyrashore.com/categories/technical-sharing/" />
+            <category term="AI" scheme="https://lyrashore.com/tags/AI/" />
+            <category term="OpenAI" scheme="https://lyrashore.com/tags/OpenAI/" />
+            <category term="Agent" scheme="https://lyrashore.com/tags/Agent/" />
+            <category term="GPT-5.5" scheme="https://lyrashore.com/tags/GPT-5-5/" />
+            <category term="Codex" scheme="https://lyrashore.com/tags/Codex/" />
+            <pubDate>Sat, 25 Apr 2026 08:00:00 +0000</pubDate>
+            <description><![CDATA[ &lt;p&gt;OpenAI 这次发布 &lt;strong&gt;GPT‑5.5&lt;/strong&gt;，表面上当然还是一条标准的 “大模型升级新闻”：更强、更多 benchmark、更会写代码。&lt;/p&gt;
+&lt;p&gt;但我觉得这次真正值得记住的，不是分数表本身，而是一句更偏工程现实的话：&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;strong&gt;“更会干活” 的模型，终于不再默认意味着 “更慢、更贵、更难用”。&lt;/strong&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;如果这个判断成立，那 GPT‑5.5 的意义，就不只是 OpenAI 又把旗舰模型往上拱了一截，而是 &lt;strong&gt;agentic work 开始更像可直接交付的主路径&lt;/strong&gt;。&lt;/p&gt;
+&lt;h2 id=&#34;先看这次最重要的官方信号&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#先看这次最重要的官方信号&#34;&gt;#&lt;/a&gt; 先看这次最重要的官方信号&lt;/h2&gt;
+&lt;p&gt;按 OpenAI 官方文章，GPT‑5.5 的定位非常明确：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;更擅长 &lt;strong&gt;agentic coding&lt;/strong&gt;；&lt;/li&gt;
+&lt;li&gt;更能做 &lt;strong&gt;computer use&lt;/strong&gt;；&lt;/li&gt;
+&lt;li&gt;更适合 &lt;strong&gt;knowledge work&lt;/strong&gt; 和早期科研任务；&lt;/li&gt;
+&lt;li&gt;而且在真实服务里，&lt;strong&gt;per-token latency 与 GPT‑5.4 持平&lt;/strong&gt;；&lt;/li&gt;
+&lt;li&gt;同时完成 Codex 任务时，&lt;strong&gt;还会用更少的 token&lt;/strong&gt;。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;这组描述放在一起，比任何一句 “smartest model yet” 都更重要。&lt;/p&gt;
+&lt;p&gt;因为过去大家对大模型的一个典型抱怨就是：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;能力更强，往往也更慢；&lt;/li&gt;
+&lt;li&gt;一旦进入长链路任务，等待感会迅速放大；&lt;/li&gt;
+&lt;li&gt;工具调用、检查结果、反复修正这些步骤一多，体验就容易从 “智能” 变成 “磨人”。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;而 GPT‑5.5 这次释放的信号是：&lt;strong&gt;能力提升不再完全靠牺牲响应体验来换。&lt;/strong&gt;&lt;/p&gt;
+&lt;h2 id=&#34;为什么这件事对-agent-特别关键&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#为什么这件事对-agent-特别关键&#34;&gt;#&lt;/a&gt; 为什么这件事对 Agent 特别关键&lt;/h2&gt;
+&lt;p&gt;OpenAI 给出的 benchmark 也都是围着 “持续做事” 这件事来的。&lt;/p&gt;
+&lt;p&gt;比如官方披露：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Terminal-Bench 2.0：82.7%&lt;/strong&gt;（GPT‑5.4 为 75.1%）&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;SWE-Bench Pro：58.6%&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Expert-SWE：73.1%&lt;/strong&gt;（高于 GPT‑5.4 的 68.5%）&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;OSWorld-Verified：78.7%&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;GDPval：84.9%&lt;/strong&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;这些指标共同指向的，不是 “单题答得更漂亮”，而是另一件事：&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;strong&gt;模型在多步骤、跨工具、要自己检查和持续推进的任务里，终于更像一个能把事情往前拱的人。&lt;/strong&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;这对 Agent 很关键。因为 Agent 的真正成本，不只是调用价格，而是：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;要不要频繁补提示；&lt;/li&gt;
+&lt;li&gt;会不会中途停住；&lt;/li&gt;
+&lt;li&gt;会不会忘记检查；&lt;/li&gt;
+&lt;li&gt;会不会做了一半才发现方向错了。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;如果一个模型能在差不多的延迟预算里，把这些隐性成本压下去，那它带来的提升往往比纯 benchmark 涨几分更实在。&lt;/p&gt;
+&lt;h2 id=&#34;第二个变化coding-model-正在越来越像-work-model&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#第二个变化coding-model-正在越来越像-work-model&#34;&gt;#&lt;/a&gt; 第二个变化：Coding model 正在越来越像 Work model&lt;/h2&gt;
+&lt;p&gt;OpenAI 这次的描述也很有意思。GPT‑5.5 不只是会写代码，它被明确放进这些任务里：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;写和改代码；&lt;/li&gt;
+&lt;li&gt;在线检索与研究；&lt;/li&gt;
+&lt;li&gt;分析数据；&lt;/li&gt;
+&lt;li&gt;生成文档、表格、演示内容；&lt;/li&gt;
+&lt;li&gt;操作软件并跨工具推进任务。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;这说明一个趋势越来越清楚：&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;“coding model” 这个名字正在变窄，但模型实际负责的工作面正在变宽。&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;也就是说，未来真正值钱的，不只是 “写函数更强”，而是能不能把：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;代码改动&lt;/li&gt;
+&lt;li&gt;文档整理&lt;/li&gt;
+&lt;li&gt;数据处理&lt;/li&gt;
+&lt;li&gt;软件操作&lt;/li&gt;
+&lt;li&gt;结果校验&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;放进同一条连续工作流里。&lt;/p&gt;
+&lt;p&gt;从这个角度看，GPT‑5.5 更像是在把 &lt;strong&gt;Codex / ChatGPT 从回答机器继续往执行界面推&lt;/strong&gt;。&lt;/p&gt;
+&lt;h2 id=&#34;第三个变化能力抬高之后安全阈值也一起抬了&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#第三个变化能力抬高之后安全阈值也一起抬了&#34;&gt;#&lt;/a&gt; 第三个变化：能力抬高之后，安全阈值也一起抬了&lt;/h2&gt;
+&lt;p&gt;这次官方同步放出的还有 &lt;strong&gt;GPT‑5.5 System Card&lt;/strong&gt;。里面一个很关键的点是：OpenAI 明确说这是他们&lt;strong&gt;到目前为止最强的一套 safeguards&lt;/strong&gt;，并且专门针对 &lt;strong&gt;cybersecurity&lt;/strong&gt; 和 &lt;strong&gt;biology&lt;/strong&gt; 能力做了更有针对性的测试与防护。&lt;/p&gt;
+&lt;p&gt;官方还提到：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;发布前做了完整的预部署安全评估；&lt;/li&gt;
+&lt;li&gt;与内外部 red team 合作；&lt;/li&gt;
+&lt;li&gt;收集了接近 &lt;strong&gt;200 家早期接入伙伴&lt;/strong&gt;的真实使用反馈；&lt;/li&gt;
+&lt;li&gt;4 月 24 日又补充了 API 部署相关的额外 safeguards 说明。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;这也从侧面说明，GPT‑5.5 这次不只是 “更会写东西”，而是真的更接近能在现实工作流里持续行动的那一档能力，所以安全策略也不得不更细、更前置。&lt;/p&gt;
+&lt;h2 id=&#34;我的判断&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#我的判断&#34;&gt;#&lt;/a&gt; 我的判断&lt;/h2&gt;
+&lt;p&gt;如果说前一阶段大家还在比较 “哪个前沿模型更聪明”，那 GPT‑5.5 这次更像是在把问题改写成：&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;strong&gt;哪个模型能在不明显拉高时延和摩擦成本的前提下，真正把复杂任务持续做完。&lt;/strong&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;所以我会把这条新闻记成一句更直白的话：&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;大模型竞争，正在从 “更会答题” 转向 “更像一个能交活的人”。&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;而 GPT‑5.5 最值得看的地方，不是它又多会了多少，而是它让这种变化第一次显得没那么奢侈、没那么慢，也没那么像演示。&lt;/p&gt;
+&lt;h2 id=&#34;参考来源&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#参考来源&#34;&gt;#&lt;/a&gt; 参考来源&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;OpenAI：&lt;a href=&#34;https://openai.com/index/introducing-gpt-5-5/&#34;&gt;https://openai.com/index/introducing-gpt-5-5/&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;OpenAI System Card：&lt;a href=&#34;https://openai.com/index/gpt-5-5-system-card/&#34;&gt;https://openai.com/index/gpt-5-5-system-card/&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+ ]]></description>
+        </item>
+        <item>
+            <guid isPermalink="true">https://lyrashore.com/computer-science/technical-sharing/huggingface-open-source-spring-2026-04-24/</guid>
+            <title>Hugging Face 这份 2026 春季开源 AI 报告里，我最在意的不是模型更多了，而是生态重心真的变了</title>
+            <link>https://lyrashore.com/computer-science/technical-sharing/huggingface-open-source-spring-2026-04-24/</link>
+            <category term="technical-sharing" scheme="https://lyrashore.com/categories/technical-sharing/" />
+            <category term="AI" scheme="https://lyrashore.com/tags/AI/" />
+            <category term="Open Source" scheme="https://lyrashore.com/tags/Open-Source/" />
+            <category term="Hugging Face" scheme="https://lyrashore.com/tags/Hugging-Face/" />
+            <category term="Ecosystem" scheme="https://lyrashore.com/tags/Ecosystem/" />
+            <category term="Open Models" scheme="https://lyrashore.com/tags/Open-Models/" />
+            <pubDate>Fri, 24 Apr 2026 08:00:00 +0000</pubDate>
+            <description><![CDATA[ &lt;p&gt;如果只看表面，Hugging Face 这篇 &lt;strong&gt;State of Open Source on Hugging Face: Spring 2026&lt;/strong&gt; 很容易被理解成一份 “平台数据回顾”：用户增长了、模型更多了、数据集也翻倍了。&lt;/p&gt;
+&lt;p&gt;但我读完之后真正记下来的，不是 “规模继续变大”，而是另一句话：&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;strong&gt;开源 AI 的重心，已经不只是大公司放模型出来，而是越来越多中间层玩家、地域性生态和衍生创作者开始决定技术是怎么扩散的。&lt;/strong&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h2 id=&#34;先看几个最值得记住的数字&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#先看几个最值得记住的数字&#34;&gt;#&lt;/a&gt; 先看几个最值得记住的数字&lt;/h2&gt;
+&lt;p&gt;按 Hugging Face 官方文章披露，到了 2025 年，平台已经来到：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;1300 万用户&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;超过 200 万公开模型&lt;/strong&gt;&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;超过 50 万公开数据集&lt;/strong&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;但更有意思的是下面这组对比：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;大约一半模型的总下载量 &lt;strong&gt;不到 200&lt;/strong&gt;；&lt;/li&gt;
+&lt;li&gt;头部 &lt;strong&gt;0.01%&lt;/strong&gt; 的 200 个模型，却占了 &lt;strong&gt;49.6%&lt;/strong&gt; 的总下载量。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;这说明开源 AI 不是一个 “人人平均受益” 的平滑市场，而是一个非常典型的&lt;strong&gt;超头部集中 + 长尾持续试验&lt;/strong&gt;的生态。&lt;/p&gt;
+&lt;p&gt;所以 “模型数量暴涨” 本身不是重点，重点是：&lt;strong&gt;谁在做分发、谁在做二次加工、谁在把原始能力转成真正可用的东西。&lt;/strong&gt;&lt;/p&gt;
+&lt;h2 id=&#34;我觉得最重要的变化是中间层站到了台前&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#我觉得最重要的变化是中间层站到了台前&#34;&gt;#&lt;/a&gt; 我觉得最重要的变化，是 “中间层” 站到了台前&lt;/h2&gt;
+&lt;p&gt;过去大家谈开源模型，常常默认主角是大厂或大实验室：谁先发基础模型，谁就定义了生态。&lt;/p&gt;
+&lt;p&gt;但这份报告里一个很强的信号是：&lt;strong&gt;独立开发者、小团队、二次分发者和适配者，已经不再只是附属角色。&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;Hugging Face 提到，行业在整体开发中的占比，已经从 2022 年前后的大约 &lt;strong&gt;70%&lt;/strong&gt;，下降到 2025 年的约 &lt;strong&gt;37%&lt;/strong&gt;；而独立或无附属开发者的下载占比，则从 &lt;strong&gt;17%&lt;/strong&gt; 上升到 &lt;strong&gt;39%&lt;/strong&gt;。&lt;/p&gt;
+&lt;p&gt;这意味着什么？&lt;/p&gt;
+&lt;p&gt;意味着开源 AI 现在真正值钱的，不只是 “谁训练出第一个大模型”，而是：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;谁能做量化和压缩；&lt;/li&gt;
+&lt;li&gt;谁能做指令微调和本地部署适配；&lt;/li&gt;
+&lt;li&gt;谁能把模型包装进更容易用的工作流；&lt;/li&gt;
+&lt;li&gt;谁能让普通用户在自己的机器、自己的语言、自己的场景里跑起来。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;换句话说，&lt;strong&gt;开源生态的决定权，正在从 “原始发布者” 部分转向 “可用性改造者”。&lt;/strong&gt;&lt;/p&gt;
+&lt;h2 id=&#34;第二个变化开源-ai-已经明显带上了地域竞争色彩&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#第二个变化开源-ai-已经明显带上了地域竞争色彩&#34;&gt;#&lt;/a&gt; 第二个变化：开源 AI 已经明显带上了地域竞争色彩&lt;/h2&gt;
+&lt;p&gt;这篇报告里另一个很值得注意的观察，是 Hugging Face 直接写到：&lt;strong&gt;中国在月度下载量和总体下载量上已经超过美国&lt;/strong&gt;，而且在过去一年里，中国模型占据了平台下载量中的显著份额。&lt;/p&gt;
+&lt;p&gt;这个结论的意义，不只是 “谁更活跃” 这么简单。&lt;/p&gt;
+&lt;p&gt;更深一层看，它说明开源模型已经越来越像一种基础能力基础设施：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;国家和地区会关心是否能在本地法律和算力条件下部署；&lt;/li&gt;
+&lt;li&gt;企业会关心是否能避免完全依赖外部封闭 API；&lt;/li&gt;
+&lt;li&gt;开发者会关心有没有足够开放的权重与衍生空间。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;所以今天谈开源 AI，已经很难只把它看成技术社区里的理想主义文化。它同时也是：&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;strong&gt;产业策略、技术主权和开发者生态竞争的一部分。&lt;/strong&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;这也是为什么 Hugging Face 在文中专门把 “sovereignty” 单独拿出来讲。&lt;/p&gt;
+&lt;h2 id=&#34;第三个变化开源的价值正在从省钱替代品变成灵活系统&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#第三个变化开源的价值正在从省钱替代品变成灵活系统&#34;&gt;#&lt;/a&gt; 第三个变化：开源的价值正在从 “省钱替代品” 变成 “灵活系统”&lt;/h2&gt;
+&lt;p&gt;过去不少人提起开源模型，第一反应往往还是：便宜、可替代、退一步的选择。&lt;/p&gt;
+&lt;p&gt;但这份报告给我的感觉是，2026 年的开源 AI 已经越来越不是这个位置了。&lt;/p&gt;
+&lt;p&gt;原因很简单：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;闭源模型也许仍然在部分前沿能力上更强；&lt;/li&gt;
+&lt;li&gt;但开源模型在&lt;strong&gt;可改、可迁移、可本地化、可复用&lt;/strong&gt;这几件事上，优势越来越清楚；&lt;/li&gt;
+&lt;li&gt;真正创造长期价值的，往往不是一次调用最强，而是能不能被组织反复改造和嵌进流程。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;尤其当越来越多企业和机构不是只 “用模型”，而是要：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;接自己的数据；&lt;/li&gt;
+&lt;li&gt;做自己的评测；&lt;/li&gt;
+&lt;li&gt;跑自己的硬件；&lt;/li&gt;
+&lt;li&gt;控制自己的成本与合规边界；&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;那开源模型的意义，就不再只是 “有个免费版本”，而是&lt;strong&gt;它更像一套能被自己掌握的系统组件&lt;/strong&gt;。&lt;/p&gt;
+&lt;h2 id=&#34;我的判断&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#我的判断&#34;&gt;#&lt;/a&gt; 我的判断&lt;/h2&gt;
+&lt;p&gt;如果说 2024、2025 年很多人还在争论 “开源模型能不能追上闭源模型”，那到 2026 年我更愿意把问题换成：&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;strong&gt;谁能在开源生态里，持续把模型变成可复用、可分发、可本地化、可治理的真实能力。&lt;/strong&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;Hugging Face 这份报告最值得看的地方，不是又列出多少增长曲线，而是它提醒了我们：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;开源 AI 已经进入规模化阶段；&lt;/li&gt;
+&lt;li&gt;生态权力不再只属于最初发模型的人；&lt;/li&gt;
+&lt;li&gt;地域、社区和中间层适配者正在变得越来越关键；&lt;/li&gt;
+&lt;li&gt;“开放” 这件事，正在从价值观口号变成实际竞争力。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;所以今天如果还把开源 AI 理解成 “闭源之外的备选项”，大概已经慢了半拍。&lt;/p&gt;
+&lt;p&gt;它更像是在长成另一套完整的技术世界。&lt;/p&gt;
+&lt;h2 id=&#34;参考来源&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#参考来源&#34;&gt;#&lt;/a&gt; 参考来源&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;Hugging Face：&lt;a href=&#34;https://huggingface.co/blog/huggingface/state-of-os-hf-spring-2026&#34;&gt;https://huggingface.co/blog/huggingface/state-of-os-hf-spring-2026&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+ ]]></description>
+        </item>
+        <item>
+            <guid isPermalink="true">https://lyrashore.com/computer-science/technical-sharing/github-copilot-vscode-byok-2026-04-23/</guid>
+            <title>GitHub 把 VS Code 的模型入口交还给团队后，我更在意的是 Copilot 正在变成“模型控制层”</title>
+            <link>https://lyrashore.com/computer-science/technical-sharing/github-copilot-vscode-byok-2026-04-23/</link>
+            <category term="technical-sharing" scheme="https://lyrashore.com/categories/technical-sharing/" />
+            <category term="AI" scheme="https://lyrashore.com/tags/AI/" />
+            <category term="GitHub" scheme="https://lyrashore.com/tags/GitHub/" />
+            <category term="Copilot" scheme="https://lyrashore.com/tags/Copilot/" />
+            <category term="VS Code" scheme="https://lyrashore.com/tags/VS-Code/" />
+            <category term="BYOK" scheme="https://lyrashore.com/tags/BYOK/" />
+            <pubDate>Thu, 23 Apr 2026 08:00:00 +0000</pubDate>
+            <description><![CDATA[ &lt;p&gt;GitHub 在 4 月 22 日放出了一个很有 “平台味” 的更新：&lt;strong&gt;Copilot Business 和 Enterprise 用户现在可以在 VS Code 里自带语言模型密钥（BYOK, Bring Your Own Language Model Key）&lt;/strong&gt;。&lt;/p&gt;
+&lt;p&gt;表面上看，这只是让团队多接几个模型；但我觉得更值得记下来的一句是：&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;strong&gt;Copilot 正在从 “默认帮你写代码的助手”，变成团队工作流里的模型控制层。&lt;/strong&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h2 id=&#34;这次更新具体放开了什么&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#这次更新具体放开了什么&#34;&gt;#&lt;/a&gt; 这次更新具体放开了什么&lt;/h2&gt;
+&lt;p&gt;按照 GitHub 官方 changelog，组织现在可以在 VS Code 里复用自己的 API key，接入来自这些来源的模型：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Anthropic&lt;/li&gt;
+&lt;li&gt;Gemini&lt;/li&gt;
+&lt;li&gt;OpenAI&lt;/li&gt;
+&lt;li&gt;OpenRouter&lt;/li&gt;
+&lt;li&gt;Azure&lt;/li&gt;
+&lt;li&gt;本地模型（例如 Ollama、Foundry Local）&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;而且这些模型不是只能在一个角落里试试玩，&lt;strong&gt;它们会直接出现在 VS Code Chat 里&lt;/strong&gt;，包括：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;普通聊天与代码编辑场景；&lt;/li&gt;
+&lt;li&gt;内置的 plan agent；&lt;/li&gt;
+&lt;li&gt;自定义 agents。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;但边界也写得很清楚：&lt;strong&gt;BYOK 不影响代码补全&lt;/strong&gt;，主要作用在 chat 体验这条线上；费用也不是走 GitHub Copilot 请求额度，而是&lt;strong&gt;直接由你接入的模型提供方计费&lt;/strong&gt;。&lt;/p&gt;
+&lt;h2 id=&#34;为什么这件事比多几个模型可选更重要&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#为什么这件事比多几个模型可选更重要&#34;&gt;#&lt;/a&gt; 为什么这件事比 “多几个模型可选” 更重要&lt;/h2&gt;
+&lt;p&gt;我觉得它真正的意义，不是又给下拉菜单加了几项，而是把组织对模型的控制权往前推了一步。&lt;/p&gt;
+&lt;h3 id=&#34;1-copilot-开始更像统一入口而不是单一模型产品&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#1-copilot-开始更像统一入口而不是单一模型产品&#34;&gt;#&lt;/a&gt; 1. Copilot 开始更像 “统一入口”，而不是单一模型产品&lt;/h3&gt;
+&lt;p&gt;以前很多团队使用 Copilot，本质上是在接受 GitHub 打包好的模型与策略组合。现在 BYOK 放开之后，Copilot 更像一个统一的人机交互层：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;团队继续留在 VS Code 的同一套 chat /agent 体验里；&lt;/li&gt;
+&lt;li&gt;但底层模型可以按成本、速度、能力、合规要求自由换源；&lt;/li&gt;
+&lt;li&gt;甚至还能接本地模型，把一部分推理留在自己环境里。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;这就让 Copilot 的价值不再只取决于 “默认模型有多强”，而开始取决于：&lt;strong&gt;它能不能把多模型现实管理得足够顺手。&lt;/strong&gt;&lt;/p&gt;
+&lt;h3 id=&#34;2-企业真正得到的是策略空间&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#2-企业真正得到的是策略空间&#34;&gt;#&lt;/a&gt; 2. 企业真正得到的是 “策略空间”&lt;/h3&gt;
+&lt;p&gt;对个人用户来说，BYOK 可能只是想试试新模型；但对企业来说，它更像是把策略空间拿回来了。&lt;/p&gt;
+&lt;p&gt;比如同样是 VS Code Chat，团队现在可以按任务来分层：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;复杂重构、长链路分析，用更强的推理模型；&lt;/li&gt;
+&lt;li&gt;日常问答、轻量修改，用便宜快速的模型；&lt;/li&gt;
+&lt;li&gt;敏感仓库或内网环境，优先用本地或自托管方案。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;也就是说，&lt;strong&gt;IDE 里的 AI 入口开始像云平台里的流量网关&lt;/strong&gt;：前端体验尽量统一，后端模型可以按规则调度。&lt;/p&gt;
+&lt;h3 id=&#34;3-github-其实没有把自己完全拿掉&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#3-github-其实没有把自己完全拿掉&#34;&gt;#&lt;/a&gt; 3. GitHub 其实没有把自己完全 “拿掉”&lt;/h3&gt;
+&lt;p&gt;这一点也很关键。VS Code 官方文档写得很坦白：即使用 BYOK，Copilot 服务 API 仍然会参与一些环节，例如：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;embeddings 发送；&lt;/li&gt;
+&lt;li&gt;仓库索引；&lt;/li&gt;
+&lt;li&gt;query refinement；&lt;/li&gt;
+&lt;li&gt;intent detection；&lt;/li&gt;
+&lt;li&gt;一些 side queries。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;这意味着 GitHub 并不是简单地说一句 “你自己带 key 吧，我退到一边”。相反，它保留了相当重要的中间层角色。&lt;/p&gt;
+&lt;p&gt;所以我更愿意把这次更新理解成：&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;strong&gt;GitHub 正在把 Copilot 做成一个既能承接多模型、又不放弃平台控制点的开发入口。&lt;/strong&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h2 id=&#34;还有两个容易被忽略的细节&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#还有两个容易被忽略的细节&#34;&gt;#&lt;/a&gt; 还有两个容易被忽略的细节&lt;/h2&gt;
+&lt;p&gt;第一，&lt;strong&gt;不是所有模型都能直接用于 agent&lt;/strong&gt;。&lt;/p&gt;
+&lt;p&gt;官方文档特别提到：如果某个模型不支持 tool calling，它就不会出现在 agent 可用的模型列表里。也就是说，未来模型竞争不只是 “会不会答题”，而是&lt;strong&gt;能不能稳定进入工具调用工作流&lt;/strong&gt;。&lt;/p&gt;
+&lt;p&gt;第二，&lt;strong&gt;BYOK 不保证沿用内建模型那套责任 AI 过滤&lt;/strong&gt;。&lt;/p&gt;
+&lt;p&gt;这对企业来说不是小事。模型自由度更高了，治理责任也更靠近组织自己。团队如果想要更多控制权，就得同步承担更多选择和审计成本。&lt;/p&gt;
+&lt;h2 id=&#34;我的判断&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#我的判断&#34;&gt;#&lt;/a&gt; 我的判断&lt;/h2&gt;
+&lt;p&gt;如果说前一阶段大家关注的是 “哪个 coding model 更强”，那这次 GitHub 放开的信号更像下一阶段：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;IDE 会继续是开发者最重要的 AI 入口；&lt;/li&gt;
+&lt;li&gt;入口之下会越来越多模型并存；&lt;/li&gt;
+&lt;li&gt;真正值钱的，不只是模型本身，而是&lt;strong&gt;模型接入、切换、治理和 agent 兼容性&lt;/strong&gt;。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;所以这条更新最值得记住的，不是 BYOK 这三个字母，而是它背后的产品方向：&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;strong&gt;Copilot 正在从一个 AI 助手，变成一个团队级的模型编排与交互界面。&lt;/strong&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;这件事如果继续往前走，未来开发者选择的可能不只是 “用哪个模型”，而是 “把哪一层工作流托付给哪个入口”。&lt;/p&gt;
+&lt;h2 id=&#34;参考来源&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#参考来源&#34;&gt;#&lt;/a&gt; 参考来源&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;GitHub Changelog：&lt;a href=&#34;https://github.blog/changelog/2026-04-22-bring-your-own-language-model-key-in-vs-code-now-available/&#34;&gt;https://github.blog/changelog/2026-04-22-bring-your-own-language-model-key-in-vs-code-now-available/&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;VS Code Docs：&lt;a href=&#34;https://code.visualstudio.com/docs/copilot/customization/language-models#_bring-your-own-language-model-key&#34;&gt;https://code.visualstudio.com/docs/copilot/customization/language-models#_bring-your-own-language-model-key&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+ ]]></description>
+        </item>
+        <item>
+            <guid isPermalink="true">https://lyrashore.com/computer-science/technical-sharing/openai-codex-enterprise-rollout-2026-04-22/</guid>
+            <title>OpenAI 开始全球推进 Codex 企业落地后，我更在意的是“编码 Agent”正在变成组织级交付系统</title>
+            <link>https://lyrashore.com/computer-science/technical-sharing/openai-codex-enterprise-rollout-2026-04-22/</link>
+            <category term="technical-sharing" scheme="https://lyrashore.com/categories/technical-sharing/" />
+            <category term="AI" scheme="https://lyrashore.com/tags/AI/" />
+            <category term="OpenAI" scheme="https://lyrashore.com/tags/OpenAI/" />
+            <category term="Agent" scheme="https://lyrashore.com/tags/Agent/" />
+            <category term="Codex" scheme="https://lyrashore.com/tags/Codex/" />
+            <category term="Enterprise" scheme="https://lyrashore.com/tags/Enterprise/" />
+            <pubDate>Wed, 22 Apr 2026 08:00:00 +0000</pubDate>
+            <description><![CDATA[ &lt;p&gt;OpenAI 在 4 月 21 日发了一篇不算炫技、但信号很强的公告：&lt;strong&gt;Scaling Codex to enterprises worldwide&lt;/strong&gt;。&lt;/p&gt;
+&lt;p&gt;表面看，这像是一条典型的企业推进新闻：用户增长、客户案例、合作伙伴扩容；但我觉得真正值得写下来的，是这句潜台词：&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;strong&gt;“编码 Agent” 正在从个人开发者工具，升级成企业级的交付系统。&lt;/strong&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h2 id=&#34;这次-openai-到底说了什么&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#这次-openai-到底说了什么&#34;&gt;#&lt;/a&gt; 这次 OpenAI 到底说了什么&lt;/h2&gt;
+&lt;p&gt;按官方说法，OpenAI 月初刚提到每周有超过 &lt;strong&gt;300 万&lt;/strong&gt;开发者使用 Codex；两周后，这个数字已经超过 &lt;strong&gt;400 万&lt;/strong&gt;。&lt;/p&gt;
+&lt;p&gt;更重要的是，Codex 的使用场景开始被明确写进企业工作流里。OpenAI 列出的案例很有代表性：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Virgin Atlantic&lt;/strong&gt;：提高测试覆盖率、提升团队 velocity、减少技术债；&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Ramp&lt;/strong&gt;：加速代码审查；&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Notion&lt;/strong&gt;：更快构建新功能；&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Cisco&lt;/strong&gt;：理解并推理大型互联代码仓库；&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Rakuten&lt;/strong&gt;：用于事故响应等任务。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;同时，OpenAI 还强调 Codex 正在 ** 走出 “只写代码”** 这件事本身，开始支持浏览器工作、图像生成、记忆，以及跨工具和应用的持续任务。&lt;/p&gt;
+&lt;h2 id=&#34;我最在意的不是-400-万用户而是部署方式变了&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#我最在意的不是-400-万用户而是部署方式变了&#34;&gt;#&lt;/a&gt; 我最在意的，不是 400 万用户，而是 “部署方式” 变了&lt;/h2&gt;
+&lt;p&gt;很多 AI 工具宣布增长时，传递的通常是 “产品火了”。但 Codex 这次更值得注意的，是 OpenAI 明确把&lt;strong&gt;企业部署能力&lt;/strong&gt;放到了台前。&lt;/p&gt;
+&lt;h3 id=&#34;1-从开发者自发试用变成组织正式导入&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#1-从开发者自发试用变成组织正式导入&#34;&gt;#&lt;/a&gt; 1. 从 “开发者自发试用”，变成 “组织正式导入”&lt;/h3&gt;
+&lt;p&gt;这次公告里专门提到 &lt;strong&gt;Codex Labs&lt;/strong&gt;：由 OpenAI 专家直接进入企业，做 workshop 和 working session，帮助团队找到可落地场景、接进现有流程，并把早期试用变成可重复部署。&lt;/p&gt;
+&lt;p&gt;这说明一个变化：&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;strong&gt;Codex 不再只是某个工程师自己觉得顺手的工具，而是开始被当成组织能力来设计。&lt;/strong&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;当厂商开始提供 “怎么落地、怎么接流程、怎么从 pilot 走到 production” 的服务时，产品竞争就不再只是模型强不强，而是&lt;strong&gt;能不能被企业真正采纳&lt;/strong&gt;。&lt;/p&gt;
+&lt;h3 id=&#34;2-openai-正在借全球-si把-codex-变成标准化交付件&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#2-openai-正在借全球-si把-codex-变成标准化交付件&#34;&gt;#&lt;/a&gt; 2. OpenAI 正在借全球 SI，把 Codex 变成标准化交付件&lt;/h3&gt;
+&lt;p&gt;公告里还提到，OpenAI 正和一批全球系统集成商合作扩张，包括：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Accenture&lt;/li&gt;
+&lt;li&gt;Capgemini&lt;/li&gt;
+&lt;li&gt;CGI&lt;/li&gt;
+&lt;li&gt;Cognizant&lt;/li&gt;
+&lt;li&gt;Infosys&lt;/li&gt;
+&lt;li&gt;PwC&lt;/li&gt;
+&lt;li&gt;Tata Consultancy Services (TCS)&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;这一步的意义非常现实。&lt;/p&gt;
+&lt;p&gt;因为大企业真正难的，往往不是 “买一个 AI 产品”，而是：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;怎么嵌进既有研发流程；&lt;/li&gt;
+&lt;li&gt;怎么和权限、审计、协作工具打通；&lt;/li&gt;
+&lt;li&gt;怎么把一个团队的试点，扩展成多个 BU 都能复用的实践。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;而这些事，恰恰是大型 SI 最擅长的部分。&lt;/p&gt;
+&lt;p&gt;所以这不只是 “多找几家渠道商” 那么简单，而是 OpenAI 在把 Codex 往一种&lt;strong&gt;可复制、可咨询、可规模化交付的企业方案&lt;/strong&gt;去推。&lt;/p&gt;
+&lt;h3 id=&#34;3-codex这名字已经不再只代表-coding&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#3-codex这名字已经不再只代表-coding&#34;&gt;#&lt;/a&gt; 3. “Codex” 这名字，已经不再只代表 coding&lt;/h3&gt;
+&lt;p&gt;如果把这条新闻和 OpenAI 4 月 16 日的 &lt;strong&gt;Codex for (almost) everything&lt;/strong&gt; 放在一起看，信号就更清楚了。&lt;/p&gt;
+&lt;p&gt;OpenAI 已经明确让 Codex 去做这些事：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;在电脑上点击、输入、操作应用；&lt;/li&gt;
+&lt;li&gt;用内置浏览器处理网页任务；&lt;/li&gt;
+&lt;li&gt;生成图片辅助原型和视觉稿；&lt;/li&gt;
+&lt;li&gt;通过插件、技能和 MCP 接更多工具；&lt;/li&gt;
+&lt;li&gt;记住偏好、复用上下文；&lt;/li&gt;
+&lt;li&gt;调度未来任务，处理持续性工作。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;而 OpenAI 开发者站点给出的 use cases 也不再局限于写代码，已经扩展到：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;整理杂乱数据；&lt;/li&gt;
+&lt;li&gt;处理消息线程中的任务；&lt;/li&gt;
+&lt;li&gt;管理收件箱；&lt;/li&gt;
+&lt;li&gt;生成 slide deck；&lt;/li&gt;
+&lt;li&gt;汇总反馈并变成可执行事项。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;这说明 Codex 的定位，已经越来越像：&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;strong&gt;先在工程团队里证明价值，再向更广义的知识工作和组织协作外溢。&lt;/strong&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h2 id=&#34;我的判断&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#我的判断&#34;&gt;#&lt;/a&gt; 我的判断&lt;/h2&gt;
+&lt;p&gt;如果说前一阶段大家比的是 “谁的 coding agent 更像一个厉害的程序员”，那么 Codex 这次企业扩张释放的，是下一阶段的竞争方向：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;谁能先进入真实业务流程；&lt;/li&gt;
+&lt;li&gt;谁能从个人提效扩展到团队协作；&lt;/li&gt;
+&lt;li&gt;谁能从工程场景外溢到更多知识工作；&lt;/li&gt;
+&lt;li&gt;谁能把试点变成标准化部署。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;所以我更愿意把这次消息理解成：&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;strong&gt;OpenAI 不只是想让 Codex 成为更强的编码助手，而是想让它成为企业内部的一层执行与交付界面。&lt;/strong&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;如果这个方向成立，那么未来 “coding agent” 的边界会继续变淡，最后比拼的可能不是谁会写更多代码，而是谁能更稳地把&lt;strong&gt;上下文、工具、流程和持续任务&lt;/strong&gt;整合进同一个组织工作面。&lt;/p&gt;
+&lt;h2 id=&#34;参考来源&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#参考来源&#34;&gt;#&lt;/a&gt; 参考来源&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;OpenAI：&lt;a href=&#34;https://openai.com/index/scaling-codex-to-enterprises-worldwide/&#34;&gt;https://openai.com/index/scaling-codex-to-enterprises-worldwide/&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;OpenAI：&lt;a href=&#34;https://openai.com/index/codex-for-almost-everything/&#34;&gt;https://openai.com/index/codex-for-almost-everything/&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;OpenAI Developers：&lt;a href=&#34;https://developers.openai.com/codex/use-cases?category=knowledge-work&#34;&gt;https://developers.openai.com/codex/use-cases?category=knowledge-work&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+ ]]></description>
+        </item>
+        <item>
+            <guid isPermalink="true">https://lyrashore.com/computer-science/technical-sharing/gpt-rosalind-life-sciences-openai-2026-04-21/</guid>
+            <title>GPT‑Rosalind 发布后，我更在意的是 OpenAI 开始把“行业专用推理模型”做成正式产品</title>
+            <link>https://lyrashore.com/computer-science/technical-sharing/gpt-rosalind-life-sciences-openai-2026-04-21/</link>
+            <category term="technical-sharing" scheme="https://lyrashore.com/categories/technical-sharing/" />
+            <category term="AI" scheme="https://lyrashore.com/tags/AI/" />
+            <category term="OpenAI" scheme="https://lyrashore.com/tags/OpenAI/" />
+            <category term="Codex" scheme="https://lyrashore.com/tags/Codex/" />
+            <category term="GPT-Rosalind" scheme="https://lyrashore.com/tags/GPT-Rosalind/" />
+            <category term="Life Sciences" scheme="https://lyrashore.com/tags/Life-Sciences/" />
+            <pubDate>Tue, 21 Apr 2026 08:00:00 +0000</pubDate>
+            <description><![CDATA[ &lt;p&gt;OpenAI 这次发布 &lt;strong&gt;GPT‑Rosalind&lt;/strong&gt;，表面上看像是 “又一个垂类模型”；但我觉得更值得记下来的，是它背后的产品方向：&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;strong&gt;OpenAI 开始把 “行业专用推理模型” 当成正式产品线来做了。&lt;/strong&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h2 id=&#34;这次到底发了什么&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#这次到底发了什么&#34;&gt;#&lt;/a&gt; 这次到底发了什么&lt;/h2&gt;
+&lt;p&gt;按 OpenAI 官方介绍，GPT‑Rosalind 面向 &lt;strong&gt;生物学、药物发现、转化医学&lt;/strong&gt; 等生命科学研究场景，当前以 &lt;strong&gt;research preview&lt;/strong&gt; 形式向符合条件的客户开放，并进入 &lt;strong&gt;ChatGPT、Codex 和 API&lt;/strong&gt;。&lt;/p&gt;
+&lt;p&gt;它不是简单把通用模型换个名字，而是明确强调几类研究任务：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;证据整合与文献梳理&lt;/li&gt;
+&lt;li&gt;假设生成&lt;/li&gt;
+&lt;li&gt;实验规划&lt;/li&gt;
+&lt;li&gt;多步工具调用&lt;/li&gt;
+&lt;li&gt;围绕分子、蛋白、基因、通路等对象的推理&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;官方还同时放出了一个给 &lt;strong&gt;Codex&lt;/strong&gt; 用的 &lt;strong&gt;Life Sciences research plugin&lt;/strong&gt;，提供超过 &lt;strong&gt;50 个&lt;/strong&gt;科学工具与数据源的接入能力。换句话说，这次一起上线的不是 “一个模型”，而是&lt;strong&gt;模型 + 工具层 + 场景工作流&lt;/strong&gt;。&lt;/p&gt;
+&lt;h2 id=&#34;我最在意的不是-benchmark而是打包方式&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#我最在意的不是-benchmark而是打包方式&#34;&gt;#&lt;/a&gt; 我最在意的，不是 benchmark，而是 “打包方式”&lt;/h2&gt;
+&lt;p&gt;OpenAI 当然也给了性能信号。比如官方提到，GPT‑Rosalind 在 &lt;strong&gt;BixBench&lt;/strong&gt; 上达到已公开分数里的领先表现，在 &lt;strong&gt;LABBench2&lt;/strong&gt; 的 11 项任务中有 &lt;strong&gt;6 项优于 GPT‑5.4&lt;/strong&gt;。&lt;/p&gt;
+&lt;p&gt;但更重要的其实不是这些数字，而是它的产品封装方式已经明显变了。&lt;/p&gt;
+&lt;h3 id=&#34;1-不再只卖通用能力而是开始卖行业工作流&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#1-不再只卖通用能力而是开始卖行业工作流&#34;&gt;#&lt;/a&gt; 1. 不再只卖 “通用能力”，而是开始卖 “行业工作流”&lt;/h3&gt;
+&lt;p&gt;过去很多模型发布，核心叙事还是：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;更强推理&lt;/li&gt;
+&lt;li&gt;更长上下文&lt;/li&gt;
+&lt;li&gt;更好工具使用&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;而 GPT‑Rosalind 这次更像是在说：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;你面对的是生命科学研究；&lt;/li&gt;
+&lt;li&gt;你需要接数据库、读论文、查结构、做假设；&lt;/li&gt;
+&lt;li&gt;我不只给你一个更聪明的模型，我还给你一套更贴近科研链路的工作方式。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;这意味着前沿模型厂商的竞争，正在从 “谁更像通用大脑”，往 “谁能把具体行业的复杂流程吃下来” 推进。&lt;/p&gt;
+&lt;h3 id=&#34;2-插件层的重要性开始接近模型本身&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#2-插件层的重要性开始接近模型本身&#34;&gt;#&lt;/a&gt; 2. 插件层的重要性，开始接近模型本身&lt;/h3&gt;
+&lt;p&gt;这次同步推出的 Life Sciences research plugin 很有代表性。&lt;/p&gt;
+&lt;p&gt;按官方 GitHub 说明，它覆盖人类遗传学、功能基因组学、蛋白结构、化学、临床证据、公共研究数据发现等多个方向，并把一堆能力组织成可路由的 research layer。&lt;/p&gt;
+&lt;p&gt;这件事的意义在于：&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;strong&gt;行业模型真正要落地，靠的不只是参数规模，而是能不能把工具、数据库和推理过程编进同一条链。&lt;/strong&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;所以 GPT‑Rosalind 值得关注的点，不只是 “OpenAI 也做生物医药了”，而是他们已经开始把 &lt;strong&gt;domain reasoning + tool orchestration&lt;/strong&gt; 一起交付。&lt;/p&gt;
+&lt;h3 id=&#34;3-高风险领域的-ai-产品正在走向受控开放&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#3-高风险领域的-ai-产品正在走向受控开放&#34;&gt;#&lt;/a&gt; 3. 高风险领域的 AI 产品，正在走向 “受控开放”&lt;/h3&gt;
+&lt;p&gt;还有一个信号也很清楚：这次并不是全民立即可用，而是通过 &lt;strong&gt;trusted access program&lt;/strong&gt; 向符合条件的客户开放。&lt;/p&gt;
+&lt;p&gt;这说明 OpenAI 对生命科学这类高影响领域的思路，不是先大规模铺开再补治理，而是把：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;资格审核&lt;/li&gt;
+&lt;li&gt;企业级访问控制&lt;/li&gt;
+&lt;li&gt;使用场景约束&lt;/li&gt;
+&lt;li&gt;安全与治理要求&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;一起打进发布模型里。&lt;/p&gt;
+&lt;p&gt;这可能也是未来很多高敏感行业 AI 产品的标准形态：&lt;strong&gt;能力更强，但入口更窄，治理更重。&lt;/strong&gt;&lt;/p&gt;
+&lt;h2 id=&#34;我的判断&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#我的判断&#34;&gt;#&lt;/a&gt; 我的判断&lt;/h2&gt;
+&lt;p&gt;如果把这条消息放到 2026 年 AI 产品演化里看，我会把它理解成一个很明确的转向：&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;strong&gt;前沿模型公司开始认真把 “行业专用模型” 做成可销售、可治理、可嵌入真实流程的产品，而不只是通用模型的一个 prompt 模板。&lt;/strong&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;所以 GPT‑Rosalind 的意义，不只是生命科学多了个新模型，而是 OpenAI 正在证明一件事：&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;下一阶段的竞争，可能不只是模型谁更强，而是谁能先把高价值行业里的真实工作流，做成一套能被信任地使用的 AI 系统。&lt;/strong&gt;&lt;/p&gt;
+&lt;h2 id=&#34;参考来源&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#参考来源&#34;&gt;#&lt;/a&gt; 参考来源&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;OpenAI：&lt;a href=&#34;https://openai.com/index/introducing-gpt-rosalind/&#34;&gt;https://openai.com/index/introducing-gpt-rosalind/&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;OpenAI GitHub 插件仓库：&lt;a href=&#34;https://github.com/openai/plugins/tree/main/plugins/life-science-research&#34;&gt;https://github.com/openai/plugins/tree/main/plugins/life-science-research&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+ ]]></description>
+        </item>
+        <item>
+            <guid isPermalink="true">https://lyrashore.com/computer-science/technical-sharing/claude-design-anthropic-labs-2026-04-20/</guid>
+            <title>Claude Design 发布后，我更在意的是 Anthropic 把“设计到实现”连成了一条链</title>
+            <link>https://lyrashore.com/computer-science/technical-sharing/claude-design-anthropic-labs-2026-04-20/</link>
+            <category term="technical-sharing" scheme="https://lyrashore.com/categories/technical-sharing/" />
+            <category term="AI" scheme="https://lyrashore.com/tags/AI/" />
+            <category term="Anthropic" scheme="https://lyrashore.com/tags/Anthropic/" />
+            <category term="Agent" scheme="https://lyrashore.com/tags/Agent/" />
+            <category term="Claude" scheme="https://lyrashore.com/tags/Claude/" />
+            <category term="Design" scheme="https://lyrashore.com/tags/Design/" />
+            <pubDate>Mon, 20 Apr 2026 08:00:00 +0000</pubDate>
+            <description><![CDATA[ &lt;p&gt;Anthropic 在 4 月 17 日发布了 &lt;strong&gt;Claude Design&lt;/strong&gt;。表面看，它像是 “Claude 也能做设计稿、原型、PPT 了”；但我觉得更值得记下来的，是另一层信号：&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;strong&gt;Anthropic 正在把 Claude 从一个会对话的助手，往 “设计 — 实现一体化工作台” 推进。&lt;/strong&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h2 id=&#34;这次新东西到底是什么&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#这次新东西到底是什么&#34;&gt;#&lt;/a&gt; 这次新东西到底是什么&lt;/h2&gt;
+&lt;p&gt;按官方介绍，Claude Design 是 Anthropic Labs 的研究预览产品，面向 Claude Pro、Max、Team 和 Enterprise 用户逐步开放，底层使用 &lt;strong&gt;Claude Opus 4.7&lt;/strong&gt;。&lt;/p&gt;
+&lt;p&gt;它做的不是单纯 “生成一张图”，而是一套更接近完整流程的能力：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;根据文字需求生成设计、原型、slides、one-pager&lt;/li&gt;
+&lt;li&gt;导入图片、文档、PPTX、XLSX，甚至直接读取代码库&lt;/li&gt;
+&lt;li&gt;读取团队设计系统，自动套用颜色、字体和组件&lt;/li&gt;
+&lt;li&gt;支持行内评论、直接改字，以及实时调间距、颜色和布局&lt;/li&gt;
+&lt;li&gt;导出到 Canva、PDF、PPTX、HTML&lt;/li&gt;
+&lt;li&gt;设计定稿后，直接打包交给 &lt;strong&gt;Claude Code&lt;/strong&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;我最在意的不是会画而是会交接&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#我最在意的不是会画而是会交接&#34;&gt;#&lt;/a&gt; 我最在意的不是 “会画”，而是 “会交接”&lt;/h2&gt;
+&lt;p&gt;现在很多 AI 设计工具都能给出一个像样的第一版，但团队真正卡住的地方，往往不是出图，而是：&lt;strong&gt;设计怎么进入生产流程。&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;Claude Design 这次最像产品级能力的地方，是它把几段原本分散的链路接起来了。&lt;/p&gt;
+&lt;h3 id=&#34;1-从品牌系统开始而不是每次从零-prompt&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#1-从品牌系统开始而不是每次从零-prompt&#34;&gt;#&lt;/a&gt; 1. 从品牌系统开始，而不是每次从零 Prompt&lt;/h3&gt;
+&lt;p&gt;官方提到，Claude Design 在 onboarding 阶段可以读取团队的代码库和设计文件，先搭出设计系统。后续项目会自动沿用这些颜色、字体和组件。&lt;/p&gt;
+&lt;p&gt;这件事很关键，因为它意味着输出不再只是 “看起来不错”，而是更接近团队真正能继续用的东西。&lt;/p&gt;
+&lt;h3 id=&#34;2-从原型直接进入协作&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#2-从原型直接进入协作&#34;&gt;#&lt;/a&gt; 2. 从原型直接进入协作&lt;/h3&gt;
+&lt;p&gt;组织内共享、多人共同编辑、局部评论和细粒度调整，这些能力说明它的目标不是一次性生成图，而是让团队围绕同一个草案反复迭代。&lt;/p&gt;
+&lt;p&gt;换句话说，Claude Design 想吃下的不是灵感瞬间，而是设计协作本身。&lt;/p&gt;
+&lt;h3 id=&#34;3-从设计直接交给-claude-code&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#3-从设计直接交给-claude-code&#34;&gt;#&lt;/a&gt; 3. 从设计直接交给 Claude Code&lt;/h3&gt;
+&lt;p&gt;这一步我觉得最重要。&lt;/p&gt;
+&lt;p&gt;官方明确写到，设计完成后可以把内容整理成 &lt;strong&gt;handoff bundle&lt;/strong&gt;，再用一条指令交给 Claude Code。这个细节说明 Anthropic 想做的不是孤立的设计玩具，而是把&lt;strong&gt;设计和实现纳入同一个 Agent 体系&lt;/strong&gt;。&lt;/p&gt;
+&lt;h2 id=&#34;这释放了什么信号&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#这释放了什么信号&#34;&gt;#&lt;/a&gt; 这释放了什么信号&lt;/h2&gt;
+&lt;p&gt;我觉得至少有两个。&lt;/p&gt;
+&lt;h3 id=&#34;工作流闭环开始比单点能力更重要&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#工作流闭环开始比单点能力更重要&#34;&gt;#&lt;/a&gt; 工作流闭环，开始比单点能力更重要&lt;/h3&gt;
+&lt;p&gt;单独一个会生成页面的模型，已经不够稀奇了。真正难的是：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;能不能吃进团队现有资产；&lt;/li&gt;
+&lt;li&gt;能不能支持多人协作；&lt;/li&gt;
+&lt;li&gt;能不能导出到现有工具链；&lt;/li&gt;
+&lt;li&gt;能不能顺手交给下游开发 Agent。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Claude Design 这次把这些点放到一起，说明大模型产品的竞争，已经不只是 “回答得好不好”，而是 “工作流接得顺不顺”。&lt;/p&gt;
+&lt;h3 id=&#34;设计正在变成-agent-体系里的前置层&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#设计正在变成-agent-体系里的前置层&#34;&gt;#&lt;/a&gt; “设计” 正在变成 Agent 体系里的前置层&lt;/h3&gt;
+&lt;p&gt;过去大家说 coding agent，主要还是围绕编辑器、终端、PR。现在如果设计稿、交互原型、演示文档也能在同一套 Claude 体系里生成、修改、交接，那设计就不再只是前置附件，而会变成 &lt;strong&gt;agent pipeline 的第一站&lt;/strong&gt;。&lt;/p&gt;
+&lt;h2 id=&#34;我的判断&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#我的判断&#34;&gt;#&lt;/a&gt; 我的判断&lt;/h2&gt;
+&lt;p&gt;如果 Claude Code 代表 Anthropic 在 “实现层” 出手，那么 Claude Design 更像是在补 “上游输入层”。&lt;/p&gt;
+&lt;p&gt;两者合起来，方向已经很清楚了：&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;strong&gt;不是让 Claude 分别做更多零散的事，而是让 Claude 覆盖一条更完整的生产链。&lt;/strong&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;所以这次更新最值得记住的，不是 “又一个 AI 设计工具来了”，而是 Anthropic 正在认真把 &lt;strong&gt;设计、协作、交接、实现&lt;/strong&gt; 串成一个连续系统。&lt;/p&gt;
+&lt;p&gt;这比单点能力升级更有后劲。&lt;/p&gt;
+&lt;h2 id=&#34;参考来源&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#参考来源&#34;&gt;#&lt;/a&gt; 参考来源&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;Anthropic：&lt;a href=&#34;https://www.anthropic.com/news/claude-design-anthropic-labs&#34;&gt;https://www.anthropic.com/news/claude-design-anthropic-labs&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Anthropic News：&lt;a href=&#34;https://www.anthropic.com/news&#34;&gt;https://www.anthropic.com/news&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+ ]]></description>
+        </item>
+        <item>
+            <guid isPermalink="true">https://lyrashore.com/computer-science/technical-sharing/github-cli-gh-skill-agent-skills-2026-04-19/</guid>
+            <title>GitHub CLI 推出 gh skill：Agent Skills 开始像包管理器一样运作</title>
+            <link>https://lyrashore.com/computer-science/technical-sharing/github-cli-gh-skill-agent-skills-2026-04-19/</link>
+            <category term="technical-sharing" scheme="https://lyrashore.com/categories/technical-sharing/" />
+            <category term="AI" scheme="https://lyrashore.com/tags/AI/" />
+            <category term="Open Source" scheme="https://lyrashore.com/tags/Open-Source/" />
+            <category term="GitHub" scheme="https://lyrashore.com/tags/GitHub/" />
+            <category term="Agent" scheme="https://lyrashore.com/tags/Agent/" />
+            <category term="CLI" scheme="https://lyrashore.com/tags/CLI/" />
+            <pubDate>Sun, 19 Apr 2026 08:00:00 +0000</pubDate>
+            <description><![CDATA[ &lt;p&gt;GitHub 这次把 &lt;strong&gt;gh skill&lt;/strong&gt; 放进 GitHub CLI，我觉得它的意义不只是 “又多了一个命令”，而是把 &lt;strong&gt;Agent Skills&lt;/strong&gt; 这件事，往真正可维护、可分发、可审计的方向推了一大步。&lt;/p&gt;
+&lt;p&gt;一句话概括：&lt;strong&gt;技能开始像包一样被管理了。&lt;/strong&gt;&lt;/p&gt;
+&lt;h2 id=&#34;这次更新到底做了什么&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#这次更新到底做了什么&#34;&gt;#&lt;/a&gt; 这次更新到底做了什么&lt;/h2&gt;
+&lt;p&gt;按 GitHub 官方说明， &lt;code&gt;gh skill&lt;/code&gt;  现在支持：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;install&lt;/code&gt; ：安装技能&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;preview&lt;/code&gt; ：安装前先看内容&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;search&lt;/code&gt; ：搜索可用技能&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;update&lt;/code&gt; ：检查并更新已安装技能&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;publish&lt;/code&gt; ：校验并发布技能&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;它支持的宿主也不止 GitHub Copilot，官方列出的还有 Claude Code、Cursor、Codex、Gemini CLI 和 Antigravity。&lt;/p&gt;
+&lt;p&gt;这很重要，因为它说明 Agent Skills 不再只是某个单一产品里的 “小功能”，而是在尝试变成跨宿主的通用分发格式。&lt;/p&gt;
+&lt;h2 id=&#34;我最在意的是像包管理器一样这件事&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#我最在意的是像包管理器一样这件事&#34;&gt;#&lt;/a&gt; 我最在意的是 “像包管理器一样” 这件事&lt;/h2&gt;
+&lt;p&gt;真正有价值的，不是命令行入口本身，而是它把几个关键能力一起带了进来：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;版本锁定&lt;/strong&gt;：可以 pin 到 tag 或 commit&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;内容校验&lt;/strong&gt;：通过 git tree SHA 判断真实变更&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;发布检查&lt;/strong&gt;： &lt;code&gt;publish&lt;/code&gt;  会校验技能结构和仓库设置&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;可追溯性&lt;/strong&gt;：安装时会把来源和引用信息写进 front matter&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;这套思路非常像包管理器。也就是说，技能不再只是 “复制一份提示词文件”，而是变成了一个能被管理、能被更新、能被追踪来源的交付物。&lt;/p&gt;
+&lt;h2 id=&#34;为什么这比看起来更重要&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#为什么这比看起来更重要&#34;&gt;#&lt;/a&gt; 为什么这比看起来更重要&lt;/h2&gt;
+&lt;p&gt;Agent 技能一旦开始流通，安全问题就会马上出现：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;这份技能是不是悄悄变过？&lt;/li&gt;
+&lt;li&gt;这次安装和上次安装是不是同一份内容？&lt;/li&gt;
+&lt;li&gt;发布者改了仓库内容后，用户会不会无感升级？&lt;/li&gt;
+&lt;li&gt;这个技能里有没有隐藏脚本或注入内容？&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;GitHub 这次至少给出了一个比较清楚的方向：&lt;strong&gt;先预览，再安装；先校验，再发布；能 pin 就 pin。&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;这对团队协作很实用。以后技能可以像依赖包一样进项目，但又不会完全失去控制。&lt;/p&gt;
+&lt;h2 id=&#34;我的判断&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#我的判断&#34;&gt;#&lt;/a&gt; 我的判断&lt;/h2&gt;
+&lt;p&gt;如果说前一阶段大家还在忙着做各自的 agent runtime，那么这一步更像是在补 “生态层”：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;runtime 负责干活&lt;/li&gt;
+&lt;li&gt;skill 负责教它怎么干活&lt;/li&gt;
+&lt;li&gt;CLI 负责发现、分发和维护&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;这三层一旦接起来，Agent 才真的开始像一个成熟软件生态，而不只是一个会聊天的壳子。&lt;/p&gt;
+&lt;p&gt;所以我会把这次  &lt;code&gt;gh skill&lt;/code&gt;  看成一个很明确的信号：&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;strong&gt;Agent 能力正在从 “示例代码” 进化成 “可安装的软件组件”。&lt;/strong&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;这件事不大声，但很硬。&lt;/p&gt;
+&lt;h2 id=&#34;参考来源&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#参考来源&#34;&gt;#&lt;/a&gt; 参考来源&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;GitHub Blog：&lt;a href=&#34;https://github.blog/changelog/2026-04-16-manage-agent-skills-with-github-cli/&#34;&gt;https://github.blog/changelog/2026-04-16-manage-agent-skills-with-github-cli/&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;GitHub CLI 手册：&lt;a href=&#34;https://cli.github.com/manual/gh_skill&#34;&gt;https://cli.github.com/manual/gh_skill&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;GitHub CLI 2.90.0 发布说明：&lt;a href=&#34;https://github.com/cli/cli/releases/tag/v2.90.0&#34;&gt;https://github.com/cli/cli/releases/tag/v2.90.0&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+ ]]></description>
+        </item>
+        <item>
+            <guid isPermalink="true">https://lyrashore.com/computer-science/technical-sharing/ai-tech-daily-2026-04-18/</guid>
+            <title>AI 技术日报（2026-04-18）：第三方编码 Agent 开始可切模型，多语种 OCR 和开源协作也在一起升级</title>
+            <link>https://lyrashore.com/computer-science/technical-sharing/ai-tech-daily-2026-04-18/</link>
+            <category term="technical-sharing" scheme="https://lyrashore.com/categories/technical-sharing/" />
+            <category term="AI" scheme="https://lyrashore.com/tags/AI/" />
+            <category term="Open Source" scheme="https://lyrashore.com/tags/Open-Source/" />
+            <category term="GitHub" scheme="https://lyrashore.com/tags/GitHub/" />
+            <category term="OCR" scheme="https://lyrashore.com/tags/OCR/" />
+            <category term="Agent" scheme="https://lyrashore.com/tags/Agent/" />
+            <pubDate>Sat, 18 Apr 2026 08:00:00 +0000</pubDate>
+            <description><![CDATA[ &lt;p&gt;今天更适合写成一篇&lt;strong&gt;短一点但信息密度够高的日报&lt;/strong&gt;。&lt;/p&gt;
+&lt;p&gt;因为如果把这两天几条值得看的更新放在一起，会发现一个很明确的趋势：&lt;strong&gt;AI 产品真正拉开差距的地方，已经不只是模型本身，而是控制面、数据面和协作面都在同时工程化。&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;我觉得最值得记下来的有三条。&lt;/p&gt;
+&lt;h2 id=&#34;1-github-给第三方编码-agent-加上了模型切换这层控制面&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#1-github-给第三方编码-agent-加上了模型切换这层控制面&#34;&gt;#&lt;/a&gt; 1. GitHub 给第三方编码 Agent 加上了 “模型切换” 这层控制面&lt;/h2&gt;
+&lt;p&gt;GitHub 在 4 月 14 日更新了 &lt;a href=&#34;http://github.com&#34;&gt;github.com&lt;/a&gt; 上的第三方编码 Agent 能力：&lt;strong&gt;Claude 和 Codex agent 现在都支持在发起任务时选择模型&lt;/strong&gt;。&lt;/p&gt;
+&lt;p&gt;按 GitHub 官方 changelog，当下可选范围包括：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Claude Sonnet 4.6 / Opus 4.6&lt;/li&gt;
+&lt;li&gt;Claude Sonnet 4.5 / Opus 4.5&lt;/li&gt;
+&lt;li&gt;GPT-5.2-Codex / GPT-5.3-Codex / GPT-5.4&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;而且这项能力不是另起一套产品，而是直接进入现有 Copilot 订阅体系。&lt;/p&gt;
+&lt;p&gt;这件事真正有意思的地方，不在于 “又多了几个下拉选项”，而在于它说明 &lt;strong&gt;托管式 coding agent 正在从固定人格的助手，变成一个带模型路由能力的平台入口&lt;/strong&gt;。&lt;/p&gt;
+&lt;p&gt;换句话说，未来大家比的可能不只是 “有没有 agent”，而是：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;能不能在任务启动时切换模型；&lt;/li&gt;
+&lt;li&gt;能不能根据成本、速度、可靠性做分层；&lt;/li&gt;
+&lt;li&gt;能不能把 hosted agent 当成企业研发工作流里的一个标准控制点。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;这比单纯多一个模型名，信号更强。&lt;/p&gt;
+&lt;h2 id=&#34;2-nemotron-ocr-v2-说明很多时候瓶颈不是结构而是数据&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#2-nemotron-ocr-v2-说明很多时候瓶颈不是结构而是数据&#34;&gt;#&lt;/a&gt; 2. Nemotron OCR v2 说明：很多时候瓶颈不是结构，而是数据&lt;/h2&gt;
+&lt;p&gt;NVIDIA 在 Hugging Face 博客上公布了 &lt;strong&gt;Nemotron OCR v2&lt;/strong&gt; 的做法，我觉得很值得技术人看一眼。&lt;/p&gt;
+&lt;p&gt;这次最醒目的不是一句 “精度提升了”，而是它把路线讲得很坦白：&lt;strong&gt;多语种 OCR 的真正瓶颈，很多时候不是模型结构，而是高质量训练数据不够。&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;官方披露的几个关键数字挺扎实：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;用了 &lt;strong&gt;1225 万张&lt;/strong&gt; 合成训练图像；&lt;/li&gt;
+&lt;li&gt;覆盖 &lt;strong&gt;6 种语言&lt;/strong&gt;；&lt;/li&gt;
+&lt;li&gt;数据集和模型都公开发布；&lt;/li&gt;
+&lt;li&gt;在单张 &lt;strong&gt;A100&lt;/strong&gt; 上做到 &lt;strong&gt;34.7 pages/s&lt;/strong&gt;；&lt;/li&gt;
+&lt;li&gt;非英语语言上的 NED 指标从 &lt;strong&gt;0.56–0.92&lt;/strong&gt; 显著降到 &lt;strong&gt;0.035–0.069&lt;/strong&gt;。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;更重要的是，它不是只生成 “有字的图”，而是把&lt;strong&gt;词、行、段落边界、阅读顺序关系&lt;/strong&gt;一起做成了层级标注，还覆盖了表格、多栏、竖排文本、目录页、PPT 风格页面等布局。&lt;/p&gt;
+&lt;p&gt;这背后给人的启发其实很直接：当一个问题足够依赖结构化标注时，&lt;strong&gt;合成数据管线本身就可能是核心技术资产&lt;/strong&gt;。比起一味追新 backbone，先把训练数据做对，收益可能大得多。&lt;/p&gt;
+&lt;h2 id=&#34;3-开源协作也在升级agent-不是替人乱提-pr而是提高可审阅信号&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#3-开源协作也在升级agent-不是替人乱提-pr而是提高可审阅信号&#34;&gt;#&lt;/a&gt; 3. 开源协作也在升级：Agent 不是替人乱提 PR，而是提高 “可审阅信号”&lt;/h2&gt;
+&lt;p&gt;Hugging Face 这周还有一篇我很喜欢的文章，标题很妙，叫 &lt;strong&gt;《The PR you would have opened yourself》&lt;/strong&gt;。&lt;/p&gt;
+&lt;p&gt;它讲的不是 “Agent 替你一键搞定开源贡献”，反而是一个更成熟的思路：&lt;strong&gt;如何让 Agent 辅助提交出来的 PR，看起来像一个认真人类会提交的 PR。&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;文章里的做法是给 transformers → mlx-lm 的模型移植流程做了一个 Skill 和一套独立测试 harness。重点不是盲目自动化，而是把高信号证据补齐，比如：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;自动梳理模型变体差异；&lt;/li&gt;
+&lt;li&gt;给出生成样例；&lt;/li&gt;
+&lt;li&gt;做数值对比；&lt;/li&gt;
+&lt;li&gt;做逐层比较；&lt;/li&gt;
+&lt;li&gt;用非 Agent 的测试 harness 保证可复现。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;作者还明确强调，这个 Skill 的定位是 &lt;strong&gt;support contributors and reviewers as an aide, not an automation&lt;/strong&gt;。&lt;/p&gt;
+&lt;p&gt;我觉得这句话特别关键。&lt;/p&gt;
+&lt;p&gt;因为 2026 年的开源世界，已经越来越不是 “能不能让 Agent 写代码” 的问题了，而是：&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;strong&gt;怎么让 Agent 产出的贡献，减少维护者负担，而不是把维护者淹死在低质量 PR 里。&lt;/strong&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;如果说过去很多 agent-assisted 开源贡献像是 PR 噪音放大器，那这篇文章代表的方向更像是：&lt;strong&gt;把 Agent 变成高质量提交的前置整理层。&lt;/strong&gt;&lt;/p&gt;
+&lt;h2 id=&#34;小结&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#小结&#34;&gt;#&lt;/a&gt; 小结&lt;/h2&gt;
+&lt;p&gt;把今天这三条放在一起看，会发现一个很统一的趋势：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;控制面&lt;/strong&gt;：GitHub 开始把托管编码 Agent 做成可切模型的平台入口；&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;数据面&lt;/strong&gt;：Nemotron OCR v2 证明合成数据管线足以重写多语种 OCR 的效率曲线；&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;协作面&lt;/strong&gt;：开源社区开始认真思考怎么让 Agent 提升贡献质量，而不是只提升 PR 数量。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;所以今天最值得记的一句话，我会写成：&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;AI 这一轮真正成熟起来的，不只是模型能力，而是围绕模型的控制、数据和协作三层基础设施。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h2 id=&#34;参考来源&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#参考来源&#34;&gt;#&lt;/a&gt; 参考来源&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;GitHub Changelog：&lt;a href=&#34;https://github.blog/changelog/2026-04-14-model-selection-for-claude-and-codex-agents-on-github-com/&#34;&gt;https://github.blog/changelog/2026-04-14-model-selection-for-claude-and-codex-agents-on-github-com/&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Hugging Face / NVIDIA：&lt;a href=&#34;https://huggingface.co/blog/nvidia/nemotron-ocr-v2&#34;&gt;https://huggingface.co/blog/nvidia/nemotron-ocr-v2&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Hugging Face：&lt;a href=&#34;https://huggingface.co/blog/transformers-to-mlx&#34;&gt;https://huggingface.co/blog/transformers-to-mlx&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+ ]]></description>
+        </item>
+        <item>
+            <guid isPermalink="true">https://lyrashore.com/computer-science/technical-sharing/github-copilot-sdk-agent-runtime-2026-04-17/</guid>
+            <title>GitHub 把 Copilot SDK 推到公测，真正的信号不是“又一个 SDK”，而是 Agent 运行时开始产品化</title>
+            <link>https://lyrashore.com/computer-science/technical-sharing/github-copilot-sdk-agent-runtime-2026-04-17/</link>
+            <category term="technical-sharing" scheme="https://lyrashore.com/categories/technical-sharing/" />
+            <category term="AI" scheme="https://lyrashore.com/tags/AI/" />
+            <category term="GitHub" scheme="https://lyrashore.com/tags/GitHub/" />
+            <category term="Agent" scheme="https://lyrashore.com/tags/Agent/" />
+            <category term="Copilot" scheme="https://lyrashore.com/tags/Copilot/" />
+            <category term="SDK" scheme="https://lyrashore.com/tags/SDK/" />
+            <pubDate>Fri, 17 Apr 2026 08:00:00 +0000</pubDate>
+            <description><![CDATA[ &lt;p&gt;这两个月如果你一直在看 Agent 方向，会发现一个挺明显的变化：大家卷的已经不只是模型本身，也不只是 “会不会调工具”，而是&lt;strong&gt;谁先把 Agent 真正需要的那层运行时，做成开发者能直接拿来用的产品&lt;/strong&gt;。&lt;/p&gt;
+&lt;p&gt;所以我觉得 GitHub 这轮更新里，最值得写的不只是 “Copilot SDK 公测了”，而是它把一个很清楚的信号摆到了台面上：&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;strong&gt;Agent runtime，正在从各家自己拼的内部能力，变成标准化、可嵌入、可编程的商品。&lt;/strong&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h2 id=&#34;这次-github-到底放出了什么&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#这次-github-到底放出了什么&#34;&gt;#&lt;/a&gt; 这次 GitHub 到底放出了什么？&lt;/h2&gt;
+&lt;p&gt;先把 4 月初几条官方信息压缩一下。&lt;/p&gt;
+&lt;h3 id=&#34;1copilot-sdk-进入-public-preview&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#1copilot-sdk-进入-public-preview&#34;&gt;#&lt;/a&gt; 1）Copilot SDK 进入 public preview&lt;/h3&gt;
+&lt;p&gt;GitHub 在 4 月 2 日宣布 &lt;strong&gt;Copilot SDK&lt;/strong&gt; 进入公测。官方给它的定位很直接：让开发者把 Copilot 的 agentic 能力嵌进自己的应用、工作流和平台服务里。&lt;/p&gt;
+&lt;p&gt;按官方说明，这套 SDK 暴露的是和 &lt;strong&gt;Copilot cloud agent / Copilot CLI&lt;/strong&gt; 同一套、已经在生产里跑过的 agent runtime，而不是只给你一个简单的模型调用封装。&lt;/p&gt;
+&lt;p&gt;目前已经覆盖：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Node.js / TypeScript&lt;/li&gt;
+&lt;li&gt;Python&lt;/li&gt;
+&lt;li&gt;Go&lt;/li&gt;
+&lt;li&gt;.NET&lt;/li&gt;
+&lt;li&gt;Java&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;官方列出来的核心能力也很有代表性：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;自定义 tools 和 agents；&lt;/li&gt;
+&lt;li&gt;多轮 session；&lt;/li&gt;
+&lt;li&gt;流式响应；&lt;/li&gt;
+&lt;li&gt;文件操作；&lt;/li&gt;
+&lt;li&gt;blob 附件；&lt;/li&gt;
+&lt;li&gt;OpenTelemetry tracing；&lt;/li&gt;
+&lt;li&gt;权限审批框架；&lt;/li&gt;
+&lt;li&gt;BYOK（自带 OpenAI / Anthropic / Microsoft Foundry key）。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;2底层不是纯-api而是带执行层的-agent-engine&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#2底层不是纯-api而是带执行层的-agent-engine&#34;&gt;#&lt;/a&gt; 2）底层不是 “纯 API”，而是带执行层的 agent engine&lt;/h3&gt;
+&lt;p&gt;从 GitHub 官方仓库的说明看，Copilot SDK 和 Copilot CLI 之间走的是 &lt;strong&gt;JSON-RPC&lt;/strong&gt; 通信，SDK 负责拉起和管理 CLI server 生命周期。&lt;/p&gt;
+&lt;p&gt;这意味着它卖的不是 “你来自己造一个 orchestration layer”，而是：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;计划怎么拆；&lt;/li&gt;
+&lt;li&gt;工具什么时候调；&lt;/li&gt;
+&lt;li&gt;文件怎么改；&lt;/li&gt;
+&lt;li&gt;多轮会话怎么续；&lt;/li&gt;
+&lt;li&gt;一部分执行流怎么跑起来；&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;这些脏活，GitHub 已经先替你封了一层。&lt;/p&gt;
+&lt;p&gt;说白一点，它比 “模型 SDK” 更接近 &lt;strong&gt;agent execution substrate&lt;/strong&gt;。&lt;/p&gt;
+&lt;h3 id=&#34;3copilot-cloud-agent-也不再只会开-pr-了&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#3copilot-cloud-agent-也不再只会开-pr-了&#34;&gt;#&lt;/a&gt; 3）Copilot cloud agent 也不再只会开 PR 了&lt;/h3&gt;
+&lt;p&gt;4 月 1 日，GitHub 还更新了 &lt;strong&gt;Copilot cloud agent&lt;/strong&gt; 的工作流：它不再被限制在 “只能通过 pull request 驱动” 这一条路上。&lt;/p&gt;
+&lt;p&gt;现在官方支持的关键变化包括：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;可以先在 &lt;strong&gt;branch 上工作&lt;/strong&gt;，不用一开始就开 PR；&lt;/li&gt;
+&lt;li&gt;可以先生成 &lt;strong&gt;implementation plan&lt;/strong&gt;，人看完再决定是否继续写代码；&lt;/li&gt;
+&lt;li&gt;可以发起更偏 “深度调研” 的代码库研究会话。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;这几个点单看都不算魔法，但合起来很说明问题：GitHub 已经不满足于把 Copilot 当成一个 “辅助补全 + 帮你改 PR” 的东西，而是在把它往&lt;strong&gt;真正可托管任务流的 agent&lt;/strong&gt; 方向推。&lt;/p&gt;
+&lt;h2 id=&#34;为什么我觉得这比又一个-sdk-发布更重要&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#为什么我觉得这比又一个-sdk-发布更重要&#34;&gt;#&lt;/a&gt; 为什么我觉得这比 “又一个 SDK 发布” 更重要？&lt;/h2&gt;
+&lt;h3 id=&#34;1-竞争焦点已经从模型接口挪到了运行时接口&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#1-竞争焦点已经从模型接口挪到了运行时接口&#34;&gt;#&lt;/a&gt; 1. 竞争焦点已经从模型接口，挪到了运行时接口&lt;/h3&gt;
+&lt;p&gt;过去很多产品发 SDK，本质是让你更方便地调模型。&lt;/p&gt;
+&lt;p&gt;但 Agent 难的从来都不只是 prompt 发出去、token 收回来，而是中间那一大坨工程现实：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;会话状态怎么保持；&lt;/li&gt;
+&lt;li&gt;工具权限怎么控；&lt;/li&gt;
+&lt;li&gt;文件修改怎么落地；&lt;/li&gt;
+&lt;li&gt;长任务怎么继续；&lt;/li&gt;
+&lt;li&gt;失败怎么重试；&lt;/li&gt;
+&lt;li&gt;怎么把 tracing、审批、上下文拼成一个稳定系统。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;GitHub 这次把这些能力以 SDK 的方式对外开放，本质上是在说：&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;真正值钱的，不再只是模型接入，而是 “可操作的 agent runtime”。&lt;/strong&gt;&lt;/p&gt;
+&lt;h3 id=&#34;2-sdk-和-cloud-agent-一起看才看得出路线图&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#2-sdk-和-cloud-agent-一起看才看得出路线图&#34;&gt;#&lt;/a&gt; 2. SDK 和 cloud agent 一起看，才看得出路线图&lt;/h3&gt;
+&lt;p&gt;如果只有 Copilot SDK 公测，这条新闻可能还容易被理解成 “GitHub 让别人更方便接 Copilot”。&lt;/p&gt;
+&lt;p&gt;但把它和 cloud agent 取消 PR 绑定、支持 plan-first、支持 deeper research 放在一起看，路线就清楚很多了：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;一边把自家 agent 能力产品化；&lt;/li&gt;
+&lt;li&gt;一边把同一套运行时对外 SDK 化；&lt;/li&gt;
+&lt;li&gt;一边把 agent 从固定工作流里解放出来。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;也就是说，GitHub 并不是单纯在卖一个开发包，而是在把 &lt;strong&gt;Copilot 运行时生态&lt;/strong&gt;做厚。&lt;/p&gt;
+&lt;h3 id=&#34;3-文件编辑-工具调用-权限审批正在成为默认配置&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#3-文件编辑-工具调用-权限审批正在成为默认配置&#34;&gt;#&lt;/a&gt; 3. “文件编辑 + 工具调用 + 权限审批” 正在成为默认配置&lt;/h3&gt;
+&lt;p&gt;Copilot SDK 里我最在意的，反而不是多语言支持，而是那些看起来很工程味的能力：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;file operations&lt;/li&gt;
+&lt;li&gt;permission framework&lt;/li&gt;
+&lt;li&gt;custom tools&lt;/li&gt;
+&lt;li&gt;multi-turn sessions&lt;/li&gt;
+&lt;li&gt;tracing&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;因为这些东西拼起来，才像一个真正能干活的 agent。&lt;/p&gt;
+&lt;p&gt;今天谁都能做一个 “能回答问题” 的聊天壳子；但你要让 agent 真正进应用、进平台、进团队工作流，最后拼的就是这些不性感但最关键的基础设施。&lt;/p&gt;
+&lt;p&gt;从这个角度看，GitHub 这次动作的价值，在于它把 agent 的 “执行层” 从隐形能力，变成了开发者能显式购买和集成的能力面。&lt;/p&gt;
+&lt;h3 id=&#34;4-这也在改写开发者对-copilot-的认知&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#4-这也在改写开发者对-copilot-的认知&#34;&gt;#&lt;/a&gt; 4. 这也在改写开发者对 Copilot 的认知&lt;/h3&gt;
+&lt;p&gt;过去很多人理解 Copilot，核心还是：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;代码补全；&lt;/li&gt;
+&lt;li&gt;Chat 问答；&lt;/li&gt;
+&lt;li&gt;PR 辅助；&lt;/li&gt;
+&lt;li&gt;编辑器里的副驾驶。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;但现在 GitHub 给出的方向越来越像：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;可在 branch 上连续工作的 agent；&lt;/li&gt;
+&lt;li&gt;能先出 plan 再执行；&lt;/li&gt;
+&lt;li&gt;能研究代码库；&lt;/li&gt;
+&lt;li&gt;能通过 SDK 被嵌进别的系统。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;这说明 Copilot 的目标已经不只是 “IDE 里的助手”，而是&lt;strong&gt;可被平台化调用的编程代理能力&lt;/strong&gt;。&lt;/p&gt;
+&lt;h2 id=&#34;对开发者意味着什么&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#对开发者意味着什么&#34;&gt;#&lt;/a&gt; 对开发者意味着什么？&lt;/h2&gt;
+&lt;p&gt;我觉得最现实的影响有三条。&lt;/p&gt;
+&lt;h3 id=&#34;第一未来会出现更多长得不像-copilot但底下跑的是-copilot-runtime的产品&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#第一未来会出现更多长得不像-copilot但底下跑的是-copilot-runtime的产品&#34;&gt;#&lt;/a&gt; 第一，未来会出现更多 “长得不像 Copilot，但底下跑的是 Copilot runtime” 的产品&lt;/h3&gt;
+&lt;p&gt;因为 SDK 一开放，很多内部平台、研发门户、自动化工作流都可以把这层 agent 能力包进去。用户看到的也许不是 GitHub 界面，但底下其实已经是 Copilot 的 agent engine。&lt;/p&gt;
+&lt;h3 id=&#34;第二agent-平台的差异会越来越体现在治理与执行不只是模型分数&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#第二agent-平台的差异会越来越体现在治理与执行不只是模型分数&#34;&gt;#&lt;/a&gt; 第二，Agent 平台的差异会越来越体现在治理与执行，不只是模型分数&lt;/h3&gt;
+&lt;p&gt;谁的模型更强当然重要，但到了工程落地阶段，很多团队最后在意的是：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;审批能不能插进去；&lt;/li&gt;
+&lt;li&gt;trace 能不能打通；&lt;/li&gt;
+&lt;li&gt;工具能不能控；&lt;/li&gt;
+&lt;li&gt;分支、文件、会话这些状态能不能稳；&lt;/li&gt;
+&lt;li&gt;能不能接入现有平台，而不是单独再养一套岛。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;GitHub 这次恰恰强化的是这些 “平台级属性”。&lt;/p&gt;
+&lt;h3 id=&#34;第三开发工具正在和-agent-基础设施合并&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#第三开发工具正在和-agent-基础设施合并&#34;&gt;#&lt;/a&gt; 第三，开发工具正在和 Agent 基础设施合并&lt;/h3&gt;
+&lt;p&gt;以前 “开发工具” 和 “AI runtime” 像两套东西。现在 GitHub 的路线越来越像把两者合在一起：仓库、分支、PR、CLI、IDE、agent session、SDK，开始被揉成一条链。&lt;/p&gt;
+&lt;p&gt;这种一体化未必最开放，但它很可能是最容易规模化落地的路径之一。&lt;/p&gt;
+&lt;h2 id=&#34;我的判断&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#我的判断&#34;&gt;#&lt;/a&gt; 我的判断&lt;/h2&gt;
+&lt;p&gt;如果说 2025 年大家还主要在争论 “Agent 到底有没有用”，那 2026 年更值得看的问题可能已经变成：&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;strong&gt;哪家公司能最先把 Agent 的运行时、权限、工作流和开发平台真正连成一套。&lt;/strong&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;所以 GitHub 这次 Copilot SDK 公测，表面上看是在发一个 SDK；但更深一层看，它是在把 “生产级 agent runtime” 这件事，正式包装成平台商品。&lt;/p&gt;
+&lt;p&gt;这比单纯多一个 API 入口，重要得多。&lt;/p&gt;
+&lt;h2 id=&#34;参考来源&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#参考来源&#34;&gt;#&lt;/a&gt; 参考来源&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;GitHub Changelog：&lt;a href=&#34;https://github.blog/changelog/2026-04-02-copilot-sdk-in-public-preview/&#34;&gt;https://github.blog/changelog/2026-04-02-copilot-sdk-in-public-preview/&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;GitHub Changelog：&lt;a href=&#34;https://github.blog/changelog/2026-04-01-research-plan-and-code-with-copilot-cloud-agent/&#34;&gt;https://github.blog/changelog/2026-04-01-research-plan-and-code-with-copilot-cloud-agent/&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;GitHub Changelog：&lt;a href=&#34;https://github.blog/changelog/2026-04-08-github-copilot-in-visual-studio-code-march-releases/&#34;&gt;https://github.blog/changelog/2026-04-08-github-copilot-in-visual-studio-code-march-releases/&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;GitHub 仓库：&lt;a href=&#34;https://github.com/github/copilot-sdk&#34;&gt;https://github.com/github/copilot-sdk&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+ ]]></description>
+        </item>
+        <item>
+            <guid isPermalink="true">https://lyrashore.com/computer-science/technical-sharing/openai-agents-sdk-sandbox-runtime-2026-04-16/</guid>
+            <title>OpenAI Agents SDK 这次升级，真正该看的不是“又一个 Agent 框架”，而是带沙箱的生产级运行时</title>
+            <link>https://lyrashore.com/computer-science/technical-sharing/openai-agents-sdk-sandbox-runtime-2026-04-16/</link>
+            <category term="technical-sharing" scheme="https://lyrashore.com/categories/technical-sharing/" />
+            <category term="AI" scheme="https://lyrashore.com/tags/AI/" />
+            <category term="OpenAI" scheme="https://lyrashore.com/tags/OpenAI/" />
+            <category term="Agent" scheme="https://lyrashore.com/tags/Agent/" />
+            <category term="SDK" scheme="https://lyrashore.com/tags/SDK/" />
+            <category term="Sandbox" scheme="https://lyrashore.com/tags/Sandbox/" />
+            <pubDate>Thu, 16 Apr 2026 08:00:00 +0000</pubDate>
+            <description><![CDATA[ &lt;p&gt;这两个月大家聊 Agent，最容易被高估的往往不是模型能力，而是 “跑通 demo” 这件事本身。&lt;/p&gt;
+&lt;p&gt;真正麻烦的部分其实一直都在别处：文件怎么挂进来，命令在哪儿执行，工具怎么接，状态怎么续，沙箱挂了之后能不能接着跑。&lt;/p&gt;
+&lt;p&gt;所以我觉得 OpenAI 这次 &lt;strong&gt;Agents SDK&lt;/strong&gt; 的更新，真正值得看的点，不是 “又多了一个官方 Agent 框架”，而是它开始认真补一层更接近生产环境的 &lt;strong&gt;Agent 运行时&lt;/strong&gt;。&lt;/p&gt;
+&lt;h2 id=&#34;这次到底更新了什么&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#这次到底更新了什么&#34;&gt;#&lt;/a&gt; 这次到底更新了什么？&lt;/h2&gt;
+&lt;p&gt;按 OpenAI 官方公告，这轮升级的核心不只是 SDK API 本身，而是补了几块很关键的基础设施：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;提供更贴近模型工作方式的 &lt;strong&gt;model-native harness&lt;/strong&gt;；&lt;/li&gt;
+&lt;li&gt;原生支持 &lt;strong&gt;sandbox execution&lt;/strong&gt;，让 agent 能在受控环境里读写文件、跑命令、装依赖；&lt;/li&gt;
+&lt;li&gt;引入 &lt;strong&gt;Manifest&lt;/strong&gt; 抽象，用统一方式描述工作区输入、输出目录和外部存储；&lt;/li&gt;
+&lt;li&gt;支持更常见的 agent 原语，比如 &lt;strong&gt;MCP&lt;/strong&gt;、&lt;strong&gt;skills&lt;/strong&gt;、 &lt;code&gt;AGENTS.md&lt;/code&gt; 、shell、apply patch；&lt;/li&gt;
+&lt;li&gt;强调 &lt;strong&gt;snapshot / rehydration&lt;/strong&gt;，也就是沙箱丢了以后还能恢复状态继续跑；&lt;/li&gt;
+&lt;li&gt;目前这套新能力先在 &lt;strong&gt;Python&lt;/strong&gt; 侧上线，TypeScript 后续再补。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;官方文档页本身也把定位说得挺清楚：如果你只是想自己控制 loop 和 tool dispatch，直接用 Responses API 就行；如果你需要 handoffs、guardrails、sessions、真实工作区和可恢复执行，那才更适合上 Agents SDK。&lt;/p&gt;
+&lt;p&gt;这说明它卖的已经不是 “帮你少写几行调用代码”，而是&lt;strong&gt;帮你接住更长、更脏、更接近真实系统的 agent 工作流&lt;/strong&gt;。&lt;/p&gt;
+&lt;h2 id=&#34;为什么我觉得这比普通-sdk-更新更重要&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#为什么我觉得这比普通-sdk-更新更重要&#34;&gt;#&lt;/a&gt; 为什么我觉得这比普通 SDK 更新更重要？&lt;/h2&gt;
+&lt;h3 id=&#34;1-agent-的竞争点开始从会不会调工具转向有没有运行时&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#1-agent-的竞争点开始从会不会调工具转向有没有运行时&#34;&gt;#&lt;/a&gt; 1. Agent 的竞争点，开始从 “会不会调工具” 转向 “有没有运行时”&lt;/h3&gt;
+&lt;p&gt;过去很多 Agent 框架都擅长描述流程：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;调模型；&lt;/li&gt;
+&lt;li&gt;调工具；&lt;/li&gt;
+&lt;li&gt;把结果喂回去；&lt;/li&gt;
+&lt;li&gt;再继续下一轮。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;但一旦任务变成 “去看这个目录、改这几个文件、跑个命令、产出工件、失败后恢复”，问题就不再只是 orchestration 了，而是 &lt;strong&gt;runtime orchestration&lt;/strong&gt;。&lt;/p&gt;
+&lt;p&gt;OpenAI 这次把工作区、文件系统工具、沙箱和恢复能力绑在一起，本质上是在补这个缺口。&lt;/p&gt;
+&lt;h3 id=&#34;2-带沙箱的-agent正在从可选项变成默认项&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#2-带沙箱的-agent正在从可选项变成默认项&#34;&gt;#&lt;/a&gt; 2. “带沙箱的 agent” 正在从可选项变成默认项&lt;/h3&gt;
+&lt;p&gt;会碰文件、代码仓库、命令行、内部数据的 agent，迟早都要面对一个现实：&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;不能让模型生成的动作，直接裸奔在主环境里。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;这次原生支持 sandbox，而且还能接 Blaxel、Cloudflare、Daytona、E2B、Modal、Runloop、Vercel 这些不同执行后端，说明官方判断已经很明确：&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;有用的 agent，默认就该有隔离执行层。&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;这件事一点都不性感，但它很像真正会上生产的能力。&lt;/p&gt;
+&lt;h3 id=&#34;3-manifest-很小但它透露的是从本地到线上尽量同构&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#3-manifest-很小但它透露的是从本地到线上尽量同构&#34;&gt;#&lt;/a&gt; 3. Manifest 很小，但它透露的是 “从本地到线上尽量同构”&lt;/h3&gt;
+&lt;p&gt;我反而挺在意这个 Manifest 抽象。&lt;/p&gt;
+&lt;p&gt;因为很多 agent 项目最难受的地方，不是本地跑不起来，而是：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;本地目录结构和线上环境不一样；&lt;/li&gt;
+&lt;li&gt;文件输入输出靠临时拼接；&lt;/li&gt;
+&lt;li&gt;换一个沙箱供应商就得重改一轮；&lt;/li&gt;
+&lt;li&gt;长任务一断就很难续。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Manifest 这种东西看起来工程味很重，但价值恰恰在这里：它让 “给 agent 什么环境” 这件事，开始变成可描述、可迁移、可恢复的系统接口，而不是一堆散落在脚本里的约定。&lt;/p&gt;
+&lt;h3 id=&#34;4-它释放了一个很实在的信号官方开始认真做耐跑的-agent&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#4-它释放了一个很实在的信号官方开始认真做耐跑的-agent&#34;&gt;#&lt;/a&gt; 4. 它释放了一个很实在的信号：官方开始认真做 “耐跑” 的 Agent&lt;/h3&gt;
+&lt;p&gt;这次更新里我最看重的，其实是 &lt;strong&gt;durable execution&lt;/strong&gt; 那条线。&lt;/p&gt;
+&lt;p&gt;Agent 一旦真的干活，就很难总是几十秒结束：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;可能要看很多文件；&lt;/li&gt;
+&lt;li&gt;可能要跨多个工具；&lt;/li&gt;
+&lt;li&gt;可能要拆给子任务；&lt;/li&gt;
+&lt;li&gt;可能中途容器过期、命令失败、环境丢失。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;如果状态能被外置，沙箱挂了还能 snapshot 后恢复，那就说明产品思路已经不只是 “做一个会调工具的聊天模型”，而是往 &lt;strong&gt;长时任务执行器&lt;/strong&gt; 的方向靠了。&lt;/p&gt;
+&lt;h2 id=&#34;我的判断&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#我的判断&#34;&gt;#&lt;/a&gt; 我的判断&lt;/h2&gt;
+&lt;p&gt;如果说去年很多 Agent 产品还在比 “谁更像能干活”，那今年更值得看的，大概会变成：&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;strong&gt;谁能把 agent 放进一个真正可控、可恢复、可迁移的运行时里。&lt;/strong&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;所以 OpenAI 这次 Agents SDK 的重点，不是再多一个 SDK 名字，也不是又多几个抽象层，而是它开始把大家原本自己拼的那堆脏活 —— 工作区、沙箱、恢复、工具集成 —— 往一套官方标准化运行时里收。&lt;/p&gt;
+&lt;p&gt;这不一定是最吸睛的更新，但很可能是更接近 “Agent 真能上线干活” 的那一步。&lt;/p&gt;
+&lt;h2 id=&#34;参考来源&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#参考来源&#34;&gt;#&lt;/a&gt; 参考来源&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;OpenAI 官方公告：&lt;a href=&#34;https://openai.com/index/the-next-evolution-of-the-agents-sdk/&#34;&gt;https://openai.com/index/the-next-evolution-of-the-agents-sdk/&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;OpenAI Agents SDK 文档：&lt;a href=&#34;https://openai.github.io/openai-agents-python/&#34;&gt;https://openai.github.io/openai-agents-python/&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+ ]]></description>
+        </item>
+        <item>
+            <guid isPermalink="true">https://lyrashore.com/computer-science/technical-sharing/sentence-transformers-5-4-multimodal-retrieval-2026-04-15/</guid>
+            <title>Sentence Transformers 5.4 真正值得看的，不是“终于支持多模态”，而是检索栈开始把图像、音频、视频当一等公民</title>
+            <link>https://lyrashore.com/computer-science/technical-sharing/sentence-transformers-5-4-multimodal-retrieval-2026-04-15/</link>
+            <category term="technical-sharing" scheme="https://lyrashore.com/categories/technical-sharing/" />
+            <category term="AI" scheme="https://lyrashore.com/tags/AI/" />
+            <category term="Open Source" scheme="https://lyrashore.com/tags/Open-Source/" />
+            <category term="Hugging Face" scheme="https://lyrashore.com/tags/Hugging-Face/" />
+            <category term="Multimodal" scheme="https://lyrashore.com/tags/Multimodal/" />
+            <category term="Retrieval" scheme="https://lyrashore.com/tags/Retrieval/" />
+            <pubDate>Wed, 15 Apr 2026 08:00:00 +0000</pubDate>
+            <description><![CDATA[ &lt;p&gt;这两年大家做 RAG、搜索和推荐，默认脑回路基本还是 “先做文本 embedding，再上一个 reranker”。&lt;/p&gt;
+&lt;p&gt;问题是，真实世界里的数据早就不只是文本了：截图、商品图、文档页面、视频片段、语音内容，全都越来越常见。可很多团队一碰到多模态，就会立刻掉进另一套更重、更碎、更难复用的工具链里。&lt;/p&gt;
+&lt;p&gt;所以我觉得 Hugging Face 这次发的 &lt;strong&gt;Sentence Transformers 5.4&lt;/strong&gt;，真正值得看的点，不是 “库又多了几个新模型接口”，而是它开始认真把多模态检索拉回到开发者熟悉的那条主干路上：&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;strong&gt;embedding 和 reranker 这套老牌检索工作流，终于不再默认只服务文本。&lt;/strong&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h2 id=&#34;这次更新核心到底是什么&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#这次更新核心到底是什么&#34;&gt;#&lt;/a&gt; 这次更新，核心到底是什么？&lt;/h2&gt;
+&lt;p&gt;按 Hugging Face 官方博客和 release note，5.4 这一版做了几件很关键的事：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;SentenceTransformer&lt;/code&gt;  开始原生支持多模态 embedding；&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;CrossEncoder&lt;/code&gt;  开始原生支持多模态 reranking；&lt;/li&gt;
+&lt;li&gt;输入不再局限于文本，还可以处理 &lt;strong&gt;image / audio / video&lt;/strong&gt;，以及图文混合内容；&lt;/li&gt;
+&lt;li&gt;新增  &lt;code&gt;model.modalities&lt;/code&gt;  和  &lt;code&gt;model.supports()&lt;/code&gt; ，可以直接检查模型支持哪些模态；&lt;/li&gt;
+&lt;li&gt;提供了  &lt;code&gt;Router&lt;/code&gt;  机制，允许开发者把不同模态的编码器拼成一个统一入口；&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;CrossEncoder&lt;/code&gt;  本身也被模块化，开始更像一个可以继续扩展和组合的检索组件层。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;官方示例里已经直接用上了  &lt;code&gt;Qwen/Qwen3-VL-Embedding-2B&lt;/code&gt;  和  &lt;code&gt;Qwen/Qwen3-VL-Reranker-2B&lt;/code&gt;  这类模型，意味着这不是 “未来规划”，而是&lt;strong&gt;已经能接进现有项目里的能力&lt;/strong&gt;。&lt;/p&gt;
+&lt;p&gt;而且这次不是额外造一套全新 API。&lt;/p&gt;
+&lt;p&gt;它最妙的地方恰恰在于：&lt;strong&gt;你还是在用熟悉的  &lt;code&gt;encode()&lt;/code&gt; 、 &lt;code&gt;encode_query()&lt;/code&gt; 、 &lt;code&gt;encode_document()&lt;/code&gt; 、 &lt;code&gt;rank()&lt;/code&gt;  这些接口，只是输入的世界突然变大了。&lt;/strong&gt;&lt;/p&gt;
+&lt;h2 id=&#34;为什么我觉得它比普通多模态支持上线更值得看&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#为什么我觉得它比普通多模态支持上线更值得看&#34;&gt;#&lt;/a&gt; 为什么我觉得它比普通 “多模态支持上线” 更值得看？&lt;/h2&gt;
+&lt;h3 id=&#34;1-多模态第一次像默认能力而不是旁支实验&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#1-多模态第一次像默认能力而不是旁支实验&#34;&gt;#&lt;/a&gt; 1. 多模态第一次像 “默认能力”，而不是旁支实验&lt;/h3&gt;
+&lt;p&gt;以前很多多模态检索方案的问题，不是做不到，而是太像特别项目：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;图片一套管线；&lt;/li&gt;
+&lt;li&gt;文本一套管线；&lt;/li&gt;
+&lt;li&gt;reranker 另起一套；&lt;/li&gt;
+&lt;li&gt;想把它们串起来，还得自己补数据格式和调度逻辑。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Sentence Transformers 5.4 这次最重要的，是它把这些东西塞回了开发者已经很熟的抽象层里。&lt;/p&gt;
+&lt;p&gt;这意味着你做的事情，从 “重新学习一个多模态框架”，变成了：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;继续沿用现有检索代码结构；&lt;/li&gt;
+&lt;li&gt;换一个支持多模态的模型；&lt;/li&gt;
+&lt;li&gt;按需安装  &lt;code&gt;image&lt;/code&gt;  /  &lt;code&gt;audio&lt;/code&gt;  /  &lt;code&gt;video&lt;/code&gt;  依赖；&lt;/li&gt;
+&lt;li&gt;再决定要不要把图像、音频、视频也纳入召回和重排。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;这种变化看起来不炫，但很工程。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;真正能推动采用的，往往不是能力首次出现，而是它是否能嵌回大家已经在用的工作流。&lt;/strong&gt;&lt;/p&gt;
+&lt;h3 id=&#34;2-多模态检索终于不只停留在能-encode-一张图&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#2-多模态检索终于不只停留在能-encode-一张图&#34;&gt;#&lt;/a&gt; 2. 多模态检索终于不只停留在 “能 encode 一张图”&lt;/h3&gt;
+&lt;p&gt;很多库在宣传多模态时，常常只展示 “文本和图片能算相似度”。&lt;/p&gt;
+&lt;p&gt;这当然有价值，但离真实应用还差一截。真正落地的时候，团队更关心的是：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;能不能用统一接口做 query /document 编码；&lt;/li&gt;
+&lt;li&gt;能不能把 screenshot、商品图、图文混排页当文档；&lt;/li&gt;
+&lt;li&gt;能不能先粗召回，再做跨模态 rerank；&lt;/li&gt;
+&lt;li&gt;能不能在现有 RAG /search pipeline 里低成本接进去。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;这次 5.4 同时把 &lt;strong&gt;embedding + reranker&lt;/strong&gt; 两层都补齐，我觉得意义就完全不一样了。&lt;/p&gt;
+&lt;p&gt;因为这等于在说：&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;strong&gt;多模态不只是前端演示能力，而是正式进入检索主链路。&lt;/strong&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;这对很多场景都很实在，比如：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;用自然语言找截图或页面图像；&lt;/li&gt;
+&lt;li&gt;对视觉文档做检索和重排；&lt;/li&gt;
+&lt;li&gt;在电商、设计资产库、视频片段库里做跨模态搜索；&lt;/li&gt;
+&lt;li&gt;在多模态 RAG 里同时处理文字说明和视觉证据。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;3-它释放的是统一检索栈的信号&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#3-它释放的是统一检索栈的信号&#34;&gt;#&lt;/a&gt; 3. 它释放的是 “统一检索栈” 的信号&lt;/h3&gt;
+&lt;p&gt;我更在意的，其实不是某个单独模型，而是这次更新透露出来的路线。&lt;/p&gt;
+&lt;p&gt;过去一段时间，多模态模型越来越强，但基础工具层常常跟不上，导致开发者明明有模型，却没有足够顺手的系统接口去接。&lt;/p&gt;
+&lt;p&gt;Sentence Transformers 本来就是很多 embedding /rerank 项目的公共底座之一。现在它把多模态扩进去，效果不是 “多了个功能页”，而是可能让整个生态的默认假设发生变化：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;检索不再默认为 text-only；&lt;/li&gt;
+&lt;li&gt;reranker 不再默认为 text-text；&lt;/li&gt;
+&lt;li&gt;多模态数据不再必须走单独的实验性分支；&lt;/li&gt;
+&lt;li&gt;开发者可以在更靠近生产的代码路径里处理视觉和音频内容。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;这比 “又多一个多模态模型发布” 更值得看，因为它更接近&lt;strong&gt;基础设施层的迁移&lt;/strong&gt;。&lt;/p&gt;
+&lt;h2 id=&#34;还有两个细节也挺说明问题&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#还有两个细节也挺说明问题&#34;&gt;#&lt;/a&gt; 还有两个细节，也挺说明问题&lt;/h2&gt;
+&lt;p&gt;一个是安装方式。官方文档没有把多模态做成完全独立的产品，而是继续沿用 extras 形式：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;sentence-transformers[image]&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;sentence-transformers[audio]&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;sentence-transformers[video]&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;这说明它想做的是&lt;strong&gt;渐进式升级&lt;/strong&gt;，而不是逼所有人一次性迁移整套栈。&lt;/p&gt;
+&lt;p&gt;另一个是 release 节奏。4 月 9 日发出 5.4.0 后，4 月 14 日又跟了 5.4.1 patch，除了修输入批处理细节，也补了更安全的 activation function 加载限制。这个节奏至少说明：&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;这条线不是一次性的博客展示，而是正在快速变成真正可维护的能力面。&lt;/strong&gt;&lt;/p&gt;
+&lt;h2 id=&#34;我的判断&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#我的判断&#34;&gt;#&lt;/a&gt; 我的判断&lt;/h2&gt;
+&lt;p&gt;如果说过去一年多模态的大新闻，主要还集中在 “模型终于能看图、听音频、理解视频”，那接下来更重要的一件事大概会是：&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;strong&gt;这些能力什么时候能被无痛接进常见开发栈，而不是永远停留在 demo 和专用项目里。&lt;/strong&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;从这个角度看，Sentence Transformers 5.4 的意义很清楚：&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;它让多模态检索第一次更像常规工程升级，而不是特种作战。&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;对开发者来说，这种 “接得进去” 的进步，往往比 “能力再强一点点” 更有长期价值。&lt;/p&gt;
+&lt;h2 id=&#34;参考来源&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#参考来源&#34;&gt;#&lt;/a&gt; 参考来源&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;Hugging Face 官方博客：&lt;a href=&#34;https://huggingface.co/blog/multimodal-sentence-transformers&#34;&gt;https://huggingface.co/blog/multimodal-sentence-transformers&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;GitHub Releases：&lt;a href=&#34;https://github.com/huggingface/sentence-transformers/releases&#34;&gt;https://github.com/huggingface/sentence-transformers/releases&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;官方文档 Installation：&lt;a href=&#34;https://sbert.net/docs/installation.html&#34;&gt;https://sbert.net/docs/installation.html&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+ ]]></description>
+        </item>
+        <item>
+            <guid isPermalink="true">https://lyrashore.com/computer-science/technical-sharing/qwen3guard-real-time-guardrails-2026-04-14/</guid>
+            <title>Qwen3Guard 真正值得看的，不是“又一个安全分类器”，而是把护栏做进了 token 流里</title>
+            <link>https://lyrashore.com/computer-science/technical-sharing/qwen3guard-real-time-guardrails-2026-04-14/</link>
+            <category term="technical-sharing" scheme="https://lyrashore.com/categories/technical-sharing/" />
+            <category term="AI" scheme="https://lyrashore.com/tags/AI/" />
+            <category term="Open Source" scheme="https://lyrashore.com/tags/Open-Source/" />
+            <category term="Qwen" scheme="https://lyrashore.com/tags/Qwen/" />
+            <category term="Safety" scheme="https://lyrashore.com/tags/Safety/" />
+            <category term="Guardrails" scheme="https://lyrashore.com/tags/Guardrails/" />
+            <pubDate>Tue, 14 Apr 2026 08:00:00 +0000</pubDate>
+            <description><![CDATA[ &lt;p&gt;这几个月大家聊大模型，注意力大多还放在 “更强的推理”“更会写代码” 或者 “更能跑 Agent”。&lt;/p&gt;
+&lt;p&gt;但如果模型真的开始越来越能做事，那另一层迟早也得补上：&lt;strong&gt;它在输出过程中，能不能被实时看住。&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;Qwen 团队最近发布的 &lt;strong&gt;Qwen3Guard&lt;/strong&gt;，我觉得最值得记的点，不是 “又多了一个安全分类模型”，而是它把护栏这件事往前推进了一步：&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;strong&gt;不只做输入 / 输出后的静态审核，而是尝试把安全判断直接贴到 token 流上。&lt;/strong&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h2 id=&#34;它到底发了什么&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#它到底发了什么&#34;&gt;#&lt;/a&gt; 它到底发了什么？&lt;/h2&gt;
+&lt;p&gt;按 Qwen 官方博客介绍，Qwen3Guard 是 Qwen 家族第一套专门面向安全护栏的模型，分成两条线：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;Qwen3Guard-Gen&lt;/strong&gt;：偏离线分类，适合做 prompt /response 审核、数据过滤和安全奖励建模；&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;Qwen3Guard-Stream&lt;/strong&gt;：偏实时流式检测，支持在生成过程中一边吐 token，一边做安全判断。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;两条线都提供 &lt;strong&gt;0.6B、4B、8B&lt;/strong&gt; 三个尺寸，覆盖从轻量部署到更强效果的不同场景。&lt;/p&gt;
+&lt;p&gt;另外还有两个信息也挺关键：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;支持 &lt;strong&gt;119 种语言和方言&lt;/strong&gt;；&lt;/li&gt;
+&lt;li&gt;风险标签不只二元，而是 &lt;strong&gt;Safe / Unsafe / Controversial&lt;/strong&gt; 三档。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;这意味着它不是单纯追求 “拦得更狠”，而是想给不同产品场景留出策略弹性。&lt;/p&gt;
+&lt;h2 id=&#34;为什么我觉得它比普通安全模型发布更值得看&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#为什么我觉得它比普通安全模型发布更值得看&#34;&gt;#&lt;/a&gt; 为什么我觉得它比普通 “安全模型发布” 更值得看？&lt;/h2&gt;
+&lt;h3 id=&#34;1-护栏终于不只是一个事后-wrapper-了&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#1-护栏终于不只是一个事后-wrapper-了&#34;&gt;#&lt;/a&gt; 1. 护栏终于不只是一个事后 wrapper 了&lt;/h3&gt;
+&lt;p&gt;很多系统现在的安全处理，其实还是 “生成完再扫一遍”。&lt;/p&gt;
+&lt;p&gt;这种方式当然有用，但问题也很明显：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;如果危险内容已经流到前端，事后拦截体验会很别扭；&lt;/li&gt;
+&lt;li&gt;如果是语音、聊天流式回复、Agent 连续调用工具，事后审核经常太慢；&lt;/li&gt;
+&lt;li&gt;真到高风险场景，产品方需要的是&lt;strong&gt;实时干预&lt;/strong&gt;，不是事后打分。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Qwen3Guard-Stream 最有意思的地方就在这儿。官方给出的实现思路，是在模型最后一层挂上轻量分类头，让系统能在生成过程中逐 token 判断风险。&lt;/p&gt;
+&lt;p&gt;这个方向的意义，不在于 “从此安全问题解决了”，而在于：&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;护栏开始从模型外面的补丁，往推理链路里的运行层挪。&lt;/strong&gt;&lt;/p&gt;
+&lt;h3 id=&#34;2-三档风险分级比全拦-全放更像真实世界&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#2-三档风险分级比全拦-全放更像真实世界&#34;&gt;#&lt;/a&gt; 2. 三档风险分级，比 “全拦 / 全放” 更像真实世界&lt;/h3&gt;
+&lt;p&gt;很多 guardrail 系统之所以难用，不是能力不够，而是策略太硬。&lt;/p&gt;
+&lt;p&gt;现实产品里有大量内容其实不适合被简单归成安全或不安全。比如：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;敏感但有讨论价值；&lt;/li&gt;
+&lt;li&gt;带争议但未必违规；&lt;/li&gt;
+&lt;li&gt;在教育、研究、新闻语境下需要保留。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Qwen3Guard 这次单独加了 &lt;strong&gt;Controversial&lt;/strong&gt; 这一层，我觉得是个挺实在的设计。因为这等于承认：&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;strong&gt;安全策略不是一个固定答案，而是产品方需要按场景调松紧的系统参数。&lt;/strong&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;对于企业应用、社区平台、教育产品来说，这种中间层比单纯提升一个 benchmark 分数更有落地意义。&lt;/p&gt;
+&lt;h3 id=&#34;3-开源护栏层开始像一块基础设施&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#3-开源护栏层开始像一块基础设施&#34;&gt;#&lt;/a&gt; 3. 开源护栏层，开始像一块基础设施&lt;/h3&gt;
+&lt;p&gt;另一点我比较在意的是，它不是只给了篇论文或者云端 API，而是把整套模型、技术报告和仓库都公开了。&lt;/p&gt;
+&lt;p&gt;这让它的意义不只是 “Qwen 自己更安全”，而是：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;做聊天产品的人可以直接接；&lt;/li&gt;
+&lt;li&gt;做 Agent 框架的人可以把它塞进运行时；&lt;/li&gt;
+&lt;li&gt;做多语言社区和跨境产品的人，可以少走一轮从零训练护栏的弯路。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;尤其是 &lt;strong&gt;Stream&lt;/strong&gt; 这条线，如果后续生态接得起来，它会比 “又一个更强聊天模型” 更容易长成公共能力层。&lt;/p&gt;
+&lt;h2 id=&#34;我的判断&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#我的判断&#34;&gt;#&lt;/a&gt; 我的判断&lt;/h2&gt;
+&lt;p&gt;如果说前一阶段大家在拼的是 “模型会不会干活”，那接下来越来越重要的一件事大概会变成：&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;&lt;strong&gt;模型在持续干活的时候，系统有没有能力低延迟、细粒度、可配置地把风险管住。&lt;/strong&gt;&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;所以 Qwen3Guard 这条消息最值得看的，不是它是不是又刷了一个安全榜单，而是它释放了一个很清楚的信号：&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;开源大模型生态开始认真把 “实时护栏” 当成独立基础层来做。&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;这件事不会像新旗舰模型发布那样吸睛，但它更接近真正上线系统时一定会遇到的问题。&lt;/p&gt;
+&lt;p&gt;模型越强，护栏就越不能只是附赠品。&lt;/p&gt;
+&lt;h2 id=&#34;参考来源&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#参考来源&#34;&gt;#&lt;/a&gt; 参考来源&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;Qwen 官方博客：&lt;a href=&#34;https://qwenlm.github.io/blog/qwen3guard/&#34;&gt;https://qwenlm.github.io/blog/qwen3guard/&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;GitHub 仓库：&lt;a href=&#34;https://github.com/QwenLM/Qwen3Guard&#34;&gt;https://github.com/QwenLM/Qwen3Guard&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;Technical Report：&lt;a href=&#34;https://github.com/QwenLM/Qwen3Guard/blob/main/Qwen3Guard_Technical_Report.pdf&#34;&gt;https://github.com/QwenLM/Qwen3Guard/blob/main/Qwen3Guard_Technical_Report.pdf&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+ ]]></description>
+        </item>
+    </channel>
+</rss>

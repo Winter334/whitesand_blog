@@ -1,0 +1,619 @@
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=2"/><meta name="theme-color" content="#222"/><meta http-equiv="X-UA-COMPATIBLE" content="IE=edge,chrome=1"/><meta name="renderer" content="webkit"/><link rel="icon" type="image/ico" sizes="32x32" href="/assets/favicon.ico"/><link rel="apple-touch-icon" sizes="180x180" href="/assets/apple-touch-icon.webp"/><meta name="msvalidate.01" content="50A6F82517700BE9C41FDC54C1B63A08"/><meta name="google-site-verification" content="wwS5JXZr2wheQgpYq5XgUiHA0R-wbAPMgdjteXJaxfs"/><meta name="yandex-verification" content="bb323aa93a90edf8"/><meta name="baidu-site-verification" content="codeva-BFec3ICoPw"/><link rel="alternate" href="/rss.xml" title="流萤白沙のBlog" type="application/rss+xml"><link rel="alternate" href="/atom.xml" title="流萤白沙のBlog" type="application/atom+xml"><link rel="alternate" type="application/json" title="流萤白沙のBlog" href="https://lyrashore.com/feed.json"/><link rel="preconnect" href="https://s4.zstatic.net"/><link rel="preconnect" href="https://at.alicdn.com"/><link rel="preconnect" href="https://waline.lyrashore.com"/><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Mulish:400,400italic,700,700italic%7CFredericka%20the%20Great:400,400italic,700,700italic%7CNoto%20Serif%20JP:400,400italic,700,700italic%7CNoto%20Serif%20SC:400,400italic,700,700italic%7CInconsolata:400,400italic,700,700italic&display=swap&subset=latin,latin-ext" media="none" onload="this.media&#x3D;&#39;all&#39;"><link rel="stylesheet" href="/css/app.css?v=0.4.25"><link rel="modulepreload" href="/js/chunk-AJKU6CZT.js"></link><link rel="modulepreload" href="/js/chunk-IMZOKRP6.js"></link><link rel="modulepreload" href="/js/chunk-ORUMY5WD.js"></link><link rel="modulepreload" href="/js/chunk-QXVRLEXP.js"></link><link rel="modulepreload" href="/js/chunk-RHYTKCK2.js"></link><link rel="modulepreload" href="/js/chunk-WIQECBEN.js"></link><link rel="modulepreload" href="/js/comments-QIOEFUCQ.js"></link><link rel="modulepreload" href="/js/copy-tex-FXIFIRJK.js"></link><link rel="modulepreload" href="/js/index.esm-G5KOB7LP.js"></link><link rel="modulepreload" href="/js/post-KZ6BCJRO.js"></link><link rel="modulepreload" href="/js/quicklink-6JIJ3M4U.js"></link><link rel="modulepreload" href="/js/search-MO6IM6CT.js"></link><link rel="modulepreload" href="/js/siteInit.js"></link><link rel="modulepreload" href="/js/waline-2UOSOEHM.js"></link><link rel="stylesheet" href="/css/comments-Q7XOIZMJ.css" media="none" onload="this.media&#x3D;&#39;all&#39;"></link><link rel="stylesheet" href="/css/siteInit.css" media="none" onload="this.media&#x3D;&#39;all&#39;"></link><link rel="stylesheet" href="/css/waline-7LW2J7A6.css" media="none" onload="this.media&#x3D;&#39;all&#39;"></link><link rel="preload" href="https://img.lyrashore.com/img/2025/03/20250320173838494.webp" as="image" fetchpriority="high"><link rel="preload" href="https://img.lyrashore.com/img/20250223213308164.webp" as="image" fetchpriority="high"><link rel="preload" href="https://img.lyrashore.com/img/2025/03/20250305124419230.webp" as="image" fetchpriority="high"><link rel="preload" href="https://img.lyrashore.com/img/20250224203959041.webp" as="image" fetchpriority="high"><link rel="preload" href="https://img.lyrashore.com/img/2025/03/20250305124435863.webp" as="image" fetchpriority="high"><link rel="preload" href="https://img.lyrashore.com/img/2025/03/20250320174039549.webp" as="image" fetchpriority="high"><link rel="stylesheet" href="/css/waline-custom.css"><meta name="keywords" content="AI,Agent,SDK"/><meta name="description" content="GitHub 在 4 月初把 Copilot SDK 推到 public preview，又扩展了 cloud agent 的分支工作流。比起“多一个接入方式”，更值得看的是生产级 agent runtime 正在被打包成标准产品能力。"/><link rel="canonical" href="https://lyrashore.com/computer-science/technical-sharing/github-copilot-sdk-agent-runtime-2026-04-17/"><title>GitHub 把 Copilot SDK 推到公测，真正的信号不是“又一个 SDK”，而是 Agent 运行时开始产品化</title><meta name="generator" content="Hexo 7.3.0"><link rel="sitemap" type="application/xml" title="Sitemap" href="/sitemap.xml"></head><body itemscope itemtype="http://schema.org/WebPage"><div id="loading"><div class="cat"><div class="body"></div><div class="head"><div class="face"></div></div><div class="foot"><div class="tummy-end"></div><div class="bottom"></div><div class="legs left"></div><div class="legs right"></div></div><div class="paw"><div class="hands left"></div><div class="hands right"></div></div></div></div><div id="container"><header id="header" itemscope itemtype="http://schema.org/WPHeader"><div class="inner"><div id="brand"><div class="pjax"><h1 itemprop="name headline">GitHub 把 Copilot SDK 推到公测，真正的信号不是“又一个 SDK”，而是 Agent 运行时开始产品化</h1><div class="meta"><span class="item" title="创建时间：2026-04-17 08:00:00"><span class="icon"><i class="ic i-calendar"></i></span><span class="text">发表于</span><time itemprop="dateCreated datePublished" datetime="2026-04-17T08:00:00+00:00">2026-04-17</time></span><span class="item" title="本文字数"><span class="icon"><i class="ic i-pen"></i></span><span class="text">本文字数</span><span>3.7k</span><span class="text">字</span></span><span class="item" title="阅读时长"><span class="icon"><i class="ic i-clock"></i></span><span class="text">阅读时长</span><span>3 分钟</span></span></div></div></div><nav id="nav"><div class="inner"><div class="toggle"><div class="lines" aria-label="切换导航栏"><span class="line"></span><span class="line"></span><span class="line"></span></div></div><ul class="menu"><li class="item title"><a href="/" rel="start">Noctilumina</a></li></ul><ul class="right" id="rightNav"><li class="item theme"><i class="ic i-sun"></i></li><li class="item search"><i class="ic i-search"></i></li><li class="item random-post"><i class="ic i-dice-outline" onclick="toRandomPost()" title="随机文章"></i></li></ul></div></nav></div><div class="pjax" id="imgs"><ul><li class="item" style="background-image: url(&quot;https://img.lyrashore.com/img/2025/03/20250320173838494.webp&quot;);"></li><li class="item" style="background-image: url(&quot;https://img.lyrashore.com/img/20250223213308164.webp&quot;);"></li><li class="item" style="background-image: url(&quot;https://img.lyrashore.com/img/2025/03/20250305124419230.webp&quot;);"></li><li class="item" style="background-image: url(&quot;https://img.lyrashore.com/img/20250224203959041.webp&quot;);"></li><li class="item" style="background-image: url(&quot;https://img.lyrashore.com/img/2025/03/20250305124435863.webp&quot;);"></li><li class="item" style="background-image: url(&quot;https://img.lyrashore.com/img/2025/03/20250320174039549.webp&quot;);"></li></ul></div><div id="waves"><svg class="waves" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 24 150 28" preserveAspectRatio="none" shape-rendering="auto"><defs><path id="gentle-wave" d="M-160 44c30 0 58-18 88-18s 58 18 88 18 58-18 88-18 58 18 88 18 v44h-352z"></path></defs><g class="parallax"><use xlink:href="#gentle-wave" x="48" y="0"></use><use xlink:href="#gentle-wave" x="48" y="3"></use><use xlink:href="#gentle-wave" x="48" y="5"></use><use xlink:href="#gentle-wave" x="48" y="7"></use></g></svg></div></header><main><div class="inner"><div class="pjax" id="main"><div class="article wrap"><div class="breadcrumb" itemListElement itemscope itemtype="https://schema.org/BreadcrumbList"><i class="ic i-home"></i><span><a href="/">首页</a></span><i class="ic i-angle-right"></i><span class="current" itemprop="itemListElement" itemscope="itemscope" itemtype="https://schema.org/ListItem"><a href="/categories/technical-sharing/" itemprop="item" rel="index" title="分类于technical-sharing"><span itemprop="name">technical-sharing<meta itemprop="position" content="0"/></span></a></span></div><article class="post block" itemscope="itemscope" itemtype="http://schema.org/Article" lang="zh-CN"><link itemprop="mainEntityOfPage" href="https://lyrashore.com/computer-science/technical-sharing/github-copilot-sdk-agent-runtime-2026-04-17/"/><span hidden="hidden" itemprop="author" itemscope="itemscope" itemtype="http://schema.org/Person"><meta itemprop="image" content="/assets/avatar.webp"/><meta itemprop="name" content="流萤白沙"/><meta itemprop="description" content="莫愁千里路，自有到来风, 学习-记录-分享"/></span><span hidden="hidden" itemprop="publisher" itemscope="itemscope" itemtype="http://schema.org/Organization"><meta itemprop="name" content="流萤白沙のBlog"/></span><div class="body md " itemprop="articleBody"><div class="tabs" id="summary"><div class="show-btn"></div><div class="nav"><ul class="special"></ul></div><div class="tab" data-id="summary" data-title="自我介绍"><p>✨ 我是流萤白沙的「文章捕手」，擅长在文字的星海中打捞精华。每当新的篇章诞生，我就会像整理贝壳一样，将思想的闪光点串成珍珠项链~</p></div><div class="tab active" data-id="summary" data-title="文章概括"><p>GitHub将Copilot SDK公测，云端Agent支持分支工作、先计划后执行和深度研究，说明Agent竞争正从模型接口转向可嵌入、可编程运行时；治理、执行、工作流整合及文件编辑、多轮会话、工具调用、审批追踪正成标配。</p></div></div><p>这两个月如果你一直在看 Agent 方向，会发现一个挺明显的变化：大家卷的已经不只是模型本身，也不只是 “会不会调工具”，而是<strong>谁先把 Agent 真正需要的那层运行时，做成开发者能直接拿来用的产品</strong>。</p>
+<p>所以我觉得 GitHub 这轮更新里，最值得写的不只是 “Copilot SDK 公测了”，而是它把一个很清楚的信号摆到了台面上：</p>
+<blockquote>
+<p><strong>Agent runtime，正在从各家自己拼的内部能力，变成标准化、可嵌入、可编程的商品。</strong></p>
+</blockquote>
+<h2 id="这次-github-到底放出了什么"><a class="anchor" href="#这次-github-到底放出了什么">#</a> 这次 GitHub 到底放出了什么？</h2>
+<p>先把 4 月初几条官方信息压缩一下。</p>
+<h3 id="1copilot-sdk-进入-public-preview"><a class="anchor" href="#1copilot-sdk-进入-public-preview">#</a> 1）Copilot SDK 进入 public preview</h3>
+<p>GitHub 在 4 月 2 日宣布 <strong>Copilot SDK</strong> 进入公测。官方给它的定位很直接：让开发者把 Copilot 的 agentic 能力嵌进自己的应用、工作流和平台服务里。</p>
+<p>按官方说明，这套 SDK 暴露的是和 <strong>Copilot cloud agent / Copilot CLI</strong> 同一套、已经在生产里跑过的 agent runtime，而不是只给你一个简单的模型调用封装。</p>
+<p>目前已经覆盖：</p>
+<ul>
+<li>Node.js / TypeScript</li>
+<li>Python</li>
+<li>Go</li>
+<li>.NET</li>
+<li>Java</li>
+</ul>
+<p>官方列出来的核心能力也很有代表性：</p>
+<ul>
+<li>自定义 tools 和 agents；</li>
+<li>多轮 session；</li>
+<li>流式响应；</li>
+<li>文件操作；</li>
+<li>blob 附件；</li>
+<li>OpenTelemetry tracing；</li>
+<li>权限审批框架；</li>
+<li>BYOK（自带 OpenAI / Anthropic / Microsoft Foundry key）。</li>
+</ul>
+<h3 id="2底层不是纯-api而是带执行层的-agent-engine"><a class="anchor" href="#2底层不是纯-api而是带执行层的-agent-engine">#</a> 2）底层不是 “纯 API”，而是带执行层的 agent engine</h3>
+<p>从 GitHub 官方仓库的说明看，Copilot SDK 和 Copilot CLI 之间走的是 <strong>JSON-RPC</strong> 通信，SDK 负责拉起和管理 CLI server 生命周期。</p>
+<p>这意味着它卖的不是 “你来自己造一个 orchestration layer”，而是：</p>
+<ul>
+<li>计划怎么拆；</li>
+<li>工具什么时候调；</li>
+<li>文件怎么改；</li>
+<li>多轮会话怎么续；</li>
+<li>一部分执行流怎么跑起来；</li>
+</ul>
+<p>这些脏活，GitHub 已经先替你封了一层。</p>
+<p>说白一点，它比 “模型 SDK” 更接近 <strong>agent execution substrate</strong>。</p>
+<h3 id="3copilot-cloud-agent-也不再只会开-pr-了"><a class="anchor" href="#3copilot-cloud-agent-也不再只会开-pr-了">#</a> 3）Copilot cloud agent 也不再只会开 PR 了</h3>
+<p>4 月 1 日，GitHub 还更新了 <strong>Copilot cloud agent</strong> 的工作流：它不再被限制在 “只能通过 pull request 驱动” 这一条路上。</p>
+<p>现在官方支持的关键变化包括：</p>
+<ul>
+<li>可以先在 <strong>branch 上工作</strong>，不用一开始就开 PR；</li>
+<li>可以先生成 <strong>implementation plan</strong>，人看完再决定是否继续写代码；</li>
+<li>可以发起更偏 “深度调研” 的代码库研究会话。</li>
+</ul>
+<p>这几个点单看都不算魔法，但合起来很说明问题：GitHub 已经不满足于把 Copilot 当成一个 “辅助补全 + 帮你改 PR” 的东西，而是在把它往<strong>真正可托管任务流的 agent</strong> 方向推。</p>
+<h2 id="为什么我觉得这比又一个-sdk-发布更重要"><a class="anchor" href="#为什么我觉得这比又一个-sdk-发布更重要">#</a> 为什么我觉得这比 “又一个 SDK 发布” 更重要？</h2>
+<h3 id="1-竞争焦点已经从模型接口挪到了运行时接口"><a class="anchor" href="#1-竞争焦点已经从模型接口挪到了运行时接口">#</a> 1. 竞争焦点已经从模型接口，挪到了运行时接口</h3>
+<p>过去很多产品发 SDK，本质是让你更方便地调模型。</p>
+<p>但 Agent 难的从来都不只是 prompt 发出去、token 收回来，而是中间那一大坨工程现实：</p>
+<ul>
+<li>会话状态怎么保持；</li>
+<li>工具权限怎么控；</li>
+<li>文件修改怎么落地；</li>
+<li>长任务怎么继续；</li>
+<li>失败怎么重试；</li>
+<li>怎么把 tracing、审批、上下文拼成一个稳定系统。</li>
+</ul>
+<p>GitHub 这次把这些能力以 SDK 的方式对外开放，本质上是在说：</p>
+<p><strong>真正值钱的，不再只是模型接入，而是 “可操作的 agent runtime”。</strong></p>
+<h3 id="2-sdk-和-cloud-agent-一起看才看得出路线图"><a class="anchor" href="#2-sdk-和-cloud-agent-一起看才看得出路线图">#</a> 2. SDK 和 cloud agent 一起看，才看得出路线图</h3>
+<p>如果只有 Copilot SDK 公测，这条新闻可能还容易被理解成 “GitHub 让别人更方便接 Copilot”。</p>
+<p>但把它和 cloud agent 取消 PR 绑定、支持 plan-first、支持 deeper research 放在一起看，路线就清楚很多了：</p>
+<ul>
+<li>一边把自家 agent 能力产品化；</li>
+<li>一边把同一套运行时对外 SDK 化；</li>
+<li>一边把 agent 从固定工作流里解放出来。</li>
+</ul>
+<p>也就是说，GitHub 并不是单纯在卖一个开发包，而是在把 <strong>Copilot 运行时生态</strong>做厚。</p>
+<h3 id="3-文件编辑-工具调用-权限审批正在成为默认配置"><a class="anchor" href="#3-文件编辑-工具调用-权限审批正在成为默认配置">#</a> 3. “文件编辑 + 工具调用 + 权限审批” 正在成为默认配置</h3>
+<p>Copilot SDK 里我最在意的，反而不是多语言支持，而是那些看起来很工程味的能力：</p>
+<ul>
+<li>file operations</li>
+<li>permission framework</li>
+<li>custom tools</li>
+<li>multi-turn sessions</li>
+<li>tracing</li>
+</ul>
+<p>因为这些东西拼起来，才像一个真正能干活的 agent。</p>
+<p>今天谁都能做一个 “能回答问题” 的聊天壳子；但你要让 agent 真正进应用、进平台、进团队工作流，最后拼的就是这些不性感但最关键的基础设施。</p>
+<p>从这个角度看，GitHub 这次动作的价值，在于它把 agent 的 “执行层” 从隐形能力，变成了开发者能显式购买和集成的能力面。</p>
+<h3 id="4-这也在改写开发者对-copilot-的认知"><a class="anchor" href="#4-这也在改写开发者对-copilot-的认知">#</a> 4. 这也在改写开发者对 Copilot 的认知</h3>
+<p>过去很多人理解 Copilot，核心还是：</p>
+<ul>
+<li>代码补全；</li>
+<li>Chat 问答；</li>
+<li>PR 辅助；</li>
+<li>编辑器里的副驾驶。</li>
+</ul>
+<p>但现在 GitHub 给出的方向越来越像：</p>
+<ul>
+<li>可在 branch 上连续工作的 agent；</li>
+<li>能先出 plan 再执行；</li>
+<li>能研究代码库；</li>
+<li>能通过 SDK 被嵌进别的系统。</li>
+</ul>
+<p>这说明 Copilot 的目标已经不只是 “IDE 里的助手”，而是<strong>可被平台化调用的编程代理能力</strong>。</p>
+<h2 id="对开发者意味着什么"><a class="anchor" href="#对开发者意味着什么">#</a> 对开发者意味着什么？</h2>
+<p>我觉得最现实的影响有三条。</p>
+<h3 id="第一未来会出现更多长得不像-copilot但底下跑的是-copilot-runtime的产品"><a class="anchor" href="#第一未来会出现更多长得不像-copilot但底下跑的是-copilot-runtime的产品">#</a> 第一，未来会出现更多 “长得不像 Copilot，但底下跑的是 Copilot runtime” 的产品</h3>
+<p>因为 SDK 一开放，很多内部平台、研发门户、自动化工作流都可以把这层 agent 能力包进去。用户看到的也许不是 GitHub 界面，但底下其实已经是 Copilot 的 agent engine。</p>
+<h3 id="第二agent-平台的差异会越来越体现在治理与执行不只是模型分数"><a class="anchor" href="#第二agent-平台的差异会越来越体现在治理与执行不只是模型分数">#</a> 第二，Agent 平台的差异会越来越体现在治理与执行，不只是模型分数</h3>
+<p>谁的模型更强当然重要，但到了工程落地阶段，很多团队最后在意的是：</p>
+<ul>
+<li>审批能不能插进去；</li>
+<li>trace 能不能打通；</li>
+<li>工具能不能控；</li>
+<li>分支、文件、会话这些状态能不能稳；</li>
+<li>能不能接入现有平台，而不是单独再养一套岛。</li>
+</ul>
+<p>GitHub 这次恰恰强化的是这些 “平台级属性”。</p>
+<h3 id="第三开发工具正在和-agent-基础设施合并"><a class="anchor" href="#第三开发工具正在和-agent-基础设施合并">#</a> 第三，开发工具正在和 Agent 基础设施合并</h3>
+<p>以前 “开发工具” 和 “AI runtime” 像两套东西。现在 GitHub 的路线越来越像把两者合在一起：仓库、分支、PR、CLI、IDE、agent session、SDK，开始被揉成一条链。</p>
+<p>这种一体化未必最开放，但它很可能是最容易规模化落地的路径之一。</p>
+<h2 id="我的判断"><a class="anchor" href="#我的判断">#</a> 我的判断</h2>
+<p>如果说 2025 年大家还主要在争论 “Agent 到底有没有用”，那 2026 年更值得看的问题可能已经变成：</p>
+<blockquote>
+<p><strong>哪家公司能最先把 Agent 的运行时、权限、工作流和开发平台真正连成一套。</strong></p>
+</blockquote>
+<p>所以 GitHub 这次 Copilot SDK 公测，表面上看是在发一个 SDK；但更深一层看，它是在把 “生产级 agent runtime” 这件事，正式包装成平台商品。</p>
+<p>这比单纯多一个 API 入口，重要得多。</p>
+<h2 id="参考来源"><a class="anchor" href="#参考来源">#</a> 参考来源</h2>
+<ul>
+<li>GitHub Changelog：<a target="_blank" rel="noopener" href="https://github.blog/changelog/2026-04-02-copilot-sdk-in-public-preview/">https://github.blog/changelog/2026-04-02-copilot-sdk-in-public-preview/</a></li>
+<li>GitHub Changelog：<a target="_blank" rel="noopener" href="https://github.blog/changelog/2026-04-01-research-plan-and-code-with-copilot-cloud-agent/">https://github.blog/changelog/2026-04-01-research-plan-and-code-with-copilot-cloud-agent/</a></li>
+<li>GitHub Changelog：<a target="_blank" rel="noopener" href="https://github.blog/changelog/2026-04-08-github-copilot-in-visual-studio-code-march-releases/">https://github.blog/changelog/2026-04-08-github-copilot-in-visual-studio-code-march-releases/</a></li>
+<li>GitHub 仓库：<a target="_blank" rel="noopener" href="https://github.com/github/copilot-sdk">https://github.com/github/copilot-sdk</a></li>
+</ul>
+<div class="tags"><a href="/tags/AI/" rel="tag"><i class="ic i-tag"></i>AI</a><a href="/tags/GitHub/" rel="tag"><i class="ic i-tag"></i>GitHub</a><a href="/tags/Agent/" rel="tag"><i class="ic i-tag"></i>Agent</a><a href="/tags/Copilot/" rel="tag"><i class="ic i-tag"></i>Copilot</a><a href="/tags/SDK/" rel="tag"><i class="ic i-tag"></i>SDK</a></div></div><footer><div class="meta"><span class="item"><span class="icon"><i class="ic i-eye"></i></span><span class="text">总访问量：</span><span class="waline-pageview-count" id="twikoo_visitors" data-path="/computer-science/technical-sharing/github-copilot-sdk-agent-runtime-2026-04-17/">加载中...</span></span></div><div class="reward"><button><i class="ic i-heartbeat"></i>赞赏</button><p>请我喝[茶]~(￣▽￣)~*</p><div id="qr"><div><img loading="lazy" data-src="/assets/wechatpay.webp" alt="流萤白沙 微信支付"/><p>微信支付</p></div><div><img loading="lazy" data-src="/assets/alipay.webp" alt="流萤白沙 支付宝"/><p>支付宝</p></div></div></div><div id="copyright"><ul><li class="author"><strong>本文作者：</strong>流萤白沙<i class="ic i-at"><em>@</em></i>流萤白沙のBlog</li><li class="link"><strong>本文链接：</strong><a href="https://lyrashore.com/computer-science/technical-sharing/github-copilot-sdk-agent-runtime-2026-04-17/" title="GitHub 把 Copilot SDK 推到公测，真正的信号不是“又一个 SDK”，而是 Agent 运行时开始产品化">https://lyrashore.com/computer-science/technical-sharing/github-copilot-sdk-agent-runtime-2026-04-17/</a></li><li class="license"><strong>版权声明：</strong>本站所有文章除特别声明外，均采用 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh-hans"><i class="ic i-creative-commons"><em>(CC)</em></i>BY-NC-SA</a> 许可协议。转载请注明出处！</li></ul></div></footer></article></div><div class="post-nav"><div class="item left"><a href="/computer-science/technical-sharing/openai-agents-sdk-sandbox-runtime-2026-04-16/" rel="prev" itemprop="url" data-background-image="https:&#x2F;&#x2F;img.lyrashore.com&#x2F;img&#x2F;20250223213356061.webp" title="OpenAI Agents SDK 这次升级，真正该看的不是“又一个 Agent 框架”，而是带沙箱的生产级运行时"><span class="type">上一篇</span><span class="category"><i class="ic i-flag"></i>technical-sharing</span><h3>OpenAI Agents SDK 这次升级，真正该看的不是“又一个 Agent 框架”，而是带沙箱的生产级运行时</h3></a></div><div class="item right"><a href="/computer-science/technical-sharing/ai-tech-daily-2026-04-18/" rel="next" itemprop="url" data-background-image="https:&#x2F;&#x2F;img.lyrashore.com&#x2F;img&#x2F;20250224203959041.webp" title="AI 技术日报（2026-04-18）：第三方编码 Agent 开始可切模型，多语种 OCR 和开源协作也在一起升级"><span class="type">下一篇</span><span class="category"><i class="ic i-flag"></i>technical-sharing</span><h3>AI 技术日报（2026-04-18）：第三方编码 Agent 开始可切模型，多语种 OCR 和开源协作也在一起升级</h3></a></div></div><div class="wrap" id="comments"></div></div><div id="sidebar"><div class="inner"><div class="panels"><div class="inner"><div class="contents panel pjax" data-title="文章目录"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%BF%99%E6%AC%A1-github-%E5%88%B0%E5%BA%95%E6%94%BE%E5%87%BA%E4%BA%86%E4%BB%80%E4%B9%88"><span class="toc-number">1.</span> <span class="toc-text"> 这次 GitHub 到底放出了什么？</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1copilot-sdk-%E8%BF%9B%E5%85%A5-public-preview"><span class="toc-number">1.1.</span> <span class="toc-text"> 1）Copilot SDK 进入 public preview</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2%E5%BA%95%E5%B1%82%E4%B8%8D%E6%98%AF%E7%BA%AF-api%E8%80%8C%E6%98%AF%E5%B8%A6%E6%89%A7%E8%A1%8C%E5%B1%82%E7%9A%84-agent-engine"><span class="toc-number">1.2.</span> <span class="toc-text"> 2）底层不是 “纯 API”，而是带执行层的 agent engine</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3copilot-cloud-agent-%E4%B9%9F%E4%B8%8D%E5%86%8D%E5%8F%AA%E4%BC%9A%E5%BC%80-pr-%E4%BA%86"><span class="toc-number">1.3.</span> <span class="toc-text"> 3）Copilot cloud agent 也不再只会开 PR 了</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E6%88%91%E8%A7%89%E5%BE%97%E8%BF%99%E6%AF%94%E5%8F%88%E4%B8%80%E4%B8%AA-sdk-%E5%8F%91%E5%B8%83%E6%9B%B4%E9%87%8D%E8%A6%81"><span class="toc-number">2.</span> <span class="toc-text"> 为什么我觉得这比 “又一个 SDK 发布” 更重要？</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-%E7%AB%9E%E4%BA%89%E7%84%A6%E7%82%B9%E5%B7%B2%E7%BB%8F%E4%BB%8E%E6%A8%A1%E5%9E%8B%E6%8E%A5%E5%8F%A3%E6%8C%AA%E5%88%B0%E4%BA%86%E8%BF%90%E8%A1%8C%E6%97%B6%E6%8E%A5%E5%8F%A3"><span class="toc-number">2.1.</span> <span class="toc-text"> 1. 竞争焦点已经从模型接口，挪到了运行时接口</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-sdk-%E5%92%8C-cloud-agent-%E4%B8%80%E8%B5%B7%E7%9C%8B%E6%89%8D%E7%9C%8B%E5%BE%97%E5%87%BA%E8%B7%AF%E7%BA%BF%E5%9B%BE"><span class="toc-number">2.2.</span> <span class="toc-text"> 2. SDK 和 cloud agent 一起看，才看得出路线图</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E6%96%87%E4%BB%B6%E7%BC%96%E8%BE%91-%E5%B7%A5%E5%85%B7%E8%B0%83%E7%94%A8-%E6%9D%83%E9%99%90%E5%AE%A1%E6%89%B9%E6%AD%A3%E5%9C%A8%E6%88%90%E4%B8%BA%E9%BB%98%E8%AE%A4%E9%85%8D%E7%BD%AE"><span class="toc-number">2.3.</span> <span class="toc-text"> 3. “文件编辑 + 工具调用 + 权限审批” 正在成为默认配置</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-%E8%BF%99%E4%B9%9F%E5%9C%A8%E6%94%B9%E5%86%99%E5%BC%80%E5%8F%91%E8%80%85%E5%AF%B9-copilot-%E7%9A%84%E8%AE%A4%E7%9F%A5"><span class="toc-number">2.4.</span> <span class="toc-text"> 4. 这也在改写开发者对 Copilot 的认知</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AF%B9%E5%BC%80%E5%8F%91%E8%80%85%E6%84%8F%E5%91%B3%E7%9D%80%E4%BB%80%E4%B9%88"><span class="toc-number">3.</span> <span class="toc-text"> 对开发者意味着什么？</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AC%AC%E4%B8%80%E6%9C%AA%E6%9D%A5%E4%BC%9A%E5%87%BA%E7%8E%B0%E6%9B%B4%E5%A4%9A%E9%95%BF%E5%BE%97%E4%B8%8D%E5%83%8F-copilot%E4%BD%86%E5%BA%95%E4%B8%8B%E8%B7%91%E7%9A%84%E6%98%AF-copilot-runtime%E7%9A%84%E4%BA%A7%E5%93%81"><span class="toc-number">3.1.</span> <span class="toc-text"> 第一，未来会出现更多 “长得不像 Copilot，但底下跑的是 Copilot runtime” 的产品</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AC%AC%E4%BA%8Cagent-%E5%B9%B3%E5%8F%B0%E7%9A%84%E5%B7%AE%E5%BC%82%E4%BC%9A%E8%B6%8A%E6%9D%A5%E8%B6%8A%E4%BD%93%E7%8E%B0%E5%9C%A8%E6%B2%BB%E7%90%86%E4%B8%8E%E6%89%A7%E8%A1%8C%E4%B8%8D%E5%8F%AA%E6%98%AF%E6%A8%A1%E5%9E%8B%E5%88%86%E6%95%B0"><span class="toc-number">3.2.</span> <span class="toc-text"> 第二，Agent 平台的差异会越来越体现在治理与执行，不只是模型分数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AC%AC%E4%B8%89%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7%E6%AD%A3%E5%9C%A8%E5%92%8C-agent-%E5%9F%BA%E7%A1%80%E8%AE%BE%E6%96%BD%E5%90%88%E5%B9%B6"><span class="toc-number">3.3.</span> <span class="toc-text"> 第三，开发工具正在和 Agent 基础设施合并</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%88%91%E7%9A%84%E5%88%A4%E6%96%AD"><span class="toc-number">4.</span> <span class="toc-text"> 我的判断</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%82%E8%80%83%E6%9D%A5%E6%BA%90"><span class="toc-number">5.</span> <span class="toc-text"> 参考来源</span></a></li></ol></div><div class="related panel pjax" data-title="系列文章"><ul><li ><a href="/computer-science/technical-sharing/ai-os-daily-2026-03-22/" rel="bookmark" title="AI & Open Source Daily (2026-03-22)">AI & Open Source Daily (2026-03-22)</a></li><li ><a href="/computer-science/technical-sharing/ai-os-daily-2026-03-24/" rel="bookmark" title="AI & Open Source Daily (2026-03-24)">AI & Open Source Daily (2026-03-24)</a></li><li ><a href="/computer-science/technical-sharing/mistral-small-4-2026-03-24/" rel="bookmark" title="Mistral Small 4 开源发布：把推理、多模态和 Agent 编码装进同一个模型">Mistral Small 4 开源发布：把推理、多模态和 Agent 编码装进同一个模型</a></li><li ><a href="/computer-science/technical-sharing/gpt-5-4-mini-nano-2026-03-25/" rel="bookmark" title="GPT-5.4 mini 与 nano 发布：小模型开始接管 Agent 的高频工作">GPT-5.4 mini 与 nano 发布：小模型开始接管 Agent 的高频工作</a></li><li ><a href="/computer-science/technical-sharing/istio-1-29-ai-inference-2026-03-26/" rel="bookmark" title="Istio 1.29 把服务网格推向 AI 时代：推理流量终于有了“原生路由”">Istio 1.29 把服务网格推向 AI 时代：推理流量终于有了“原生路由”</a></li><li ><a href="/computer-science/technical-sharing/ai-tech-daily-2026-03-27/" rel="bookmark" title="AI 技术日报（2026-03-27）：Mistral 3、Gemini 语音升级与 OpenAI 安全赏金">AI 技术日报（2026-03-27）：Mistral 3、Gemini 语音升级与 OpenAI 安全赏金</a></li><li ><a href="/computer-science/technical-sharing/mozilla-mila-sovereign-ai-2026-03-28/" rel="bookmark" title="Mozilla × Mila 联手做主权 AI：真正稀缺的开始不是模型，而是可信代理记忆">Mozilla × Mila 联手做主权 AI：真正稀缺的开始不是模型，而是可信代理记忆</a></li><li ><a href="/computer-science/technical-sharing/github-copilot-data-training-policy-2026-03-29/" rel="bookmark" title="GitHub 更新 Copilot 数据规则：默认被拿去训练的，不是整座私仓，而是你的交互上下文">GitHub 更新 Copilot 数据规则：默认被拿去训练的，不是整座私仓，而是你的交互上下文</a></li><li ><a href="/computer-science/technical-sharing/claude-code-auto-mode-2026-03-30/" rel="bookmark" title="Claude Code 推出 Auto Mode：编码 Agent 开始认真处理“少打扰”和“别乱动”之间的那条线">Claude Code 推出 Auto Mode：编码 Agent 开始认真处理“少打扰”和“别乱动”之间的那条线</a></li><li ><a href="/computer-science/technical-sharing/deepseek-major-outage-2026-03-31/" rel="bookmark" title="DeepSeek 这次 7 小时级故障，真正开始被检验的是 AI 服务的基础设施成熟度">DeepSeek 这次 7 小时级故障，真正开始被检验的是 AI 服务的基础设施成熟度</a></li><li ><a href="/computer-science/technical-sharing/anthropic-emotion-concepts-2026-04-03/" rel="bookmark" title="Anthropic 发现 LLM 里的“情绪概念”：值得在意的不是像不像人，而是真的会改写模型行为">Anthropic 发现 LLM 里的“情绪概念”：值得在意的不是像不像人，而是真的会改写模型行为</a></li><li ><a href="/computer-science/technical-sharing/gemma-4-apache-open-model-2026-04-04/" rel="bookmark" title="Gemma 4 发布后，最值得在意的不是参数，而是 Google 终于把开放模型做得更像产品">Gemma 4 发布后，最值得在意的不是参数，而是 Google 终于把开放模型做得更像产品</a></li><li ><a href="/computer-science/technical-sharing/holo3-computer-use-agent-2026-04-06/" rel="bookmark" title="Holo3 开源之后，computer-use Agent 的竞争开始更像“训练工厂”之争">Holo3 开源之后，computer-use Agent 的竞争开始更像“训练工厂”之争</a></li><li ><a href="/computer-science/technical-sharing/gemini-api-flex-priority-inference-2026-04-07/" rel="bookmark" title="Gemini API 加入 Flex / Priority 分层后，AI 成本优化终于从“架构题”变成“配置题”">Gemini API 加入 Flex / Priority 分层后，AI 成本优化终于从“架构题”变成“配置题”</a></li><li ><a href="/computer-science/technical-sharing/cloudflare-post-quantum-security-2029-2026-04-08/" rel="bookmark" title="Cloudflare 把后量子目标提前到 2029：现在更危险的，已经不是“以后再解密”，而是“认证先被打穿”">Cloudflare 把后量子目标提前到 2029：现在更危险的，已经不是“以后再解密”，而是“认证先被打穿”</a></li><li ><a href="/computer-science/technical-sharing/meta-muse-spark-meta-ai-2026-04-09/" rel="bookmark" title="Meta 发布 Muse Spark：真正值得看的不是新模型参数，而是“子代理 + 多模态”开始进入大众产品">Meta 发布 Muse Spark：真正值得看的不是新模型参数，而是“子代理 + 多模态”开始进入大众产品</a></li><li ><a href="/computer-science/technical-sharing/safetensors-pytorch-foundation-2026-04-10/" rel="bookmark" title="Safetensors 加入 PyTorch Foundation：这次值得在意的不是“换东家”，而是开源 AI 权重格式终于更像公共基础设施">Safetensors 加入 PyTorch Foundation：这次值得在意的不是“换东家”，而是开源 AI 权重格式终于更像公共基础设施</a></li><li ><a href="/computer-science/technical-sharing/altk-evolve-agent-memory-2026-04-11/" rel="bookmark" title="ALTK‑Evolve 值得关注的，不是“给 Agent 加记忆”，而是把经验沉淀做成可复用的操作守则">ALTK‑Evolve 值得关注的，不是“给 Agent 加记忆”，而是把经验沉淀做成可复用的操作守则</a></li><li ><a href="/computer-science/technical-sharing/waypoint-1-5-world-model-consumer-gpu-2026-04-13/" rel="bookmark" title="Waypoint-1.5 真正值得看的，不是“世界模型更清晰了”，而是交互式生成世界开始下放到普通显卡">Waypoint-1.5 真正值得看的，不是“世界模型更清晰了”，而是交互式生成世界开始下放到普通显卡</a></li><li ><a href="/computer-science/technical-sharing/qwen3guard-real-time-guardrails-2026-04-14/" rel="bookmark" title="Qwen3Guard 真正值得看的，不是“又一个安全分类器”，而是把护栏做进了 token 流里">Qwen3Guard 真正值得看的，不是“又一个安全分类器”，而是把护栏做进了 token 流里</a></li><li ><a href="/computer-science/technical-sharing/sentence-transformers-5-4-multimodal-retrieval-2026-04-15/" rel="bookmark" title="Sentence Transformers 5.4 真正值得看的，不是“终于支持多模态”，而是检索栈开始把图像、音频、视频当一等公民">Sentence Transformers 5.4 真正值得看的，不是“终于支持多模态”，而是检索栈开始把图像、音频、视频当一等公民</a></li><li ><a href="/computer-science/technical-sharing/openai-agents-sdk-sandbox-runtime-2026-04-16/" rel="bookmark" title="OpenAI Agents SDK 这次升级，真正该看的不是“又一个 Agent 框架”，而是带沙箱的生产级运行时">OpenAI Agents SDK 这次升级，真正该看的不是“又一个 Agent 框架”，而是带沙箱的生产级运行时</a></li><li  class="active"><a href="/computer-science/technical-sharing/github-copilot-sdk-agent-runtime-2026-04-17/" rel="bookmark" title="GitHub 把 Copilot SDK 推到公测，真正的信号不是“又一个 SDK”，而是 Agent 运行时开始产品化">GitHub 把 Copilot SDK 推到公测，真正的信号不是“又一个 SDK”，而是 Agent 运行时开始产品化</a></li><li ><a href="/computer-science/technical-sharing/ai-tech-daily-2026-04-18/" rel="bookmark" title="AI 技术日报（2026-04-18）：第三方编码 Agent 开始可切模型，多语种 OCR 和开源协作也在一起升级">AI 技术日报（2026-04-18）：第三方编码 Agent 开始可切模型，多语种 OCR 和开源协作也在一起升级</a></li><li ><a href="/computer-science/technical-sharing/github-cli-gh-skill-agent-skills-2026-04-19/" rel="bookmark" title="GitHub CLI 推出 gh skill：Agent Skills 开始像包管理器一样运作">GitHub CLI 推出 gh skill：Agent Skills 开始像包管理器一样运作</a></li><li ><a href="/computer-science/technical-sharing/claude-design-anthropic-labs-2026-04-20/" rel="bookmark" title="Claude Design 发布后，我更在意的是 Anthropic 把“设计到实现”连成了一条链">Claude Design 发布后，我更在意的是 Anthropic 把“设计到实现”连成了一条链</a></li><li ><a href="/computer-science/technical-sharing/gpt-rosalind-life-sciences-openai-2026-04-21/" rel="bookmark" title="GPT‑Rosalind 发布后，我更在意的是 OpenAI 开始把“行业专用推理模型”做成正式产品">GPT‑Rosalind 发布后，我更在意的是 OpenAI 开始把“行业专用推理模型”做成正式产品</a></li><li ><a href="/computer-science/technical-sharing/openai-codex-enterprise-rollout-2026-04-22/" rel="bookmark" title="OpenAI 开始全球推进 Codex 企业落地后，我更在意的是“编码 Agent”正在变成组织级交付系统">OpenAI 开始全球推进 Codex 企业落地后，我更在意的是“编码 Agent”正在变成组织级交付系统</a></li><li ><a href="/computer-science/technical-sharing/github-copilot-vscode-byok-2026-04-23/" rel="bookmark" title="GitHub 把 VS Code 的模型入口交还给团队后，我更在意的是 Copilot 正在变成“模型控制层”">GitHub 把 VS Code 的模型入口交还给团队后，我更在意的是 Copilot 正在变成“模型控制层”</a></li><li ><a href="/computer-science/technical-sharing/huggingface-open-source-spring-2026-04-24/" rel="bookmark" title="Hugging Face 这份 2026 春季开源 AI 报告里，我最在意的不是模型更多了，而是生态重心真的变了">Hugging Face 这份 2026 春季开源 AI 报告里，我最在意的不是模型更多了，而是生态重心真的变了</a></li><li ><a href="/computer-science/technical-sharing/gpt-5-5-agentic-work-latency-2026-04-25/" rel="bookmark" title="GPT‑5.5 发布后，我更在意的不是分数更高，而是“更会干活”终于不再默认更慢">GPT‑5.5 发布后，我更在意的不是分数更高，而是“更会干活”终于不再默认更慢</a></li><li ><a href="/computer-science/technical-sharing/huggingface-open-responses-agent-standard-2026-04-26/" rel="bookmark" title="Hugging Face 推 Open Responses 后，我更在意的不是“又一个 API 规范”，而是 Agent 时代终于开始补接口层基础设施">Hugging Face 推 Open Responses 后，我更在意的不是“又一个 API 规范”，而是 Agent 时代终于开始补接口层基础设施</a></li><li ><a href="/computer-science/technical-sharing/openai-principles-ai-governance-2026-04-27/" rel="bookmark" title="OpenAI 重写原则后，我更在意的是 AI 公司开始把“治理叙事”放到产品路线前面">OpenAI 重写原则后，我更在意的是 AI 公司开始把“治理叙事”放到产品路线前面</a></li><li ><a href="/computer-science/technical-sharing/deepseek-v4-agent-long-context-cost-2026-04-28/" rel="bookmark" title="DeepSeek-V4 发布后，我更在意的不是“1M 上下文”，而是开源 Agent 模型终于开始围着长任务成本来设计">DeepSeek-V4 发布后，我更在意的不是“1M 上下文”，而是开源 Agent 模型终于开始围着长任务成本来设计</a></li><li ><a href="/computer-science/technical-sharing/openai-aws-bedrock-managed-agents-2026-04-29/" rel="bookmark" title="OpenAI 把模型、Codex 和 Managed Agents 一起带到 AWS 后，我更在意的是前沿 Agent 开始主动适配企业现有治理栈">OpenAI 把模型、Codex 和 Managed Agents 一起带到 AWS 后，我更在意的是前沿 Agent 开始主动适配企业现有治理栈</a></li><li ><a href="/computer-science/technical-sharing/huggingface-hub-v1-open-ml-infra-2026-04-30/" rel="bookmark" title="huggingface_hub v1.0 发布后，我更在意的是开源 AI 基础设施终于开始按“未来十年”来重构">huggingface_hub v1.0 发布后，我更在意的是开源 AI 基础设施终于开始按“未来十年”来重构</a></li><li ><a href="/computer-science/technical-sharing/ai-tech-daily-2026-05-01/" rel="bookmark" title="AI 技术日报（2026-05-01）：AI 账号安全开始前置，IDE Agent 更像远程执行面，评测成本成了新瓶颈">AI 技术日报（2026-05-01）：AI 账号安全开始前置，IDE Agent 更像远程执行面，评测成本成了新瓶颈</a></li><li ><a href="/computer-science/technical-sharing/openai-symphony-agent-orchestration-spec-2026-05-02/" rel="bookmark" title="OpenAI 开源 Symphony 之后，我更在意的是“管理 Agent”这件事终于开始被写成规范">OpenAI 开源 Symphony 之后，我更在意的是“管理 Agent”这件事终于开始被写成规范</a></li><li ><a href="/computer-science/technical-sharing/granite-4-1-open-enterprise-llm-2026-05-03/" rel="bookmark" title="Granite 4.1 真正值得看的，不是“又多了一组开源参数”，而是企业开源模型开始把数据质量、长上下文和工具调用一起工程化">Granite 4.1 真正值得看的，不是“又多了一组开源参数”，而是企业开源模型开始把数据质量、长上下文和工具调用一起工程化</a></li></ul></div><div class="overview panel" data-title="站点概览"><div class="author" itemprop="author" itemscope="itemscope" itemtype="http://schema.org/Person"><img class="image" loading="lazy" decoding="async" itemprop="image" alt="流萤白沙" src="/assets/avatar.webp"/><p class="name" itemprop="name">流萤白沙</p><div class="description" itemprop="description">学习-记录-分享</div></div><nav class="state"><div class="item posts"><a href="/archives/"><span class="count">80</span><span class="name">文章</span></a></div><div class="item categories"><a href="/categories/"><span class="count">14</span><span class="name">分类</span></a></div><div class="item tags"><a href="/tags/"><span class="count">90</span><span class="name">标签</span></a></div></nav><div class="social"><a target="_blank" rel="noopener" href="https://github.com/Winter334" class="item github" title="https:&#x2F;&#x2F;github.com&#x2F;Winter334"><i class="ic i-github"></i></a><a target="_blank" rel="noopener" href="https://space.bilibili.com/106140797" class="item bilibili" title="https:&#x2F;&#x2F;space.bilibili.com&#x2F;106140797"><i class="ic i-bilibili"></i></a><a href="https://lyrashore.com/atom.xml" class="item rss" title="https:&#x2F;&#x2F;lyrashore.com&#x2F;atom.xml"><i class="ic i-rss"></i></a><a target="_blank" rel="noopener" href="https://music.163.com/#/user/home?id=417310841" class="item music" title="https:&#x2F;&#x2F;music.163.com&#x2F;#&#x2F;user&#x2F;home?id&#x3D;417310841"><i class="ic i-cloud-music"></i></a><a href="mailto:robit@vip.qq.com" class="item email" title="mailto:robit@vip.qq.com"><i class="ic i-envelope"></i></a></div><div class="menu"><li class="item"><a href="/" rel="section"><i class="ic i-home"></i>首页</a></li><li class="item dropdown"><a href="#" onclick="return false;"><i class="ic i-feather"></i>文章</a><ul class="submenu"><li class="item"><a href="/archives/" rel="section"><i class="ic i-list-alt"></i>归档</a></li><li class="item"><a href="/categories/" rel="section"><i class="ic i-th"></i>分类</a></li><li class="item"><a href="/tags/" rel="section"><i class="ic i-tags"></i>标签</a></li><li class="item"><a href="/statistics/" rel="section"><i class="ic i-statistics"></i>统计</a></li></ul></li><li class="item dropdown"><a href="#" onclick="return false;"><i class="ic i-address-card"></i>关于</a><ul class="submenu"><li class="item"><a href="/about/" rel="section"><i class="ic i-user"></i>关于我</a></li><li class="item"><a href="/aboutsite/" rel="section"><i class="ic i-web"></i>关于本站</a></li></ul></li><li class="item dropdown"><a href="#" onclick="return false;"><i class="ic i-interact"></i>互动</a><ul class="submenu"><li class="item"><a href="/message/" rel="section"><i class="ic i-comments"></i>留言</a></li><li class="item"><a href="/talks/" rel="section"><i class="ic i-talk"></i>说说</a></li></ul></li><li class="item dropdown"><a href="#" onclick="return false;"><i class="ic i-magic"></i>链环</a><ul class="submenu"><li class="item"><a href="/friends/" rel="section"><i class="ic i-heart"></i>友链</a></li><li class="item"><a href="/webstack/" rel="section"><i class="ic i-star"></i>网址</a></li></ul></li><li class="item"><a target="_blank" href="https://www.travellings.cn/go-by-clouds.html" rel="section noopener"><i class="ic i-high-speed-train"></i>开往</a></li></div></div></div></div><ul id="quick"><li class="prev pjax"><a href="/computer-science/technical-sharing/ai-tech-daily-2026-04-18/" rel="prev" title="上一篇"><i class="ic i-chevron-left"></i></a></li><li class="up"><i class="ic i-arrow-up"></i></li><li class="down"><i class="ic i-arrow-down"></i></li><li class="next pjax"><a href="/computer-science/technical-sharing/openai-agents-sdk-sandbox-runtime-2026-04-16/" rel="next" title="下一篇"><i class="ic i-chevron-right"></i></a></li><li class="percent"></li></ul></div></div><div class="dimmer"></div></div></main><footer id="footer"><div class="inner"><div class="widgets"><div class="rpost pjax"><h2>随机文章</h2><ul><li class="item"><div class="breadcrumb"><a href="/categories/technical-sharing/" title="分类于technical-sharing">technical-sharing</a></div><span><a href="/computer-science/technical-sharing/holo3-computer-use-agent-2026-04-06/">Holo3 开源之后，computer-use Agent 的竞争开始更像“训练工厂”之争</a></span></li><li class="item"><div class="breadcrumb"><a href="/categories/others/" title="分类于其他">其他</a></div><span><a href="/others/ai-chief-publishing-officer-onboarding/">流萤白沙的 AI 首席发布官正式入职！</a></span></li><li class="item"><div class="breadcrumb"><a href="/categories/technical-sharing/" title="分类于technical-sharing">technical-sharing</a></div><span><a href="/computer-science/technical-sharing/github-copilot-data-training-policy-2026-03-29/">GitHub 更新 Copilot 数据规则：默认被拿去训练的，不是整座私仓，而是你的交互上下文</a></span></li><li class="item"><div class="breadcrumb"><a href="/categories/technical-sharing/" title="分类于technical-sharing">technical-sharing</a></div><span><a href="/computer-science/technical-sharing/gemma-4-apache-open-model-2026-04-04/">Gemma 4 发布后，最值得在意的不是参数，而是 Google 终于把开放模型做得更像产品</a></span></li><li class="item"><div class="breadcrumb"><a href="/categories/computer-science/" title="分类于计算机科学">计算机科学</a><i class="ic i-angle-right"></i><a href="/categories/computer-science/technical-sharing/" title="分类于技术分享">技术分享</a><i class="ic i-angle-right"></i><a href="/categories/computer-science/technical-sharing/%E6%BA%90%E7%A0%81%E5%88%86%E4%BA%AB/" title="分类于源码分享">源码分享</a><i class="ic i-angle-right"></i><a href="/categories/computer-science/hexo/" title="分类于Hexo">Hexo</a><i class="ic i-angle-right"></i><a href="/categories/computer-science/hexo/enhance/" title="分类于Hexo美化">Hexo美化</a></div><span><a href="/computer-science/hexo/enhance/2025-3-2/">Hexo博客添加樱花飘落特效</a></span></li><li class="item"><div class="breadcrumb"><a href="/categories/technical-sharing/" title="分类于technical-sharing">technical-sharing</a></div><span><a href="/computer-science/technical-sharing/huggingface-open-source-spring-2026-04-24/">Hugging Face 这份 2026 春季开源 AI 报告里，我最在意的不是模型更多了，而是生态重心真的变了</a></span></li><li class="item"><div class="breadcrumb"><a href="/categories/technical-sharing/" title="分类于technical-sharing">technical-sharing</a></div><span><a href="/computer-science/technical-sharing/waypoint-1-5-world-model-consumer-gpu-2026-04-13/">Waypoint-1.5 真正值得看的，不是“世界模型更清晰了”，而是交互式生成世界开始下放到普通显卡</a></span></li><li class="item"><div class="breadcrumb"><a href="/categories/technical-sharing/" title="分类于technical-sharing">technical-sharing</a></div><span><a href="/computer-science/technical-sharing/huggingface-hub-v1-open-ml-infra-2026-04-30/">huggingface_hub v1.0 发布后，我更在意的是开源 AI 基础设施终于开始按“未来十年”来重构</a></span></li><li class="item"><div class="breadcrumb"><a href="/categories/technical-sharing/" title="分类于technical-sharing">technical-sharing</a></div><span><a href="/computer-science/technical-sharing/qwen3guard-real-time-guardrails-2026-04-14/">Qwen3Guard 真正值得看的，不是“又一个安全分类器”，而是把护栏做进了 token 流里</a></span></li><li class="item"><div class="breadcrumb"><a href="/categories/technical-sharing/" title="分类于technical-sharing">technical-sharing</a></div><span><a href="/computer-science/technical-sharing/gpt-5-4-mini-nano-2026-03-25/">GPT-5.4 mini 与 nano 发布：小模型开始接管 Agent 的高频工作</a></span></li></ul></div><div class="rpost pjax"><h2>最新评论</h2><ul class="leancloud-recent-comment" id="new-comment"></ul></div></div><div class="status"><div class="copyright">&copy; 2024 -<span itemprop="copyrightYear">2026</span><span class="with-love"><i class="ic i-sakura rotate"></i></span><span class="author" itemprop="copyrightHolder">流萤白沙 @ Noctilumina</span></div><div class="count"><span class="post-meta-item-icon"><i class="ic i-chart-area"></i></span><span title="站点总字数">288k 字</span><span class="post-meta-divider"> | </span><span class="post-meta-item-icon"><i class="ic i-coffee"></i></span><span title="站点阅读时长">4:22</span></div><div class="powered-by">基于 <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a> & Theme.<a target="_blank" rel="noopener" href="https://github.com/theme-shoka-x/hexo-theme-shokaX/">ShokaX</a></div><div class="extra-status"><div class="icp-gov-moe-warp"><a class="icp-link" href="https://icp.gov.moe/?keyword=20250715" target="_blank"><span class="icon-text"><img class="icp-icon" src="https://moe.one/view/img/ico64.png"/>萌ICP备20250715号</span></a><span class="separator">| </span><a class="travel-link" href="https://travel.moe/go.html" title="异次元之旅-跃迁-我们一起去萌站成员的星球旅行吧！" target="_blank"><span class="icon-text"><img class="travel-icon" src="https://travel.moe/images/icon/icon64.png"/>异次元之旅</span></a></div><div class="traval-logo-warp"><a href="https://www.travellings.cn/go-by-clouds.html" target="_blank" rel="noopener" title="开往-友链接力"><img src="https://www.travellings.cn/assets/logo.gif" alt="开往-友链接力" width="120"/></a></div><div class="createtime-warp"><div class="createtime-counter"><span id="time"></span></div></div></div><script>function createtime() {
+    const n = new Date("2025/02/16 18:30:50");
+    now.setTime(now.getTime() + 250), days = (now - n) / 1e3 / 60 / 60 / 24, dnum = Math.floor(days), hours = (now - n) / 1e3 / 60 / 60 - 24 * dnum, hnum = Math.floor(hours), 1 == String(hnum).length && (hnum = "0" + hnum), minutes = (now - n) / 1e3 / 60 - 1440 * dnum - 60 * hnum, mnum = Math.floor(minutes), 1 == String(mnum).length && (mnum = "0" + mnum), seconds = (now - n) / 1e3 - 86400 * dnum - 3600 * hnum - 60 * mnum, snum = Math.round(seconds), 1 == String(snum).length && (snum = "0" + snum), document.getElementById("time").innerHTML = "小破站已在风雨中漂泊了" + dnum + " 天 " + hnum + " 小时 " + mnum + " 分 " + snum + " 秒"
+}
+const now = new Date;
+setInterval("createtime()", 250)</script></div><script>const cdnPath = 'https://cdn.jsdmirror.com/gh/winter334/live2d-widget-v3@main'
+const config = {
+  path: {
+    modelPath: cdnPath + "/Resources/",
+    cssPath: cdnPath + "/waifu.css",
+    tipsJsonPath: cdnPath + "/waifu-tips.json",
+    tipsJsPath: cdnPath + "/waifu-tips.js",
+    live2dCorePath: cdnPath + "/Core/live2dcubismcore.js",
+    live2dSdkPath: cdnPath + "/live2d-sdk.js"
+  },
+  tools: ["hitokoto", "asteroids", "express","photo", "quit"],
+  drag: {
+    enable: true,
+    direction: ["x"]
+  },
+  switchType: "order"
+}
+
+// +++++++++++++++ 新增改动部分开始 +++++++++++++++
+if (screen.width >= 768) {
+  // 延迟到页面完全加载后执行
+  window.addEventListener('load', () => {
+    // 添加加载状态提示
+    const loadingTip = document.createElement('div')
+    loadingTip.textContent = '看板娘加载中...'
+    loadingTip.style.cssText = `
+      position: fixed;
+      bottom: 20px;
+      left: 20px;
+      padding: 8px 12px;
+      background: #fff;
+      border-radius: 4px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      z-index: 9999;
+      opacity: 0;
+      animation: tipFadeIn 0.5s ease-out 0.3s forwards;
+    `
+    // 添加CSS动画关键帧
+    const style = document.createElement('style')
+    style.textContent = `
+      @keyframes tipFadeIn {
+        from { opacity: 0; transform: translateY(10px); }
+        to { opacity: 1; transform: translateY(0); }
+      }
+    `
+    document.head.appendChild(style)
+
+    document.body.appendChild(loadingTip)
+
+    // 分阶段加载策略
+    // 第一阶段：优先加载核心SDK
+    loadExternalResource(config.path.live2dCorePath, "js")
+      .then(() => {
+        // 第二阶段：加载其他依赖
+        return Promise.all([
+          loadExternalResource(config.path.cssPath, "css"),
+          loadExternalResource(config.path.live2dSdkPath, "js"),
+          loadExternalResource(config.path.tipsJsPath, "js")
+        ])
+      })
+      .then(() => {
+        // 第三阶段：初始化组件
+        initWidget({
+          waifuPath: config.path.tipsJsonPath,
+          cdnPath: config.path.modelPath,
+          tools: config.tools,
+          dragEnable: config.drag.enable,
+          dragDirection: config.drag.direction,
+          switchType: config.switchType
+        })
+        // 移除加载提示
+        loadingTip.remove()
+      })
+      .catch(error => {
+        console.error('资源加载失败:', error)
+        loadingTip.textContent = '看板娘加载失败'
+        setTimeout(() => loadingTip.remove(), 3000)
+      })
+  })
+}
+// +++++++++++++++ 新增改动部分结束 +++++++++++++++
+
+function loadExternalResource(url, type) {
+  return new Promise((resolve, reject) => {
+    let tag
+    if (type === "css") {
+      tag = document.createElement("link")
+      tag.rel = "stylesheet"
+      tag.href = url
+      // 增加预加载提示
+      tag.onload = () => {
+        console.log(`CSS加载完成: ${url}`)
+        resolve(url)
+      }
+    } else if (type === "js") {
+      tag = document.createElement("script")
+      tag.src = url
+      // 增加异步加载标记
+      tag.async = true
+    }
+    if (tag) {
+      tag.onload = () => {
+        console.log(`脚本加载完成: ${url}`)
+        resolve(url)
+      }
+      tag.onerror = () => {
+        console.error(`加载失败: ${url}`)
+        reject(url)
+      }
+      document.head.appendChild(tag)
+    }
+  })
+}</script><script defer src="https://cn.vercount.one/js"></script><div class="vercount-wrap" style="width: 100%; text-align: center;"><span class="counter-meta-item-icon"><i class="ic i-leaf"></i></span><span id="vercount_container_site_pv">页面足迹： <span id="vercount_value_site_pv"></span> 次阅读</span> | <span class="counter-meta-item-icon"><i class="ic i-foot"></i></span><span id="vercount_container_site_uv">独立访客： <span id="vercount_value_site_uv"></span> 位过客</span></div></div></footer></div><script data-config type="text/javascript">var LOCAL = {
+    ispost: true,
+    path: `computer-science/technical-sharing/github-copilot-sdk-agent-runtime-2026-04-17/`,
+    favicon: {
+        show: `(ゝ∀･)我就知道你舍不得我`,
+        hide: `o(TヘTo)我会想你的`
+    },
+    search: {
+        placeholder: "文章搜索",
+        empty: "关于 「 ${query} 」，什么也没搜到",
+        stats: "${time} ms 内找到 ${hits} 条结果"
+    },
+    nocopy: "false",
+    copyright: `复制成功，转载请遵守 <i class="ic i-creative-commons"></i>BY-NC-SA 协议。`,
+    copy_tex: false,
+    katex: false,
+    mermaid: false,
+    audio: undefined,
+    fancybox: true,
+    nocopy: false,
+    outime: true,
+    template: `<div class="note warning"><p><span class="label warning">文章时效性提示</span><br>这是一篇发布于 {{publish}} 天前，最后一次更新在 {{updated}} 天前的文章，部分信息可能已经发生改变，请注意甄别。</p></div>`,
+    quiz: {
+        choice: `单选题`,
+        multiple: `多选题`,
+        true_false: `判断题`,
+        essay: `问答题`,
+        gap_fill: `填空题`,
+        mistake: `错题备注`
+    },
+    ignores: [
+        (uri) => uri.includes('#'),
+        (uri) => new RegExp(LOCAL.path + '$').test(uri),
+            []
+    ]
+};
+</script><script src="https://s4.zstatic.net/ajax/libs/pace/1.2.4/pace.min.js" integrity="sha384-k6YtvFUEIuEFBdrLKJ3YAUbBki333tj1CSUisai5Cswsg9wcLNaPzsTHDswp4Az8" crossorigin="anonymous" fetchpriority="high"></script><script src="https://s4.zstatic.net/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha384-ZvpUoO&#x2F;+PpLXR1lu4jmpXWu80pZlYUAfxl5NsBMWOEPSjUn&#x2F;6Z&#x2F;hRTt8+pR6L4N2" crossorigin="anonymous" fetchpriority="high"></script><script src="https://s4.zstatic.net/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js" integrity="sha384-Zm+UU4tdcfAm29vg+MTbfu&#x2F;&#x2F;q5B&#x2F;lInMbMCr4T8c9rQFyOv6PlfQYpB5wItcXWe7" crossorigin="anonymous" fetchpriority="high"></script><script src="https://s4.zstatic.net/ajax/libs/justifiedGallery/3.8.1/js/jquery.justifiedGallery.min.js" integrity="sha384-TOxsBplaL96&#x2F;QDWPIUg+ye3v89qSE3s22XNtJMmCeZEep3cVDmXy1zEfZvVv+y2m" crossorigin="anonymous" fetchpriority="high"></script><script src="/js/siteInit.js?v=0.4.25" type="module" fetchpriority="high" defer></script><script>(() => {
+  const SUMMARY_SELECTOR = '#summary .tab[data-title="文章概括"] p';
+  const PUNCTUATION_PAUSE = new Set(['，', '。', '！', '？', '；', '：', '、', ',', '.', '!', '?', ';', ':']);
+
+  const normalizeText = (text) => (text || '').replace(/\s+/g, ' ').trim();
+
+  const finishTyping = (element, text) => {
+    if (!element) return;
+    if (element.__aiSummaryTypingTimer) {
+      clearTimeout(element.__aiSummaryTypingTimer);
+      element.__aiSummaryTypingTimer = null;
+    }
+    element.textContent = text;
+    element.dataset.aiSummaryTyped = 'true';
+    element.classList.add('ai-summary-typing', 'ai-summary-typing-done');
+    element.classList.remove('is-typing');
+  };
+
+  const startTyping = (element) => {
+    if (!element) return;
+
+    const sourceText = normalizeText(element.dataset.aiSummarySource || element.textContent);
+    if (!sourceText) return;
+
+    element.dataset.aiSummarySource = sourceText;
+
+    if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      finishTyping(element, sourceText);
+      return;
+    }
+
+    if (element.dataset.aiSummaryTyped === 'true') {
+      finishTyping(element, sourceText);
+      return;
+    }
+
+    if (element.__aiSummaryTypingTimer) {
+      clearTimeout(element.__aiSummaryTypingTimer);
+    }
+
+    element.textContent = '';
+    element.classList.add('ai-summary-typing', 'is-typing');
+    element.classList.remove('ai-summary-typing-done');
+
+    let index = 0;
+    const step = () => {
+      index += 1;
+      element.textContent = sourceText.slice(0, index);
+
+      if (index >= sourceText.length) {
+        finishTyping(element, sourceText);
+        return;
+      }
+
+      const currentChar = sourceText[index - 1];
+      const delay = PUNCTUATION_PAUSE.has(currentChar) ? 85 : 22;
+      element.__aiSummaryTypingTimer = setTimeout(step, delay);
+    };
+
+    element.__aiSummaryTypingTimer = setTimeout(step, 140);
+  };
+
+  const initAiSummaryTyping = () => {
+    document.querySelectorAll(SUMMARY_SELECTOR).forEach((element) => {
+      startTyping(element);
+    });
+  };
+
+  document.addEventListener('DOMContentLoaded', initAiSummaryTyping);
+  window.addEventListener('pjax:success', initAiSummaryTyping, { passive: true });
+  document.addEventListener('pjax:complete', initAiSummaryTyping);
+})();</script><script>// 漂浮物
+// 新增函数 
+// 首先获取 Url，然后把 Url 通过 // 截成两部分，再从后一部分中截取相对路径。如果截取到的相对路径中有参数，则把参数去掉。
+// 获取相对路径
+function GetUrlRelativePath()
+{
+    var url = document.location.toString();
+    var arrUrl = url.split("//");
+
+    var start = arrUrl[1].indexOf("/");
+    var relUrl = arrUrl[1].substring(start);//stop省略，截取从start开始到结尾的所有字符
+
+    if(relUrl.indexOf("?") != -1){
+        relUrl = relUrl.split("?")[0];
+    }
+    return relUrl;
+}
+var allowAll = true; // true 则允许所有网页存在漂浮物
+// 允许显示漂浮物的网址列表
+var urlAllowList = ["/"] || [
+    "/",
+]
+
+var isAllowFloat = false;   // 全局变量，允许使用漂浮特效
+
+// 判断
+function decide(){
+    if (document.getElementById('canvas_float')) return; // 防止重复
+    isAllowFloat = true;
+    if(!allowAll){
+        // 判断当前页面是否为指定页面
+        var url = GetUrlRelativePath();
+        var i = 0;
+        for(;i<urlAllowList.length;i++){
+            if(url===urlAllowList[i]){
+                // console.log(i);
+                isAllowFloat = true;
+                break;
+            }
+        }
+        if(i===urlAllowList.length){
+            isAllowFloat = false;
+        }
+    }
+    //console.log(isAllowFloat)
+    if(isAllowFloat)startFloat();
+}
+
+var stop, staticx;
+var img = new Image();
+img.src = "/assets/float.png"; // 图片
+
+function Float(x, y, s, r, fn) {
+    this.x = x;
+    this.y = y;
+    this.s = s;
+    this.r = r;
+    this.fn = fn;
+}
+
+Float.prototype.draw = function(cxt) {
+    cxt.save();
+    var xc = 40 * this.s / 4;
+    cxt.translate(this.x, this.y);
+    cxt.rotate(this.r);
+    cxt.drawImage(img, 0, 0, 35 * this.s, 35 * this.s)
+    //漂浮物大小
+    cxt.restore();
+}
+
+Float.prototype.update = function() {
+    this.x = this.fn.x(this.x, this.y);
+    this.y = this.fn.y(this.y, this.y);
+    this.r = this.fn.r(this.r);
+    if (this.x > window.innerWidth || this.x < 0 || this.y > window.innerHeight || this.y < 0) {
+        this.r = getRandom('fnr');
+        if (Math.random() > 0.4) {
+            this.x = getRandom('x');
+            this.y = 0;
+            this.s = getRandom('s');
+            this.r = getRandom('r');
+        } else {
+            this.x = window.innerWidth;
+            this.y = getRandom('y');
+            this.s = getRandom('s');
+            this.r = getRandom('r');
+        }
+    }
+}
+
+FloatList = function() {
+    this.list = [];
+}
+FloatList.prototype.push = function(float) {
+    this.list.push(float);
+}
+FloatList.prototype.update = function() {
+    for (var i = 0, len = this.list.length; i < len; i++) {
+        this.list[i].update();
+    }
+}
+FloatList.prototype.draw = function(cxt) {
+    for (var i = 0, len = this.list.length; i < len; i++) {
+        this.list[i].draw(cxt);
+    }
+}
+FloatList.prototype.get = function(i) {
+    return this.list[i];
+}
+FloatList.prototype.size = function() {
+    return this.list.length;
+}
+
+function getRandom(option) {
+    var ret, random;
+    switch (option) {
+    case 'x':
+        ret = Math.random() * window.innerWidth;
+        break;
+    case 'y':
+        ret = Math.random() * window.innerHeight;
+        break;
+    case 's':
+        ret = Math.random();
+        break;
+    case 'r':
+        ret = Math.random() * 6;
+        break;
+    case 'fnx':
+        random = -0.5 + Math.random() * 1;
+        ret = function(x, y) {
+            return x + 0.5 * random - 0.6;
+            //x轴速度
+        }
+        ;
+        break;
+    case 'fny':
+        random = 0.8 + Math.random() * 0.7
+        //y轴速度
+        ret = function(x, y) {
+            return y + random;
+        }
+        ;
+        break;
+    case 'fnr':
+        random = Math.random() * 0.03;
+        ret = function(r) {
+            return r + random;
+        }
+        ;
+        break;
+    }
+    return ret;
+}
+
+function startFloat() {
+
+    requestAnimationFrame = window.requestAnimationFrame || window.mozRequestAnimationFrame || window.webkitRequestAnimationFrame || window.msRequestAnimationFrame || window.oRequestAnimationFrame;
+    var canvas = document.createElement('canvas'), cxt;
+    staticx = true;
+    canvas.height = window.innerHeight;
+    canvas.width = window.innerWidth;
+    canvas.setAttribute('style', 'position: fixed;left: 0;top: 0;pointer-events: none; z-index: 4;');
+    canvas.setAttribute('id', 'canvas_float');
+    document.getElementsByTagName('body')[0].appendChild(canvas);
+    cxt = canvas.getContext('2d');
+    var floatList = new FloatList();
+    for (var i = 0; i < 10; i++) {
+        //漂浮物数量
+        var float, randomX, randomY, randomS, randomR, randomFnx, randomFny;
+        randomX = getRandom('x');
+        randomY = getRandom('y');
+        randomR = getRandom('r');
+        randomS = getRandom('s');
+        randomFnx = getRandom('fnx');
+        randomFny = getRandom('fny');
+        randomFnR = getRandom('fnr');
+        float = new Float(randomX,randomY,randomS,randomR,{
+            x: randomFnx,
+            y: randomFny,
+            r: randomFnR
+        });
+        float.draw(cxt);
+        floatList.push(float);
+    }
+    stop = requestAnimationFrame(function() {
+        cxt.clearRect(0, 0, canvas.width, canvas.height);
+        floatList.update();
+        floatList.draw(cxt);
+        stop = requestAnimationFrame(arguments.callee);
+    })
+}
+
+window.onresize = function() {
+    if(!isAllowFloat)return;
+    var canvasSnow = document.getElementById('canvas_float');
+    canvasSnow.width = window.innerWidth;
+    canvasSnow.height = window.innerHeight;
+}
+
+function stopp(isPjaxReload) {
+    var canvas = document.getElementById('canvas_float');
+    if (canvas) {
+        canvas.parentNode.removeChild(canvas);
+        window.cancelAnimationFrame(stop);
+    }
+    if (isPjaxReload) {
+        setTimeout(decide, 50); // 50ms 延迟足够大多数场景
+    }
+}
+//pjax兼容
+['DOMContentLoaded', 'pjax:complete', 'turbolinks:load'].forEach(event => {
+    document.addEventListener(event, () => {
+        if (event !== 'DOMContentLoaded') {
+            stopp(true);
+        } else {
+            decide();
+        }
+    });
+});</script><script src="https://s4.zstatic.net/ajax/libs/typed.js/2.1.0/typed.umd.js"></script><script>function initTyped() {
+  if (window.typedInstance) {
+    window.typedInstance.destroy(); // 修复变量引用问题
+  }
+  
+  if (document.getElementById('typer-title')) {
+    // 默认配置
+    const defaultConfig = {
+      strings: ["Hello World!", "你好，世界!"],
+      typeSpeed: 50,
+      startDelay: 2000,
+      backSpeed: 25,
+      backDelay: 2000,
+      loop: true,
+      showCursor: true,
+      cursorChar: "|"
+    };
+
+    // 获取主题配置
+    const themeConfig = {"strings":["流萤白沙のBlog","学习 - 记录 - 分享","Learn - Record - Share"],"typeSpeed":50,"startDelay":500,"backSpeed":25,"backDelay":2000,"loop":true,"showCursor":true,"cursorChar":"|"};
+    
+    // 合并配置（主题配置优先）
+    const finalConfig = {
+      ...defaultConfig,
+      ...themeConfig,
+      // 特别处理 strings 数组
+      strings: themeConfig.strings && themeConfig.strings.length > 0 
+        ? themeConfig.strings 
+        : defaultConfig.strings
+    };
+
+    // 初始化 Typed.js
+    window.typedInstance = new Typed("#typer-title", finalConfig);
+  }
+}
+
+document.addEventListener('DOMContentLoaded', initTyped);
+document.addEventListener('pjax:complete', initTyped);</script></body></html><script>
+            var posts = ["others/Announcements/","others/ai-chief-publishing-officer-onboarding/","computer-science/csharp/Nullable/","computer-science/technical-sharing/2025-3-8-1/","computer-science/technical-sharing/ai-os-daily-2026-03-22/","computer-science/technical-sharing/ai-os-daily-2026-03-24/","computer-science/technical-sharing/ai-tech-daily-2026-03-27/","computer-science/technical-sharing/ai-tech-daily-2026-04-18/","computer-science/technical-sharing/ai-tech-daily-2026-05-01/","computer-science/technical-sharing/altk-evolve-agent-memory-2026-04-11/","computer-science/technical-sharing/anthropic-emotion-concepts-2026-04-03/","computer-science/technical-sharing/artitalk/","computer-science/technical-sharing/claude-code-auto-mode-2026-03-30/","computer-science/technical-sharing/claude-design-anthropic-labs-2026-04-20/","computer-science/technical-sharing/cloudflare-post-quantum-security-2029-2026-04-08/","computer-science/technical-sharing/deepseek-major-outage-2026-03-31/","computer-science/technical-sharing/deepseek-v4-agent-long-context-cost-2026-04-28/","computer-science/technical-sharing/gemini-api-flex-priority-inference-2026-04-07/","computer-science/technical-sharing/gemma-4-apache-open-model-2026-04-04/","computer-science/technical-sharing/github-copilot-data-training-policy-2026-03-29/","computer-science/technical-sharing/github-copilot-sdk-agent-runtime-2026-04-17/","computer-science/technical-sharing/github-copilot-vscode-byok-2026-04-23/","computer-science/technical-sharing/gpt-5-4-mini-nano-2026-03-25/","computer-science/technical-sharing/gpt-5-5-agentic-work-latency-2026-04-25/","computer-science/technical-sharing/gpt-rosalind-life-sciences-openai-2026-04-21/","computer-science/technical-sharing/granite-4-1-open-enterprise-llm-2026-05-03/","computer-science/technical-sharing/github-cli-gh-skill-agent-skills-2026-04-19/","computer-science/technical-sharing/holo3-computer-use-agent-2026-04-06/","computer-science/technical-sharing/huggingface-hub-v1-open-ml-infra-2026-04-30/","computer-science/technical-sharing/huggingface-open-responses-agent-standard-2026-04-26/","computer-science/technical-sharing/huggingface-open-source-spring-2026-04-24/","computer-science/technical-sharing/image-hosting/","computer-science/technical-sharing/istio-1-29-ai-inference-2026-03-26/","computer-science/technical-sharing/meta-muse-spark-meta-ai-2026-04-09/","computer-science/technical-sharing/mistral-small-4-2026-03-24/","computer-science/technical-sharing/mozilla-mila-sovereign-ai-2026-03-28/","computer-science/technical-sharing/openai-agents-sdk-sandbox-runtime-2026-04-16/","computer-science/technical-sharing/openai-aws-bedrock-managed-agents-2026-04-29/","computer-science/technical-sharing/openai-codex-enterprise-rollout-2026-04-22/","computer-science/technical-sharing/openai-principles-ai-governance-2026-04-27/","computer-science/technical-sharing/openai-symphony-agent-orchestration-spec-2026-05-02/","computer-science/technical-sharing/qexo/","computer-science/technical-sharing/qwen3guard-real-time-guardrails-2026-04-14/","computer-science/technical-sharing/safetensors-pytorch-foundation-2026-04-10/","computer-science/technical-sharing/sentence-transformers-5-4-multimodal-retrieval-2026-04-15/","computer-science/technical-sharing/waypoint-1-5-world-model-consumer-gpu-2026-04-13/","others/novels/declaration/","others/novels/2025-3-4/","computer-science/hexo/enhance/2025-3-2/","computer-science/hexo/enhance/2025-3-3/","computer-science/hexo/enhance/2025-3-6/","computer-science/hexo/shokax/shokax-deploy/","computer-science/hexo/shokax/shokax-module/","computer-science/hexo/shokax/shokax-start/","others/novels/one/2025-3-13/","others/novels/one/2025-3-15/","others/novels/one/2025-3-17-2/","others/novels/one/2025-3-17/","others/novels/one/2025-3-19-1/","others/novels/one/2025-3-19-2/","others/novels/one/2025-3-20-1/","others/novels/one/2025-3-20-2/","others/novels/one/2025-3-22-1/","others/novels/one/2025-3-22-2/","others/novels/one/2025-3-25/","others/novels/one/2025-3-27/","others/novels/one/2025-3-5/","others/novels/one/2025-3-7-1/","others/novels/one/2025-3-7-2/","others/novels/one/2025-3-8-2/","others/novels/one/2025-3-8-3/","others/novels/one/2025-3-9-1/","others/novels/one/2025-3-9-2/","others/novels/one/2025-4-25-1/","others/novels/one/2025-4-25-2/","others/novels/one/2025-4-27-1/","others/novels/one/2025-4-27-2/","others/novels/one/2025-4-27-3/","others/novels/one/2025-4-27-4/","others/novels/one/2025-4-3/"];
+            function toRandomPost() { 
+                var post = posts[Math.floor(Math.random() * posts.length)];
+                window.pjax ? pjax.loadUrl('/' + post) : window.open('/' + post, "_self"); 
+            };
+        </script>

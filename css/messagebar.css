@@ -1,0 +1,139 @@
+/* 新增颜色变量 */
+:root {
+    --violet-blue: #2a475e;  /* 薇尔莉特蓝 */
+    --golden: #d4af37;       /* 机械金 */
+    --parchment: #f8f3e5;    /* 羊皮纸白 */
+}
+@media screen and (max-width:530px) {
+    #computer {
+        display:none!important
+    }
+    /* 移动端字体调整 */
+    .comments {
+        font-size: 0.9em;
+        padding: 15px;
+    }
+    /* 新增移动端入场动画 */
+    .formmain {
+        animation: mobileFade 0.8s ease-out;
+    }
+}
+@media screen and (min-width:530px) {
+    #mobile {
+        display:none!important
+    }
+}
+#article-container img {
+    margin:0 auto 0
+}
+#form-wrap {
+    overflow:hidden;
+    height:447px;
+    position:relative;
+    top:0;
+    transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);  /* 🎀贝塞尔曲线优化 */
+    z-index:0
+}
+#form-wrap:hover {
+    height:1050px;
+    top:-200px
+}
+#beforeimg {
+    position:absolute;
+    bottom:126px;
+    left:0;
+    background-repeat:no-repeat;
+    width:530px;
+    height:317px;
+    z-index:-100;
+    pointer-events:none
+}
+#afterimg {
+    position:absolute;
+    bottom:-2px;
+    left:0;
+    background-repeat:no-repeat;
+    width:530px;
+    height:259px;
+    z-index:100;
+    pointer-events:none
+}
+#envelope {
+    position:relative;
+    overflow:visible;
+    width:500px;
+    margin:0 auto;
+    transition:all 1s ease-in-out .3s;
+    padding-top:200px
+}
+#maincontent {
+    width:530px;
+    margin:20px auto 0
+}
+.headerimg {
+    width:100%;
+    overflow:hidden;
+    pointer-events:none
+}
+.formmain {
+    border-color: var(--golden);  /* 🎀应用主题色 */
+    background: var(--parchment);
+    width:95%;
+    max-width:800px;
+    margin:auto auto;
+    border-radius:5px;
+    border:1px solid;
+    overflow:hidden;
+    -webkit-box-shadow:0 0 20px 0 rgba(0, 0, 0, .12);
+    box-shadow:0 0 20px 0 rgba(0, 0, 0, .18);
+    pointer-events:none;
+}
+.title3 {
+    text-decoration:none;
+    color:#2a475e;
+    font-family: 'Noto Serif SC', serif;  /* 🎀添加衬线字体 */
+    letter-spacing: 2px;  /* 🎀增加字间距 */
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.2); /* 🎀文字投影 */
+}
+.comments {
+    border-bottom: 1px solid;
+    border-left: 1px solid;
+    padding-bottom:20px;
+    background: rgba(255,255,255,0.9);  /* 🎀改为半透明白色 */
+    border-color: #d4af37;  /* 🎀金色边框 */
+    margin:15px 0;
+    padding-left:20px;
+    padding-right:20px;
+    border-top: 1px solid;
+    border-right: 1px solid;
+    padding-top:20px;
+    font-family: 'Noto Serif SC', serif;
+    line-height: 1.8;  /* 🎀增加行距 */
+    color: #5f96c4;  /* 🎀深蓝色文字 */
+}
+.bottomcontent {
+    text-align:center;
+    margin-top:40px
+}
+.bottomimg {
+    width:100%;
+    margin:5px auto 5px auto;
+    display:block;
+    pointer-events:none
+}
+.bottomhr {
+    font-size:12px;
+    text-align:center;
+    color:#999
+}
+[data-theme=dark] .formmain {
+    background:#323232
+}
+[data-theme=dark] .comments {
+    background: rgba(40,40,40,0.9);  /* 🎀深色半透明 */
+    color: #f6d6af;  /* 浅金色文字 */
+}
+@keyframes mobileFade {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
