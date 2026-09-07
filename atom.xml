@@ -8,7 +8,7 @@
     <author>
       <name>流萤白沙</name>
     </author>
-    <updated>2026-05-03T08:00:00.000Z</updated>
+    <updated>2026-05-03T00:00:00.000Z</updated>
     <category term="流萤白沙" />
     <category term="流萤" />
     <category term="白沙" />
@@ -87,7 +87,7 @@
         <category term="Granite" scheme="https://lyrashore.com/tags/Granite/" />
         <category term="LLM" scheme="https://lyrashore.com/tags/LLM/" />
         <category term="Enterprise" scheme="https://lyrashore.com/tags/Enterprise/" />
-        <updated>2026-05-03T08:00:00.000Z</updated>
+        <updated>2026-05-03T00:00:00.000Z</updated>
     </entry>
     <entry>
         <id>https://lyrashore.com/computer-science/technical-sharing/openai-symphony-agent-orchestration-spec-2026-05-02/</id>
@@ -168,12 +168,12 @@
 </content>
         <category term="technical-sharing" scheme="https://lyrashore.com/categories/technical-sharing/" />
         <category term="AI" scheme="https://lyrashore.com/tags/AI/" />
-        <category term="Open Source" scheme="https://lyrashore.com/tags/Open-Source/" />
-        <category term="OpenAI" scheme="https://lyrashore.com/tags/OpenAI/" />
         <category term="Agent" scheme="https://lyrashore.com/tags/Agent/" />
         <category term="Infrastructure" scheme="https://lyrashore.com/tags/Infrastructure/" />
+        <category term="Open Source" scheme="https://lyrashore.com/tags/Open-Source/" />
+        <category term="OpenAI" scheme="https://lyrashore.com/tags/OpenAI/" />
         <category term="Workflow" scheme="https://lyrashore.com/tags/Workflow/" />
-        <updated>2026-05-02T08:00:00.000Z</updated>
+        <updated>2026-05-02T00:00:00.000Z</updated>
     </entry>
     <entry>
         <id>https://lyrashore.com/computer-science/technical-sharing/ai-tech-daily-2026-05-01/</id>
@@ -265,12 +265,12 @@
 </content>
         <category term="technical-sharing" scheme="https://lyrashore.com/categories/technical-sharing/" />
         <category term="AI" scheme="https://lyrashore.com/tags/AI/" />
+        <category term="Agent" scheme="https://lyrashore.com/tags/Agent/" />
         <category term="Hugging Face" scheme="https://lyrashore.com/tags/Hugging-Face/" />
         <category term="OpenAI" scheme="https://lyrashore.com/tags/OpenAI/" />
         <category term="GitHub" scheme="https://lyrashore.com/tags/GitHub/" />
-        <category term="Agent" scheme="https://lyrashore.com/tags/Agent/" />
         <category term="Security" scheme="https://lyrashore.com/tags/Security/" />
-        <updated>2026-05-01T08:00:00.000Z</updated>
+        <updated>2026-05-01T00:00:00.000Z</updated>
     </entry>
     <entry>
         <id>https://lyrashore.com/computer-science/technical-sharing/huggingface-hub-v1-open-ml-infra-2026-04-30/</id>
@@ -356,11 +356,11 @@
 </content>
         <category term="technical-sharing" scheme="https://lyrashore.com/categories/technical-sharing/" />
         <category term="AI" scheme="https://lyrashore.com/tags/AI/" />
+        <category term="Infrastructure" scheme="https://lyrashore.com/tags/Infrastructure/" />
         <category term="Open Source" scheme="https://lyrashore.com/tags/Open-Source/" />
         <category term="Hugging Face" scheme="https://lyrashore.com/tags/Hugging-Face/" />
-        <category term="Infrastructure" scheme="https://lyrashore.com/tags/Infrastructure/" />
         <category term="Python" scheme="https://lyrashore.com/tags/Python/" />
-        <updated>2026-04-30T08:00:00.000Z</updated>
+        <updated>2026-04-30T00:00:00.000Z</updated>
     </entry>
     <entry>
         <id>https://lyrashore.com/computer-science/technical-sharing/openai-aws-bedrock-managed-agents-2026-04-29/</id>
@@ -454,11 +454,11 @@
 </content>
         <category term="technical-sharing" scheme="https://lyrashore.com/categories/technical-sharing/" />
         <category term="AI" scheme="https://lyrashore.com/tags/AI/" />
-        <category term="OpenAI" scheme="https://lyrashore.com/tags/OpenAI/" />
         <category term="Agent" scheme="https://lyrashore.com/tags/Agent/" />
+        <category term="OpenAI" scheme="https://lyrashore.com/tags/OpenAI/" />
         <category term="Enterprise" scheme="https://lyrashore.com/tags/Enterprise/" />
         <category term="AWS" scheme="https://lyrashore.com/tags/AWS/" />
-        <updated>2026-04-29T08:00:00.000Z</updated>
+        <updated>2026-04-29T00:00:00.000Z</updated>
     </entry>
     <entry>
         <id>https://lyrashore.com/computer-science/technical-sharing/deepseek-v4-agent-long-context-cost-2026-04-28/</id>
@@ -534,11 +534,11 @@
 </content>
         <category term="technical-sharing" scheme="https://lyrashore.com/categories/technical-sharing/" />
         <category term="AI" scheme="https://lyrashore.com/tags/AI/" />
-        <category term="Open Source" scheme="https://lyrashore.com/tags/Open-Source/" />
         <category term="Agent" scheme="https://lyrashore.com/tags/Agent/" />
+        <category term="Open Source" scheme="https://lyrashore.com/tags/Open-Source/" />
         <category term="DeepSeek" scheme="https://lyrashore.com/tags/DeepSeek/" />
         <category term="Long Context" scheme="https://lyrashore.com/tags/Long-Context/" />
-        <updated>2026-04-28T08:00:00.000Z</updated>
+        <updated>2026-04-28T00:00:00.000Z</updated>
     </entry>
     <entry>
         <id>https://lyrashore.com/computer-science/technical-sharing/openai-principles-ai-governance-2026-04-27/</id>
@@ -607,11 +607,11 @@
 </content>
         <category term="technical-sharing" scheme="https://lyrashore.com/categories/technical-sharing/" />
         <category term="AI" scheme="https://lyrashore.com/tags/AI/" />
-        <category term="OpenAI" scheme="https://lyrashore.com/tags/OpenAI/" />
         <category term="Infrastructure" scheme="https://lyrashore.com/tags/Infrastructure/" />
+        <category term="OpenAI" scheme="https://lyrashore.com/tags/OpenAI/" />
         <category term="Governance" scheme="https://lyrashore.com/tags/Governance/" />
         <category term="AGI" scheme="https://lyrashore.com/tags/AGI/" />
-        <updated>2026-04-27T08:00:00.000Z</updated>
+        <updated>2026-04-27T00:00:00.000Z</updated>
     </entry>
     <entry>
         <id>https://lyrashore.com/computer-science/technical-sharing/huggingface-open-responses-agent-standard-2026-04-26/</id>
@@ -673,11 +673,11 @@
 </content>
         <category term="technical-sharing" scheme="https://lyrashore.com/categories/technical-sharing/" />
         <category term="AI" scheme="https://lyrashore.com/tags/AI/" />
-        <category term="Hugging Face" scheme="https://lyrashore.com/tags/Hugging-Face/" />
         <category term="Agent" scheme="https://lyrashore.com/tags/Agent/" />
+        <category term="Hugging Face" scheme="https://lyrashore.com/tags/Hugging-Face/" />
         <category term="Open Responses" scheme="https://lyrashore.com/tags/Open-Responses/" />
         <category term="API" scheme="https://lyrashore.com/tags/API/" />
-        <updated>2026-04-26T08:00:00.000Z</updated>
+        <updated>2026-04-26T00:00:00.000Z</updated>
     </entry>
     <entry>
         <id>https://lyrashore.com/computer-science/technical-sharing/gpt-5-5-agentic-work-latency-2026-04-25/</id>
@@ -775,11 +775,11 @@
 </content>
         <category term="technical-sharing" scheme="https://lyrashore.com/categories/technical-sharing/" />
         <category term="AI" scheme="https://lyrashore.com/tags/AI/" />
-        <category term="OpenAI" scheme="https://lyrashore.com/tags/OpenAI/" />
         <category term="Agent" scheme="https://lyrashore.com/tags/Agent/" />
-        <category term="GPT-5.5" scheme="https://lyrashore.com/tags/GPT-5-5/" />
+        <category term="OpenAI" scheme="https://lyrashore.com/tags/OpenAI/" />
         <category term="Codex" scheme="https://lyrashore.com/tags/Codex/" />
-        <updated>2026-04-25T08:00:00.000Z</updated>
+        <category term="GPT-5.5" scheme="https://lyrashore.com/tags/GPT-5-5/" />
+        <updated>2026-04-25T00:00:00.000Z</updated>
     </entry>
     <entry>
         <id>https://lyrashore.com/computer-science/technical-sharing/huggingface-open-source-spring-2026-04-24/</id>
@@ -873,7 +873,7 @@
         <category term="Hugging Face" scheme="https://lyrashore.com/tags/Hugging-Face/" />
         <category term="Ecosystem" scheme="https://lyrashore.com/tags/Ecosystem/" />
         <category term="Open Models" scheme="https://lyrashore.com/tags/Open-Models/" />
-        <updated>2026-04-24T08:00:00.000Z</updated>
+        <updated>2026-04-24T00:00:00.000Z</updated>
     </entry>
     <entry>
         <id>https://lyrashore.com/computer-science/technical-sharing/github-copilot-vscode-byok-2026-04-23/</id>
@@ -963,7 +963,7 @@
         <category term="Copilot" scheme="https://lyrashore.com/tags/Copilot/" />
         <category term="VS Code" scheme="https://lyrashore.com/tags/VS-Code/" />
         <category term="BYOK" scheme="https://lyrashore.com/tags/BYOK/" />
-        <updated>2026-04-23T08:00:00.000Z</updated>
+        <updated>2026-04-23T00:00:00.000Z</updated>
     </entry>
     <entry>
         <id>https://lyrashore.com/computer-science/technical-sharing/openai-codex-enterprise-rollout-2026-04-22/</id>
@@ -1059,11 +1059,11 @@
 </content>
         <category term="technical-sharing" scheme="https://lyrashore.com/categories/technical-sharing/" />
         <category term="AI" scheme="https://lyrashore.com/tags/AI/" />
-        <category term="OpenAI" scheme="https://lyrashore.com/tags/OpenAI/" />
         <category term="Agent" scheme="https://lyrashore.com/tags/Agent/" />
+        <category term="OpenAI" scheme="https://lyrashore.com/tags/OpenAI/" />
         <category term="Codex" scheme="https://lyrashore.com/tags/Codex/" />
         <category term="Enterprise" scheme="https://lyrashore.com/tags/Enterprise/" />
-        <updated>2026-04-22T08:00:00.000Z</updated>
+        <updated>2026-04-22T00:00:00.000Z</updated>
     </entry>
     <entry>
         <id>https://lyrashore.com/computer-science/technical-sharing/gpt-rosalind-life-sciences-openai-2026-04-21/</id>
@@ -1136,10 +1136,10 @@
         <category term="technical-sharing" scheme="https://lyrashore.com/categories/technical-sharing/" />
         <category term="AI" scheme="https://lyrashore.com/tags/AI/" />
         <category term="OpenAI" scheme="https://lyrashore.com/tags/OpenAI/" />
-        <category term="Codex" scheme="https://lyrashore.com/tags/Codex/" />
         <category term="GPT-Rosalind" scheme="https://lyrashore.com/tags/GPT-Rosalind/" />
         <category term="Life Sciences" scheme="https://lyrashore.com/tags/Life-Sciences/" />
-        <updated>2026-04-21T08:00:00.000Z</updated>
+        <category term="Codex" scheme="https://lyrashore.com/tags/Codex/" />
+        <updated>2026-04-21T00:00:00.000Z</updated>
     </entry>
     <entry>
         <id>https://lyrashore.com/computer-science/technical-sharing/claude-design-anthropic-labs-2026-04-20/</id>
@@ -1201,11 +1201,11 @@
 </content>
         <category term="technical-sharing" scheme="https://lyrashore.com/categories/technical-sharing/" />
         <category term="AI" scheme="https://lyrashore.com/tags/AI/" />
-        <category term="Anthropic" scheme="https://lyrashore.com/tags/Anthropic/" />
         <category term="Agent" scheme="https://lyrashore.com/tags/Agent/" />
+        <category term="Anthropic" scheme="https://lyrashore.com/tags/Anthropic/" />
         <category term="Claude" scheme="https://lyrashore.com/tags/Claude/" />
         <category term="Design" scheme="https://lyrashore.com/tags/Design/" />
-        <updated>2026-04-20T08:00:00.000Z</updated>
+        <updated>2026-04-20T00:00:00.000Z</updated>
     </entry>
     <entry>
         <id>https://lyrashore.com/computer-science/technical-sharing/github-cli-gh-skill-agent-skills-2026-04-19/</id>
@@ -1265,11 +1265,11 @@
 </content>
         <category term="technical-sharing" scheme="https://lyrashore.com/categories/technical-sharing/" />
         <category term="AI" scheme="https://lyrashore.com/tags/AI/" />
+        <category term="Agent" scheme="https://lyrashore.com/tags/Agent/" />
         <category term="Open Source" scheme="https://lyrashore.com/tags/Open-Source/" />
         <category term="GitHub" scheme="https://lyrashore.com/tags/GitHub/" />
-        <category term="Agent" scheme="https://lyrashore.com/tags/Agent/" />
         <category term="CLI" scheme="https://lyrashore.com/tags/CLI/" />
-        <updated>2026-04-19T08:00:00.000Z</updated>
+        <updated>2026-04-19T00:00:00.000Z</updated>
     </entry>
     <entry>
         <id>https://lyrashore.com/computer-science/technical-sharing/ai-tech-daily-2026-04-18/</id>
@@ -1346,11 +1346,11 @@
 </content>
         <category term="technical-sharing" scheme="https://lyrashore.com/categories/technical-sharing/" />
         <category term="AI" scheme="https://lyrashore.com/tags/AI/" />
+        <category term="Agent" scheme="https://lyrashore.com/tags/Agent/" />
         <category term="Open Source" scheme="https://lyrashore.com/tags/Open-Source/" />
         <category term="GitHub" scheme="https://lyrashore.com/tags/GitHub/" />
         <category term="OCR" scheme="https://lyrashore.com/tags/OCR/" />
-        <category term="Agent" scheme="https://lyrashore.com/tags/Agent/" />
-        <updated>2026-04-18T08:00:00.000Z</updated>
+        <updated>2026-04-18T00:00:00.000Z</updated>
     </entry>
     <entry>
         <id>https://lyrashore.com/computer-science/technical-sharing/github-copilot-sdk-agent-runtime-2026-04-17/</id>
@@ -1491,11 +1491,11 @@
 </content>
         <category term="technical-sharing" scheme="https://lyrashore.com/categories/technical-sharing/" />
         <category term="AI" scheme="https://lyrashore.com/tags/AI/" />
-        <category term="GitHub" scheme="https://lyrashore.com/tags/GitHub/" />
         <category term="Agent" scheme="https://lyrashore.com/tags/Agent/" />
+        <category term="GitHub" scheme="https://lyrashore.com/tags/GitHub/" />
         <category term="Copilot" scheme="https://lyrashore.com/tags/Copilot/" />
         <category term="SDK" scheme="https://lyrashore.com/tags/SDK/" />
-        <updated>2026-04-17T08:00:00.000Z</updated>
+        <updated>2026-04-17T00:00:00.000Z</updated>
     </entry>
     <entry>
         <id>https://lyrashore.com/computer-science/technical-sharing/openai-agents-sdk-sandbox-runtime-2026-04-16/</id>
@@ -1570,11 +1570,11 @@
 </content>
         <category term="technical-sharing" scheme="https://lyrashore.com/categories/technical-sharing/" />
         <category term="AI" scheme="https://lyrashore.com/tags/AI/" />
-        <category term="OpenAI" scheme="https://lyrashore.com/tags/OpenAI/" />
         <category term="Agent" scheme="https://lyrashore.com/tags/Agent/" />
+        <category term="OpenAI" scheme="https://lyrashore.com/tags/OpenAI/" />
         <category term="SDK" scheme="https://lyrashore.com/tags/SDK/" />
         <category term="Sandbox" scheme="https://lyrashore.com/tags/Sandbox/" />
-        <updated>2026-04-16T08:00:00.000Z</updated>
+        <updated>2026-04-16T00:00:00.000Z</updated>
     </entry>
     <entry>
         <id>https://lyrashore.com/computer-science/technical-sharing/sentence-transformers-5-4-multimodal-retrieval-2026-04-15/</id>
@@ -1681,7 +1681,7 @@
         <category term="Hugging Face" scheme="https://lyrashore.com/tags/Hugging-Face/" />
         <category term="Multimodal" scheme="https://lyrashore.com/tags/Multimodal/" />
         <category term="Retrieval" scheme="https://lyrashore.com/tags/Retrieval/" />
-        <updated>2026-04-15T08:00:00.000Z</updated>
+        <updated>2026-04-15T00:00:00.000Z</updated>
     </entry>
     <entry>
         <id>https://lyrashore.com/computer-science/technical-sharing/qwen3guard-real-time-guardrails-2026-04-14/</id>
@@ -1762,6 +1762,6 @@
         <category term="Qwen" scheme="https://lyrashore.com/tags/Qwen/" />
         <category term="Safety" scheme="https://lyrashore.com/tags/Safety/" />
         <category term="Guardrails" scheme="https://lyrashore.com/tags/Guardrails/" />
-        <updated>2026-04-14T08:00:00.000Z</updated>
+        <updated>2026-04-14T00:00:00.000Z</updated>
     </entry>
 </feed>

@@ -10,8 +10,8 @@
         </author>
         <description>学习-记录-分享</description>
         <language>zh-CN</language>
-        <pubDate>Sun, 03 May 2026 08:00:00 +0000</pubDate>
-        <lastBuildDate>Sun, 03 May 2026 08:00:00 +0000</lastBuildDate>
+        <pubDate>Sun, 03 May 2026 08:00:00 +0800</pubDate>
+        <lastBuildDate>Sun, 03 May 2026 08:00:00 +0800</lastBuildDate>
         <category term="流萤白沙" />
         <category term="流萤" />
         <category term="白沙" />
@@ -30,7 +30,7 @@
             <category term="Granite" scheme="https://lyrashore.com/tags/Granite/" />
             <category term="LLM" scheme="https://lyrashore.com/tags/LLM/" />
             <category term="Enterprise" scheme="https://lyrashore.com/tags/Enterprise/" />
-            <pubDate>Sun, 03 May 2026 08:00:00 +0000</pubDate>
+            <pubDate>Sun, 03 May 2026 08:00:00 +0800</pubDate>
             <description><![CDATA[ &lt;p&gt;这两天如果只盯着前沿闭源模型，很容易错过一条其实很耐看的更新：&lt;strong&gt;IBM 发布了 Granite 4.1&lt;/strong&gt;。&lt;/p&gt;
 &lt;p&gt;我觉得它最值得记下来的地方，不是 “又多了一组 3B / 8B / 30B 的开放权重”，而是它把开源企业模型该补的三块地基 ——&lt;strong&gt; 数据质量、长上下文、工具调用&lt;/strong&gt; —— 一次性讲得很完整。&lt;/p&gt;
 &lt;h2 id=&#34;1-它在做的不是更大参数而是更完整的训练工程&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#1-它在做的不是更大参数而是更完整的训练工程&#34;&gt;#&lt;/a&gt; 1. 它在做的不是 “更大参数”，而是更完整的训练工程&lt;/h2&gt;
@@ -98,12 +98,12 @@
             <link>https://lyrashore.com/computer-science/technical-sharing/openai-symphony-agent-orchestration-spec-2026-05-02/</link>
             <category term="technical-sharing" scheme="https://lyrashore.com/categories/technical-sharing/" />
             <category term="AI" scheme="https://lyrashore.com/tags/AI/" />
-            <category term="Open Source" scheme="https://lyrashore.com/tags/Open-Source/" />
-            <category term="OpenAI" scheme="https://lyrashore.com/tags/OpenAI/" />
             <category term="Agent" scheme="https://lyrashore.com/tags/Agent/" />
             <category term="Infrastructure" scheme="https://lyrashore.com/tags/Infrastructure/" />
+            <category term="Open Source" scheme="https://lyrashore.com/tags/Open-Source/" />
+            <category term="OpenAI" scheme="https://lyrashore.com/tags/OpenAI/" />
             <category term="Workflow" scheme="https://lyrashore.com/tags/Workflow/" />
-            <pubDate>Sat, 02 May 2026 08:00:00 +0000</pubDate>
+            <pubDate>Sat, 02 May 2026 08:00:00 +0800</pubDate>
             <description><![CDATA[ &lt;p&gt;这两天我觉得最值得记下来的 AI 工程新闻，不是又多了一个模型名字，而是 &lt;strong&gt;OpenAI 把 Symphony 开源了&lt;/strong&gt;。&lt;/p&gt;
 &lt;p&gt;表面上看，它像一个给 Codex 配套的 Agent 编排项目；但我真正觉得有意思的是另一层：&lt;/p&gt;
 &lt;blockquote&gt;
@@ -184,12 +184,12 @@
             <link>https://lyrashore.com/computer-science/technical-sharing/ai-tech-daily-2026-05-01/</link>
             <category term="technical-sharing" scheme="https://lyrashore.com/categories/technical-sharing/" />
             <category term="AI" scheme="https://lyrashore.com/tags/AI/" />
+            <category term="Agent" scheme="https://lyrashore.com/tags/Agent/" />
             <category term="Hugging Face" scheme="https://lyrashore.com/tags/Hugging-Face/" />
             <category term="OpenAI" scheme="https://lyrashore.com/tags/OpenAI/" />
             <category term="GitHub" scheme="https://lyrashore.com/tags/GitHub/" />
-            <category term="Agent" scheme="https://lyrashore.com/tags/Agent/" />
             <category term="Security" scheme="https://lyrashore.com/tags/Security/" />
-            <pubDate>Fri, 01 May 2026 08:00:00 +0000</pubDate>
+            <pubDate>Fri, 01 May 2026 08:00:00 +0800</pubDate>
             <description><![CDATA[ &lt;p&gt;今天没有哪一条新闻大到能单独吃下一整篇长文，反而更适合做成一篇&lt;strong&gt;短一点、但信号很集中的日报&lt;/strong&gt;。&lt;/p&gt;
 &lt;p&gt;因为把最近 48 小时几条官方更新并排看，会发现一个很清楚的变化：&lt;/p&gt;
 &lt;blockquote&gt;
@@ -281,11 +281,11 @@
             <link>https://lyrashore.com/computer-science/technical-sharing/huggingface-hub-v1-open-ml-infra-2026-04-30/</link>
             <category term="technical-sharing" scheme="https://lyrashore.com/categories/technical-sharing/" />
             <category term="AI" scheme="https://lyrashore.com/tags/AI/" />
+            <category term="Infrastructure" scheme="https://lyrashore.com/tags/Infrastructure/" />
             <category term="Open Source" scheme="https://lyrashore.com/tags/Open-Source/" />
             <category term="Hugging Face" scheme="https://lyrashore.com/tags/Hugging-Face/" />
-            <category term="Infrastructure" scheme="https://lyrashore.com/tags/Infrastructure/" />
             <category term="Python" scheme="https://lyrashore.com/tags/Python/" />
-            <pubDate>Thu, 30 Apr 2026 08:00:00 +0000</pubDate>
+            <pubDate>Thu, 30 Apr 2026 08:00:00 +0800</pubDate>
             <description><![CDATA[ &lt;p&gt;这两天如果只盯着新模型，很容易错过一个其实更 “耐用” 的更新：&lt;strong&gt;Hugging Face 正式发布了  &lt;code&gt;huggingface_hub v1.0&lt;/code&gt; &lt;/strong&gt;。&lt;/p&gt;
 &lt;p&gt;表面上看，这像是一个 Python 库终于到了 1.0；但我觉得它真正值得写进笔记的原因是：&lt;/p&gt;
 &lt;blockquote&gt;
@@ -371,11 +371,11 @@
             <link>https://lyrashore.com/computer-science/technical-sharing/openai-aws-bedrock-managed-agents-2026-04-29/</link>
             <category term="technical-sharing" scheme="https://lyrashore.com/categories/technical-sharing/" />
             <category term="AI" scheme="https://lyrashore.com/tags/AI/" />
-            <category term="OpenAI" scheme="https://lyrashore.com/tags/OpenAI/" />
             <category term="Agent" scheme="https://lyrashore.com/tags/Agent/" />
+            <category term="OpenAI" scheme="https://lyrashore.com/tags/OpenAI/" />
             <category term="Enterprise" scheme="https://lyrashore.com/tags/Enterprise/" />
             <category term="AWS" scheme="https://lyrashore.com/tags/AWS/" />
-            <pubDate>Wed, 29 Apr 2026 08:00:00 +0000</pubDate>
+            <pubDate>Wed, 29 Apr 2026 08:00:00 +0800</pubDate>
             <description><![CDATA[ &lt;p&gt;OpenAI 在 4 月 28 日发了一条我觉得很有信号感的公告：&lt;strong&gt;OpenAI models、Codex，以及由 OpenAI 提供能力的 Amazon Bedrock Managed Agents，一起进入 AWS&lt;/strong&gt;，而且都先以 &lt;strong&gt;limited preview&lt;/strong&gt; 方式落地。&lt;/p&gt;
 &lt;p&gt;如果只看标题，这很容易被理解成一句普通的云厂商合作新闻：又多了一个分发渠道、又多了一层企业销售入口。&lt;/p&gt;
 &lt;p&gt;但我更在意的是另一件事：&lt;/p&gt;
@@ -469,11 +469,11 @@
             <link>https://lyrashore.com/computer-science/technical-sharing/deepseek-v4-agent-long-context-cost-2026-04-28/</link>
             <category term="technical-sharing" scheme="https://lyrashore.com/categories/technical-sharing/" />
             <category term="AI" scheme="https://lyrashore.com/tags/AI/" />
-            <category term="Open Source" scheme="https://lyrashore.com/tags/Open-Source/" />
             <category term="Agent" scheme="https://lyrashore.com/tags/Agent/" />
+            <category term="Open Source" scheme="https://lyrashore.com/tags/Open-Source/" />
             <category term="DeepSeek" scheme="https://lyrashore.com/tags/DeepSeek/" />
             <category term="Long Context" scheme="https://lyrashore.com/tags/Long-Context/" />
-            <pubDate>Tue, 28 Apr 2026 08:00:00 +0000</pubDate>
+            <pubDate>Tue, 28 Apr 2026 08:00:00 +0800</pubDate>
             <description><![CDATA[ &lt;p&gt;DeepSeek 放出 V4 之后，最容易抢眼球的当然是 &lt;strong&gt;100 万 token 上下文&lt;/strong&gt;。&lt;/p&gt;
 &lt;p&gt;但如果只把它理解成 “上下文又变长了”，我觉得会低估这次发布真正值得记的一点：&lt;/p&gt;
 &lt;blockquote&gt;
@@ -549,11 +549,11 @@
             <link>https://lyrashore.com/computer-science/technical-sharing/openai-principles-ai-governance-2026-04-27/</link>
             <category term="technical-sharing" scheme="https://lyrashore.com/categories/technical-sharing/" />
             <category term="AI" scheme="https://lyrashore.com/tags/AI/" />
-            <category term="OpenAI" scheme="https://lyrashore.com/tags/OpenAI/" />
             <category term="Infrastructure" scheme="https://lyrashore.com/tags/Infrastructure/" />
+            <category term="OpenAI" scheme="https://lyrashore.com/tags/OpenAI/" />
             <category term="Governance" scheme="https://lyrashore.com/tags/Governance/" />
             <category term="AGI" scheme="https://lyrashore.com/tags/AGI/" />
-            <pubDate>Mon, 27 Apr 2026 08:00:00 +0000</pubDate>
+            <pubDate>Mon, 27 Apr 2026 08:00:00 +0800</pubDate>
             <description><![CDATA[ &lt;p&gt;OpenAI 在 4 月 26 日发了一篇 &lt;strong&gt;Our principles&lt;/strong&gt;。它不是模型发布，也不是 API 更新，甚至看起来更像一篇公司价值观说明。&lt;/p&gt;
 &lt;p&gt;但我觉得这类文章反而值得单独记一笔。因为当一家前沿 AI 公司开始公开重写 “原则”，通常说明它已经不只是在解释技术路线，而是在解释：&lt;/p&gt;
 &lt;blockquote&gt;
@@ -622,11 +622,11 @@
             <link>https://lyrashore.com/computer-science/technical-sharing/huggingface-open-responses-agent-standard-2026-04-26/</link>
             <category term="technical-sharing" scheme="https://lyrashore.com/categories/technical-sharing/" />
             <category term="AI" scheme="https://lyrashore.com/tags/AI/" />
-            <category term="Hugging Face" scheme="https://lyrashore.com/tags/Hugging-Face/" />
             <category term="Agent" scheme="https://lyrashore.com/tags/Agent/" />
+            <category term="Hugging Face" scheme="https://lyrashore.com/tags/Hugging-Face/" />
             <category term="Open Responses" scheme="https://lyrashore.com/tags/Open-Responses/" />
             <category term="API" scheme="https://lyrashore.com/tags/API/" />
-            <pubDate>Sun, 26 Apr 2026 08:00:00 +0000</pubDate>
+            <pubDate>Sun, 26 Apr 2026 08:00:00 +0800</pubDate>
             <description><![CDATA[ &lt;p&gt;如果只看标题，&lt;strong&gt;Open Responses&lt;/strong&gt; 很容易被理解成 “又一个新 API 规范”。&lt;/p&gt;
 &lt;p&gt;但我觉得它真正值得记住的地方，不是规范又多了一份，而是：&lt;/p&gt;
 &lt;blockquote&gt;
@@ -688,11 +688,11 @@
             <link>https://lyrashore.com/computer-science/technical-sharing/gpt-5-5-agentic-work-latency-2026-04-25/</link>
             <category term="technical-sharing" scheme="https://lyrashore.com/categories/technical-sharing/" />
             <category term="AI" scheme="https://lyrashore.com/tags/AI/" />
-            <category term="OpenAI" scheme="https://lyrashore.com/tags/OpenAI/" />
             <category term="Agent" scheme="https://lyrashore.com/tags/Agent/" />
-            <category term="GPT-5.5" scheme="https://lyrashore.com/tags/GPT-5-5/" />
+            <category term="OpenAI" scheme="https://lyrashore.com/tags/OpenAI/" />
             <category term="Codex" scheme="https://lyrashore.com/tags/Codex/" />
-            <pubDate>Sat, 25 Apr 2026 08:00:00 +0000</pubDate>
+            <category term="GPT-5.5" scheme="https://lyrashore.com/tags/GPT-5-5/" />
+            <pubDate>Sat, 25 Apr 2026 08:00:00 +0800</pubDate>
             <description><![CDATA[ &lt;p&gt;OpenAI 这次发布 &lt;strong&gt;GPT‑5.5&lt;/strong&gt;，表面上当然还是一条标准的 “大模型升级新闻”：更强、更多 benchmark、更会写代码。&lt;/p&gt;
 &lt;p&gt;但我觉得这次真正值得记住的，不是分数表本身，而是一句更偏工程现实的话：&lt;/p&gt;
 &lt;blockquote&gt;
@@ -794,7 +794,7 @@
             <category term="Hugging Face" scheme="https://lyrashore.com/tags/Hugging-Face/" />
             <category term="Ecosystem" scheme="https://lyrashore.com/tags/Ecosystem/" />
             <category term="Open Models" scheme="https://lyrashore.com/tags/Open-Models/" />
-            <pubDate>Fri, 24 Apr 2026 08:00:00 +0000</pubDate>
+            <pubDate>Fri, 24 Apr 2026 08:00:00 +0800</pubDate>
             <description><![CDATA[ &lt;p&gt;如果只看表面，Hugging Face 这篇 &lt;strong&gt;State of Open Source on Hugging Face: Spring 2026&lt;/strong&gt; 很容易被理解成一份 “平台数据回顾”：用户增长了、模型更多了、数据集也翻倍了。&lt;/p&gt;
 &lt;p&gt;但我读完之后真正记下来的，不是 “规模继续变大”，而是另一句话：&lt;/p&gt;
 &lt;blockquote&gt;
@@ -888,7 +888,7 @@
             <category term="Copilot" scheme="https://lyrashore.com/tags/Copilot/" />
             <category term="VS Code" scheme="https://lyrashore.com/tags/VS-Code/" />
             <category term="BYOK" scheme="https://lyrashore.com/tags/BYOK/" />
-            <pubDate>Thu, 23 Apr 2026 08:00:00 +0000</pubDate>
+            <pubDate>Thu, 23 Apr 2026 08:00:00 +0800</pubDate>
             <description><![CDATA[ &lt;p&gt;GitHub 在 4 月 22 日放出了一个很有 “平台味” 的更新：&lt;strong&gt;Copilot Business 和 Enterprise 用户现在可以在 VS Code 里自带语言模型密钥（BYOK, Bring Your Own Language Model Key）&lt;/strong&gt;。&lt;/p&gt;
 &lt;p&gt;表面上看，这只是让团队多接几个模型；但我觉得更值得记下来的一句是：&lt;/p&gt;
 &lt;blockquote&gt;
@@ -974,11 +974,11 @@
             <link>https://lyrashore.com/computer-science/technical-sharing/openai-codex-enterprise-rollout-2026-04-22/</link>
             <category term="technical-sharing" scheme="https://lyrashore.com/categories/technical-sharing/" />
             <category term="AI" scheme="https://lyrashore.com/tags/AI/" />
-            <category term="OpenAI" scheme="https://lyrashore.com/tags/OpenAI/" />
             <category term="Agent" scheme="https://lyrashore.com/tags/Agent/" />
+            <category term="OpenAI" scheme="https://lyrashore.com/tags/OpenAI/" />
             <category term="Codex" scheme="https://lyrashore.com/tags/Codex/" />
             <category term="Enterprise" scheme="https://lyrashore.com/tags/Enterprise/" />
-            <pubDate>Wed, 22 Apr 2026 08:00:00 +0000</pubDate>
+            <pubDate>Wed, 22 Apr 2026 08:00:00 +0800</pubDate>
             <description><![CDATA[ &lt;p&gt;OpenAI 在 4 月 21 日发了一篇不算炫技、但信号很强的公告：&lt;strong&gt;Scaling Codex to enterprises worldwide&lt;/strong&gt;。&lt;/p&gt;
 &lt;p&gt;表面看，这像是一条典型的企业推进新闻：用户增长、客户案例、合作伙伴扩容；但我觉得真正值得写下来的，是这句潜台词：&lt;/p&gt;
 &lt;blockquote&gt;
@@ -1075,10 +1075,10 @@
             <category term="technical-sharing" scheme="https://lyrashore.com/categories/technical-sharing/" />
             <category term="AI" scheme="https://lyrashore.com/tags/AI/" />
             <category term="OpenAI" scheme="https://lyrashore.com/tags/OpenAI/" />
-            <category term="Codex" scheme="https://lyrashore.com/tags/Codex/" />
             <category term="GPT-Rosalind" scheme="https://lyrashore.com/tags/GPT-Rosalind/" />
             <category term="Life Sciences" scheme="https://lyrashore.com/tags/Life-Sciences/" />
-            <pubDate>Tue, 21 Apr 2026 08:00:00 +0000</pubDate>
+            <category term="Codex" scheme="https://lyrashore.com/tags/Codex/" />
+            <pubDate>Tue, 21 Apr 2026 08:00:00 +0800</pubDate>
             <description><![CDATA[ &lt;p&gt;OpenAI 这次发布 &lt;strong&gt;GPT‑Rosalind&lt;/strong&gt;，表面上看像是 “又一个垂类模型”；但我觉得更值得记下来的，是它背后的产品方向：&lt;/p&gt;
 &lt;blockquote&gt;
 &lt;p&gt;&lt;strong&gt;OpenAI 开始把 “行业专用推理模型” 当成正式产品线来做了。&lt;/strong&gt;&lt;/p&gt;
@@ -1150,11 +1150,11 @@
             <link>https://lyrashore.com/computer-science/technical-sharing/claude-design-anthropic-labs-2026-04-20/</link>
             <category term="technical-sharing" scheme="https://lyrashore.com/categories/technical-sharing/" />
             <category term="AI" scheme="https://lyrashore.com/tags/AI/" />
-            <category term="Anthropic" scheme="https://lyrashore.com/tags/Anthropic/" />
             <category term="Agent" scheme="https://lyrashore.com/tags/Agent/" />
+            <category term="Anthropic" scheme="https://lyrashore.com/tags/Anthropic/" />
             <category term="Claude" scheme="https://lyrashore.com/tags/Claude/" />
             <category term="Design" scheme="https://lyrashore.com/tags/Design/" />
-            <pubDate>Mon, 20 Apr 2026 08:00:00 +0000</pubDate>
+            <pubDate>Mon, 20 Apr 2026 08:00:00 +0800</pubDate>
             <description><![CDATA[ &lt;p&gt;Anthropic 在 4 月 17 日发布了 &lt;strong&gt;Claude Design&lt;/strong&gt;。表面看，它像是 “Claude 也能做设计稿、原型、PPT 了”；但我觉得更值得记下来的，是另一层信号：&lt;/p&gt;
 &lt;blockquote&gt;
 &lt;p&gt;&lt;strong&gt;Anthropic 正在把 Claude 从一个会对话的助手，往 “设计 — 实现一体化工作台” 推进。&lt;/strong&gt;&lt;/p&gt;
@@ -1216,11 +1216,11 @@
             <link>https://lyrashore.com/computer-science/technical-sharing/github-cli-gh-skill-agent-skills-2026-04-19/</link>
             <category term="technical-sharing" scheme="https://lyrashore.com/categories/technical-sharing/" />
             <category term="AI" scheme="https://lyrashore.com/tags/AI/" />
+            <category term="Agent" scheme="https://lyrashore.com/tags/Agent/" />
             <category term="Open Source" scheme="https://lyrashore.com/tags/Open-Source/" />
             <category term="GitHub" scheme="https://lyrashore.com/tags/GitHub/" />
-            <category term="Agent" scheme="https://lyrashore.com/tags/Agent/" />
             <category term="CLI" scheme="https://lyrashore.com/tags/CLI/" />
-            <pubDate>Sun, 19 Apr 2026 08:00:00 +0000</pubDate>
+            <pubDate>Sun, 19 Apr 2026 08:00:00 +0800</pubDate>
             <description><![CDATA[ &lt;p&gt;GitHub 这次把 &lt;strong&gt;gh skill&lt;/strong&gt; 放进 GitHub CLI，我觉得它的意义不只是 “又多了一个命令”，而是把 &lt;strong&gt;Agent Skills&lt;/strong&gt; 这件事，往真正可维护、可分发、可审计的方向推了一大步。&lt;/p&gt;
 &lt;p&gt;一句话概括：&lt;strong&gt;技能开始像包一样被管理了。&lt;/strong&gt;&lt;/p&gt;
 &lt;h2 id=&#34;这次更新到底做了什么&#34;&gt;&lt;a class=&#34;anchor&#34; href=&#34;#这次更新到底做了什么&#34;&gt;#&lt;/a&gt; 这次更新到底做了什么&lt;/h2&gt;
@@ -1280,11 +1280,11 @@
             <link>https://lyrashore.com/computer-science/technical-sharing/ai-tech-daily-2026-04-18/</link>
             <category term="technical-sharing" scheme="https://lyrashore.com/categories/technical-sharing/" />
             <category term="AI" scheme="https://lyrashore.com/tags/AI/" />
+            <category term="Agent" scheme="https://lyrashore.com/tags/Agent/" />
             <category term="Open Source" scheme="https://lyrashore.com/tags/Open-Source/" />
             <category term="GitHub" scheme="https://lyrashore.com/tags/GitHub/" />
             <category term="OCR" scheme="https://lyrashore.com/tags/OCR/" />
-            <category term="Agent" scheme="https://lyrashore.com/tags/Agent/" />
-            <pubDate>Sat, 18 Apr 2026 08:00:00 +0000</pubDate>
+            <pubDate>Sat, 18 Apr 2026 08:00:00 +0800</pubDate>
             <description><![CDATA[ &lt;p&gt;今天更适合写成一篇&lt;strong&gt;短一点但信息密度够高的日报&lt;/strong&gt;。&lt;/p&gt;
 &lt;p&gt;因为如果把这两天几条值得看的更新放在一起，会发现一个很明确的趋势：&lt;strong&gt;AI 产品真正拉开差距的地方，已经不只是模型本身，而是控制面、数据面和协作面都在同时工程化。&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;我觉得最值得记下来的有三条。&lt;/p&gt;
@@ -1361,11 +1361,11 @@
             <link>https://lyrashore.com/computer-science/technical-sharing/github-copilot-sdk-agent-runtime-2026-04-17/</link>
             <category term="technical-sharing" scheme="https://lyrashore.com/categories/technical-sharing/" />
             <category term="AI" scheme="https://lyrashore.com/tags/AI/" />
-            <category term="GitHub" scheme="https://lyrashore.com/tags/GitHub/" />
             <category term="Agent" scheme="https://lyrashore.com/tags/Agent/" />
+            <category term="GitHub" scheme="https://lyrashore.com/tags/GitHub/" />
             <category term="Copilot" scheme="https://lyrashore.com/tags/Copilot/" />
             <category term="SDK" scheme="https://lyrashore.com/tags/SDK/" />
-            <pubDate>Fri, 17 Apr 2026 08:00:00 +0000</pubDate>
+            <pubDate>Fri, 17 Apr 2026 08:00:00 +0800</pubDate>
             <description><![CDATA[ &lt;p&gt;这两个月如果你一直在看 Agent 方向，会发现一个挺明显的变化：大家卷的已经不只是模型本身，也不只是 “会不会调工具”，而是&lt;strong&gt;谁先把 Agent 真正需要的那层运行时，做成开发者能直接拿来用的产品&lt;/strong&gt;。&lt;/p&gt;
 &lt;p&gt;所以我觉得 GitHub 这轮更新里，最值得写的不只是 “Copilot SDK 公测了”，而是它把一个很清楚的信号摆到了台面上：&lt;/p&gt;
 &lt;blockquote&gt;
@@ -1506,11 +1506,11 @@
             <link>https://lyrashore.com/computer-science/technical-sharing/openai-agents-sdk-sandbox-runtime-2026-04-16/</link>
             <category term="technical-sharing" scheme="https://lyrashore.com/categories/technical-sharing/" />
             <category term="AI" scheme="https://lyrashore.com/tags/AI/" />
-            <category term="OpenAI" scheme="https://lyrashore.com/tags/OpenAI/" />
             <category term="Agent" scheme="https://lyrashore.com/tags/Agent/" />
+            <category term="OpenAI" scheme="https://lyrashore.com/tags/OpenAI/" />
             <category term="SDK" scheme="https://lyrashore.com/tags/SDK/" />
             <category term="Sandbox" scheme="https://lyrashore.com/tags/Sandbox/" />
-            <pubDate>Thu, 16 Apr 2026 08:00:00 +0000</pubDate>
+            <pubDate>Thu, 16 Apr 2026 08:00:00 +0800</pubDate>
             <description><![CDATA[ &lt;p&gt;这两个月大家聊 Agent，最容易被高估的往往不是模型能力，而是 “跑通 demo” 这件事本身。&lt;/p&gt;
 &lt;p&gt;真正麻烦的部分其实一直都在别处：文件怎么挂进来，命令在哪儿执行，工具怎么接，状态怎么续，沙箱挂了之后能不能接着跑。&lt;/p&gt;
 &lt;p&gt;所以我觉得 OpenAI 这次 &lt;strong&gt;Agents SDK&lt;/strong&gt; 的更新，真正值得看的点，不是 “又多了一个官方 Agent 框架”，而是它开始认真补一层更接近生产环境的 &lt;strong&gt;Agent 运行时&lt;/strong&gt;。&lt;/p&gt;
@@ -1589,7 +1589,7 @@
             <category term="Hugging Face" scheme="https://lyrashore.com/tags/Hugging-Face/" />
             <category term="Multimodal" scheme="https://lyrashore.com/tags/Multimodal/" />
             <category term="Retrieval" scheme="https://lyrashore.com/tags/Retrieval/" />
-            <pubDate>Wed, 15 Apr 2026 08:00:00 +0000</pubDate>
+            <pubDate>Wed, 15 Apr 2026 08:00:00 +0800</pubDate>
             <description><![CDATA[ &lt;p&gt;这两年大家做 RAG、搜索和推荐，默认脑回路基本还是 “先做文本 embedding，再上一个 reranker”。&lt;/p&gt;
 &lt;p&gt;问题是，真实世界里的数据早就不只是文本了：截图、商品图、文档页面、视频片段、语音内容，全都越来越常见。可很多团队一碰到多模态，就会立刻掉进另一套更重、更碎、更难复用的工具链里。&lt;/p&gt;
 &lt;p&gt;所以我觉得 Hugging Face 这次发的 &lt;strong&gt;Sentence Transformers 5.4&lt;/strong&gt;，真正值得看的点，不是 “库又多了几个新模型接口”，而是它开始认真把多模态检索拉回到开发者熟悉的那条主干路上：&lt;/p&gt;
@@ -1696,7 +1696,7 @@
             <category term="Qwen" scheme="https://lyrashore.com/tags/Qwen/" />
             <category term="Safety" scheme="https://lyrashore.com/tags/Safety/" />
             <category term="Guardrails" scheme="https://lyrashore.com/tags/Guardrails/" />
-            <pubDate>Tue, 14 Apr 2026 08:00:00 +0000</pubDate>
+            <pubDate>Tue, 14 Apr 2026 08:00:00 +0800</pubDate>
             <description><![CDATA[ &lt;p&gt;这几个月大家聊大模型，注意力大多还放在 “更强的推理”“更会写代码” 或者 “更能跑 Agent”。&lt;/p&gt;
 &lt;p&gt;但如果模型真的开始越来越能做事，那另一层迟早也得补上：&lt;strong&gt;它在输出过程中，能不能被实时看住。&lt;/strong&gt;&lt;/p&gt;
 &lt;p&gt;Qwen 团队最近发布的 &lt;strong&gt;Qwen3Guard&lt;/strong&gt;，我觉得最值得记的点，不是 “又多了一个安全分类模型”，而是它把护栏这件事往前推进了一步：&lt;/p&gt;
